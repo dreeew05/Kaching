@@ -13,7 +13,9 @@ export default function CategoryCard({ id, name, image } : CategoryProps) {
   }
 
   return(
-    <TouchableOpacity onPress={handleCardClick}> 
+    <TouchableOpacity className="bg-white dark:bg-black shadow-md rounded-md m-2 p-2"
+      onPress={handleCardClick}> 
+
       <View className="h-36">
         <Image
           source={image}
@@ -24,6 +26,7 @@ export default function CategoryCard({ id, name, image } : CategoryProps) {
       <View className="p-2">
         <Text className="text-xl font-bold mb-1">{name}</Text>
       </View>
+
     </TouchableOpacity>
   )
 }
