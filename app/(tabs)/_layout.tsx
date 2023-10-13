@@ -58,6 +58,14 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="categoryView"
+        options={{
+          title: 'Category View',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+        }}
+      />
     </Tabs>
   );
 }
