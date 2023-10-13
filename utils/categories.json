@@ -1,0 +1,17 @@
+[   
+    {
+        "id": 10000,
+        "name": "Appetizers",
+        "imageSRC": "./assets/images/appetizers.png"
+    },
+    {
+        "id": 10001,
+        "name": "Beverages",
+        "imageSRC": "beverages.png"
+    },
+    {
+        "id": 10002,
+        "name": "Desserts",
+        "imageSRC": "./assets/images/desserts.png"
+    }
+]
