@@ -1,20 +1,19 @@
 import React from 'react';
-import { Image, TouchableOpacity, View, Text, Alert } from 'react-native';
+import { Image, TouchableOpacity, View, Text } from 'react-native';
+import { Link, useRouter } from 'expo-router';
 
 // INTERFACE
 import { CategoryProps } from './interfaces/CategoryProps';
 
-export default function CategoryCard({ id, name, image }: CategoryProps) {
-  // USE ID TO ACCESS ALL THE ITEMS UNDER THE CATEGORY_ID
-  const testButton = (
-    id : number,
-    category : string) => {
-      Alert.alert('The ID of ' + category + ' is ' + id);
+export default function CategoryCard({ id, name, image } : CategoryProps) {
+  const router = useRouter();
+  const handleCardClick = () => {
+    // Navigate to Category View
+    router.push('/categoryView')
   }
-  return (
-    <TouchableOpacity className="bg-white dark:bg-black shadow-md rounded-md m-2 p-2"
-      onPress={() => testButton(id, name)}>
-        
+
+  return(
+    <TouchableOpacity onPress={handleCardClick}> 
       <View className="h-36">
         <Image
           source={image}
@@ -25,7 +24,6 @@ export default function CategoryCard({ id, name, image }: CategoryProps) {
       <View className="p-2">
         <Text className="text-xl font-bold mb-1">{name}</Text>
       </View>
-      
     </TouchableOpacity>
-  );
+  )
 }

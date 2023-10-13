@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, Pressable, Text, View, Dimensions } from 'react-native';
-import CategoryList from '../../components/CategoryList'; // Adjust the import path accordingly
+
+import CategoryList from '../../components/CategoryList';
 
 export default function TabOneScreen() {
   const showAlert = () => {
@@ -9,7 +10,7 @@ export default function TabOneScreen() {
 
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
-      <Text className="text-5xl ml-2">Store Name</Text>
+      <Text className="text-5xl ml-2 font-semibold text-green">Store Name</Text>
 
       <Pressable className="bg-transparent w-1/4 border-2 border-green rounded-md py-2 px-4 mt-2 mb-5 ml-2" onPress={showAlert}>
         <Text className="text-green font-bold inset-0">Start Day</Text>
@@ -24,7 +25,7 @@ export default function TabOneScreen() {
 
       {/* Generate Categories */}
       <CategoryList/>
-
+      
     </View>
   );
 }
