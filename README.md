@@ -1,7 +1,6 @@
 # Kaching
 CMSC 128 Project
 
-After cloning, do the following:
+After cloning, run:
 
-1. npm install
-2. npm install nativewind
+npm install
