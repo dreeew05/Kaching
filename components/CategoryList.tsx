@@ -17,9 +17,6 @@ interface CategoryListProps {
 }
 
 const CategoryList : React.FC<CategoryListProps> = ({ cardType, categoryIDs }) => {
-    const constantIDs : number[] = categories.map(
-        category => category.id
-    )
     return(
         <ScrollView>
             <View className='flex flex-row flex-wrap my-5 mx-auto'>
