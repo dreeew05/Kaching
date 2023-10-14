@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, View, Text, Alert, Image } from "react-native";
+import { Pressable, View, Text, Alert, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -40,13 +40,13 @@ export default function CategoryCardEditable(
                 image = {image}
             />
 
-            <Pressable className="h-7 rounded-md bg-green 
+            <TouchableOpacity className="h-7 rounded-md bg-green 
                 justify-center items-center"
                 onPress={editAction}>
 
                 <Text className="text-white">Edit</Text>
 
-            </Pressable>
+            </TouchableOpacity>
 
             <Pressable className="h-8 p-1.5 absolute top-2 right-2
                 bg-red-500 rounded-md"
