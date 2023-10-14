@@ -5,7 +5,7 @@ import { ScrollView, View } from 'react-native';
 import categories from '../constants/Categories';
 
 // COMPONENT
-import CategoryCard from './CategoryCard';
+import CategoryCardClickable from './CategoryCardClickable';
 
 
 const CategoryList : React.FC = () => {
@@ -14,7 +14,7 @@ const CategoryList : React.FC = () => {
             <View className='flex flex-row flex-wrap my-5 mx-auto'>
                 {categories.map((category) => (
                     <View className='w-1/2' key={category.id}>
-                        <CategoryCard
+                        <CategoryCardClickable
                             id    = {category.id}
                             name  = {category.name}
                             image = {category.image} 
