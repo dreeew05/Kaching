@@ -6,9 +6,8 @@ import { useRouter } from 'expo-router';
 import CategoryCard from './CategoryCard';
 import { CategoryProps } from './interfaces/CategoryProps';
 
-export default function CategoryCardClickable({
-    id, name, image
-} : CategoryProps) {
+export default function CategoryCardClickable(
+    { id, name, image} : CategoryProps) {
 
     const router = useRouter();
     const handleCardClick = () => {

@@ -5,8 +5,9 @@ import { ScrollView, View } from 'react-native';
 import categories from '../constants/Categories';
 
 // COMPONENT
-import CategoryCardClickable from './CategoryCardClickable';
 import CategoryCard from './CategoryCard';
+import CategoryCardClickable from './CategoryCardClickable';
+import CategoryCardEditable from './CategoryCardEditable';
 
 // INTERFACE
 import { CategoryProps } from './interfaces/CategoryProps';
@@ -28,6 +29,8 @@ const CategoryList : React.FC<CategoryListProps> = ({ cardType, categoryIDs }) =
                                 return(regular(category));
                             case 'clickable':
                                 return(clickable(category));
+                            case 'editable':
+                                return(editable(category));
                             default:
                                 break;
                         }
@@ -55,6 +58,18 @@ function clickable(category : CategoryProps) {
     return(
         <View className='w-1/2' key={category.id}>
             <CategoryCardClickable
+                id={category.id}
+                name={category.name}
+                image={category.image}
+            />
+        </View>
+    )
+}
+
+function editable(category : CategoryProps) {
+    return(
+        <View className='w-1/2' key={category.id}>
+            <CategoryCardEditable
                 id={category.id}
                 name={category.name}
                 image={category.image}

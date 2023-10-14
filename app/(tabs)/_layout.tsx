@@ -51,7 +51,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
-      <Tabs.Screen
+      <Tabs.Screen  
         name="menu"
         options={{
           title: 'Menu',
@@ -69,7 +69,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="modifyCategories"
         options={{
-          title: 'Modify Categories',
+          title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
         }}

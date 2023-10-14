@@ -16,7 +16,7 @@ export default function modifyCategories() {
 
             {/* Generate Categories [NOT CLICKABLE] */}
             <CategoryList
-                cardType={'regular'}
+                cardType={'editable'}
                 categoryIDs={testData}
             />
 
