@@ -46,7 +46,7 @@ export default function TabOneScreen() {
       {/* Generate Categories */}
       <CategoryList 
         cardType={'clickable'}
-        categoryIDs={testData}
+        categories={testData}
       />
       
     </View>
