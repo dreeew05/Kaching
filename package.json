@@ -19,6 +19,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-native-fontawesome": "^0.3.0",
     "@react-navigation/native": "^6.1.8",
+    "@react-navigation/native-stack": "^6.9.14",
+    "@react-navigation/stack": "^6.3.18",
     "expo": "~49.0.13",
     "expo-font": "~11.4.0",
     "expo-image-picker": "~14.3.2",
@@ -40,6 +42,7 @@
     "react-native-svg": "^13.14.0",
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "~0.19.6",
+    "react-navigation": "^5.0.0",
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {

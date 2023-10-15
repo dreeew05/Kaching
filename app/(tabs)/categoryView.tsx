@@ -2,23 +2,54 @@ import React from 'react';
 import { Text } from '../../components/Themed';
 import { ScrollView, View } from 'react-native';
 import ItemCard from '../../components/ItemCard';
+import { useLocalSearchParams } from 'expo-router';
+import TestProductInterface from '../../utils/testProductInterface';
 
+// TEST DATA
+import testAppetizerData from '../../utils/testAppetizerData';
+import testBeverageData from '../../utils/testBeveragesData';
+
+// HELPER
+import ParamsToInteger from '../../components/helper/ParamsToInteger';
 
 export default function CategoryView() {
-  //dummy items
-  const dummyItems = [
-    { id: 1, name: 'Item 1', price: 5.99, image: 'https://www.brothersburger.com.ph/cdn/shop/products/brothersburgerwcheese_2048x2048.jpg?v=1628044829' },
-    { id: 2, name: 'Item 2', price: 7.49, image: 'https://www.brothersburger.com.ph/cdn/shop/products/brothersburgerwcheese_2048x2048.jpg?v=1628044829' },
-    { id: 3, name: 'Item 3', price: 9.99, image: 'https://www.brothersburger.com.ph/cdn/shop/products/brothersburgerwcheese_2048x2048.jpg?v=1628044829' },
-    { id: 4, name: 'Item 4', price: 4.99, image: 'https://www.brothersburger.com.ph/cdn/shop/products/brothersburgerwcheese_2048x2048.jpg?v=1628044829' },
-  ];
+  const param = useLocalSearchParams();
+
+  // TEST
+  // [START]
+  interface productProps {
+    name : string,
+    data : TestProductInterface[]
+  }
+
+  interface testDataProps {
+    [id : number] : productProps
+  }
+
+  const testData : testDataProps = {
+    10000 : {
+      name : 'Appetizer', 
+      data: testAppetizerData
+    },
+    10001 : {
+      name: 'Beverages',
+      data: testBeverageData
+    }
+  }
+
+  const id : number = ParamsToInteger(param.id);
+  const products : TestProductInterface[] = testData[id].data;
+  const categoryName : string = testData[id].name;
+  // [END]
   
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
-      <Text className="text-5xl text-green font-bold ml-2">Beverages</Text>
+      <Text className="text-5xl text-green font-bold ml-2">
+        {categoryName}
+      </Text>
       <ScrollView className="p-2">
-        {dummyItems.map((item) => (
-          <ItemCard key={item.id} item={item} />
+        {products.map((product) => (
+          <ItemCard key={product.id} item={product}/>
         ))}
       </ScrollView>
     </View>

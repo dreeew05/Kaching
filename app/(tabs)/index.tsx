@@ -21,6 +21,7 @@ export default function TabOneScreen() {
   }
 
   return (
+
     <View className="flex-1 self-stretch bg-white dark:bg-black">
       <Text className="text-5xl ml-2 font-semibold text-green">Store Name</Text>
 
@@ -50,5 +51,6 @@ export default function TabOneScreen() {
       />
       
     </View>
+
   );
 }
