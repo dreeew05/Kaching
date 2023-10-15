@@ -34,7 +34,7 @@ export default function modifyCategories() {
             {/* Generate Categories [NOT CLICKABLE] */}
             <CategoryList
                 cardType={'editable'}
-                categoryIDs={testData}
+                categories={testData}
             />
 
         </View>
