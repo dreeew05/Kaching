@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Alert, Image, View, Text, Pressable } from 'react-native';
+import { Alert, Image, View, Text, Pressable, ImageSourcePropType } from 'react-native';
 
 type Item = {
     id: number;
     name: string;
     price: number;
-    image: string;
+    image: ImageSourcePropType;
 };
 
 type itemCardProps = {
@@ -32,7 +32,7 @@ export default function ItemCard({ item }: itemCardProps) {
     return (
         <View className="flex flex-row p-2 border-b-2 border-gray-300">
             <Image
-            source={{ uri: item.image }}
+            source={ item.image }
             style={{ width: 80, height: 80, marginRight: 10 }}
         />
         <View className="w-1/3 flex flex-row items-center">
