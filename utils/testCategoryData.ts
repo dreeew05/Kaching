@@ -4,42 +4,42 @@ const categories : CategoryProps[] = [
     {
         id : 10000,
         name : 'Appetizer',
-        image : null
+        image : require('../assets/icons/blank.jpg')
     },
     {
         id : 10001,
         name : 'Beverages',
-        image : null
+        image : require('../assets/icons/blank.jpg')
     },
     {
         id : 10002,
         name : 'Dessert',
-        image : null
+        image : require('../assets/icons/blank.jpg')
     },
     {
         id : 10003,
         name : 'Main Course',
-        image : null
+        image : require('../assets/icons/blank.jpg')
     },
     {
         id : 10004,
         name : 'Pizza',
-        image : null
+        image : require('../assets/icons/blank.jpg')
     },
     {
         id : 10005,
         name : 'Salad',
-        image : null
+        image : require('../assets/icons/blank.jpg')
     },
     {
         id : 10006,
         name : 'Side Dish',
-        image : null
+        image : require('../assets/icons/blank.jpg')
     },
     {
         id : 10007,
         name : 'Special',
-        image : null
+        image : require('../assets/icons/blank.jpg')
     },
 ]
 
