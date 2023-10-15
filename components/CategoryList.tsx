@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 // CONSTANT DATA
-import categories from '../constants/Categories';
+import constantCategories from '../constants/Categories';
 
 // COMPONENT
 import CategoryCard from './CategoryCard';
@@ -14,26 +14,25 @@ import { CategoryProps } from './interfaces/CategoryProps';
 
 interface CategoryListProps {
     cardType : string,
-    categoryIDs : number[]
+    categories : CategoryProps[]
 }
 
-const CategoryList : React.FC<CategoryListProps> = ({ cardType, categoryIDs }) => {
+const CategoryList : React.FC<CategoryListProps> = ({ cardType, categories }) => {
     return(
         <ScrollView>
             <View className='flex flex-row flex-wrap my-5 mx-auto'>
-                
+            
                 {categories.map((category) => {
-                    if(categoryIDs.includes(category.id)) {
-                        switch(cardType) {
-                            case 'regular':
-                                return(regular(category));
-                            case 'clickable':
-                                return(clickable(category));
-                            case 'editable':
-                                return(editable(category));
-                            default:
-                                break;
-                        }
+                    category.image = constantCategories[category.id]
+                    switch(cardType) {
+                        case 'regular':
+                            return(regular(category));
+                        case 'clickable':
+                            return(clickable(category));
+                        case 'editable':
+                            return(editable(category));
+                        default:
+                            break;
                     }
                 })}
 
