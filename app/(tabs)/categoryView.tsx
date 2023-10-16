@@ -9,6 +9,9 @@ import TestProductInterface from '../../utils/testProductInterface';
 import testAppetizerData from '../../utils/testAppetizerData';
 import testBeverageData from '../../utils/testBeveragesData';
 
+// CONSTANT DATA
+import constantProductImages from '../../constants/Products';
+
 // HELPER
 import ParamsToInteger from '../../components/helper/ParamsToInteger';
 
@@ -48,9 +51,10 @@ export default function CategoryView() {
         {categoryName}
       </Text>
       <ScrollView className="p-2">
-        {products.map((product) => (
-          <ItemCard key={product.id} item={product}/>
-        ))}
+        {products.map((product) => {
+          product.image = constantProductImages[product.id];
+          return <ItemCard key={product.id} item={product}/>
+        })}
       </ScrollView>
     </View>
   );
