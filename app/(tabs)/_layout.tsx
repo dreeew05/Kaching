@@ -33,7 +33,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerLeft: () => (
             
-            <FontAwesome5 name="store" size={24} color="green" style={{ marginLeft: 10 }} />
+            <FontAwesome5 name="store" size={24} color="green" style={{ marginLeft: 20 }} />
           ),
         }}
       />
