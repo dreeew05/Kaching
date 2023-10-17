@@ -7,15 +7,15 @@ import { CartProps } from './interfaces/CartProps';
 
 export default function CartItemCard({ price, name, image, category, quantity } : CartProps) {
 
-    // const [quantity, setQuantity] = useState(2);
+    const [itemQuantity, setQuantity] = useState(quantity);
 
     const incrementQuantity = () => {
-        quantity += 1;
+        setQuantity(itemQuantity + 1);
     };
 
     const decrementQuantity = () => {
-        if (quantity > 0) {
-            quantity -= 1;
+        if (itemQuantity > 0) {
+        setQuantity(itemQuantity - 1);
         }
     };
 
@@ -37,7 +37,7 @@ export default function CartItemCard({ price, name, image, category, quantity } 
                 <Pressable className="p-2 border border-gray-300 rounded-md" onPress={decrementQuantity}>
                     <Text className="text-lg">-</Text>
                 </Pressable>
-                <Text className="p-2 text-lg">{quantity}</Text>
+                <Text className="p-2 text-lg">{itemQuantity}</Text>
                 <Pressable className="p-2 border border-gray-300 rounded-md" onPress={incrementQuantity}>
                     <Text className="text-lg">+</Text>
                 </Pressable>
