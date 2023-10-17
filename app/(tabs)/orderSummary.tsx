@@ -8,17 +8,15 @@ import OrderSummaryItemList from '../../components/OrderSummaryItemList';
 import testData from '../../utils/testCartData';
 
 export default function TabOneScreen() {
-  
-    const showAlert = () => {
-        Alert.alert('Show Alert Action', 'This is a dummy action.');
-    };
-
-    const router = useRouter();
+      const router = useRouter();
 
     const viewCart = () => {
         router.push('/(tabs)/cart');
     }
-      
+    const viewPayment = () => {
+        router.push('/(tabs)/payment');
+    } 
+    
     return (
         <View className="flex-1 self-stretch bg-white dark:bg-black">
             <Pressable className="bg-transparent w-1/4" onPress={viewCart}> 
@@ -36,7 +34,7 @@ export default function TabOneScreen() {
                 <Text className="text-2xl ml-2">$117</Text>
             </View>
             <Pressable className="bg-transparent w-2/3 self-center bg-green items-center rounded-full py-2 px-4 mb-5 ml-2" 
-                onPress={showAlert}>
+                onPress={viewPayment}>
                 <Text className="text-white text-xl font-bold">Proceed to Payment</Text>
             </Pressable>
         </View>
