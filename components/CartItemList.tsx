@@ -11,31 +11,29 @@ import CartItemCard from './CartItemCard';
 import { CartProps } from './interfaces/CartProps';
 
 interface CartListProps {
-    items : CartProps[]
+  items: CartProps[];
 }
 
-const CartItemList : React.FC<CartListProps> = ({ items }) => {
-    return(
-        <ScrollView>
-            <View className='flex flex-row flex-wrap my-2 mx-auto'>
-                {items.map((item) => {
-                    item.image = constantProducts[item.id]
-                    return(
-                        <View className='w-1/2' key={item.id}>
-                            <CartItemCard
-                                id={item.id}
-                                name={item.name}
-                                image={item.image}
-                                category={item.category}
-                                quantity={item.quantity}
-                                price={item.price}
-                            />
-                        </View>
-                    )
-                })}
-            </View>
-        </ScrollView>
-    )
-}
+const CartItemList: React.FC<CartListProps> = ({ items }) => {
+  return (
+    <ScrollView>
+      {items.map((item) => {
+        item.image = constantProducts[item.id];
+        return (
+          <View  key={item.id}>
+            <CartItemCard
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              category={item.category}
+              quantity={item.quantity}
+              price={item.price}
+            />
+          </View>
+        );
+      })}
+    </ScrollView>
+  );
+};
 
 export default CartItemList;
