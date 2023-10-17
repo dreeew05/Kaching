@@ -56,7 +56,7 @@ export default function TabLayout() {
       <Tabs.Screen  
         name="menu"
         options={{
-          title: '',
+          title: 'Settings',
           tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
           headerLeft: () => (
             <Link href="/modal" asChild>
@@ -67,6 +67,8 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+
+
         }}
       />
       <Tabs.Screen
@@ -91,6 +93,92 @@ export default function TabLayout() {
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="currentEOD"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/menu" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                )}
+              </Pressable>
+            </Link>        
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="previousEOD"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/menu" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                )}
+              </Pressable>
+            </Link>        
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="termsOfService"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/menu" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                )}
+              </Pressable>
+            </Link>        
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="privacyPolicy"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/menu" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                )}
+              </Pressable>
+            </Link>        
+          ),
+          
+        }}
+      />
+      <Tabs.Screen
+        name="faqs"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/menu" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                )}
+              </Pressable>
+            </Link>        
+          ),
         }}
       />
     </Tabs>
