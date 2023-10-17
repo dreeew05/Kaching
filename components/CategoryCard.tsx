@@ -8,7 +8,7 @@ export default function CategoryCard({ id, name, image } : CategoryProps) {
 
   return(
     <View>
-      <View className="h-36">
+      <View className="h-40">
         <Image
           source={image}
           resizeMode="cover"
