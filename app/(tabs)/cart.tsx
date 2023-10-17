@@ -18,9 +18,21 @@ export default function TabOneScreen() {
     }
       
     return (
-    <View>
-    </View>
-  );
+        <View className="flex-1 self-stretch bg-white dark:bg-black">
+            <Text className="text-5xl ml-2 font-semibold text-green">Cart</Text>
+            
+            <View>
+                <Text className="text-3xl ml-2">Total price:</Text>
+                <Text className="text-3xl ml-2">$117</Text>
+                <Pressable className="bg-transparent w-1/4 
+                border-2 border-green rounded-md py-2 px-4 mt-2 mb-5 ml-2" 
+                onPress={showAlert}>
+                    <Text className="text-green font-bold inset-0">Checkout</Text>
+                </Pressable>
+            </View>
+            
+        </View>
+    );
 }
 
 
