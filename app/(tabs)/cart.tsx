@@ -36,7 +36,6 @@ export default function TabOneScreen() {
                     <Text className="text-green font-bold inset-0">Checkout</Text>
                 </Pressable>
             </View>
-            
         </View>
     );
 }
