@@ -10,18 +10,21 @@ export default function OrderSummaryItemList({ price, name, image, category, qua
     const subTotalPrice = price * quantity;
     
     return (
-        <View className='flex flex-row bg-gray rounded'>
+        <View className='flex flex-row bg-gray rounded m-3 p-1 justify-between'>
             <Image source ={ image } 
             style={{ width: 50, height: 50, marginRight: 10, marginLeft: 2 }} 
             className='rounded border-2 self-center'
             />
             
-            <View className='self-center'>
-                <Text className="text-lg font-semibold ">{name}</Text>
-                <Text className="text-lg ">${price}</Text>
+            <View className='self-center flex-1'>
+                <Text className="text-lg font-semibold">{name}</Text>
+                <Text className="text-md text-darkgray">${price}</Text>
             </View>
-            <Text className="text-gray-500 self-center">{quantity}</Text>
-            <Text className="text-gray-500 self-center">${subTotalPrice}</Text>
+            <Text className="text-lg mr-5 font-base self-center">{quantity}</Text>
+            
+            <View className='justify-end self-center w-24 mr-1'>
+                <Text className="text-lg text-right">${subTotalPrice}</Text>
+            </View>
         </View>
     );
 }

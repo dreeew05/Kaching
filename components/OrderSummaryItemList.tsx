@@ -18,11 +18,10 @@ interface CartListProps {
 const CartItemList : React.FC<CartListProps> = ({ items }) => {
     return(
         <ScrollView>
-            <View className='flex flex-row flex-wrap my-2 mx-auto'>
                 {items.map((item) => {
                     item.image = constantProducts[item.id]
                     return(
-                        <View className='w-1/2 ' key={item.id}>
+                        <View key={item.id}>
                             <OrderSummaryItemList
                                 id={item.id}
                                 name={item.name}
@@ -34,7 +33,6 @@ const CartItemList : React.FC<CartListProps> = ({ items }) => {
                         </View>
                     )
                 })}
-            </View>
         </ScrollView>
     )
 }

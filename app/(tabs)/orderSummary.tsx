@@ -14,9 +14,7 @@ export default function TabOneScreen() {
     };
 
     const router = useRouter();
-    const viewOrderSummary = () => {
-        router.push('/(tabs)/orderSummary');
-    }
+
     const viewCart = () => {
         router.push('/(tabs)/cart');
     }
@@ -33,15 +31,14 @@ export default function TabOneScreen() {
                 items={testData}
             />
 
-            <View>
-                <Text className="text-3xl ml-2">Total price:</Text>
-                <Text className="text-3xl ml-2">$117</Text>
-                <Pressable className="bg-transparent w-1/4 
-                border-2 border-green rounded-md py-2 px-4 mt-2 mb-5 ml-2" 
-                onPress={showAlert}>
-                    <Text className="text-green font-bold inset-0">Proceed to Payment</Text>
-                </Pressable>
+            <View className='flex-row justify-between p-4 border-spacing-3 border border-white border-t-gray'>
+                <Text className="text-2xl ml-2">Total price:</Text>
+                <Text className="text-2xl ml-2">$117</Text>
             </View>
+            <Pressable className="bg-transparent w-2/3 self-center bg-green items-center rounded-full py-2 px-4 mb-5 ml-2" 
+                onPress={showAlert}>
+                <Text className="text-white text-xl font-bold">Proceed to Payment</Text>
+            </Pressable>
         </View>
     );
 }
