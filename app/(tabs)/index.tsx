@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Pressable, Text, View, Dimensions } from 'react-native';
+import { Alert, Pressable, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { FontAwesome5 } from '@expo/vector-icons';
 
