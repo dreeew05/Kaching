@@ -27,10 +27,12 @@ export default function CartItemCard({ price, name, image, category, quantity }:
 
   return (
     <View className="marker:flex-1 self-stretch bg-white dark:bg-black">
-      <View className="flex-row p-4 border-spacing-3 border border-white border-t-gray justify-between">
-        <Image source={image} style={{ width: 130, height: 130, marginRight: 10 }} />
+      <View className="flex-row py-5 px-5 justify-between">
+        <View>
+            <Image source={image} style={{ width: 130, height: 130, borderRadius: 10, borderWidth: 2, borderColor: "lightgray"}} />
+        </View>
         <View className='flex-1 ml-5'>
-          <Text className="text-lg font-semibold">{name}</Text>
+          <Text className="text-lg font-semibold text-green">{name}</Text>
           <Text className="text-md text-gray ">{category}</Text>
           <Text className=" text-gray">${price}</Text>
           <Text className="text-gray-500">${subTotalPrice}</Text>
