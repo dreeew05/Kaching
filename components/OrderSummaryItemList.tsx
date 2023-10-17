@@ -22,7 +22,7 @@ const CartItemList : React.FC<CartListProps> = ({ items }) => {
                 {items.map((item) => {
                     item.image = constantProducts[item.id]
                     return(
-                        <View className='w-1/2' key={item.id}>
+                        <View className='w-1/2 ' key={item.id}>
                             <OrderSummaryItemList
                                 id={item.id}
                                 name={item.name}
