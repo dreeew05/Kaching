@@ -17,9 +17,15 @@ export default function TabOneScreen() {
     const viewOrderSummary = () => {
         router.push('/(tabs)/orderSummary');
     }
+    const viewCart = () => {
+        router.push('/(tabs)/cart');
+    }
       
     return (
         <View className="flex-1 self-stretch bg-white dark:bg-black">
+            <Pressable className="bg-transparent w-1/4" onPress={viewCart}> 
+                <Text className="text-green font-bold inset-0">Back</Text>
+            </Pressable>
             <Text className="text-5xl ml-2 font-semibold text-green">Order Summary</Text>
             
             {/* Generate Items */}
