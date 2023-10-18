@@ -78,6 +78,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="payment"
+        options={{
+          title: 'Payment',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+        }}
+      />
+      <Tabs.Screen
         name="categoryView"
         options={{
           title: 'Category View',
