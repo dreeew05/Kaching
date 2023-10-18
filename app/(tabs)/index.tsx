@@ -16,12 +16,16 @@ export default function TabOneScreen() {
   const showAlert = () => {
     Alert.alert('Show Alert Action', 'This is a dummy action.');
   };
-
+  
   // GO TO MODIFY CATEGORIES PAGE
   const router = useRouter();
   const editCategories = () => {
     router.push('/(tabs)/modifyCategories');
   }
+  const startDay = () => {
+    router.push('/(tabs)/startDayInput');
+  };
+
 
   return (
 
@@ -30,7 +34,7 @@ export default function TabOneScreen() {
       <Text className="text-5xl ml-5 font-semibold text-green">Store Name</Text>
       <Text className="text-sm ml-5 mb-5">October 24, 2023</Text>
 
-      <Pressable className="bg-transparent w-36 border-2 border-green rounded-xl py-2 px-4 mt-2 mb-5 ml-5" onPress={showAlert}>
+      <Pressable className="bg-transparent w-36 border-2 border-green rounded-xl py-2 px-4 mt-2 mb-5 ml-5" onPress={startDay}>
         <View className="flex-row items-center">
           <FontAwesome5 name="plus" size={20} color="darkgreen" />
           <Text className="text-green text-base ml-3 font-bold mr-3">Start Day</Text>
