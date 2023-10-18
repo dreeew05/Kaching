@@ -1,31 +1,45 @@
-import { StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Alert, Pressable, Text, View, Dimensions, ScrollView } from 'react-native';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+// COMPONENTS
+import CartItemList from '../../components/CartItemList';
 
-export default function TabTwoScreen() {
+// TEST DATA
+import testData from '../../utils/testCartData';
+
+export default function TabOneScreen() {
+  
+  const showAlert = () => {
+      Alert.alert('Show Alert Action', 'This is a dummy action.');
+  };
+
+  const router = useRouter();
+  const viewOrderSummary = () => {
+    router.push('/(tabs)/orderSummary');
+  }
+      
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+    <View className="flex-1 self-stretch bg-white dark:bg-black">
+      <ScrollView>
+        <Text className="text-4xl ml-5 font-semibold text-green">Cart</Text>
+              
+          {/* Generate Items */}
+          <CartItemList
+              items={testData}
+          />
+      </ScrollView>
+
+      <View className='flex-row justify-between p-4 border-spacing-3 border-2 border-white border-t-darkgreen'>
+          <Text className="text-2xl">Total price:</Text>
+          <Text className="text-2xl">$117</Text>
+      </View>
+      <Pressable className="bg-transparent w-2/3 self-center bg-green items-center rounded-full py-2 px-4 mb-5 ml-2" 
+        onPress={viewOrderSummary}>
+        <Text className="text-white text-xl font-bold">Checkout</Text>
+      </Pressable>
+      
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+
