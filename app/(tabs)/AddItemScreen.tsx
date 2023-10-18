@@ -1,34 +1,40 @@
 import React, { useState } from 'react';
 import { Text, View } from '../../components/Themed';
-import { ItemCard } from '../../components/ItemCard'
 import { Image, StyleSheet, Pressable, TextInput, Button} from 'react-native';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { launchImageLibraryAsync } from "expo-image-picker";
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import * as ImagePicker from "expo-image-picker";
 import { AntDesign } from '@expo/vector-icons';
 
-export default function AddItemScreen(){
-  const [text, onChangeText] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
 
-  const openImagePicker = () => {
-    const options = {
-      mediaType: 'photo',
-      includeBase64: false,
-      maxHeight: 2000,
-      maxWidth: 2000,
+export default function AddItemScreen(){
+  const [name, onChangeName] = useState('');
+  const [price, onChangePrice] = useState('');
+  const [info, onChangeInfo] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [saveInput, setInput] = useState(false)
+
+
+  const isAnyInputEmpty = () => {
+    console.log("disabled")
+    return name === '' || price === ''  || info === '' || !selectedImage;
     };
 
-    launchImageLibraryAsync(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('Image picker error: ', response.error);
-      } else {
-        let imageUri = response.uri || response.assets?.[0]?.uri;
-        setSelectedImage(imageUri);
-      }
+  const openImagePicker = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
     });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    }
   };
+
 
   return (
     <View className="px-4 h-full">
@@ -37,14 +43,28 @@ export default function AddItemScreen(){
         <Text className="w-3/5 text-center text-xl font-bold">
           Add Item
         </Text>
-        <Pressable className="w-1/5">
-          <View className="flex flex-row align-middle justify-center">
-            <Text className="text-center text-base mx-1 text-gray">
-              Save
-            </Text>
-          <FontAwesome name="save" size={20} color="black" />
-          </View>
-          </Pressable>
+        {
+          isAnyInputEmpty() ? (
+             <Pressable className="w-1/5">
+                <View className="flex flex-row align-middle justify-center">
+                  <Text className="text-center text-base mx-1 text-gray">
+                    Save
+                  </Text>
+                  <FontAwesome5 name="file" size={22} color="gray" />
+                </View>
+              </Pressable>
+            ) : (
+            <Pressable className="w-1/5" 
+                onPress={saveInput}>
+                <View className="flex flex-row align-middle justify-center">
+                  <Text className="text-center text-base text-orange-400 mx-1">
+                    Save
+                  </Text>
+                  <FontAwesome5 name="file" size={22} color="orange" />
+                </View>
+            </Pressable>
+          )
+        }
       </View>
       <View className="mb-6">
       <Text className="text-extrabold text-lg text-gray">
@@ -52,9 +72,10 @@ export default function AddItemScreen(){
       </Text>
       <TextInput
         className="text-light border-b-[0.5px]"
-        onChangeText={onChangeText}
-        value={text}
+        onChangeText={onChangeName}
+        value={name}
         placeholder="Enter product name"
+        placeholderTextColor="gray"
       />
       </View>
       <View className="mb-6">
@@ -63,9 +84,11 @@ export default function AddItemScreen(){
       </Text>
       <TextInput
         className="text-light border-b-[0.5px]"
-        onChangeText={onChangeText}
-        value={text}
+        onChangeText={onChangePrice}
+        value={price}
         placeholder="Enter product price"
+        placeholderTextColor="gray"
+        keyboardType="numeric"
       />
       </View>
       <View className="mb-6">
@@ -73,23 +96,32 @@ export default function AddItemScreen(){
         Product Information
       </Text>
       <TextInput
-        className="text-light border-b-[0.5px] text-gray"
-        onChangeText={onChangeText}
-        value={text}
+        className="text-light border-b-[0.5px]"
+        onChangeText={onChangeInfo}
+        value={info}
         placeholder="Enter product information"
+        placeholderTextColor="gray"
       />
       </View>
-      <View className="mb-6 w-24">
-      <Text className="text-extrabold text-lg text-gray mt-3 mb-6">
-        Logo store
+      <View className="w-26">
+      <Text className="text-bold text-lg text-gray mb-3">
+        Product Photo
       </Text>
-      <Pressable className="h-24 bg-gray rounded-3xl justify-center items-center"
+      {selectedImage ? (
+        <Pressable onPress={openImagePicker} className="h-24 w-24 bg-zinc-200 rounded-3xl justify-center items-center shadow-lg shadow-neutral-600">
+        <Image 
+          className="w-24 h-24 rounded-3xl "
+          source={{ uri: selectedImage }}
+          resizeMode="contain" />
+        </Pressable>
+      ) : (
+        <Pressable className="h-24 w-24 bg-zinc-200 rounded-3xl justify-center items-center shadow-lg shadow-neutral-600"
         onPress={openImagePicker}>
-        <AntDesign name="pluscircle" size={24} color="black" />
-        <Text className="text-center text-light mt-1">Add photos</Text>
-      </Pressable>
+        <AntDesign name="pluscircle" size={24} color="gray" />
+        <Text className="text-center text-light text-zinc-400 mt-1">Add photos</Text>
+        </Pressable>
+      )}
       </View>
-
     </View>
   );
 };
