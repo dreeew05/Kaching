@@ -34,7 +34,7 @@ export default function TabOneScreen() {
           <Text className="text-2xl ml-2">$117</Text>
       </View>
       <Pressable className="bg-transparent w-2/3 self-center bg-green items-center rounded-full py-2 px-4 mb-5 ml-2" 
-        onPress={showAlert}>
+        onPress={viewOrderSummary}>
         <Text className="text-white text-xl font-bold">Checkout</Text>
       </Pressable>
       
