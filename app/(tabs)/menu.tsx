@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import CustomAlert from '../../components/CustomAlert';
 
 export default function MenuSettings() {
-  
-  const showAlert = () => {
-    Alert.alert('Show Alert Action', 'This is a dummy action.');
+  const [alertVisible, setAlertVisible] = useState(false);
+
+  const handleShowAlert = () => {
+    setAlertVisible(true);
   };
 
+  const handleConfirm = () => {
+    // Handle the confirmation logic here
+    setAlertVisible(false);
+  };
+
+  const handleCancel = () => {
+    // Handle the cancel logic here
+    setAlertVisible(false);
+  };
+  
+  const showAlert = () => {
+    CustomAlert({
+      title: 'Are you sure you want to end the day?',
+      message: '',
+      confirmText: 'Yes',
+      cancelText: 'Cancel',
+      onConfirm: () => Alert.alert('Day Ended'),
+      onCancel: () => Alert.alert('Cancel Pressed'),
+    });
+  };
   return (
     <View className=" py-10 marker:flex-1 self-stretch bg-white dark:bg-black">
     
@@ -20,8 +42,8 @@ export default function MenuSettings() {
       </View>
 
       <View className="flex items-center ">
-      <Text className=" px-16 py-3 self-center bg-green text-center rounded-md  text-white text-4xl font-bold m-3">$123.56</Text>
-      <Text className="text-green text-2xl font-bold self-center mb-10 px-2 rounded-full flex items">Total Sales</Text>
+        <Text className=" px-16 py-3 self-center bg-green text-center rounded-md  text-white text-4xl font-bold m-3">$123.56</Text>
+        <Text className="text-green text-2xl font-bold self-center mb-10 px-2 rounded-full flex items">Total Sales</Text>
       </View>
 
         <Link href="/(tabs)/currentEOD" asChild>
