@@ -2,17 +2,18 @@ import { useRouter } from "expo-router";
 import { View, Text, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const router = useRouter();
-
-const gotToHome = () => {
-    // router.push('/(tabs)/w')
-}
-
-const gotToEOD = () => {
-    router.push('/(tabs)/currentEOD')
-}
-
 export default function PahuwayBanner() {
+
+    const router = useRouter();
+
+    const gotToHome = () => {
+        router.push('../')
+    }
+
+    const gotToEOD = () => {
+        router.push('/(tabs)/currentEOD')
+    }
+
     return(
         <View className="flex-1 justify-center items-center">
             <Text className="text-lg font-bold">
@@ -41,7 +42,7 @@ export default function PahuwayBanner() {
                 <View className="bg-green h-10 w-60 rounded-full
                     flex-row justify-center items-center"
                 >
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={gotToHome}> 
                         <Text className="text-center
                             text-white font-bold"
                         >
