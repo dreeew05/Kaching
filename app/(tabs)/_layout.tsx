@@ -78,6 +78,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="payment"
+        options={{
+          title: 'Payment',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+        }}
+      />
+      <Tabs.Screen
         name="categoryView"
         options={{
           title: 'Category View',
@@ -128,7 +136,7 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
                 )}
               </Pressable>
             </Link>        
@@ -145,7 +153,7 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
                 )}
               </Pressable>
             </Link>        
@@ -162,7 +170,7 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
                 )}
               </Pressable>
             </Link>        
@@ -179,7 +187,7 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
                 )}
               </Pressable>
             </Link>        
@@ -189,6 +197,40 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="faqs"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/menu" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                )}
+              </Pressable>
+            </Link>        
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="startDayInput"
+        options={{
+          title: 'Start Day',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/menu" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                )}
+              </Pressable>
+            </Link>        
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="pahuwayBanner"
         options={{
           title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
