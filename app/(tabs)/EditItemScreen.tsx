@@ -4,6 +4,7 @@ import { ItemCard } from '../../components/ItemCard'
 import { Image, StyleSheet, Pressable } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 export default function EditItemScreen(){
@@ -19,12 +20,12 @@ export default function EditItemScreen(){
       }
     };
   return (
-  <View className="flex-1 h-full">
+  <View className="flex-1 h-full relative z-0">
     <View 
       className="h-96 px-3"
       >
-      <Pressable className="h-8">
-        <FontAwesomeIcon icon={faPenToSquare} className="text-9xl" />
+      <Pressable className="absolute z-10 top-1 right-2.5 h-8">
+        <FontAwesome name="edit" size={38} color="white" />
       </Pressable>
       <Image
         source={{
