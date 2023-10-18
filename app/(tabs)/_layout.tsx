@@ -102,7 +102,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="EditItemScreen"
+        name="AddItemScreen"
         options={{
           title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
