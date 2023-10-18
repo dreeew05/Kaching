@@ -21,7 +21,7 @@ export default function TabOneScreen() {
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
       <ScrollView>
-        <Text className="text-5xl ml-2 font-semibold text-green">Cart</Text>
+        <Text className="text-4xl ml-5 font-semibold text-green">Cart</Text>
               
           {/* Generate Items */}
           <CartItemList
@@ -29,9 +29,9 @@ export default function TabOneScreen() {
           />
       </ScrollView>
 
-      <View className='flex-row justify-between p-4 border-spacing-3 border border-white border-t-gray'>
-          <Text className="text-2xl ml-2">Total price:</Text>
-          <Text className="text-2xl ml-2">$117</Text>
+      <View className='flex-row justify-between p-4 border-spacing-3 border-2 border-white border-t-darkgreen'>
+          <Text className="text-2xl">Total price:</Text>
+          <Text className="text-2xl">$117</Text>
       </View>
       <Pressable className="bg-transparent w-2/3 self-center bg-green items-center rounded-full py-2 px-4 mb-5 ml-2" 
         onPress={viewOrderSummary}>
