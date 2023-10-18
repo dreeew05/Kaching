@@ -12,9 +12,15 @@ export default function MenuSettings() {
     setAlertVisible(true);
   };
 
+  const router = useRouter();
+  const goToPahuwayBanner = () => {
+    router.push('/(tabs)/pahuwayBanner')
+  }
+
   const handleConfirm = () => {
     // Handle the confirmation logic here
     setAlertVisible(false);
+    goToPahuwayBanner();
   };
 
   const handleCancel = () => {
@@ -28,8 +34,8 @@ export default function MenuSettings() {
       message: '',
       confirmText: 'Yes',
       cancelText: 'Cancel',
-      onConfirm: () => Alert.alert('Day Ended'),
-      onCancel: () => Alert.alert('Cancel Pressed'),
+      onConfirm: () => handleConfirm(),
+      onCancel: () => Alert.alert('Cancelled'),
     });
   };
   return (
