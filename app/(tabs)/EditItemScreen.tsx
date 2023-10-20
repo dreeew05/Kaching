@@ -5,7 +5,8 @@ import { Image, StyleSheet, Pressable } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import * as ImagePicker from "expo-image-picker";
+import * as ImagePicker from "expo-image-picker";   
+import { useRouter } from "expo-router";
 
 
 export default function EditItemScreen(){
@@ -21,12 +22,20 @@ export default function EditItemScreen(){
       }
     };
 
+    const router = useRouter();
+
+
+    const gotToAddItem = () => {
+        router.push('/(tabs)/AddItemScreen')
+    }
+
   return (
   <View className="flex-1 h-full relative z-0">
     <View 
       className="h-96 px-3"
       >
       <Pressable
+        onPress={gotToAddItem}
         className="absolute z-10 top-1 right-2.5 h-8">
         <FontAwesome name="edit" size={38} color="white" />
       </Pressable>
