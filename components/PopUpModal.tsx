@@ -14,7 +14,7 @@ export default function PopUpModal(){
     transparent={true}
      visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalVisible(true);
         }}>
         <View className="flex-1 justify-center items-center">
           <View className="flex-col rounded-3xl items-center bg-white shadow-sm border-2">

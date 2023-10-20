@@ -15,7 +15,6 @@ export default function AddItemScreen(){
 
 
   const isAnyInputEmpty = () => {
-    console.log("disabled")
     return name === '' || price === ''  || info === '' || !selectedImage;
     };
 
@@ -43,28 +42,25 @@ export default function AddItemScreen(){
         <Text className="w-3/5 text-center text-xl font-bold">
           Add Item
         </Text>
+        <Pressable className="w-1/5">
         {
           isAnyInputEmpty() ? (
-             <Pressable className="w-1/5">
                 <View className="flex flex-row align-middle justify-center">
                   <Text className="text-center text-base mx-1 text-gray">
                     Save
                   </Text>
                   <FontAwesome5 name="file" size={22} color="gray" />
                 </View>
-              </Pressable>
             ) : (
-            <Pressable className="w-1/5" 
-                onPress={saveInput}>
                 <View className="flex flex-row align-middle justify-center">
                   <Text className="text-center text-base text-orange-400 mx-1">
                     Save
                   </Text>
                   <FontAwesome5 name="file" size={22} color="orange" />
                 </View>
-            </Pressable>
-          )
-        }
+                )
+          }
+        </Pressable>
       </View>
       <View className="mb-6">
       <Text className="text-extrabold text-lg text-gray">
