@@ -5,7 +5,7 @@ import { Image, StyleSheet, Pressable } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import * as ImagePicker from "expo-image-picker";
+import * as ImagePicker from "expo-image-picker";   
 import { useRouter } from "expo-router";
 
 
@@ -21,7 +21,6 @@ export default function EditItemScreen(){
       setQuantity(quantity - 1);
       }
     };
-
 
     const router = useRouter();
 

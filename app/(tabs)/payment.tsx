@@ -20,9 +20,9 @@ export default function TabOneScreen() {
     const viewOrderSummary = () => {
       router.push('/(tabs)/orderSummary');
     }
-    // const viewTransactionConfirmation = () => {
-    //   router.push('/(tabs)/orderSummary');
-    // }
+    const viewReceipt = () => {
+      router.push('/(tabs)/receipt');
+    }
 
     const [number, onChangeNumber] = React.useState<string>('');
 
@@ -55,8 +55,8 @@ export default function TabOneScreen() {
             />
 
             <Pressable className="bg-transparent w-2/3 self-center bg-green items-center rounded-full py-2 px-4 mb-5 ml-2" 
-              onPress={showAlert}>
-              <Text className="text-white text-xl font-bold">Checkout</Text>
+              onPress={viewReceipt}>
+              <Text className="text-white text-xl font-bold">Confirm Payment</Text>
             </Pressable>
         </View>
 
