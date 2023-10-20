@@ -3,34 +3,6 @@ import { ScrollView, View, Pressable, Modal } from 'react-native';
 import { Text } from './Themed'
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-native-fontawesome'
 
-interface PopUpProps {
-  visible: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  confirmDelete: ReactNode;
-  nowDeleted: ReactNode;
-}
-
-
-const ReusableModal: FC<ReusableModalProps> = ({ visible, onClose, onConfirm, confirmDelete, nowDeleted }) => {
-  return(
-    <View className="flex-1 justify-center items-center">
-      <Modal className="bg-green"
-        animationType="fade"
-        transparent={true}
-        visible={visible}
-        onRequestClose={onClose}>
-          <View className="flex-1 justify-center items-center">
-            <View className="flex-col rounded-[35px] items-center bg-white shadow-sm">
-              {confirmDelete}
-            </View>
-          </View>
-      </Modal>
-    </View>
-    )
-}
-
-
 
 export default function PopUpModal(){
   const [modalVisible, setModalVisible] = useState(false);
@@ -66,10 +38,6 @@ export default function PopUpModal(){
           </View>
         </View>
       </Modal>
-      <Pressable
-        onPress={() => setModalVisible(true)}>
-        <Text>Show Modal</Text>
-      </Pressable>
     </View>
     )
 }
