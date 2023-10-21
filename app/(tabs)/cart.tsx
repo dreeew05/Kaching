@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import { Alert, Pressable, Text, View, Dimensions, ScrollView } from 'react-native';
+import { PopUpModal } from '../../components/PopUpModal'
 
 // COMPONENTS
 import CartItemList from '../../components/CartItemList';

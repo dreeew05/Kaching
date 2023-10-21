@@ -9,7 +9,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 
 
-export default function EditItemScreen(){
+export default function ItemScreen(){
     const [quantity, setQuantity] = useState(0);
 
     const incrementQuantity = () => {

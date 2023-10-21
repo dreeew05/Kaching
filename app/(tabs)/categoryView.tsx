@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text } from '../../components/Themed';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View , Pressable} from 'react-native';
 import ItemCard from '../../components/ItemCard';
 import { useLocalSearchParams } from 'expo-router';
 import TestProductInterface from '../../utils/testProductInterface';
+import { useRouter } from "expo-router";
 
 // TEST DATA
 import testAppetizerData from '../../utils/testAppetizerData';
@@ -14,6 +15,7 @@ import constantProductImages from '../../constants/Products';
 
 // HELPER
 import ParamsToInteger from '../../components/helper/ParamsToInteger';
+
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -45,17 +47,24 @@ export default function CategoryView() {
   const categoryName : string = testData[id].name;
   // [END]
   
+  const router = useRouter();
+  const gotToItemScreen = () => {
+  router.push('/(tabs)/ItemScreen')
+  }
+
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
       <Text className="text-5xl text-green font-bold ml-2">
         {categoryName}
       </Text>
+      <Pressable onPress={gotToItemScreen}>
       <ScrollView className="p-2">
         {products.map((product) => {
           product.image = constantProductImages[product.id];
           return <ItemCard key={product.id} item={product}/>
         })}
       </ScrollView>
+      </Pressable>
     </View>
   );
 }

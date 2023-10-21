@@ -5,6 +5,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import CustomAlert from '../../components/CustomAlert';
 
+
 export default function MenuSettings() {
   const [alertVisible, setAlertVisible] = useState(false);
 
