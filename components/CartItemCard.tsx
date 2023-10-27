@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
@@ -7,52 +7,54 @@ import { CartProps } from './interfaces/CartProps';
 import IncrementDecrementProvider from '../context/IncrementDecrementContext';
 import IncrementDecrement from './IncrementDecrement';
 
+// COMPONENT
+import Stepper from './Stepper';
 
-export default function CartItemCard({ price, name, image, category, quantity }: CartProps) {
-  // const [currQuantity, setQuantity] = useState(quantity);
-
-  // const incrementQuantity = () => {
-  //   setQuantity(currQuantity + 1);
-  // };
-
-  // const decrementQuantity = () => {
-  //   if (currQuantity > 0) {
-  //     setQuantity(currQuantity - 1);
-  //   }
-  // };
-
-  // const subTotalPrice = price * currQuantity;
+export default function CartItemCard(item: CartProps) {
 
   const removeFromCart = () => {
     Alert.alert('Show Alert Action', 'This is a dummy action.');
   };
 
+  const [quantity, setQuantity] = useState(0);
+  const [subtotalPrice, setSubtotalPrice] = useState(item.price);
+
+  const updateQuantity = (quantity : number) => {
+    setQuantity(quantity);
+  }
+
+  useEffect(() => {
+    setSubtotalPrice(() => item.price * quantity);
+    console.log(item.price * quantity)
+  }, [quantity])
+
   return (
     <View className="marker:flex-1 self-stretch bg-white dark:bg-black">
       <View className="flex-row py-5 px-5 justify-between">
         <View>
-            <Image source={image} style={{ width: 130, height: 130, borderRadius: 10, borderWidth: 2, borderColor: "lightgray"}} />
+            <Image source={item.image} 
+              className='w-36 h-36 rounded-md'
+            />
         </View>
         <View className='flex-1 ml-5'>
-          <Text className="text-lg font-semibold text-green">{name}</Text>
-          <Text className="text-md text-gray ">{category}</Text>
-          {/* <Text className="text-gray-500">${subTotalPrice}</Text>
-          <View className="flex-row">
-            <Pressable className="p-2 border border-gray-300 rounded-md" onPress={decrementQuantity}>
-              <Text className="text-lg">-</Text>
-            </Pressable>
-            <Text className="p-2 text-lg">{currQuantity}</Text>
-            <Pressable className="p-2 border border-gray-300 rounded-md" onPress={incrementQuantity}>
-              <Text className="text-lg">+</Text>
-            </Pressable>
-          </View> */}
-          <IncrementDecrementProvider>
-            <IncrementDecrement price={price}/>
-          </IncrementDecrementProvider>
+          <Text className="text-lg text-green"
+            style={{fontFamily: 'Poppins-Medium'}}>
+            {item.name}
+          </Text>
+          <Text className="text-md text-gray "
+            style={{fontFamily: 'Poppins-Regular'}}>
+            {item.category}
+          </Text>
+          <Text className='text-md text-black'>
+            {subtotalPrice}
+          </Text>
+          <View className='mt-12'>
+            <Stepper updateQuantity={updateQuantity}/>
+          </View>
         </View>
 
         <Pressable onPress={removeFromCart}>
-          <FontAwesome5 name="trash" size={24} color="gray" />
+          <FontAwesome5 name="trash" size={20} color="gray" />
         </Pressable>
       </View>
     </View>

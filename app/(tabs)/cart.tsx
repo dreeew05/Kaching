@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { Alert, Pressable, Text, View, Dimensions, ScrollView } from 'react-native';
-import { PopUpModal } from '../../components/PopUpModal'
+// import { PopUpModal } from '../../components/PopUpModal'
 
 // COMPONENTS
 import CartItemList from '../../components/CartItemList';
@@ -22,7 +22,10 @@ export default function TabOneScreen() {
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
       <ScrollView>
-        <Text className="text-4xl ml-5 font-semibold text-green">Cart</Text>
+        <Text className="text-4xl ml-5 text-green"
+          style={{fontFamily: 'Poppins-Bold'}}>
+          Cart
+        </Text>
               
           {/* Generate Items */}
           <CartItemList

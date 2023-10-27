@@ -47,26 +47,26 @@ export default function CategoryView() {
   const categoryName : string = testData[id].name;
   // [END]
   
-  const router = useRouter();
-  const gotToItemScreen = () => {
-  router.push('/(tabs)/ItemScreen')
-  }
+  // const router = useRouter();
+  // const gotToItemScreen = () => {
+  // router.push('/(tabs)/ItemScreen')
+  // }
 
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
-      <Text className="text-5xl text-green font-bold ml-5 mb-5"
-        style={{ fontFamily: 'Poppins-Medium' }}
+      <Text className="text-4xl text-green ml-5 mb-5"
+        style={{ fontFamily: 'Poppins-Bold' }}
       >
         {categoryName}
       </Text>
-      <Pressable onPress={gotToItemScreen}>
+      {/* <Pressable onPress={gotToItemScreen}> */}
       <ScrollView className="p-2">
         {products.map((product) => {
           product.image = constantProductImages[product.id];
           return <ItemCard key={product.id} item={product}/>
         })}
       </ScrollView>
-      </Pressable>
+      {/* </Pressable> */}
     </View>
   );
 }
