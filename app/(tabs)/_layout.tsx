@@ -96,7 +96,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="categoryView"
         options={{
-          title: 'Category View',
+          title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
         }}

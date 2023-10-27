@@ -54,7 +54,9 @@ export default function CategoryView() {
 
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
-      <Text className="text-5xl text-green font-bold ml-2">
+      <Text className="text-5xl text-green font-bold ml-5 mb-5"
+        style={{ fontFamily: 'Poppins-Medium' }}
+      >
         {categoryName}
       </Text>
       <Pressable onPress={gotToItemScreen}>
