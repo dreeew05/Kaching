@@ -20,7 +20,7 @@ const CartItemList: React.FC<CartListProps> = ({ items }) => {
       {items.map((item) => {
         item.image = constantProducts[item.id];
         return (
-          <View  key={item.id}>
+          <View key={item.id}>
             <CartItemCard
               id={item.id}
               name={item.name}

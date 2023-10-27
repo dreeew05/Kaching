@@ -11,14 +11,14 @@ export default function Stepper(parentQuantity : StepperProps) {
 
     const incrementQuantity = () => {
         setValue(value + 1);
-        parentQuantity.updateQuantity(value);
+        parentQuantity.updateQuantity(value + 1);
     }
 
     const decrementQuantity = () => {
         if(value > 0) {
             setValue(value - 1);
+            parentQuantity.updateQuantity(value - 1);
         }
-        parentQuantity.updateQuantity(value);
     }
 
     return(

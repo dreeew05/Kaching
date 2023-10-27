@@ -16,7 +16,10 @@ export default function CategoryCard({ id, name, image } : CategoryProps) {
         />
       </View>
       <View className="p-2">
-        <Text className="text-xl font-bold mb-1">{name}</Text>
+        <Text className="text-xl mb-1"
+          style={{fontFamily: 'Poppins-Bold'}}>
+          {name}
+        </Text>
       </View>
     </View>
   )
