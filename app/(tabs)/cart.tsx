@@ -29,7 +29,7 @@ export default function TabOneScreen() {
               
           {/* Generate Items */}
           <CartItemList
-              items={testData}
+              cart={testData}
           />
       </ScrollView>
 
