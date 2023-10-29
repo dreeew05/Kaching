@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 // CONSTANT DATA
-import constantCategories from '../constants/Categories';
+import constantCategories from '../../constants/Categories';
 
 // COMPONENT
 import CategoryCard from './CategoryCard';
@@ -10,7 +10,7 @@ import CategoryCardClickable from './CategoryCardClickable';
 import CategoryCardEditable from './CategoryCardEditable';
 
 // INTERFACE
-import { CategoryProps } from './interfaces/CategoryProps';
+import { CategoryProps } from '../interfaces/CategoryProps';
 
 interface CategoryListProps {
     cardType : string,

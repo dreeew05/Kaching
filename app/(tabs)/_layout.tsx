@@ -1,8 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faStore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesome5 } from '@expo/vector-icons';
 
 

@@ -3,7 +3,7 @@ import { Alert, Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
 // INTERFACE
-import { CartProps } from './interfaces/CartProps';
+import { CartProps } from './interfaces/CartItemProps';
 
 
 export default function CartItemCard({ price, name, image, category, quantity }: CartProps) {
