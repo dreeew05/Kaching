@@ -6,7 +6,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 // TEST DATA
 import testData from '../../utils/testCategoryData';
-import CategoryList from "../../components/CategoryList";
+import CategoryList from "../../components/Category/CategoryList";
 import { useRouter } from "expo-router";
 
 export default function modifyCategories() {

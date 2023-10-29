@@ -3,7 +3,7 @@ import { Alert, Image, View, Text, Pressable, ImageSourcePropType } from 'react-
 
 
 // INTERFACE
-import { CartProps } from './interfaces/CartProps';
+import { CartProps } from './interfaces/CartItemProps';
 
 export default function OrderSummaryItemList({ price, name, image, category, quantity } : CartProps ) {
 

@@ -8,16 +8,12 @@ import constantProducts from '../constants/Products';
 import CartItemCard from './CartItemCard';
 
 // INTERFACE
-import { CartProps } from './interfaces/CartProps';
+import { CartProps } from './interfaces/CartItemProps';
 
-interface CartListProps {
-  items: CartProps[];
-}
-
-const CartItemList: React.FC<CartListProps> = ({ items }) => {
+const CartItemList: React.FC<CartProps> = ({ cart }) => {
   return (
     <ScrollView>
-      {items.map((item) => {
+      {cart.map((item) => {
         item.image = constantProducts[item.id];
         return (
           <View key={item.id}>

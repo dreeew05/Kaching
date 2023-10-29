@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 // INTERFACE
-import { CategoryProps } from "./interfaces/CategoryProps";
+import { CategoryProps } from "../interfaces/CategoryProps";
 
 // COMPONENT
 import CategoryCard from "./CategoryCard";

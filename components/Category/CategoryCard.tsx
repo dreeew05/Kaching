@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, View, Text } from 'react-native';
 
 // INTERFACE
-import { CategoryProps } from './interfaces/CategoryProps';
+import { CategoryProps } from '../interfaces/CategoryProps';
 
 export default function CategoryCard({ id, name, image } : CategoryProps) {
 

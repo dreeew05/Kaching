@@ -3,14 +3,12 @@ import { Alert, Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
 // INTERFACE
-import { CartProps } from './interfaces/CartProps';
-import IncrementDecrementProvider from '../context/IncrementDecrementContext';
-import IncrementDecrement from './IncrementDecrement';
+import { CartItemProps} from './interfaces/CartItemProps';
 
 // COMPONENT
 import Stepper from './Stepper';
 
-export default function CartItemCard(item: CartProps) {
+export default function CartItemCard(item: CartItemProps) {
 
   const removeFromCart = () => {
     Alert.alert('Show Alert Action', 'This is a dummy action.');
@@ -25,7 +23,7 @@ export default function CartItemCard(item: CartProps) {
 
   useEffect(() => {
     setSubtotalPrice(() => item.price * quantity);
-    console.log(item.price * quantity)
+    // console.log(item.price * quantity)
   }, [quantity])
 
   return (

@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { Alert, Image, View, Text, Pressable, ImageSourcePropType } from 'react-native';
+import { Image, View, Text, Pressable, ImageSourcePropType } from 'react-native';
 
 // COMPONENTS
-import Stepper from './Stepper';
+import Stepper from '../Stepper';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/CartSlice';
+import { Store } from '../../redux/Store';
+
+// TEST
+import { selectCart } from '../../redux/CartSelectors';
 
 type Item = {
     id: number;
@@ -16,15 +22,28 @@ type itemCardProps = {
 };
 
 export default function ItemCard({ item }: itemCardProps) {
+
+    const dispatch = useDispatch();
+    const items = useSelector(selectCart);
+
     const [quantity, setQuantity] = useState(0);
 
     const updateQuantity = (quantity : number) => {
         setQuantity(quantity);
     }
 
-    const addToCart = () => {
-        Alert.alert('Show Alert Action', 'This is a dummy action.');
-    };
+    const addToCartEvent = () => {
+        dispatch(addToCart({
+            id : item.id,
+            name : item.name,
+            price : item.price,
+            quantity : quantity,
+            image : item.image,
+            category : 'Test Category',
+        }));
+
+        console.log(items)
+    }
     
     return (
         // <View className="flex flex-row p-2 border-b-2 border-gray-300">
@@ -55,7 +74,7 @@ export default function ItemCard({ item }: itemCardProps) {
                 <View className='flex-1 justify-center'>
                     <Pressable className="bg-green w-52 h-10 border-2 border-green 
                         rounded-md self-center ml-6 flex-1 items-center justify-center" 
-                        onPress={addToCart}>
+                        onPress={addToCartEvent}>
 
                         <Text className="text-white text-lg"
                             style={{fontFamily: 'Poppins-Bold'}}>
@@ -66,6 +85,5 @@ export default function ItemCard({ item }: itemCardProps) {
                 </View>
             </View>
         </View>
-        
     );
 }

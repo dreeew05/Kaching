@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View } from '../../components/Themed';
-import { ItemCard } from '../../components/ItemCard'
+import { ItemCard } from '../../components/Product/ItemCard'
 import { Image, StyleSheet, Pressable } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';

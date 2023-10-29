@@ -8,7 +8,7 @@ import constantProducts from '../constants/Products';
 import CartItemCard from './CartItemCard';
 
 // INTERFACE
-import { CartProps } from './interfaces/CartProps';
+import { CartProps } from './interfaces/CartItemProps';
 import OrderSummaryItemList from './OrderSummaryItemCard';
 
 interface CartListProps {
