@@ -54,7 +54,7 @@ export default function TabLayout() {
       <Tabs.Screen  
         name="menu"
         options={{
-          title: 'Settings',
+          title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
           headerLeft: () => (
             <Link href="/modal" asChild>

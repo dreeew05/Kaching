@@ -4,7 +4,6 @@ import { ScrollView, View , Pressable} from 'react-native';
 import ItemCard from '../../components/Product/ItemCard';
 import { useLocalSearchParams } from 'expo-router';
 import TestProductInterface from '../../utils/testProductInterface';
-import { useRouter } from "expo-router";
 
 // TEST DATA
 import testAppetizerData from '../../utils/testAppetizerData';
@@ -19,7 +18,7 @@ import { Provider } from 'react-redux';
 import { Store } from '../../redux/Store';
 
 
-export default function CategoryView() {
+export default function CategoryViewScreen() {
   const param = useLocalSearchParams();
 
   // TEST
@@ -48,11 +47,6 @@ export default function CategoryView() {
   const products : TestProductInterface[] = testData[id].data;
   const categoryName : string = testData[id].name;
   // [END]
-  
-  // const router = useRouter();
-  // const gotToItemScreen = () => {
-  // router.push('/(tabs)/ItemScreen')
-  // }
 
   return (
     <Provider store={Store}>

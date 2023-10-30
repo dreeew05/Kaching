@@ -3,9 +3,8 @@ import { Image, View, Text, Pressable, ImageSourcePropType } from 'react-native'
 
 // COMPONENTS
 import Stepper from '../Stepper';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartSlice';
-import { Store } from '../../redux/Store';
 
 // TEST
 import { selectCart } from '../../redux/CartSelectors';
@@ -41,8 +40,6 @@ export default function ItemCard({ item }: itemCardProps) {
             image : item.image,
             category : 'Test Category',
         }));
-
-        console.log(items)
     }
     
     return (
@@ -69,7 +66,10 @@ export default function ItemCard({ item }: itemCardProps) {
 
             <View className='flex flex-row items-center'>
                 <View className="flex items-center">
-                    <Stepper updateQuantity={updateQuantity}/>
+                    <Stepper 
+                        quantity={0}
+                        updateQuantity={updateQuantity}
+                    />
                 </View>
                 <View className='flex-1 justify-center'>
                     <Pressable className="bg-green w-52 h-10 border-2 border-green 

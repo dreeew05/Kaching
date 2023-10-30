@@ -5,7 +5,7 @@ import { ScrollView, View } from 'react-native';
 import constantProducts from '../constants/Products';
 
 // COMPONENT
-import CartItemCard from './CartItemCard';
+import CartItemCard from './Cart/CartItemCard';
 
 // INTERFACE
 import { CartProps } from './interfaces/CartItemProps';

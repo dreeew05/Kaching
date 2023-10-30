@@ -3,10 +3,10 @@ import { Alert, Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
 // INTERFACE
-import { CartItemProps} from './interfaces/CartItemProps';
+import { CartItemProps} from '../interfaces/CartItemProps';
 
 // COMPONENT
-import Stepper from './Stepper';
+import Stepper from '../Stepper';
 
 export default function CartItemCard(item: CartItemProps) {
 
@@ -14,7 +14,7 @@ export default function CartItemCard(item: CartItemProps) {
     Alert.alert('Show Alert Action', 'This is a dummy action.');
   };
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(item.quantity);
   const [subtotalPrice, setSubtotalPrice] = useState(item.price);
 
   const updateQuantity = (quantity : number) => {
@@ -27,7 +27,7 @@ export default function CartItemCard(item: CartItemProps) {
   }, [quantity])
 
   return (
-    <View className="marker:flex-1 self-stretch bg-white dark:bg-black">
+    <View>
       <View className="flex-row py-5 px-5 justify-between">
         <View>
             <Image source={item.image} 
@@ -47,7 +47,10 @@ export default function CartItemCard(item: CartItemProps) {
             {subtotalPrice}
           </Text>
           <View className='mt-12'>
-            <Stepper updateQuantity={updateQuantity}/>
+            <Stepper 
+                quantity={quantity}
+                updateQuantity={updateQuantity}
+            />
           </View>
         </View>
 

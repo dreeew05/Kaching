@@ -5,7 +5,7 @@ import DayStarter from '../../components/Home/DayStarter';
 import SaleDashboard from '../../components/Home/SaleDashboard';
 import CategoryGenerator from '../../components/Home/CategoryGenerator';
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
   
   return (
 
