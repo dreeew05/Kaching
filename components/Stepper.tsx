@@ -2,22 +2,22 @@ import { useState } from "react";
 import { View, Pressable, Text } from "react-native";
 
 interface StepperProps {
+    quantity : number;
     updateQuantity : (newQuantity : number) => void;
 }
 
-export default function Stepper(parentQuantity : StepperProps) {
-
-    const [value, setValue] = useState(0);
+export default function Stepper(parentMixIn : StepperProps) {
+    const [value, setValue] = useState(parentMixIn.quantity);
 
     const incrementQuantity = () => {
         setValue(value + 1);
-        parentQuantity.updateQuantity(value + 1);
+        parentMixIn.updateQuantity(value + 1);
     }
 
     const decrementQuantity = () => {
         if(value > 0) {
             setValue(value - 1);
-            parentQuantity.updateQuantity(value - 1);
+            parentMixIn.updateQuantity(value - 1);
         }
     }
 
