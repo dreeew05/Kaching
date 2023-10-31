@@ -7,12 +7,22 @@ import { CartItemProps} from '../interfaces/CartItemProps';
 
 // COMPONENT
 import Stepper from '../Stepper';
+import { useDispatch } from 'react-redux';
+import { removeFromCart } from '../../redux/CartSlice';
 
 export default function CartItemCard(item: CartItemProps) {
 
-  const removeFromCart = () => {
-    Alert.alert('Show Alert Action', 'This is a dummy action.');
-  };
+  // const removeFromCart = () => {
+  //   Alert.alert('Show Alert Action', 'This is a dummy action.');
+  // };
+
+  const dispatch = useDispatch();
+
+  const removeFromCartEvent = () => {
+    dispatch(
+      removeFromCart(item.id)  
+    )
+  }
 
   const [quantity, setQuantity] = useState(item.quantity);
   const [subtotalPrice, setSubtotalPrice] = useState(item.price);
@@ -23,7 +33,6 @@ export default function CartItemCard(item: CartItemProps) {
 
   useEffect(() => {
     setSubtotalPrice(() => item.price * quantity);
-    // console.log(item.price * quantity)
   }, [quantity])
 
   return (
@@ -54,7 +63,7 @@ export default function CartItemCard(item: CartItemProps) {
           </View>
         </View>
 
-        <Pressable onPress={removeFromCart}>
+        <Pressable onPress={removeFromCartEvent}>
           <FontAwesome5 name="trash" size={20} color="gray" />
         </Pressable>
       </View>
