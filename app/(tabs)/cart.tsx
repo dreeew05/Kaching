@@ -12,15 +12,8 @@ export default function CartScreen() {
   return (
     <Provider store={Store}>
       <View className="flex-1 self-stretch bg-white dark:bg-black">
-        <ScrollView>
-          <Text className="text-4xl ml-5 text-green"
-            style={{fontFamily: 'Poppins-Bold'}}>
-            Cart
-          </Text>
-                
-          <CartItemsGenerator/>
 
-        </ScrollView>
+        <CartItemsGenerator/>
 
         <CartTotal/>
       </View>
