@@ -12,10 +12,6 @@ import { removeFromCart } from '../../redux/CartSlice';
 
 export default function CartItemCard(item: CartItemProps) {
 
-  // const removeFromCart = () => {
-  //   Alert.alert('Show Alert Action', 'This is a dummy action.');
-  // };
-
   const dispatch = useDispatch();
 
   const removeFromCartEvent = () => {
