@@ -43,7 +43,6 @@ export default function ItemCard({ item }: itemCardProps) {
     }
     
     return (
-        // <View className="flex flex-row p-2 border-b-2 border-gray-300">
         <View className='ml-3 mr-3 mb-5'>
             <View className='flex flex-row mb-3'>
                 <Image

@@ -1,5 +1,7 @@
 import { useRouter } from "expo-router";
 import { View, Text, Pressable } from "react-native";
+import { useSelector } from "react-redux";
+import { selectCartTotalPrice } from "../../redux/CartSelectors";
 
 export default function CartTotal() {
 
@@ -9,13 +11,15 @@ export default function CartTotal() {
         router.push('/(tabs)/orderSummary')
     }
 
+    const cartState = useSelector(selectCartTotalPrice);
+
     return(
         <View>
             <View className='flex-row justify-between p-4 border-spacing-3
                 border-2 border-white border-t-darkgreen'
             >
                 <Text className="text-2xl">Total price:</Text>
-                <Text className="text-2xl">$117</Text>
+                <Text className="text-2xl">{cartState}</Text>
             </View>
             
             <Pressable className="bg-transparent w-2/3 self-center bg-green
