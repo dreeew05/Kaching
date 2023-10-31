@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { CartItemProps, CartProps } from '../components/interfaces/CartItemProps'
+import { CartItemProps, CartProps } from '../components/utils/interfaces/CartItemProps'
 
 interface IdQuantityPair {
     id : number,
