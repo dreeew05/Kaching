@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, View, Text, Pressable, ImageSourcePropType } from 'react-native';
+import { Image, View, Text, Pressable, ImageSourcePropType, TouchableOpacity } from 'react-native';
 
 // COMPONENTS
 import Stepper from '../Stepper';
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartSlice';
 
 // TEST
-import { selectCart } from '../../redux/CartSelectors';
+import { Link } from 'expo-router';
 
 type Item = {
     id: number;
@@ -21,9 +21,8 @@ type itemCardProps = {
 };
 
 export default function ItemCard({ item }: itemCardProps) {
-
+    
     const dispatch = useDispatch();
-    const items = useSelector(selectCart);
 
     const [quantity, setQuantity] = useState(0);
 
@@ -45,10 +44,21 @@ export default function ItemCard({ item }: itemCardProps) {
     return (
         <View className='ml-3 mr-3 mb-5'>
             <View className='flex flex-row mb-3'>
-                <Image
-                className="w-40 h-40 mr-1 rounded-md"
-                source={ item.image }
-                />
+               
+                <Link href={{
+                    pathname : '/(tabs)/ItemScreen',
+                    params : {id : item.id}
+                }}asChild>
+
+                    <TouchableOpacity>
+                        <Image
+                            className="w-40 h-40 mr-1 rounded-md"
+                            source={ item.image }
+                        />
+                    </TouchableOpacity>
+
+                </Link>
+
                 <View className='flex flex-column ml-5'>
                     <Text className="text-lg font-semibold"
                         style={{ fontFamily: 'Poppins-Medium'}}
