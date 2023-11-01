@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from '../../components/Themed';
-import { ScrollView, View , Pressable} from 'react-native';
+import { ScrollView, View } from 'react-native';
 import ItemCard from '../../components/Product/ItemCard';
 import { useLocalSearchParams } from 'expo-router';
 import TestProductInterface from '../../utils/testProductInterface';
