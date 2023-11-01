@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from '../../components/Themed';
-import { ScrollView, View , Pressable} from 'react-native';
+import { ScrollView, View } from 'react-native';
 import ItemCard from '../../components/Product/ItemCard';
 import { useLocalSearchParams } from 'expo-router';
 import TestProductInterface from '../../utils/testProductInterface';
@@ -13,7 +13,7 @@ import testBeverageData from '../../utils/testBeveragesData';
 import constantProductImages from '../../constants/Products';
 
 // HELPER
-import ParamsToInteger from '../../components/helper/ParamsToInteger';
+import ParamsToInteger from '../../components/utils/helper/ParamsToInteger';
 import { Provider } from 'react-redux';
 import { Store } from '../../redux/Store';
 

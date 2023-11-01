@@ -8,16 +8,12 @@ import constantProducts from '../constants/Products';
 import ReceiptItemCard from './ReceiptItemCard';
 
 // INTERFACE
-import { CartProps } from './interfaces/CartItemProps';
+import { CartProps } from './utils/interfaces/CartItemProps';
 
-interface CartListProps {
-  items: CartProps[];
-}
-
-const ReceiptItemList: React.FC<CartListProps> = ({ items }) => {
+const ReceiptItemList: React.FC<CartProps> = ({ cart }) => {
   return (
     <ScrollView className='border-2 rounded m-5'>
-      {items.map((item) => {
+      {cart.map((item) => {
         item.image = constantProducts[item.id];
         return (
           <View  key={item.id}>

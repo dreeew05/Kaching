@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { CartItemProps, CartProps } from '../components/interfaces/CartItemProps'
+import { CartItemProps, CartProps } from '../components/utils/interfaces/CartItemProps'
 
 interface IdQuantityPair {
     id : number,
@@ -21,7 +21,7 @@ export const CartSlice = createSlice({
             if(itemExists) {
                 itemExists.quantity = action.payload.quantity;
             }
-            else {
+            else if(!itemExists && action.payload.quantity > 0) {
                 state.cart.push(action.payload)
             }
         },
@@ -31,12 +31,12 @@ export const CartSlice = createSlice({
             )
         },
         updateItemQuantity(state, action : PayloadAction<IdQuantityPair>) {
-            state.cart = state.cart.map(
-                item => item.id == action.payload.id ? {
-                    ...item,
-                    quantity : action.payload.quantity
-                } : item
-            )
+            const item = state.cart.find(
+                item => item.id === action.payload.id
+            );
+            if(item) {
+                item.quantity = action.payload.quantity
+            }
         },
         clearCart(state) {
             state.cart = []

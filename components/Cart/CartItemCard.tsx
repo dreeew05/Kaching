@@ -3,7 +3,7 @@ import { Alert, Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
 // INTERFACE
-import { CartItemProps} from '../interfaces/CartItemProps';
+import { CartItemProps } from '../utils/interfaces/CartItemProps';
 
 // COMPONENT
 import Stepper from '../Stepper';

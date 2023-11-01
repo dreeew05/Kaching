@@ -1,33 +1,36 @@
 import React, { useState } from 'react';
 import { Text, View } from '../../components/Themed';
-import { ItemCard } from '../../components/Product/ItemCard'
-import { Image, StyleSheet, Pressable } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { Image, ImageSourcePropType, Pressable } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import * as ImagePicker from "expo-image-picker";   
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import ParamsToInteger from '../../components/utils/helper/ParamsToInteger';
+import Stepper from '../../components/Stepper';
 
+interface ItemScreenProps {
+  id : number,
+  name : string,
+  image : ImageSourcePropType,
+  price : number, 
+  description : string
+}
 
 export default function ItemScreen(){
-    const [quantity, setQuantity] = useState(0);
 
-    const incrementQuantity = () => {
-      setQuantity(quantity + 1);
-    };
+  const param = useLocalSearchParams();
 
-    const decrementQuantity = () => {
-      if (quantity > 0) {
-      setQuantity(quantity - 1);
-      }
-    };
+  const id : number = ParamsToInteger(param.id);
 
-    const router = useRouter();
+  const [quantity, setQuantity] = useState(0);
 
+  const updateQuantity = (quantity : number) => {
+    setQuantity(quantity);
+  }
 
-    const gotToAddItem = () => {
-        router.push('/(tabs)/AddItemScreen')
-    }
+  const router = useRouter();
+
+  const gotToAddItem = () => {
+      router.push('/(tabs)/AddItemScreen')
+  }
 
   return (
   <View className="flex-1 h-full relative z-0">
@@ -53,18 +56,15 @@ export default function ItemScreen(){
       </View>
       <View className="flex flex-row h-16 absolute inset-x-0 bottom-0 w-full border-t-[0.5px] border-gray-300 items-left py-2 pl-3 ">
         <View className="w-2/5">
-          <View className="w-32 h-full border-[0.5px] flex flex-row rounded-md items-center justify-center shadow-md shadow-neutral-600">
-            <Pressable className="border-r-[0.5px]" onPress={decrementQuantity}>
-            <Text className="text-lg px-4">-</Text>
-            </Pressable>
-            <Text className="text-lg px-4">{quantity}</Text>
-            <Pressable className="border-l-[0.5px]" onPress={incrementQuantity}>
-            <Text className="px-4 text-lg">+</Text>
-            </Pressable>
-            </View>
+          
+          <Stepper
+            quantity={quantity}
+            updateQuantity={updateQuantity}
+          />
+
         </View>
         <View className="w-3/5 pr-3">
-          <Pressable className="w-full h-full rounded-md items-center justify-center bg-green shadow-md shadow-neutral-600" onPress={decrementQuantity}>
+          <Pressable className="w-full h-10 rounded-md items-center justify-center bg-green shadow-md shadow-neutral-600">
             <Text className="text-center text-lg font-semibold text-white">Add to Cart</Text>
           </Pressable>
         </View>
