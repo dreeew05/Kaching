@@ -5,7 +5,6 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useLocalSearchParams, useRouter } from "expo-router";
 import ParamsToInteger from '../../components/utils/helper/ParamsToInteger';
 import Stepper from '../../components/Stepper';
-
 interface ItemScreenProps {
   id : number,
   name : string,
@@ -14,11 +13,66 @@ interface ItemScreenProps {
   description : string
 }
 
+interface tesDataProps {
+  [id : number] : ItemScreenProps
+}
+
+// TEST DATA
+// START
+
+const testData : tesDataProps = {
+  10000 : {
+    id : 10000,
+    name : 'Mozarella Sticks',
+    image : require('../../assets/images/products/10000.jpg'),
+    price : 39,
+    description : 'Sample Descrption 1'
+  },
+  10001 : {
+    id : 10001,
+    name : 'Bruschetta',
+    image : require('../../assets/images/products/10001.jpg'),
+    price : 39,
+    description : 'Sample Description 2'
+  },
+  10002 : {
+    id : 10002,
+    name : 'Deviled Eggs',
+    image : require('../../assets/images/products/10002.jpg'),
+    price : 39,
+    description : 'Sample Description 3'
+  },
+  10003 : {
+    id : 10003,
+    name : ' Beer',
+    image : require('../../assets/images/products/10003.jpg'),
+    price : 39,
+    description : 'Sample Description 4'
+  },
+  10004 : {
+    id : 10004,
+    name : 'Coca-Cola',
+    image : require('../../assets/images/products/10004.jpg'),
+    price : 39,
+    description : 'Sample Description 5'
+  },
+  10005 : {
+    id : 10005,
+    name : 'Pepsi',
+    image : require('../../assets/images/products/10005.jpg'),
+    price : 39,
+    description : 'Sample Description 6'
+  },
+}
+
+// END
+
 export default function ItemScreen(){
 
   const param = useLocalSearchParams();
 
   const id : number = ParamsToInteger(param.id);
+  const item : ItemScreenProps = testData[id];
 
   const [quantity, setQuantity] = useState(0);
 
@@ -43,15 +97,21 @@ export default function ItemScreen(){
         <FontAwesome name="edit" size={38} color="white" />
       </Pressable>
         <Image
-          source={{
-            uri: 'https://bump2babynutrition.com/wp-content/uploads/2023/04/Sprite.jpg'
-            }}
+          source={
+            item.image
+          }
           className="w-full h-full rounded-3xl"
             />
-      <Text className="text-center text-3xl pt-3 text-green">$39</Text>
-      <Text className="text-center text-4xl pt-3">Product Name</Text>
+      <Text className="text-center text-3xl pt-3 text-green">
+        {item.price}
+      </Text>
+      <Text className="text-center text-4xl pt-3">
+        {item.name}
+      </Text>
       <View className="h-36 justify-center items-center">
-        <Text className="text-center text-base text-gray font-light px-3">Just a short product description or maybe nothing at all XD</Text>
+        <Text className="text-center text-base text-gray font-light px-3">
+          {item.description}
+        </Text>
       </View>
       </View>
       <View className="flex flex-row h-16 absolute inset-x-0 bottom-0 w-full border-t-[0.5px] border-gray-300 items-left py-2 pl-3 ">
