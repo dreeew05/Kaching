@@ -19,7 +19,7 @@ export default function CartItemsGenerator() {
         return(
             <View className="flex-1">
                 <Text className="text-4xl ml-5 text-green"
-                    style={{fontFamily: 'Poppins-Bold'}}
+                    style={{fontFamily: 'Poppins-Medium'}}
                 >
                     Cart
                 </Text>
@@ -38,7 +38,7 @@ export default function CartItemsGenerator() {
         return(
             <ScrollView>
                 <Text className="text-4xl ml-5 text-green"
-                    style={{fontFamily: 'Poppins-Bold'}}
+                    style={{fontFamily: 'Poppins-Medium'}}
                 >
                     Cart
                 </Text>

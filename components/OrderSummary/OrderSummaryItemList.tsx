@@ -5,7 +5,7 @@ import { ScrollView, View } from 'react-native';
 import constantProducts from '../../constants/Products';
 
 // INTERFACE
-import { OrderSummaryListProps } from '../interfaces/OrderSummaryProps';
+import { OrderSummaryListProps } from '../utils/interfaces/OrderSummaryProps';
 import OrderSummaryItemCard from './OrderSummaryItemCard';
 
 const OrderSummaryItemList : React.FC<OrderSummaryListProps> = ({ cart }) => {
