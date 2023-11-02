@@ -1,12 +1,7 @@
-import { ImageSourcePropType } from "react-native"
+import { BaseItemProps } from "./BaseItemProps"
 
-export type CartItemProps = {
-    id : number,
-    name : string
-    category : string
+export interface CartItemProps extends BaseItemProps {
     quantity : number
-    price : number
-    image : ImageSourcePropType
 }
 
 export interface CartProps {

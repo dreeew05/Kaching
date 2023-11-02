@@ -8,7 +8,7 @@ import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 // COMPONENT
 import Stepper from '../Stepper';
 import { useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/CartSlice';
+import { removeFromCart, updateItemQuantity } from '../../redux/CartSlice';
 
 export default function CartItemCard(item: CartItemProps) {
 
@@ -23,8 +23,14 @@ export default function CartItemCard(item: CartItemProps) {
   const [quantity, setQuantity] = useState(item.quantity);
   const [subtotalPrice, setSubtotalPrice] = useState(item.price);
 
-  const updateQuantity = (quantity : number) => {
-    setQuantity(quantity);
+  const updateQuantityEvent = (quantity : number) => {
+    setQuantity(quantity)
+    dispatch(
+      updateItemQuantity({
+        id : item.id,
+        quantity : quantity
+      })
+    )
   }
 
   useEffect(() => {
@@ -54,7 +60,7 @@ export default function CartItemCard(item: CartItemProps) {
           <View className='mt-12'>
             <Stepper 
                 quantity={quantity}
-                updateQuantity={updateQuantity}
+                updateQuantity={updateQuantityEvent}
             />
           </View>
         </View>
