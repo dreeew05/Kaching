@@ -4,7 +4,7 @@ import { useRouter, Link } from 'expo-router';
 
 //  COMPONENT
 import CategoryCard from './CategoryCard';
-import { CategoryProps } from '../utils/interfaces/CategoryProps';
+import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
 
 
 export default function CategoryCardClickable(
