@@ -1,8 +1,7 @@
-import DropDownPicker from 'react-native-dropdown-picker'; //https://hossein-zare.github.io/react-native-dropdown-picker-website/docs
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useRouter } from 'expo-router';
-import { Alert, Pressable, Text, View, Dimensions, TextInput, StyleSheet } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 // COMPONENTS
 import ReceiptItemList from '../../components/ReceiptItemList';
@@ -37,7 +36,7 @@ export default function TabOneScreen() {
                 <View>
                     {/* Generate Items */}
                     <ReceiptItemList
-                        items={testData}
+                        cart={testData}
                     />
                 </View>
             </ScrollView>
