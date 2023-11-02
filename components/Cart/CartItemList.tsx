@@ -8,7 +8,7 @@ import constantProducts from '../../constants/Products';
 import CartItemCard from './CartItemCard';
 
 // INTERFACE
-import { CartProps } from '../utils/interfaces/CartItemProps';
+import { CartProps } from '../__utils__/interfaces/CartItemProps';
 
 const CartItemList: React.FC<CartProps> = ({ cart }) => {
   return (

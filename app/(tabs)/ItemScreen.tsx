@@ -3,14 +3,16 @@ import { Text, View } from '../../components/Themed';
 import { Image, ImageSourcePropType, Pressable } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useLocalSearchParams, useRouter } from "expo-router";
-import ParamsToInteger from '../../components/utils/helper/ParamsToInteger';
+import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
 import Stepper from '../../components/Stepper';
+import { useDispatch } from 'react-redux';
 interface ItemScreenProps {
   id : number,
   name : string,
   image : ImageSourcePropType,
   price : number, 
   description : string
+  category : string
 }
 
 interface tesDataProps {
@@ -26,42 +28,48 @@ const testData : tesDataProps = {
     name : 'Mozarella Sticks',
     image : require('../../assets/images/products/10000.jpg'),
     price : 39,
-    description : 'Sample Descrption 1'
+    description : 'Sample Descrption 1',
+    category : 'Appetizer'
   },
   10001 : {
     id : 10001,
     name : 'Bruschetta',
     image : require('../../assets/images/products/10001.jpg'),
     price : 39,
-    description : 'Sample Description 2'
+    description : 'Sample Description 2',
+    category : 'Appetizer'
   },
   10002 : {
     id : 10002,
     name : 'Deviled Eggs',
     image : require('../../assets/images/products/10002.jpg'),
     price : 39,
-    description : 'Sample Description 3'
+    description : 'Sample Description 3',
+    category : 'Appetizer'
   },
   10003 : {
     id : 10003,
     name : ' Beer',
     image : require('../../assets/images/products/10003.jpg'),
     price : 39,
-    description : 'Sample Description 4'
+    description : 'Sample Description 4',
+    category  : 'Beverages'
   },
   10004 : {
     id : 10004,
     name : 'Coca-Cola',
     image : require('../../assets/images/products/10004.jpg'),
     price : 39,
-    description : 'Sample Description 5'
+    description : 'Sample Description 5',
+    category  : 'Beverages'
   },
   10005 : {
     id : 10005,
     name : 'Pepsi',
     image : require('../../assets/images/products/10005.jpg'),
     price : 39,
-    description : 'Sample Description 6'
+    description : 'Sample Description 6',
+    category  : 'Beverages'
   },
 }
 
@@ -79,6 +87,8 @@ export default function ItemScreen(){
   const updateQuantity = (quantity : number) => {
     setQuantity(quantity);
   }
+
+  const dispatch = useDispatch();
 
   const router = useRouter();
 

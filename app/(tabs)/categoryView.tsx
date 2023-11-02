@@ -13,7 +13,7 @@ import testBeverageData from '../../utils/testBeveragesData';
 import constantProductImages from '../../constants/Products';
 
 // HELPER
-import ParamsToInteger from '../../components/utils/helper/ParamsToInteger';
+import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
 import { Provider } from 'react-redux';
 import { Store } from '../../redux/Store';
 
