@@ -1,22 +1,23 @@
-import DropDownPicker from 'react-native-dropdown-picker'; //https://hossein-zare.github.io/react-native-dropdown-picker-website/docs
+import DropDownPicker from 'react-native-dropdown-picker';
 import React, { useState } from 'react';
-
+import { Alert, Pressable, Text, View, TextInput } from 'react-native';
+import CustomPressable from '../../components/CustomPressable';
 import { useRouter } from 'expo-router';
-import { Alert, Pressable, Text, View, Dimensions, TextInput, StyleSheet } from 'react-native';
-
 
 export default function TabOneScreen() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
     const [items, setItems] = useState([
-        {label: 'Cash', value: 'cash'},
-        {label: 'Online', value: 'online'}
+        { label: 'Cash', value: 'cash' },
+        { label: 'Online', value: 'online' }
     ]);
 
     const showAlert = () => {
         Alert.alert('Show Alert Action', 'This is a dummy action.');
     };
+
     const router = useRouter();
+
     const viewOrderSummary = () => {
       router.push('/(tabs)/orderSummary');
     }
@@ -25,41 +26,68 @@ export default function TabOneScreen() {
     }
 
     const [number, onChangeNumber] = React.useState<string>('');
+    const [inputMargin, setInputMargin] = useState(40); // Initial margin set to 40
+
+    const handleDropdownToggle = (isOpen: boolean) => {
+        setInputMargin(isOpen ? 150 : 40); // Set the margin to 150 when the dropdown is open, and 40 when it's closed
+    };
 
     return (
-        <View className="flex-1 self-stretch bg-white dark:bg-black">
-            <Pressable className="bg-transparent w-1/4" 
-            onPress={viewOrderSummary}> 
-                <Text className="text-green font-bold inset-0">Back</Text>
-            </Pressable>
-            <Text className="text-4xl ml-5 font-semibold text-green">Payment</Text>
-            <Text className="text-8xl ml-5 font-semibold text-yellow self-center">$117</Text>
-            <Text className="text-lg ml-5 font-semibold text-green self-center">Please select a mode of payment</Text>
-            
-            <DropDownPicker
-                containerStyle={{height: 40, width: 300, alignSelf: 'center'}}
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-            />
+        <View style={{ flex: 1, justifyContent: 'space-between' }} className="flex-1 self-stretch bg-white dark-bg-black">
+            <View>
+                <Text className="text-4xl ml-5 text-green" style={{ fontFamily: 'Poppins-Medium' }}>
+                    Payment
+                </Text>
+                <Text className="text-7xl mt-5 font-medium p-5 text-yellow self-center">$117</Text>
+                <Text className="text-xl mb-2 font-base text-gray self-center">
+                    Please select a mode of payment
+                </Text>
 
-            <TextInput
-                className='border border-gray-300 rounded-md p-2 m-5 mt-20 self-center w-2/3'
-                onChangeText={onChangeNumber}
-                value={number}
-                placeholder="Enter Payment Amount"
-                keyboardType="decimal-pad"
-            />
+                <DropDownPicker
+                    style={{
+                        backgroundColor: 'lightgray',
+                        borderColor: 'lightgray',
+                        borderWidth: 2,
+                    }}
+                    textStyle={{
+                        fontSize: 14,
+                        fontWeight: 'bold',
+                        color: 'gray',
+                    }}
+                    containerStyle={{ height: 40, width: 275, alignSelf: 'center' }}
+                    dropDownContainerStyle={{
+                        backgroundColor: 'white',
+                        borderColor: 'lightgray',
+                    }}
+                    itemSeparator={true}
+                    itemSeparatorStyle={{
+                        backgroundColor: 'lightgray',
+                        height: 1,
+                    }}
+                    placeholder="Mode of Payment"
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                    onOpen={() => handleDropdownToggle(true)}
+                    onClose={() => handleDropdownToggle(false)} 
+                />
 
-            <Pressable className="bg-transparent w-2/3 self-center bg-green items-center rounded-full py-2 px-4 mb-5 ml-2" 
-              onPress={viewReceipt}>
-              <Text className="text-white text-xl font-bold">Confirm Payment</Text>
-            </Pressable>
+                <TextInput
+                    className="border-2 border-gray rounded-xl p-2 m-5 mt-40 self-center w-2/3 text-gray text-base font-semibold"
+                    onChangeText={onChangeNumber}
+                    value={number}
+                    placeholder="Enter Payment Amount"
+                    keyboardType="decimal-pad"
+                    style={{ marginTop: inputMargin }}
+                />
+            </View>
+
+            <View>
+                <CustomPressable text="Confirm Payment" onPress={viewReceipt} />
+            </View>
         </View>
-
-);
-
+    );
 }

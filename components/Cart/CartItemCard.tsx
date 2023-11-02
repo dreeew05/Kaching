@@ -40,7 +40,7 @@ export default function CartItemCard(item: CartItemProps) {
             />
         </View>
         <View className='flex-1 ml-5'>
-          <Text className="text-lg text-green"
+          <Text className="text-lg text-darkgreen"
             style={{fontFamily: 'Poppins-Medium'}}>
             {item.name}
           </Text>
@@ -48,10 +48,10 @@ export default function CartItemCard(item: CartItemProps) {
             style={{fontFamily: 'Poppins-Regular'}}>
             {item.category}
           </Text>
-          <Text className='text-md text-black'>
-            {subtotalPrice}
+          <Text className='text-md text-black mt-3'>
+            ${subtotalPrice}
           </Text>
-          <View className='mt-12'>
+          <View className='mt-6'>
             <Stepper 
                 quantity={quantity}
                 updateQuantity={updateQuantity}

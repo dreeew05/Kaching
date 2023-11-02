@@ -40,15 +40,6 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
-          headerLeft: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen  
@@ -56,8 +47,16 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="orderSummary"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
           headerLeft: () => (
-            <Link href="/modal" asChild>
+            <Link href="/cart" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
@@ -68,19 +67,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="orderSummary"
-        options={{
-          title: 'Order Summary',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null, // Hide this tab from the tab bar
-        }}
-      />
-      <Tabs.Screen
         name="payment"
         options={{
-          title: 'Payment',
+          title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/cart" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                )}
+              </Pressable>
+            </Link>        
+          ),
         }}
       />
       <Tabs.Screen

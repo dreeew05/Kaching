@@ -2,34 +2,26 @@ import { useRouter } from "expo-router";
 import { View, Text, Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import { selectCartTotalPrice } from "../../redux/CartSelectors";
+import CustomPressable from "../CustomPressable";
 
 export default function CartTotal() {
+  const router = useRouter();
+  const cartState = useSelector(selectCartTotalPrice);
 
-    const router = useRouter();
+  const viewOrderSummary = () => {
+    router.push('/(tabs)/orderSummary');
+  };
 
-    const viewOrderSummary = () => {
-        router.push('/(tabs)/orderSummary')
-    }
+  // Disable checkout button if cart is empty
+  const isCheckoutDisabled = cartState === 0;
 
-    const cartState = useSelector(selectCartTotalPrice);
-
-    return(
-        <View>
-            <View className='flex-row justify-between p-4 border-spacing-3
-                border-2 border-white border-t-darkgreen'
-            >
-                <Text className="text-2xl">Total price:</Text>
-                <Text className="text-2xl">{cartState}</Text>
-            </View>
-            
-            <Pressable className="bg-transparent w-2/3 self-center bg-green
-                items-center rounded-full py-2 px-4 mb-5 ml-2" 
-                onPress={viewOrderSummary}
-            >
-                <Text className="text-white text-xl font-bold">
-                    Checkout
-                </Text>
-            </Pressable>
-        </View>
-    )
+  return (
+    <View>
+      <View className='flex-row justify-between p-4 border-spacing-3 border-2 border-white border-t-neutral-300'>
+        <Text className="text-xl text-gray" style={{ fontFamily: 'Poppins-Regular' }}>Total price:</Text>
+        <Text className="text-3xl" style={{ fontFamily: 'Poppins-Regular' }}>${cartState}</Text>
+      </View>
+      <CustomPressable text="Checkout" onPress={viewOrderSummary} disabled={isCheckoutDisabled} />
+    </View>
+  );
 }

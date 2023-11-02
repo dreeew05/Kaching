@@ -1,25 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, View, Text } from 'react-native';
 
-
 // INTERFACE
-import { OrderSummaryProps } from '../interfaces/OrderSummaryProps';
+import { OrderSummaryProps } from '../utils/interfaces/OrderSummaryProps';
 
-export default function OrderSummaryItemCard(item : OrderSummaryProps) {
-    
+export default function OrderSummaryItemCard(item: OrderSummaryProps) {
     return (
-        <View className='flex flex-row bg-gray rounded m-3 p-1 justify-between'>
-            <Image source ={ item.image } 
-            style={{ width: 50, height: 50, marginRight: 10, marginLeft: 2 }} 
-            className='rounded border-2 self-center'
-            />
+        <View className="flex flex-row items-center bg-slate-200 rounded-xl m-3 p-1 justify-between">
+            <Image source={item.image} className="w-16 h-16 rounded border-4 self-center m-1" />
             
-            <View className='self-center flex-1'>
-                <Text className="text-lg font-semibold">{item.name}</Text>
-                <Text className="text-md text-darkgray">${item.totalPrice}</Text>
+            <View className="w-16">
+                <Text
+                    className="text-lg font-medium text-gray"
+                    numberOfLines={1} // limit the number of lines to 1
+                    ellipsizeMode="tail" // add ellipsis at the end of the truncated text
+                >{item.name}
+                </Text>
             </View>
-            <Text className="text-lg mr-5 font-base self-center">{item.quantity}</Text>
-        
+            
+            <View className="w-16">
+                <Text className="text-lg text-gray self-center">${item.totalPrice}</Text>
+            </View>
+
+            <View className="w-16">
+                <Text className="text-lg text-gray self-center">{item.quantity}</Text>
+            </View>
+            
+            <View className="w-16">
+                <Text className="text-lg font-medium text-gray self-center">
+                    ${item.totalPrice * item.quantity}
+                </Text>
+            </View>
         </View>
     );
 }
