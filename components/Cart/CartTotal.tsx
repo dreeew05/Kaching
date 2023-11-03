@@ -17,11 +17,25 @@ export default function CartTotal() {
 
   return (
     <View>
-      <View className='flex-row justify-between p-4 border-spacing-3 border-2 border-white border-t-neutral-300'>
-        <Text className="text-xl text-gray" style={{ fontFamily: 'Poppins-Regular' }}>Total price:</Text>
-        <Text className="text-3xl" style={{ fontFamily: 'Poppins-Regular' }}>${cartState}</Text>
+      <View className='flex-row justify-between 
+        p-4 border-spacing-3 border-2 border-white
+        border-t-neutral-300'
+      >
+        <Text className="text-xl text-gray" 
+          style={{ fontFamily: 'Poppins-Regular' }}
+        >
+          Total price:
+        </Text>
+        <Text className="text-3xl" 
+          style={{ fontFamily: 'Poppins-Regular' }}
+        >
+          ${cartState}
+        </Text>
       </View>
-      <CustomPressable text="Checkout" onPress={viewOrderSummary} disabled={isCheckoutDisabled} />
+      <CustomPressable text="Checkout" 
+        onPress={viewOrderSummary} 
+        disabled={isCheckoutDisabled} 
+      />
     </View>
   );
 }
