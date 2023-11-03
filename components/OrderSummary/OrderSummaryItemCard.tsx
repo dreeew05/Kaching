@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, View, Text } from 'react-native';
 
 // INTERFACE
-import { OrderSummaryProps } from '../utils/interfaces/OrderSummaryProps';
+import { OrderSummaryProps } from '../__utils__/interfaces/OrderSummaryProps';
 
 export default function OrderSummaryItemCard(item: OrderSummaryProps) {
     return (
