@@ -1,31 +1,18 @@
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
+import PreviousDatesScrollView from '../../components/PreviousDatesGenerator';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function TabTwoScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Previous EOD</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+    <View className='flex-1 items-center justify-center'>
+      <View className='w-full flex-row justify-between px-6'>
+        <Text className='text-2xl'>
+          Recent EOD's
+        </Text>
+        <Ionicons name="calendar-sharp" size={30} color="#FFAD42" />
+      </View>
+        <PreviousDatesScrollView numDates={30} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+;
