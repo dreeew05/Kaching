@@ -100,7 +100,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="modifyCategories"
+        name="modifyCategoryView"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
@@ -108,7 +108,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="addCategory"
+        name="modifyCategory"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
