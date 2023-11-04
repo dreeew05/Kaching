@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, Image, Text, ImageSourcePropType } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,29 +10,29 @@ export default function modifyCategory() {
 
     const param = useLocalSearchParams();
 
-    let defaultName = '',
-        defaultImage = null;
+    const [categoryName, setCategoryName] = useState('');
+    const [image, setImage] = useState<ImageSourcePropType | null>(null);
 
-    if(param.operation == "editCategory") {
+    useEffect(() => {
+        if(param.operation == "editCategory") {
+            const id = ParamsToInteger(param.id)
 
-        const id = ParamsToInteger(param.id)
-
-        console.log(id)
-
-        const getData = (id : number) => {
-            // HARD-CODED TEST DATA [MUST CHANGE]
-            return {
-                name : 'Test Name',
-                image : require('../../assets/icons/blank.jpg')
+            const getData = (id : number) => {
+                // HARD-CODED TEST DATA [MUST CHANGE]
+                return {
+                    name : 'Test Name ' + id,
+                    image : require('../../assets/icons/blank.jpg')
+                }
             }
+
+            setCategoryName(getData(id).name)   
+            setImage(getData(id).image)
+        }  
+        else {
+            setCategoryName('')
+            setImage(null)
         }
-
-        defaultName  = getData(id).name;
-        defaultImage = getData(id).image;
-    }   
-
-    const [categoryName, setCategoryName] = useState(defaultName);
-    const [image, setImage] = useState(defaultImage);
+    }, [param])
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -42,10 +42,13 @@ export default function modifyCategory() {
             quality: 1,
         });
 
-    //     console.log(result);
+        console.log(result);
 
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            const pickedImage : ImageSourcePropType = {
+                uri : result.assets[0].uri
+            }
+            setImage(pickedImage)
         }
     };
 
