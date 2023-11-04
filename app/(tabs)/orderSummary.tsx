@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 // COMPONENTS
 import OrderSummaryGenerator from '../../components/OrderSummary/OrderSummaryGenerator';

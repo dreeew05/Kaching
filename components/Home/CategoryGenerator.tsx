@@ -11,7 +11,7 @@ export default function CategoryGenerator() {
     const router = useRouter();
 
     const editCategories = () => {
-        router.push('/(tabs)/modifyCategories')
+        router.push('/(tabs)/modifyCategoryView')
     }
 
     return(
