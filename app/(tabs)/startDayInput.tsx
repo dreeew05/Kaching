@@ -1,3 +1,4 @@
+// startDayInput.tsx
 import React, { useState } from 'react';
 import { Alert, View, Text } from 'react-native';
 import StartDayInput from '../../components/StartDay';
@@ -13,11 +14,7 @@ export default function ParentComponent() {
   const [startDayData, setStartDayData] = useState<StartDayData | null>(null);
 
   const handleStartDay = (startDayData: StartDayData) => {
-    // Handle the start day action, e.g., send the data to your backend
-    // You can also store the data in state
     setStartDayData(startDayData);
-
-    // Perform any other actions you need here
     Alert.alert('Show Alert Action', 'This is a dummy action.');
   };
 
