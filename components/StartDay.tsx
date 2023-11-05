@@ -72,7 +72,7 @@ export default function StartDayInput({ onStartDay }: StartDayInputProps) {
             <Pressable className="bg-transparent w-4/6 self-center mt-10 bg-green items-center rounded-full py-2 px-4 mb-5 ml-2" 
                 onPress={handleStartDay}>
 
-                <Text className="text-white text-xl font-bold">Start Day</Text>
+                <Text className="text-white text-xl font-bold">Confirm Start Day</Text>
             </Pressable>
         </View>
     );
