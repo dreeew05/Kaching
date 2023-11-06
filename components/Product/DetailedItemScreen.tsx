@@ -6,6 +6,7 @@ import { addToCart } from "../../redux/CartSlice";
 import { useRouter } from "expo-router";
 import { Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import ModifyItem from "../../../Kaching/app/(tabs)/ModifyItem";
 import Stepper from "../Stepper";
 
 export default function DetailedItemScreen(item : DetailedItemProps) {
@@ -31,15 +32,11 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
 
     const router = useRouter();
 
-    const gotToAddItem = () => {
-        router.push('/(tabs)/AddItemScreen')
-    }
 
     return(
         <View className="flex-1 h-full relative z-0">
             <View className="h-96 px-3">
                 <Pressable
-                    onPress={gotToAddItem}
                     className="absolute z-10 top-1 right-2.5 h-8">
                     <FontAwesome name="edit" size={38} color="white" />
                 </Pressable>

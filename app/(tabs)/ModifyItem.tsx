@@ -4,14 +4,19 @@ import { Image, StyleSheet, Pressable, TextInput, Button} from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import * as ImagePicker from "expo-image-picker";
 import { AntDesign } from '@expo/vector-icons';
+import { useLocalSearchParams } from "expo-router";
+
+import { DetailedItemProps } from '../../components/__utils__/interfaces/DetailedItemProps';
 
 
-export default function AddItemScreen(){
+
+export default function ModifyItem(item : DetailedItemProps){
   const [name, onChangeName] = useState('');
   const [price, onChangePrice] = useState('');
   const [info, onChangeInfo] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  const [saveInput, setInput] = useState(false)
+
+  const params = useLocalSearchParams();
 
 
   const isAnyInputEmpty = () => {
