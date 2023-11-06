@@ -1,13 +1,39 @@
-import React from "react";
-import { View, TouchableOpacity, Image, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, TouchableOpacity, Image, Text, ImageSourcePropType } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from 'expo-image-picker';
+import { useLocalSearchParams } from "expo-router";
+import ParamsToInteger from "../../components/__utils__/helper/ParamsToInteger";
 
-export default function addCategory() {
-    const [text, onChangeText] = React.useState('');
-    
-    const [image, setImage] = React.useState<string | null>(null);
+export default function modifyCategory() {
+
+    const param = useLocalSearchParams();
+
+    const [categoryName, setCategoryName] = useState('');
+    const [image, setImage] = useState<ImageSourcePropType | null>(null);
+
+    useEffect(() => {
+        if(param.operation == "editCategory") {
+            const id = ParamsToInteger(param.id)
+
+            const getData = (id : number) => {
+                // HARD-CODED TEST DATA [MUST CHANGE]
+                return {
+                    name : 'Test Name ' + id,
+                    image : require('../../assets/icons/blank.jpg')
+                }
+            }
+
+            setCategoryName(getData(id).name)   
+            setImage(getData(id).image)
+        }  
+        else {
+            setCategoryName('')
+            setImage(null)
+        }
+    }, [param])
+
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -19,7 +45,10 @@ export default function addCategory() {
         console.log(result);
 
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            const pickedImage : ImageSourcePropType = {
+                uri : result.assets[0].uri
+            }
+            setImage(pickedImage)
         }
     };
 
@@ -28,7 +57,7 @@ export default function addCategory() {
             <View className="h-60 w-60 justify-center items-center">
                 {image && 
                     <Image 
-                        source={{ uri: image }} 
+                        source={image} 
                         style={{ width: 200, height: 200 }}
                         className="absolute top-1.8
                             rounded-md" 
@@ -45,8 +74,8 @@ export default function addCategory() {
                 <SafeAreaView>
                     <TextInput
                         className="w-100 text-center border-b-2 border-gray-500"
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={setCategoryName}
+                        value={categoryName}
                         // MAY SPACE ANG PLACEHOLDER HEHE [DI KO BALAN PANO MAINCREASE ANG WIDTH]
                         placeholder="                                               
                             "

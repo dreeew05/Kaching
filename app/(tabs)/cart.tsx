@@ -2,10 +2,10 @@ import { Text, View, ScrollView } from 'react-native';
 // import { PopUpModal } from '../../components/PopUpModal'
 
 // TEST DATA
-import CartTotal from '../../components/Cart/CartTotal';
 import { Provider } from 'react-redux';
 import { Store } from '../../redux/Store';
 import CartItemsGenerator from '../../components/Cart/CartItemsGenerator';
+import Total from '../../components/Common/Total';
 
 export default function CartScreen() {
       
@@ -15,7 +15,7 @@ export default function CartScreen() {
 
         <CartItemsGenerator/>
 
-        <CartTotal/>
+        <Total page='cart'/>
       </View>
     </Provider>
   );

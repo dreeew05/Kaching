@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-native-modern-datepicker';
 
-const CalendarPicker: React.FC = () => {
+const CalendarPicker = () => {
   const [selectedDate, setSelectedDate] = useState('');
  
     const currentDate = new Date();

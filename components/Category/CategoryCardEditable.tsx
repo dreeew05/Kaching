@@ -2,19 +2,16 @@ import React from "react";
 import { Pressable, View, Text, Alert, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "expo-router";
 
 // INTERFACE
-import { CategoryProps } from "../interfaces/CategoryProps";
+import { CategoryProps } from "../__utils__/interfaces/CategoryProps";
 
 // COMPONENT
 import CategoryCard from "./CategoryCard";
 
 export default function CategoryCardEditable(
     { id, name, image } : CategoryProps ) {
-
-    const editAction = () => {
-        Alert.alert('Edit ' + id);
-    }
 
     const deleteAlert = (id : number) => {
         Alert.alert('Delete Category?', '', [
@@ -40,13 +37,21 @@ export default function CategoryCardEditable(
                 image = {image}
             />
 
-            <TouchableOpacity className="h-7 rounded-md bg-green 
-                justify-center items-center"
-                onPress={editAction}>
+            <Link href={{
+                pathname : "/(tabs)/modifyCategory",
+                params : {
+                    operation : 'editCategory',
+                    id : id
+                }
+            }} asChild>
+                <TouchableOpacity className="h-7 rounded-md bg-green 
+                    justify-center items-center"
+                >
 
-                <Text className="text-white">Edit</Text>
+                    <Text className="text-white">Edit</Text>
 
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </Link>
 
             <Pressable className="h-8 p-1.5 absolute top-2 right-2
                 bg-red-500 rounded-md"

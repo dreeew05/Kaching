@@ -6,6 +6,9 @@ import SaleDashboard from '../../components/Home/SaleDashboard';
 import CategoryGenerator from '../../components/Home/CategoryGenerator';
 
 export default function HomeScreen() {
+  // Hide/Show start day pressable
+  const hasStartDayData = true;
+  const cashierName = 'Palmsdale Kevin'; // Replace with the actual cashier name
   
   return (
 
@@ -14,7 +17,7 @@ export default function HomeScreen() {
 
         <StoreInformationGenerator/>
 
-        <DayStarter/>
+        <DayStarter hasStartDayData={hasStartDayData} cashierName={cashierName} />
 
         <SaleDashboard/>
 

@@ -1,4 +1,4 @@
-import { CategoryProps } from "../components/interfaces/CategoryProps";
+import { CategoryProps } from "../components/__utils__/interfaces/CategoryProps";
 
 const categories : CategoryProps[] = [
     {

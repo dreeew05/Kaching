@@ -11,7 +11,7 @@ export default function OrderSummaryGenerator() {
             id : item.id,
             name : item.name,
             quantity : item.quantity,
-            totalPrice : item.quantity * item.price,
+            totalPrice : item.price,
             image : item.image
         })
     )

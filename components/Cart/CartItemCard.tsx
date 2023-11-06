@@ -25,12 +25,19 @@ export default function CartItemCard(item: CartItemProps) {
 
   const updateQuantityEvent = (quantity : number) => {
     setQuantity(quantity)
-    dispatch(
-      updateItemQuantity({
-        id : item.id,
-        quantity : quantity
-      })
-    )
+    if(quantity == 0) {
+      dispatch(
+        removeFromCart(item.id)
+      )
+    }
+    else {
+      dispatch(
+        updateItemQuantity({
+          id : item.id,
+          quantity : quantity
+        })
+      )
+    }
   }
 
   useEffect(() => {
