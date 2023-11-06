@@ -10,7 +10,7 @@ interface TableData {
   tableData: string[][];
 }
 
-const CSVComponent: React.FC<{ data: TableData }> = ({ data }) => {
+const ShareCSV: React.FC<{ data: TableData }> = ({ data }) => {
   const [csvData, setCSVData] = useState('');
   const [csvFileName, setCSVFileName] = useState('');
   const [csvFilePath, setCSVFilePath] = useState('');
@@ -83,4 +83,4 @@ const CSVComponent: React.FC<{ data: TableData }> = ({ data }) => {
   );
 };
 
-export default CSVComponent;
+export default ShareCSV;

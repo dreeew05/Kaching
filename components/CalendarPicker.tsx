@@ -1,20 +1,39 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-native-modern-datepicker';
+import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
 
-const CalendarPicker: React.FC = () => {
+interface CalendarPickerProps {
+  onDateFromPicker: (date: Date) => void;
+}
+
+const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDateFromPicker }) => {
   const [selectedDate, setSelectedDate] = useState('');
- 
-    const currentDate = new Date();
-    const previousDate = new Date(currentDate);
-    previousDate.setDate(currentDate.getDate() - 1);
 
-    const fixDate = new Intl.DateTimeFormat(['ban', 'id']).format(previousDate);
-    const formattedDate = fixDate.split('/').reverse().join('-');
+  const intoDateObject = (date: string): Date => {
+    // Function to convert a date string into a date object
+    const dateParts = date.split('/');
+    const year = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1;
+    const day = parseInt(dateParts[2]);
+    const dateObject = new Date(year, month, day+1);
+    return dateObject;
+  };
 
-    //send selectedDate to output something
+  const currentDate = new Date();
+  const previousDate = new Date(currentDate);
+  previousDate.setDate(currentDate.getDate() - 1);
+
+  const fixDate = getFormatedDate(previousDate, 'YYYY-MM-DD')
+  const maximumDate = fixDate.split('/').join('-');
+
+  const sendDataToParent = () => {
+    // Function to send data to the parent
+    onDateFromPicker(intoDateObject(selectedDate));
+  };
+  sendDataToParent();
+
   return (
     <DatePicker
-        maximumDate={formattedDate}
+        maximumDate={maximumDate}
         onSelectedChange={date => setSelectedDate(date)}
         options={{
         backgroundColor: '#ffffff',
@@ -25,8 +44,8 @@ const CalendarPicker: React.FC = () => {
         textSecondaryColor: '#CD9250',
         borderColor: '#CCCCCC',
         }}
-        current={formattedDate}
-        selected={formattedDate}
+        current={maximumDate}
+        selected={maximumDate}
         mode="calendar"
         style={{ borderRadius: 10,}}
         />

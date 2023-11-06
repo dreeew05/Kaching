@@ -3,15 +3,15 @@ import React from 'react';
 import { ScrollView, Pressable } from 'react-native';
 import { Text, View } from './Themed';
 
-
 interface PreviousDatesScrollViewProps {
   numDates: number;
+  getDate: (date: Date) => void;
 }
 
-const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ numDates }) => {
+const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ numDates, getDate }) => {
   // Function to generate an array of previous dates
-  const generatePreviousDates = (numDays: number): string[] => {
-    const dates: string[] = [];
+  const generatePreviousDates = (numDays: number): [string, Date][] => {
+    const dates: [string, Date][] = [];
     const today = new Date();
 
     for (let i = 1; i < numDays; i++) {
@@ -25,26 +25,31 @@ const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ numDa
           year: 'numeric',
         });
   
-        dates.push(formattedDate);
+        dates.push([formattedDate, previousDate]);
       }
       
     return dates;
   };
 
   // Generate an array of previous dates based on the provided prop
-  const previousDates: string[] = generatePreviousDates(numDates);
+  const previousDates: [string, Date][] = generatePreviousDates(numDates);
+
+  const sendDataToParent = (date: Date) => {
+    // Function to send data to the parent
+    getDate(date);
+  };
 
   return (
     <ScrollView className='flex-1 w-full'>
         <View className='px-6 py-4 items-center'>
             {previousDates.map((date, index) => (
                 <Pressable 
-                    //onPress={() => console.log('Be dynamic here')}
+                    onPress={() => sendDataToParent(date[1])}
                     className='p-4 w-full my-3 rounded-xl border-2 border-gray'
                     key={index}>
                     <Text 
                         className='text-base text-green font-bold mx-2'>
-                        {date}
+                        {date[0]}
                     </Text>
                 </Pressable>
                 ))}
