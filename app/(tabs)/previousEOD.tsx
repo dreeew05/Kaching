@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { Modal, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import PreviousDatesScrollView from '../../components/PreviousDatesGenerator';
 import CalendarPicker from '../../components/CalendarPicker';
 import { Ionicons } from '@expo/vector-icons';
 
+
 export default function TabTwoScreen() {
   const [showCalendar, setShowCalendar] = useState(false);
+  let date = new Date();
+
+  const handleDateFromPicker = (dateSelected: Date) => {
+    date = dateSelected;
+  };
 
   return (
     <>
@@ -24,7 +30,7 @@ export default function TabTwoScreen() {
           <Text className='text-2xl font-bold pb-6 text-green'>
             Choose a date
           </Text>
-          <CalendarPicker />
+          <CalendarPicker onDateFromPicker={handleDateFromPicker}/>
         </View>
         </View>
         ) 
@@ -40,7 +46,7 @@ export default function TabTwoScreen() {
               <Ionicons name="calendar-sharp" size={30} color="#FFAD42" />
             </Pressable>
             </View>
-          <PreviousDatesScrollView numDates={31} />
+          <PreviousDatesScrollView numDates={31} getDate={handleDateFromPicker} />
         </View>
         )
       }

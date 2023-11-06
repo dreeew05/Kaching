@@ -1,8 +1,7 @@
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import EditScreenInfo from '../../components/EditScreenInfo';
+import { Alert, StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import FinancialSummary from '../../components/FinancialSummaryTable';
-import CSVComponent from '../../components/ShareCSV';
+import ShareCSV from '../../components/ShareCSV';
 import CategoryTable from '../../components/CategoryTable';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -92,7 +91,7 @@ export default function currentEOD() {
         {/* END ORDER SUMMARY */}
 
         <View className='mt-5 mb-5'>
-          <CSVComponent data={table3}/>
+          <ShareCSV data={table3}/>
         </View>
 
       </View>
