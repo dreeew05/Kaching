@@ -1,10 +1,11 @@
 import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
-
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import FinancialSummary from '../../components/FinancialSummaryTable';
+import CSVComponent from '../../components/ShareCSV';
 import CategoryTable from '../../components/CategoryTable';
 import { ScrollView } from 'react-native-gesture-handler';
+
 
 export default function currentEOD() {
   // TEST DATA
@@ -40,10 +41,7 @@ export default function currentEOD() {
                   ['Muffins', 'x100', 'P100.00']]
     }
   // END TEST DATA
-
-  const shareCSV = () => {
-    Alert.alert('Sharing CSV')
-  }
+  
 
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}>
@@ -94,14 +92,7 @@ export default function currentEOD() {
         {/* END ORDER SUMMARY */}
 
         <View className='mt-5 mb-5'>
-          <TouchableOpacity 
-            className='bg-green w-40 h-10 justify-center rounded-full'
-            onPress={shareCSV}
-          >
-            <Text className='text-white text-center'>
-              Share CSV File
-            </Text>
-          </TouchableOpacity>
+          <CSVComponent data={table3}/>
         </View>
 
       </View>
