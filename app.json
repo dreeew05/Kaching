@@ -39,16 +39,7 @@
     },
     "permissions": [
       "CAMERA",
-      "READ_EXTERNAL_STORAGE",
-      "WRITE_EXTERNAL_STORAGE"
-    ],
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "2736f815-154b-42d0-a1a3-4243f511a59b"
-      }
-    }
+      "READ_EXTERNAL_STORAGE"
+    ]
   }
 }
