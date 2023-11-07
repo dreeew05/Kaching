@@ -90,6 +90,7 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
                 <View className="w-2/5">
                 
                     <Stepper
+                        id={item.id}
                         quantity={quantity}
                         updateQuantity={updateQuantity}
                     />
