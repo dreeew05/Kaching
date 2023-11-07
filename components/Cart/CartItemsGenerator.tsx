@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectCart } from "../../redux/CartSelectors";
 import CartItemList from "./CartItemList";
-import { View, Image, Text } from "react-native";
+import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
 

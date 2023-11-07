@@ -1,22 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, View, Image } from "react-native";
 import { DetailedItemProps } from "../__utils__/interfaces/DetailedItemProps";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/CartSlice";
 import { useRouter } from "expo-router";
 import { Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Stepper from "../Stepper";
+import { RootState } from "../../redux/Store";
+import { selectCartItem } from "../../redux/CartSelectors";
 
 export default function DetailedItemScreen(item : DetailedItemProps) {
-    
-    const [quantity, setQuantity] = useState(0);
+
+    const dispatch = useDispatch();
+    const itemState = useSelector((state : RootState) => 
+        selectCartItem(state, item.id)
+    )
+
+    const getStartingQuantity = () => {
+        let startingQuantity = 0
+        if(itemState != undefined) {
+            startingQuantity = itemState.quantity
+        }
+        return startingQuantity
+    }
+
+    const [quantity, setQuantity] = useState(getStartingQuantity);
 
     const updateQuantity = (quantity : number) => {
         setQuantity(quantity);
     }
-
-    const dispatch = useDispatch();
     
     const addToCartEvent = () => {
         dispatch(addToCart({
@@ -34,6 +47,12 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
     const gotToAddItem = () => {
         router.push('/(tabs)/AddItemScreen')
     }
+
+    useEffect(() => {
+        if(itemState != undefined) {
+            setQuantity(itemState.quantity)
+        }
+    }, [itemState])
 
     return(
         <View className="flex-1 h-full relative z-0">

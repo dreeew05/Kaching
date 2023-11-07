@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Pressable, Text } from "react-native";
 
 interface StepperProps {
-    quantity : number;
-    updateQuantity : (newQuantity : number) => void;
+    id : number,
+    quantity : number,
+    updateQuantity : (newQuantity : number) => void
 }
 
 export default function Stepper(parentMixIn : StepperProps) {
+
     const [value, setValue] = useState(parentMixIn.quantity);
 
     const incrementQuantity = () => {
@@ -20,6 +22,10 @@ export default function Stepper(parentMixIn : StepperProps) {
             parentMixIn.updateQuantity(value - 1);
         }
     }
+
+    useEffect(() => {
+        setValue(parentMixIn.quantity)
+    }, [parentMixIn.quantity])
 
     return(
         <View className="flex flex-row
