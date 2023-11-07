@@ -41,6 +41,10 @@ export default function CartItemCard(item: CartItemProps) {
   }
 
   useEffect(() => {
+    setQuantity(item.quantity)
+  }, [item.quantity])
+
+  useEffect(() => {
     setSubtotalPrice(() => item.price * quantity);
   }, [quantity])
 
@@ -66,6 +70,7 @@ export default function CartItemCard(item: CartItemProps) {
           </Text>
           <View className='mt-6'>
             <Stepper 
+                id={item.id}
                 quantity={quantity}
                 updateQuantity={updateQuantityEvent}
             />

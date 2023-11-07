@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, View, Text, Pressable, ImageSourcePropType, TouchableOpacity } from 'react-native';
-
-// COMPONENTS
+import { Link } from 'expo-router';
+import { selectCartItem } from '../../redux/CartSelectors';
 import Stepper from '../Stepper';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartSlice';
-
-// TEST
-import { Link } from 'expo-router';
+import { RootState } from '../../redux/Store';
 
 type Item = {
     id: number;
@@ -23,6 +21,9 @@ type itemCardProps = {
 export default function ItemCard({ item }: itemCardProps) {
     
     const dispatch = useDispatch();
+    const itemState = useSelector((state : RootState) => 
+        selectCartItem(state, item.id)
+    )
 
     const [quantity, setQuantity] = useState(0);
 
@@ -40,6 +41,12 @@ export default function ItemCard({ item }: itemCardProps) {
             category : 'Test Category',
         }));
     }
+
+    useEffect(() => {
+        if(itemState != undefined) {
+            setQuantity(itemState.quantity)
+        }
+    }, [itemState])
     
     return (
         <View className='ml-3 mr-3 mb-5'>
@@ -76,7 +83,8 @@ export default function ItemCard({ item }: itemCardProps) {
             <View className='flex flex-row items-center'>
                 <View className="flex items-center">
                     <Stepper 
-                        quantity={0}
+                        id={item.id}
+                        quantity={quantity}
                         updateQuantity={updateQuantity}
                     />
                 </View>
