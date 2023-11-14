@@ -14,6 +14,10 @@ export default function Total({ page } : TotalProps) {
 
     const cartState = useSelector(selectCartTotalPrice);
 
+    const totalPrice = page === 'summary' 
+        ? cartState + (cartState * 0.25)
+        : cartState
+
     const viewOrderSummary = () => {
         router.push('/(tabs)/orderSummary')
     }
@@ -40,7 +44,7 @@ export default function Total({ page } : TotalProps) {
                 <Text className="text-3xl" 
                     style={{ fontFamily: 'Poppins-Regular' }}
                 >
-                    ${cartState}
+                    ${totalPrice}
                 </Text>
             </View>
 

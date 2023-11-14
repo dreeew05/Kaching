@@ -1,16 +1,13 @@
-import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 
 // COMPONENTS
 import OrderSummaryGenerator from '../../components/OrderSummary/OrderSummaryGenerator';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { Store } from '../../redux/Store'; 
 import OrderSummaryTable from '../../components/OrderSummary/OrderSummaryTable';
 import Total from '../../components/Common/Total';
 
 export default function TabOneScreen() {
-    
-    const router = useRouter();
 
     return (
         <Provider store={Store}>

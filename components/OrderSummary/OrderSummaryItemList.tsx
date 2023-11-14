@@ -7,24 +7,30 @@ import constantProducts from '../../constants/Products';
 // INTERFACE
 import { OrderSummaryListProps } from '../__utils__/interfaces/OrderSummaryProps';
 import OrderSummaryItemCard from './OrderSummaryItemCard';
+import ServiceFee from '../client/serviceFee';
 
 const OrderSummaryItemList : React.FC<OrderSummaryListProps> = ({ cart }) => {
     return(
         <ScrollView>
-                {cart.map((item) => {
-                    item.image = constantProducts[item.id]
-                    return(
-                        <View key={item.id}>
-                            <OrderSummaryItemCard
-                                id={item.id}
-                                name={item.name}
-                                image={item.image}
-                                quantity={item.quantity}
-                                totalPrice={item.totalPrice}
-                            />
-                        </View>
-                    )
-                })}
+            {cart.map((item) => {
+                item.image = constantProducts[item.id]
+                return(
+                    <View key={item.id}>
+                        <OrderSummaryItemCard
+                            id={item.id}
+                            name={item.name}
+                            image={item.image}
+                            quantity={item.quantity}
+                            totalPrice={item.totalPrice}
+                        />
+                    </View>
+                )
+            })}
+
+            {/* STUPID CLIENT [START] */}
+            <ServiceFee/>
+            {/* STUDPID CLIENT [END] */}
+
         </ScrollView>
     )
 }
