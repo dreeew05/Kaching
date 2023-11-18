@@ -7,7 +7,7 @@ import constantProducts from '../../constants/Products';
 // INTERFACE
 import { OrderSummaryListProps } from '../__utils__/interfaces/OrderSummaryProps';
 import OrderSummaryItemCard from './OrderSummaryItemCard';
-import ServiceFee from '../client/serviceFee';
+import ServiceFee from '../client/ServiceFee';
 
 const OrderSummaryItemList : React.FC<OrderSummaryListProps> = ({ cart }) => {
     return(
