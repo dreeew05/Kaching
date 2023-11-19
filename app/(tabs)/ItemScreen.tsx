@@ -7,9 +7,10 @@ import { DetailedItemProps } from '../../components/__utils__/interfaces/Detaile
 import DetailedItemScreen from '../../components/Product/DetailedItemScreen';
 import { Store } from '../../redux/Store';
 import RainbowBackground from '../../components/Rainbow';
+import { ExtendedDetailedItemProps } from '../../components/__utils__/interfaces/ExtendedDetailedItemProps';
 
 interface tesDataProps {
-  [id : number] : DetailedItemProps
+  [id : number] : ExtendedDetailedItemProps
 }
 
 // TEST DATA
@@ -22,7 +23,8 @@ const testData : tesDataProps = {
     image : require('../../assets/images/products/10000.jpg'),
     price : 5.99,
     description : 'Sample Descrption 1',
-    category : 'Appetizer'
+    category : 'Appetizer',
+    tags: ['Vegetarian', 'Dairy-free', 'Low-carb']
   },
   10001 : {
     id : 10001,
@@ -30,7 +32,8 @@ const testData : tesDataProps = {
     image : require('../../assets/images/products/10001.jpg'),
     price : 7.99,
     description : 'Sample Description 2',
-    category : 'Appetizer'
+    category : 'Appetizer',
+    tags: ['Herby', 'Tangy', 'Summer Food']
   },
   10002 : {
     id : 10002,
@@ -38,7 +41,8 @@ const testData : tesDataProps = {
     image : require('../../assets/images/products/10002.jpg'),
     price : 9.99,
     description : 'Sample Description 3',
-    category : 'Appetizer'
+    category : 'Appetizer',
+    tags: ['Keto', 'Party Food', 'Summer Food']
   },
   10003 : {
     id : 10003,
@@ -46,7 +50,8 @@ const testData : tesDataProps = {
     image : require('../../assets/images/products/10003.jpg'),
     price : 1.99,
     description : 'Sample Description 4',
-    category  : 'Beverages'
+    category  : 'Beverages',
+    tags: ['Lager', 'Gose', 'Malty', 'Hoppy']
   },
   10004 : {
     id : 10004,
@@ -54,7 +59,8 @@ const testData : tesDataProps = {
     image : require('../../assets/images/products/10004.jpg'),
     price : 1.99,
     description : 'Sample Description 5',
-    category  : 'Beverages'
+    category  : 'Beverages',
+    tags: ['Caffeine', 'Soda', 'Sweet']
   },
   10005 : {
     id : 10005,
@@ -62,7 +68,8 @@ const testData : tesDataProps = {
     image : require('../../assets/images/products/10005.jpg'),
     price : 1.99,
     description : 'Sample Description 6',
-    category  : 'Beverages'
+    category  : 'Beverages',
+    tags: ['Pary Drink', 'Soda', 'Sweet']
   },
 }
 
@@ -73,7 +80,7 @@ export default function ItemScreen(){
   const param = useLocalSearchParams();
 
   const id : number = ParamsToInteger(param.id);
-  const item : DetailedItemProps = testData[id];
+  const item : ExtendedDetailedItemProps = testData[id];
 
   return (
     <Provider store={Store}>
@@ -86,6 +93,7 @@ export default function ItemScreen(){
             price={item.price}
             description={item.description}
             category={item.category}
+            tags={item.tags}
           />
         </View>
       </RainbowBackground>

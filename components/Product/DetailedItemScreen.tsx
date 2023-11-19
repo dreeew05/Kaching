@@ -8,8 +8,9 @@ import { Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Stepper from "../Stepper";
 import RainbowBackground from "../Rainbow";
+import { ExtendedDetailedItemProps } from "../__utils__/interfaces/ExtendedDetailedItemProps";
 
-export default function DetailedItemScreen(item : DetailedItemProps) {
+export default function DetailedItemScreen(item : ExtendedDetailedItemProps) {
     
     const [quantity, setQuantity] = useState(0);
 
@@ -63,8 +64,24 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
                         >
                             {item.description}
                         </Text>
+
+                        <View className="flex-row mt-2">     
+                            {
+                                item.tags.map((tag) => {
+                                    return(
+                                        <View className="bg-white ml-2 mr-2 p-2 rounded-md">
+                                            <Text>
+                                                {tag}
+                                            </Text>
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>  
+
                     </View>
                 </View>
+                
 
                 <View className="flex flex-row h-16 absolute inset-x-0
                     bottom-0 w-full border-t-[0.5px] border-gray-300 items-left
