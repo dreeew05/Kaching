@@ -24,15 +24,15 @@ export default function CustomAlert({
       message,
       [
         {
-          text: confirmText,
-          onPress: onConfirm,
-          style: 'default',
-        },
-        {
           text: cancelText,
           onPress: onCancel,
           style: 'cancel',
         },
+        {
+          text: confirmText,
+          onPress: onConfirm,
+          style: 'default',
+        }
       ],
       {
         cancelable: true,

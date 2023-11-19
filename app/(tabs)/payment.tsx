@@ -2,6 +2,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import React, { useState } from 'react';
 import { Alert, Pressable, Text, View, TextInput } from 'react-native';
 import CustomPressable from '../../components/CustomPressable';
+import CustomAlert from '../../components/CustomAlert';
 import { useRouter } from 'expo-router';
 import RainbowBackground from '../../components/Rainbow';
 
@@ -12,6 +13,7 @@ export default function TabOneScreen() {
         { label: 'Cash', value: 'cash' },
         { label: 'Online', value: 'online' }
     ]);
+    const [paid, setPaid] = useState(false);
 
     const showAlert = () => {
         Alert.alert('Show Alert Action', 'This is a dummy action.');
@@ -23,6 +25,7 @@ export default function TabOneScreen() {
       router.push('/(tabs)/orderSummary');
     }
     const viewReceipt = () => {
+        setPaid(false);
       router.push('/(tabs)/receipt');
     }
 
@@ -88,8 +91,18 @@ export default function TabOneScreen() {
                 </View>
 
                 <View>
-                    <CustomPressable text="Confirm Payment" onPress={viewReceipt} />
+                    <CustomPressable text="Confirm Payment" onPress={()=> setPaid(true)} />
                 </View>
+                {
+                    paid && (
+                        <CustomAlert 
+                            title='Successfully Paid'
+                            message='Good job! Thanks for paying'
+                            confirmText='View Receipt'
+                            onConfirm={viewReceipt}
+                            />
+                    )
+                }
             </View>
         </RainbowBackground>
     );
