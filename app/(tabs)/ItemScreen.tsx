@@ -22,7 +22,7 @@ const testData : tesDataProps = {
     name : 'Mozarella Sticks',
     image : require('../../assets/images/products/10000.jpg'),
     price : 5.99,
-    description : 'Sample Descrption 1',
+    description : 'Mozarella Sticks are fried cheese snacks often served with dipping sauce',
     category : 'Appetizer',
     tags: ['Vegetarian', 'Dairy-free', 'Low-carb']
   },
@@ -31,7 +31,7 @@ const testData : tesDataProps = {
     name : 'Bruschetta',
     image : require('../../assets/images/products/10001.jpg'),
     price : 7.99,
-    description : 'Sample Description 2',
+    description : 'Bruschetta is toasted bread topped with diced tomatoes, garlic, basil, and olive oil—an Italian appetizer.',
     category : 'Appetizer',
     tags: ['Herby', 'Tangy', 'Summer Food']
   },
@@ -40,7 +40,7 @@ const testData : tesDataProps = {
     name : 'Deviled Eggs',
     image : require('../../assets/images/products/10002.jpg'),
     price : 9.99,
-    description : 'Sample Description 3',
+    description : 'Deviled eggs are halved hard-boiled eggs filled with a seasoned yolk mixture',
     category : 'Appetizer',
     tags: ['Keto', 'Party Food', 'Summer Food']
   },
@@ -49,7 +49,7 @@ const testData : tesDataProps = {
     name : ' Beer',
     image : require('../../assets/images/products/10003.jpg'),
     price : 1.99,
-    description : 'Sample Description 4',
+    description : 'Beer is a fermented alcoholic drink made from grains and flavored with hops.',
     category  : 'Beverages',
     tags: ['Lager', 'Gose', 'Malty', 'Hoppy']
   },
@@ -58,7 +58,7 @@ const testData : tesDataProps = {
     name : 'Coca-Cola',
     image : require('../../assets/images/products/10004.jpg'),
     price : 1.99,
-    description : 'Sample Description 5',
+    description : 'Coke is a caramel-flavored carbonated soft drink produced by Coca-Cola.',
     category  : 'Beverages',
     tags: ['Caffeine', 'Soda', 'Sweet']
   },
@@ -67,7 +67,7 @@ const testData : tesDataProps = {
     name : 'Pepsi',
     image : require('../../assets/images/products/10005.jpg'),
     price : 1.99,
-    description : 'Sample Description 6',
+    description : 'Pepsi is a popular cola soft drink produced by PepsiCo.',
     category  : 'Beverages',
     tags: ['Pary Drink', 'Soda', 'Sweet']
   },
