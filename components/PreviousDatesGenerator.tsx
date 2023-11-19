@@ -36,11 +36,11 @@ const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ numDa
 
   return (
     <ScrollView className='flex-1 w-full'>
-        <View className='px-6 py-4 items-center'>
+        <View className='px-6 py-4 items-center bg-transparent'>
             {previousDates.map((date, index) => (
                 <Pressable 
                     //onPress={() => console.log('Be dynamic here')}
-                    className='p-4 w-full my-3 rounded-xl border-2 border-gray'
+                    className='p-4 w-full my-3 rounded-xl bg-white'
                     key={index}>
                     <Text 
                         className='text-base text-green font-bold mx-2'>

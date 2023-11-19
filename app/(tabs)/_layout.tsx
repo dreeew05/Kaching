@@ -1,10 +1,10 @@
+import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-
-
 import Colors from '../../constants/Colors';
+import { View, StyleSheet } from 'react-native';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -20,6 +20,7 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
+
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -33,20 +34,27 @@ export default function TabLayout() {
             
             <FontAwesome5 name="store" size={24} color="green" style={{ marginLeft: 20 }} />
           ),
+
+          headerShown: false,
+  
         }}
+        
       />
       <Tabs.Screen
         name="cart"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
+          headerShown: false,
         }}
+        
       />
       <Tabs.Screen  
         name="menu"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -64,6 +72,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -81,6 +90,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -89,6 +99,7 @@ export default function TabLayout() {
           title: 'Receipt',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -106,6 +117,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -156,6 +168,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -173,6 +186,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -190,6 +204,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+          headerTransparent: true,
         }}
       />
       <Tabs.Screen
@@ -207,6 +222,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+          headerTransparent: true,
         }}
       />
       <Tabs.Screen
@@ -224,7 +240,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
-          
+          headerTransparent: true,
         }}
       />
       <Tabs.Screen
@@ -242,6 +258,7 @@ export default function TabLayout() {
               </Pressable>
             </Link>        
           ),
+          headerTransparent: true,
         }}
       />
       <Tabs.Screen
@@ -281,3 +298,4 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+

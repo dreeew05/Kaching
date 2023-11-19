@@ -22,8 +22,8 @@ const FinancialSummary = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#fff', width: 350},
-  text: { margin: 5 },
+  container: { backgroundColor: 'transparent', width: 350},
+  text: { margin: 5, color: 'white' },
 });
 
 export default FinancialSummary;

@@ -18,14 +18,14 @@ export default function CartItemsGenerator() {
     if(isCartEmpty()) {
         return(
             <View className="flex-1">
-                <Text className="text-4xl ml-5 text-green"
+                <Text className="text-4xl ml-5 text-white"
                     style={{fontFamily: 'Poppins-Medium'}}
                 >
                     Cart
                 </Text>
                 <View className="flex-1 justify-center items-center">
                     <FontAwesome name="cart-plus" size={300} color="black" />
-                    <Text className="text-2xl mt-5"
+                    <Text className="text-2xl mt-5 text-white"
                         style={{fontFamily: 'Poppins-Medium'}}
                     >
                         Your cart is empty
@@ -37,7 +37,7 @@ export default function CartItemsGenerator() {
     else {
         return(
             <ScrollView>
-                <Text className="text-4xl ml-5 text-green"
+                <Text className="text-4xl ml-5 text-white"
                     style={{fontFamily: 'Poppins-Medium'}}
                 >
                     Cart

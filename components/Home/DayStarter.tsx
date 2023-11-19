@@ -14,7 +14,7 @@ export default function DayStarter({ hasStartDayData, cashierName }: { hasStartD
         <View>
             {hasStartDayData ? (
                 // Render nothing when startDayData is available
-                 <Text className="text-sm ml-5 mb-5">Cashier's Name: {cashierName}</Text>
+                 <Text className="text-sm ml-5 mb-5 text-white">Cashier's Name: {cashierName}</Text>
             ) : (
                 // Render Start Day Pressable when data is not available
                 <Pressable className="bg-transparent w-36 border-2 border-green rounded-xl py-2 px-4 mt-2 mb-5 ml-5" onPress={startDay}>

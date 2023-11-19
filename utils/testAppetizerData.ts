@@ -19,6 +19,7 @@ const appetizers : TestProductInterface[] = [
         price : 9.99,
         image: require('../assets/icons/blank.jpg')
     }
+    
 ]
 
 export default appetizers;

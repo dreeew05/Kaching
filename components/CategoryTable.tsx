@@ -11,10 +11,10 @@ interface CategoryTableProps {
   const CategoryTable = (props: { table: TableProps }) => {
 
     return (
-      <View style={styles.container}>
+      <View style={styles.container} >
         <View style={{ marginBottom: 8 }}></View>
         <Table>
-            <Row data={props.table.header} style={styles.rowTextHeader} />
+            <Row data={props.table.header} textStyle={styles.rowTextHeader} />
             <Rows data={props.table.tableData} flexArr={[2, 1, 1.5]} 
                 textStyle={styles.rowText} 
             />
@@ -24,9 +24,9 @@ interface CategoryTableProps {
   }
 
 const styles = StyleSheet.create({
-    container : {width : 350},
-    rowTextHeader : {margin : 5},
-    rowText : {margin: 5, paddingLeft: 15, justifyContent: 'space-between'}
+    container : {width : 350, backgroundColor: 'transparent'},
+    rowTextHeader : {margin : 5, color: 'white', },
+    rowText : {margin: 5, paddingLeft: 15, justifyContent: 'space-between', color: 'white'}
 })
 
 export default CategoryTable;

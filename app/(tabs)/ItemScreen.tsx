@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { DetailedItemProps } from '../../components/__utils__/interfaces/DetailedItemProps';
 import DetailedItemScreen from '../../components/Product/DetailedItemScreen';
 import { Store } from '../../redux/Store';
+import RainbowBackground from '../../components/Rainbow';
 
 interface tesDataProps {
   [id : number] : DetailedItemProps
@@ -76,16 +77,19 @@ export default function ItemScreen(){
 
   return (
     <Provider store={Store}>
-      <View className="flex-1 h-full relative z-0">
-        <DetailedItemScreen
-          id={item.id}
-          name={item.name}
-          image={item.image}
-          price={item.price}
-          description={item.description}
-          category={item.category}
-        />
-      </View>
+      <RainbowBackground>
+        <View className="flex-1 h-full relative z-0 pt-16">
+          <DetailedItemScreen
+            id={item.id}
+            name={item.name}
+            image={item.image}
+            price={item.price}
+            description={item.description}
+            category={item.category}
+          />
+        </View>
+      </RainbowBackground>
+  
     </Provider>
   );
 };

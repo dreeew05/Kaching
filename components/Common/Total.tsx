@@ -33,15 +33,14 @@ export default function Total({ page } : TotalProps) {
         <View>
 
             <View className='flex-row justify-between 
-                p-4 border-spacing-3 border-2 border-white
-                border-t-neutral-300'
+                p-4 border-spacing-3 ' 
             >
-                <Text className="text-xl text-gray" 
+                <Text className="text-2xl text-white bold" 
                     style={{ fontFamily: 'Poppins-Regular' }}
                 >
                     Total price:
                 </Text>
-                <Text className="text-3xl" 
+                <Text className="text-3xl text-white" 
                     style={{ fontFamily: 'Poppins-Regular' }}
                 >
                     ${totalPrice}
@@ -49,7 +48,7 @@ export default function Total({ page } : TotalProps) {
             </View>
 
             {/* BUTTON */}
-            <View>
+            <View >
                 {
                     page === 'cart' && (
                         <CustomPressable

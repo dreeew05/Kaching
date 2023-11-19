@@ -6,18 +6,21 @@ import { Provider } from 'react-redux';
 import { Store } from '../../redux/Store';
 import CartItemsGenerator from '../../components/Cart/CartItemsGenerator';
 import Total from '../../components/Common/Total';
+import RainbowBackground from '../../components/Rainbow';
 
 export default function CartScreen() {
       
   return (
-    <Provider store={Store}>
-      <View className="flex-1 self-stretch bg-white dark:bg-black">
+    <RainbowBackground>
+      <Provider store={Store}>
+        <View className="flex-1 self-stretch pt-16">
 
-        <CartItemsGenerator/>
+          <CartItemsGenerator/>
 
-        <Total page='cart'/>
-      </View>
-    </Provider>
+          <Total page='cart'/>
+        </View>
+      </Provider>
+      </RainbowBackground>
   );
 }
 

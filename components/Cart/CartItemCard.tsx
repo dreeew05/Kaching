@@ -53,15 +53,15 @@ export default function CartItemCard(item: CartItemProps) {
             />
         </View>
         <View className='flex-1 ml-5'>
-          <Text className="text-lg text-darkgreen"
+          <Text className="text-lg text-white"
             style={{fontFamily: 'Poppins-Medium'}}>
             {item.name}
           </Text>
-          <Text className="text-md text-gray "
+          <Text className="text-md text-white "
             style={{fontFamily: 'Poppins-Regular'}}>
             {item.category}
           </Text>
-          <Text className='text-md text-black mt-3'>
+          <Text className='text-md text-white mt-3'>
             ${subtotalPrice}
           </Text>
           <View className='mt-6'>
@@ -73,7 +73,7 @@ export default function CartItemCard(item: CartItemProps) {
         </View>
 
         <Pressable onPress={removeFromCartEvent}>
-          <FontAwesome5 name="trash" size={20} color="gray" />
+          <FontAwesome5 name="trash" size={20} color="white" />
         </Pressable>
       </View>
     </View>

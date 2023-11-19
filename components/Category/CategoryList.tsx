@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import RainbowBackground from '../Rainbow';
 
 // CONSTANT DATA
 import constantCategories from '../../constants/Categories';
@@ -10,7 +11,7 @@ import CategoryCardClickable from './CategoryCardClickable';
 import CategoryCardEditable from './CategoryCardEditable';
 
 // INTERFACE
-import { CategoryProps } from '../interfaces/CategoryProps';
+import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
 
 interface CategoryListProps {
     cardType : string,

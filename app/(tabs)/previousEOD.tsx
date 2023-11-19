@@ -4,11 +4,13 @@ import { Text, View } from '../../components/Themed';
 import PreviousDatesScrollView from '../../components/PreviousDatesGenerator';
 import CalendarPicker from '../../components/CalendarPicker';
 import { Ionicons } from '@expo/vector-icons';
+import RainbowBackground from '../../components/Rainbow';
 
 export default function TabTwoScreen() {
   const [showCalendar, setShowCalendar] = useState(false);
 
   return (
+    <RainbowBackground>
     <>
       {
         showCalendar ? 
@@ -30,21 +32,24 @@ export default function TabTwoScreen() {
         ) 
           : 
         (
-        <View className='flex-1 items-center justify-center'>
-          <View className='w-full flex-row justify-between px-6'>
-            <Text className='text-2xl'>
+        
+          <View className='flex-1 items-center justify-center pt-24 bg-transparent'>
+          <View className='w-full flex-row justify-between px-6 bg-transparent'>
+            <Text className='text-2xl text-white'>
               Recent EOD's
             </Text>
             <Pressable
               onPress={() => setShowCalendar(true)}>
-              <Ionicons name="calendar-sharp" size={30} color="#FFAD42" />
+              <Ionicons name="calendar-sharp" size={30} color="white" />
             </Pressable>
             </View>
           <PreviousDatesScrollView numDates={31} />
         </View>
+        
         )
       }
     </>
+    </RainbowBackground>
   );
 }
 ;

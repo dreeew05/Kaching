@@ -62,7 +62,7 @@ const CSVComponent: React.FC<{ data: TableData }> = ({ data }) => {
   }, []);
 
   return (
-    <View className='flex-row'>
+    <View className='flex-row bg'>
       <TouchableOpacity 
             onPress={shareCSV}
             className='bg-green w-40 h-10 justify-center rounded-full mr-2'

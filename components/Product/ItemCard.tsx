@@ -60,12 +60,12 @@ export default function ItemCard({ item }: itemCardProps) {
                 </Link>
 
                 <View className='flex flex-column ml-5'>
-                    <Text className="text-lg font-semibold"
+                    <Text className="text-lg font-semibold text-white"
                         style={{ fontFamily: 'Poppins-Medium'}}
                     >
                         {item.name}
                     </Text>
-                    <Text className="text-gray-500"
+                    <Text className="text-gray-500 text-white"
                         style={{ fontFamily: 'Poppins-Regular' }}
                     >
                         P{item.price}
@@ -81,11 +81,11 @@ export default function ItemCard({ item }: itemCardProps) {
                     />
                 </View>
                 <View className='flex-1 justify-center'>
-                    <Pressable className="bg-green w-52 h-10 border-2 border-green 
+                    <Pressable className="bg-white w-52 h-10 border-2 border-white 
                         rounded-md self-center ml-6 flex-1 items-center justify-center" 
                         onPress={addToCartEvent}>
 
-                        <Text className="text-white text-lg"
+                        <Text className="text-green text-lg"
                             style={{fontFamily: 'Poppins-Bold'}}>
                             Add to Cart
                         </Text>

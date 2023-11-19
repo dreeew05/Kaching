@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import {ScrollView, View } from 'react-native';
 import StoreInformationGenerator from '../../components/Home/StoreInformationGenerator.';
 import DayStarter from '../../components/Home/DayStarter';
 import SaleDashboard from '../../components/Home/SaleDashboard';
 import CategoryGenerator from '../../components/Home/CategoryGenerator';
+import RainbowBackground from '../../components/Rainbow';
 
 export default function HomeScreen() {
   // Hide/Show start day pressable
@@ -11,20 +12,21 @@ export default function HomeScreen() {
   const cashierName = 'Palmsdale Kevin'; // Replace with the actual cashier name
   
   return (
+    <RainbowBackground>
+      <View className="flex-1 self-stretch pt-14">
+        <ScrollView>
 
-    <View className="flex-1 self-stretch bg-white dark:bg-black">
-      <ScrollView>
+          <StoreInformationGenerator/>
 
-        <StoreInformationGenerator/>
+          <DayStarter hasStartDayData={hasStartDayData} cashierName={cashierName} />
 
-        <DayStarter hasStartDayData={hasStartDayData} cashierName={cashierName} />
+          <SaleDashboard/>
 
-        <SaleDashboard/>
+          <CategoryGenerator/>
 
-        <CategoryGenerator/>
-
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+      </RainbowBackground>
 
   );
 }
