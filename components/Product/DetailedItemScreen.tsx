@@ -65,7 +65,7 @@ export default function DetailedItemScreen(item : ExtendedDetailedItemProps) {
                             {item.description}
                         </Text>
 
-                        <View className="flex-row mt-2">     
+                        <View className="flex-row mt-4">     
                             {
                                 item.tags.map((tag) => {
                                     return(
