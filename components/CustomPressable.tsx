@@ -14,7 +14,9 @@ export default function CustomPressable({ text, onPress, disabled }: CustomPress
       onPress={disabled ? undefined : onPress} // Prevent onPress if disabled
       disabled={disabled} // Set the disabled prop for accessibility
     >
-      <Text className={`text-white text-xl font-bold self-center ${disabled ? 'text-white' : ''}`}>{text}</Text>
+      <Text className={`text-white text-xl font-bold self-center ${disabled ? 'text-white' : ''}`}>
+        {text}
+      </Text>
     </Pressable>
   );
 }

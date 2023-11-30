@@ -15,19 +15,19 @@ const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ numDa
     const today = new Date();
 
     for (let i = 1; i < numDays; i++) {
-        const previousDate = new Date(today);
-        previousDate.setDate(today.getDate() - i);
-  
-        // Format the date to Month Day, Year
-        const formattedDate = previousDate.toLocaleDateString(undefined, {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric',
-        });
-  
-        dates.push([formattedDate, previousDate]);
-      }
-      
+      const previousDate = new Date(today);
+      previousDate.setDate(today.getDate() - i);
+
+      // Format the date to Month Day, Year
+      const formattedDate = previousDate.toLocaleDateString(undefined, {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      });
+
+      dates.push([formattedDate, previousDate]);
+    }
+
     return dates;
   };
 
@@ -40,20 +40,18 @@ const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ numDa
   };
 
   return (
-    <ScrollView className='flex-1 w-full'>
-        <View className='px-6 py-4 items-center'>
-            {previousDates.map((date, index) => (
-                <Pressable 
-                    onPress={() => sendDataToParent(date[1])}
-                    className='p-4 w-full my-3 rounded-xl border-2 border-gray'
-                    key={index}>
-                    <Text 
-                        className='text-base text-green font-bold mx-2'>
-                        {date[0]}
-                    </Text>
-                </Pressable>
-                ))}
-        </View>
+    <ScrollView className="flex-1 w-full">
+      <View className="px-6 py-4 items-center">
+        {previousDates.map((date, index) => (
+          <Pressable
+            onPress={() => sendDataToParent(date[1])}
+            className="p-4 w-full my-3 rounded-xl border-2 border-gray"
+            key={index}
+          >
+            <Text className="text-base text-green font-bold mx-2">{date[0]}</Text>
+          </Pressable>
+        ))}
+      </View>
     </ScrollView>
   );
 };

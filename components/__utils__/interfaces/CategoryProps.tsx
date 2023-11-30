@@ -1,7 +1,7 @@
-import { ImageSourcePropType } from "react-native"
+import { ImageSourcePropType } from 'react-native';
 
 export interface CategoryProps {
-    id : number,
-    name : string
-    image : ImageSourcePropType
+  id: number;
+  name: string;
+  image: ImageSourcePropType;
 }

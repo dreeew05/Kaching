@@ -3,7 +3,6 @@ import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-
 import Colors from '../../constants/Colors';
 
 /**
@@ -23,14 +22,14 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerLeft: () => (
-            
             <FontAwesome5 name="store" size={24} color="green" style={{ marginLeft: 20 }} />
           ),
         }}
@@ -42,7 +41,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
         }}
       />
-      <Tabs.Screen  
+      <Tabs.Screen
         name="menu"
         options={{
           title: '',
@@ -59,10 +58,15 @@ export default function TabLayout() {
             <Link href="/cart" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="green"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -76,10 +80,15 @@ export default function TabLayout() {
             <Link href="/cart" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="green"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -101,10 +110,15 @@ export default function TabLayout() {
             <Link href="//" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="green"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -134,10 +148,15 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="green"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -151,10 +170,15 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="green"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -168,10 +192,15 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="darkgreen"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -185,10 +214,15 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="darkgreen"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -202,10 +236,15 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="darkgreen"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -219,12 +258,16 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="darkgreen"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
-          
         }}
       />
       <Tabs.Screen
@@ -237,10 +280,15 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="darkgreen"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -254,10 +302,15 @@ export default function TabLayout() {
             <Link href="//" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="darkgreen" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="darkgreen"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />
@@ -271,10 +324,15 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5 name="arrow-left" size={24} color="green" style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }} />
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="green"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
                 )}
               </Pressable>
-            </Link>        
+            </Link>
           ),
         }}
       />

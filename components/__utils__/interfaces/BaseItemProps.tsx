@@ -1,9 +1,9 @@
-import { ImageSourcePropType } from "react-native";
+import { ImageSourcePropType } from 'react-native';
 
 export interface BaseItemProps {
-    id : number,
-    name : string,
-    image : ImageSourcePropType,
-    price : number,
-    category : string
+  id: number;
+  name: string;
+  image: ImageSourcePropType;
+  price: number;
+  category: string;
 }

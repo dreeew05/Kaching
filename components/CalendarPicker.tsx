@@ -14,7 +14,7 @@ const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDateFromPicker }) => 
     const year = parseInt(dateParts[0]);
     const month = parseInt(dateParts[1]) - 1;
     const day = parseInt(dateParts[2]);
-    const dateObject = new Date(year, month, day+1);
+    const dateObject = new Date(year, month, day + 1);
     return dateObject;
   };
 
@@ -22,7 +22,7 @@ const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDateFromPicker }) => 
   const previousDate = new Date(currentDate);
   previousDate.setDate(currentDate.getDate() - 1);
 
-  const fixDate = getFormatedDate(previousDate, 'YYYY-MM-DD')
+  const fixDate = getFormatedDate(previousDate, 'YYYY-MM-DD');
   const maximumDate = fixDate.split('/').join('-');
 
   const sendDataToParent = () => {
@@ -33,9 +33,9 @@ const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDateFromPicker }) => 
 
   return (
     <DatePicker
-        maximumDate={maximumDate}
-        onSelectedChange={date => setSelectedDate(date)}
-        options={{
+      maximumDate={maximumDate}
+      onSelectedChange={(date) => setSelectedDate(date)}
+      options={{
         backgroundColor: '#ffffff',
         textHeaderColor: '#18573A',
         textDefaultColor: '#18573A',
@@ -43,13 +43,13 @@ const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDateFromPicker }) => 
         mainColor: '#18573A',
         textSecondaryColor: '#CD9250',
         borderColor: '#CCCCCC',
-        }}
-        current={maximumDate}
-        selected={maximumDate}
-        mode="calendar"
-        style={{ borderRadius: 10,}}
-        />
+      }}
+      current={maximumDate}
+      selected={maximumDate}
+      mode="calendar"
+      style={{ borderRadius: 10 }}
+    />
   );
-}
+};
 
 export default CalendarPicker;
