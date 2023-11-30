@@ -8,17 +8,13 @@ import CartItemsGenerator from '../../components/Cart/CartItemsGenerator';
 import Total from '../../components/Common/Total';
 
 export default function CartScreen() {
-      
   return (
     <Provider store={Store}>
       <View className="flex-1 self-stretch bg-white dark:bg-black">
+        <CartItemsGenerator />
 
-        <CartItemsGenerator/>
-
-        <Total page='cart'/>
+        <Total page="cart" />
       </View>
     </Provider>
   );
 }
-
-

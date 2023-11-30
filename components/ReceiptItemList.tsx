@@ -12,11 +12,11 @@ import { CartProps } from './__utils__/interfaces/CartItemProps';
 
 const ReceiptItemList: React.FC<CartProps> = ({ cart }) => {
   return (
-    <ScrollView className='border-2 rounded m-5'>
+    <ScrollView className="border-2 rounded m-5">
       {cart.map((item) => {
         item.image = constantProducts[item.id];
         return (
-          <View  key={item.id}>
+          <View key={item.id}>
             <ReceiptItemCard
               id={item.id}
               name={item.name}

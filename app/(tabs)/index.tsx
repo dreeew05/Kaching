@@ -9,22 +9,18 @@ export default function HomeScreen() {
   // Hide/Show start day pressable
   const hasStartDayData = true;
   const cashierName = 'Palmsdale Kevin'; // Replace with the actual cashier name
-  
-  return (
 
+  return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
       <ScrollView>
-
-        <StoreInformationGenerator/>
+        <StoreInformationGenerator />
 
         <DayStarter hasStartDayData={hasStartDayData} cashierName={cashierName} />
 
-        <SaleDashboard/>
+        <SaleDashboard />
 
-        <CategoryGenerator/>
-
+        <CategoryGenerator />
       </ScrollView>
     </View>
-
   );
 }

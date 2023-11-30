@@ -18,30 +18,26 @@ export default function CustomAlert({
   onConfirm,
   onCancel,
 }: CustomAlertProps) {
-  return (
-    Alert.alert(
-      title,
-      message,
-      [
-        {
-          text: confirmText,
-          onPress: onConfirm,
-          style: 'default',
-        },
-        {
-          text: cancelText,
-          onPress: onCancel,
-          style: 'cancel',
-        },
-      ],
+  return Alert.alert(
+    title,
+    message,
+    [
       {
-        cancelable: true,
-        onDismiss: () =>
-          Alert.alert(
-            'This alert was dismissed by tapping outside of the alert dialog.',
-          ),
-      }
-    )
+        text: confirmText,
+        onPress: onConfirm,
+        style: 'default',
+      },
+      {
+        text: cancelText,
+        onPress: onCancel,
+        style: 'cancel',
+      },
+    ],
+    {
+      cancelable: true,
+      onDismiss: () =>
+        Alert.alert('This alert was dismissed by tapping outside of the alert dialog.'),
+    },
   );
 }
 
