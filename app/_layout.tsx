@@ -1,9 +1,11 @@
+import React, { useState, useEffect } from 'react';
+import { Image, Text, TextInput, View, Dimensions, Pressable } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import TermsAndConditionsScreen from './TermsAndConScreen';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -18,6 +20,13 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+// Define the onboarding images
+const onboardingImages = [
+  require('../assets/images/onboarding/Onboarding1.png'),
+  require('../assets/images/onboarding/Onboarding2.png'),
+  require('../assets/images/onboarding/Login.png'),
+];
+
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -28,6 +37,11 @@ export default function RootLayout() {
     'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
     ...FontAwesome.font,
   });
+
+  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [storeName, setStoreName] = useState('');
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -40,11 +54,91 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+  const handleConfirm = () => {
+    setOnboardingCompleted(true);
+  };
+
   if (!loaded) {
     return null;
   }
 
-  return <RootLayoutNav />;
+  if (!onboardingCompleted) {
+    return (
+      <View style={{ flex: 1 }}>
+        <OnboardingScreen
+          image={onboardingImages[currentImageIndex]}
+          storeName={storeName}
+          setStoreName={setStoreName}
+          onConfirm={handleConfirm}
+          onComplete={() => setCurrentImageIndex(currentImageIndex + 1)}
+          isLastPage={currentImageIndex === onboardingImages.length - 1}
+          onTermsPress={() => setShowTermsModal(true)}
+        />
+        <TermsAndConditionsScreen
+          visible={showTermsModal}
+          onClose={() => setShowTermsModal(false)}
+        ></TermsAndConditionsScreen>
+      </View>
+    );
+  } else {
+    // Navigate to RootLayoutNav
+    return <RootLayoutNav />;
+  }
+}
+
+function OnboardingScreen({
+  image,
+  storeName,
+  setStoreName,
+  onComplete,
+  isLastPage,
+  onTermsPress,
+  onConfirm,
+}) {
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Image source={image} className={'w-screen h-screen'} />
+
+      {isLastPage ? (
+        <View>
+          <View className="ml-8 mr-8 mt-8 -inset-y-80">
+            <Text className="text-lg text-gray font-semibold mb-1 mt-3">Store Name: </Text>
+            <View className="border-b-gray border-b-2 opacity-50">
+              <TextInput
+                className="text-lg text-black font-medium mb-1"
+                value={storeName}
+                onChangeText={setStoreName}
+                placeholder="Enter Store Name"
+              />
+            </View>
+
+            <Pressable
+              className={`w-64 self-center rounded-full p-3 mb-5 ${
+                storeName.trim() === '' ? 'bg-gray' : 'bg-green'
+              } mt-6`}
+              onPress={onConfirm}
+              disabled={storeName.trim() === ''} // Disable button if store name is empty
+            >
+              <Text className={`text-white text-xl font-bold self-center`}>Confirm</Text>
+            </Pressable>
+            <Text className={`text-gray mt-5 mb-1 self-center`}>
+              By clicking confirm, you agree to our
+            </Text>
+            <Pressable onPress={onTermsPress}>
+              <Text className={`text-yellow self-center`}>Show Terms and Conditions</Text>
+            </Pressable>
+          </View>
+        </View>
+      ) : null}
+
+      <Pressable
+        className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green -inset-y-12`}
+        onPress={onComplete}
+      >
+        <Text className={`text-white text-xl font-bold self-center `}>Next</Text>
+      </Pressable>
+    </View>
+  );
 }
 
 function RootLayoutNav() {
