@@ -4,11 +4,16 @@ import StoreInformationGenerator from '../../components/Home/StoreInformationGen
 import DayStarter from '../../components/Home/DayStarter';
 import SaleDashboard from '../../components/Home/SaleDashboard';
 import CategoryGenerator from '../../components/Home/CategoryGenerator';
+import { initializeDatabase } from '../../components/DatabaseUtils/InitializeDatabase';
+import { insertData, updateData, deleteData, selectData } from '../../components/DatabaseUtils/CoreFunctions';
 
 export default function HomeScreen() {
   // Hide/Show start day pressable
   const hasStartDayData = true;
   const cashierName = 'Palmsdale Kevin'; // Replace with the actual cashier name
+
+  // Initialize database
+  initializeDatabase();
 
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
