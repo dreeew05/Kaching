@@ -64,12 +64,12 @@ export default function ModifyCategory() {
       name : categoryName,
       image : imageUri
     }]
-    dispatch(
-      addCategoryAction('add')
-    )
     insertData(tableName, data)
       .then((result) => {
-        console.log(result);
+        dispatch(
+          addCategoryAction('add')
+        )
+        console.log(result)
       })
       .catch((error) => {
         console.log(error);
