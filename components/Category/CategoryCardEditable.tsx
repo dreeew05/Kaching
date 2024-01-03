@@ -3,14 +3,16 @@ import { Pressable, View, Text, Alert, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'expo-router';
-
-// INTERFACE
 import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
-
-// COMPONENT
 import CategoryCard from './CategoryCard';
+import { deleteData } from '../DatabaseUtils/CoreFunctions';
+import { useDispatch } from 'react-redux';
+import { addCategoryAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
 export default function CategoryCardEditable({ id, name, image }: CategoryProps) {
+  
+  const dispatch = useDispatch();
+
   const deleteAlert = (id: number) => {
     Alert.alert('Delete Category?', '', [
       {
@@ -20,10 +22,26 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
       },
       {
         text: 'Yes',
-        onPress: () => console.log('Deleted Category with id: ' + id),
+        onPress: () => deleteCategory(id),
       },
     ]);
   };
+
+  const deleteCategory = (id : number) => {
+    const tableName : string = 'category';
+    const refAttribute : string = 'id';
+
+    deleteData(tableName, refAttribute, id)
+      .then((result) => {
+        dispatch(
+          addCategoryAction('delete')
+        )
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log("Deletion Failed", error)
+      })
+  }
 
   return (
     <View

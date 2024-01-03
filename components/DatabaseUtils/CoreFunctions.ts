@@ -1,9 +1,12 @@
 import { getDatabase } from "./OpenDatabase";
+import { AllColumnCategoryProps } from "./PromiseInterface";
 
 const db = getDatabase();
 
 export const selectData = (tableName : string, columnData : string[],
-    targetAttrib : string | null, targetValue : any) => {
+    targetAttrib : string | null = null, targetValue : any = null,
+    orderBy : string | null = null, order : string = 'ASC')
+    : Promise<AllColumnCategoryProps | any> => {
 
     const columns : string = columnData.join(', ');
     
@@ -15,6 +18,9 @@ export const selectData = (tableName : string, columnData : string[],
             targetValue = `'${targetValue}'`;
         }
         query += ` WHERE ${targetAttrib} = ${targetValue}`;
+    }
+    if(orderBy != null) {
+        query += ` ORDER BY ${orderBy} ${order}`;
     }
 
     return executeTransaction(query, [], 'select');
@@ -47,8 +53,6 @@ export const updateData = (tableName : string, targetAttrib : string,
     const value = [];
     value.push(refValue);
 
-    console.log(query)
-    console.log(value)
     return executeTransaction(query, value, 'update');
 
 }

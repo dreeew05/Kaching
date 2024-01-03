@@ -6,33 +6,36 @@ import * as ImagePicker from 'expo-image-picker';
 import { useLocalSearchParams } from 'expo-router';
 import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
 import CustomPressable from '../../components/CustomPressable';
-import { insertData } from '../../components/DatabaseUtils/CoreFunctions';
+import { insertData, selectData, updateData } from '../../components/DatabaseUtils/CoreFunctions';
 import { useDispatch } from 'react-redux';
 import { addCategoryAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 
 export default function ModifyCategory() {
   const param = useLocalSearchParams();
 
-  const [categoryName, setCategoryName] = useState('');
-  const [image, setImage] = useState<ImageSourcePropType | null>(null);
-  const [imageUri, setImageUri] = useState<string>('');
+  const [categoryName, setCategoryName] = useState<string>('');
+  const [image, setImage] = useState<string | null>('');
 
   const dispatch = useDispatch();
+
+  const db = getDatabase();
 
   useEffect(() => {
     if (param.operation == 'editCategory') {
       const id = ParamsToInteger(param.id);
+      
+      const tableName    = 'category',
+            column       = ['*'],
+            targetAttrib = 'id';
 
-      const getData = (id: number) => {
-        // HARD-CODED TEST DATA [MUST CHANGE]
-        return {
-          name: 'Test Name ' + id,
-          image: require('../../assets/icons/blank.jpg'),
-        };
-      };
+      selectData(tableName, column, targetAttrib, id)
+        .then((result) => {
+          // console.log(result[0].name)
+          setCategoryName(result[0].name)
+          setImage(result[0].image)
+        })
 
-      setCategoryName(getData(id).name);
-      setImage(getData(id).image);
     } else {
       setCategoryName('');
       setImage(null);
@@ -53,8 +56,7 @@ export default function ModifyCategory() {
       const pickedImage: ImageSourcePropType = {
         uri: result.assets[0].uri,
       };
-      setImage(pickedImage);
-      setImageUri(pickedImage.uri || '');
+      setImage(pickedImage.uri || '');
     }
   };
 
@@ -62,18 +64,54 @@ export default function ModifyCategory() {
     const tableName = 'category';
     const data = [{
       name : categoryName,
-      image : imageUri
+      image : image
     }]
-    dispatch(
-      addCategoryAction('add')
-    )
-    insertData(tableName, data)
+
+    if(param.operation == 'editCategory') {
+      const targetAttrib  = 'name',
+            targetAttrib2 = 'image', 
+            targetValue   = data[0].name,
+            targetValue2  = data[0].image,
+            refAttrib     = 'id',
+            refValue      = param.id;
+
+      // UPDATE NAME
+      updateData(tableName, targetAttrib, targetValue, refAttrib, 
+        refValue)
+        .then((result) => {
+          dispatch(
+            addCategoryAction('update')
+          )
+          console.log(result)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      // UPDATE IMAGE
+      updateData(tableName, targetAttrib2, targetValue2, refAttrib, 
+        refValue)
+        .then((result) => {
+          dispatch(
+            addCategoryAction('update')
+          )
+          console.log(result)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+    else {
+      insertData(tableName, data)
       .then((result) => {
-        console.log(result);
+        dispatch(
+          addCategoryAction('add')
+        )
+        console.log(result)
       })
       .catch((error) => {
         console.log(error);
       });
+    }
   }
 
   return (
@@ -81,7 +119,7 @@ export default function ModifyCategory() {
       <View className="h-60 w-60 justify-center items-center">
         {image && (
           <Image
-            source={image}
+            source={{uri : image}}
             style={{ width: 200, height: 200 }}
             className="absolute top-1.8
                             rounded-md"
