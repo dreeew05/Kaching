@@ -8,7 +8,7 @@ import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 // COMPONENT
 import Stepper from '../Stepper';
 import { useDispatch } from 'react-redux';
-import { removeFromCart, updateItemQuantity } from '../../redux/CartSlice';
+import { removeFromCart, updateItemQuantity } from '../../redux/CartRedux/CartSlice';
 
 export default function CartItemCard(item: CartItemProps) {
   const dispatch = useDispatch();

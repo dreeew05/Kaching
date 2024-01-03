@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectCart } from '../../redux/CartSelectors';
+import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import OrderSummaryItemList from './OrderSummaryItemList';
 
 export default function OrderSummaryGenerator() {

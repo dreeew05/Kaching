@@ -3,14 +3,13 @@ import { View, Text } from '../../components/Themed';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Link, useRouter } from 'expo-router';
-import CategoryList from '../../components/Category/CategoryList';
-
-// TEST DATA
-import testData from '../../utils/testCategoryData';
+import { Link } from 'expo-router';
+import ModifyCategoryCardGenerator from '../../components/Category/ModifyCategoryCardGenerator';
+import { Provider } from 'react-redux';
+import { Store } from '../../redux/Store';
 
 export default function ModifyCategoryView() {
-  const router = useRouter();
+
   return (
     <View
       className="flex-1 self-stretch bg-white 
@@ -38,8 +37,10 @@ export default function ModifyCategoryView() {
         </Link>
       </View>
 
-      {/* Generate Categories [NOT CLICKABLE] */}
-      <CategoryList cardType={'editable'} categories={testData} />
+      <Provider store={Store}>
+          <ModifyCategoryCardGenerator/>
+      </Provider>
+
     </View>
   );
 }

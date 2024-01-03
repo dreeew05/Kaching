@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useSelector } from 'react-redux';
-import { selectCartTotalPrice } from '../../redux/CartSelectors';
+import { selectCartTotalPrice } from '../../redux/CartRedux/CartSelectors';
 import { View, Text } from 'react-native';
 import CustomPressable from '../CustomPressable';
 
