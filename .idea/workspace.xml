@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/modifyCategory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/modifyCategory.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/modifyCategoryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/modifyCategoryView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Home/CategoryGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Home/CategoryGenerator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/CoreFunctions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/DatabaseUtils/CoreFunctions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/CustomFunctions.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/FetchInstructions/SelectAllCategories.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/DatabaseUtils/FetchInstructions/SelectAllCategories.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,18 +29,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.android.tools.idea.devicemanager.tab": "Physical",
-    "git-widget-placeholder": "KAC-Database",
-    "last_opened_file_path": "C:/Users/glena/Desktop"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.android.tools.idea.devicemanager.tab&quot;: &quot;Physical&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;KAC-Database&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/glena/Desktop&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
