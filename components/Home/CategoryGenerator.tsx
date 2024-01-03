@@ -2,12 +2,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { View, Text, Pressable } from 'react-native';
 import CategoryList from '../Category/CategoryList';
-
-// TEST
-import testData from '../../utils/testCategoryData';
+import { selectAllCategories } from '../DatabaseUtils/FetchInstructions/SelectAllCategories';
 
 export default function CategoryGenerator() {
   const router = useRouter();
+
+  // Get categories from database
+  const categoryData = selectAllCategories();
 
   const editCategories = () => {
     router.push('/(tabs)/modifyCategoryView');
@@ -22,7 +23,7 @@ export default function CategoryGenerator() {
         </Pressable>
       </View>
 
-      <CategoryList cardType={'clickable'} categories={testData} />
+      <CategoryList cardType={'clickable'} categories={categoryData} />
     </View>
   );
 }

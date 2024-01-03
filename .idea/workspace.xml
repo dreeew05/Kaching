@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/expo-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/expo-env.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/modifyCategory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/modifyCategory.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/modifyCategoryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/modifyCategoryView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Home/CategoryGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Home/CategoryGenerator.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +37,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.android.tools.idea.devicemanager.tab": "Physical",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "KAC-Database",
     "last_opened_file_path": "C:/Users/glena/Desktop"
   }
 }]]></component>

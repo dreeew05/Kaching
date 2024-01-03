@@ -10,7 +10,7 @@ import CategoryCardClickable from './CategoryCardClickable';
 import CategoryCardEditable from './CategoryCardEditable';
 
 // INTERFACE
-import { CategoryProps } from '../interfaces/CategoryProps';
+import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
 
 interface CategoryListProps {
   cardType: string;
@@ -22,7 +22,6 @@ const CategoryList: React.FC<CategoryListProps> = ({ cardType, categories }) => 
     <ScrollView>
       <View className="flex flex-row flex-wrap my-5 mx-auto">
         {categories.map((category) => {
-          category.image = constantCategories[category.id];
           switch (cardType) {
             case 'regular':
               return regular(category);

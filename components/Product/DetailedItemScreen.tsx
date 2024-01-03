@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { Text, View, Image } from 'react-native';
 import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../redux/CartSlice';
+import { addToCart } from '../../redux/CartRedux/CartSlice';
 import { useRouter } from 'expo-router';
 import { Pressable } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Stepper from '../Stepper';
 import { RootState } from '../../redux/Store';
-import { selectCartItem } from '../../redux/CartSelectors';
+import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 
 export default function DetailedItemScreen(item: DetailedItemProps) {
   const dispatch = useDispatch();

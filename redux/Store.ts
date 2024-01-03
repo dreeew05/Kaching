@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import CartSlice from './CartSlice';
+import CartSlice from './CartRedux/CartSlice';
+import GlobalStateSlice from './GlobalStateRedux/GlobalStateSlice';
 
 export const Store = configureStore({
   reducer: {
     cart: CartSlice,
+    globalState : GlobalStateSlice
   },
 });
 

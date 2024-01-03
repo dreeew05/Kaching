@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectCart } from '../../redux/CartSelectors';
+import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import CartItemList from './CartItemList';
 import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';

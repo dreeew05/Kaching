@@ -5,7 +5,8 @@ import DayStarter from '../../components/Home/DayStarter';
 import SaleDashboard from '../../components/Home/SaleDashboard';
 import CategoryGenerator from '../../components/Home/CategoryGenerator';
 import { initializeDatabase } from '../../components/DatabaseUtils/InitializeDatabase';
-import { insertData, updateData, deleteData, selectData } from '../../components/DatabaseUtils/CoreFunctions';
+import { Provider } from 'react-redux';
+import { Store } from '../../redux/Store';
 
 export default function HomeScreen() {
   // Hide/Show start day pressable
@@ -16,16 +17,19 @@ export default function HomeScreen() {
   initializeDatabase();
 
   return (
-    <View className="flex-1 self-stretch bg-white dark:bg-black">
-      <ScrollView>
-        <StoreInformationGenerator />
+    <Provider store={Store}>
+      <View className="flex-1 self-stretch bg-white dark:bg-black">
+        <ScrollView>
+          <StoreInformationGenerator />
 
-        <DayStarter hasStartDayData={hasStartDayData} cashierName={cashierName} />
+          <DayStarter hasStartDayData={hasStartDayData} 
+            cashierName={cashierName} />
 
-        <SaleDashboard />
+          <SaleDashboard />
 
-        <CategoryGenerator />
-      </ScrollView>
-    </View>
+          <CategoryGenerator />
+        </ScrollView>
+      </View>
+    </Provider>
   );
 }
