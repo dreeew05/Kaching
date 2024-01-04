@@ -1,12 +1,11 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { View, Text, Pressable, ScrollView } from "react-native";
-import TestProductInterface from "../../utils/testProductInterface";
 import ItemCard from "./ItemCard";
-import testAppetizerData from "../../utils/testAppetizerData";
-import testBeverageData from "../../utils/testBeveragesData";
-import constantProductImages from "../../constants/Products";
 import { selectProducts } from "../DatabaseUtils/FetchInstructions/SelectProducts";
+import { getDatabase } from "../DatabaseUtils/OpenDatabase";
+import { useEffect, useState } from "react";
+import { BaseItemProps } from "../__utils__/interfaces/BaseItemProps";
 
 interface CategoryViewContentsProps {
     id : number,
@@ -18,8 +17,26 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
 
     const isEditComponent = data.type === 'edit';
 
-    const products = selectProducts(data.id);
-    console.log(products)
+    const db = getDatabase();
+
+    const [products, setProducts] = useState<BaseItemProps[]>([]);
+
+    useEffect(() => {
+        db.transaction(tx => {
+            tx.executeSql(
+                `SELECT item.id, item.name, item.price, item.image,
+                 category.name AS 'category'
+                 FROM item
+                 LEFT JOIN category ON item.category_id = category.id
+                 WHERE category.id = ?
+                 ORDER BY item.name ASC`,
+                [data.id],
+                (_, result) => {
+                    setProducts(result.rows._array)
+                }
+            )
+        })
+    }, [data.id])
 
     return(
         <View className="flex-1 self-stretch bg-white dark:bg-black">

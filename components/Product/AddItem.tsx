@@ -75,6 +75,8 @@ export default function AddItem() {
         }]
 
         console.log(data)
+
+        // console.log(data)
         
         insertData(tableName, data)
             .then((result) => {

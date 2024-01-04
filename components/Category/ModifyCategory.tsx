@@ -53,7 +53,7 @@ export default function ModifyCategory() {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.canceled) {
       const pickedImage: ImageSourcePropType = {
@@ -86,7 +86,7 @@ export default function ModifyCategory() {
           dispatch(
             addCategoryAction('update')
           )
-          console.log(result)
+          // console.log(result)
         })
         .catch((error) => {
           console.log(error)
@@ -98,7 +98,7 @@ export default function ModifyCategory() {
           dispatch(
             addCategoryAction('update')
           )
-          console.log(result)
+          // console.log(result)
         })
         .catch((error) => {
           console.log(error)
@@ -110,7 +110,7 @@ export default function ModifyCategory() {
         dispatch(
           addCategoryAction('add')
         )
-        console.log(result)
+        // console.log(result)
       })
       .catch((error) => {
         console.log(error);

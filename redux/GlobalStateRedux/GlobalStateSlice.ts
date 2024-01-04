@@ -8,6 +8,7 @@ interface GlobalStateProps {
 const initialState : GlobalStateProps = {
     category : [],
     product : []
+    // product : null
 }
 
 export const GlobalStateSlice = createSlice({
@@ -20,6 +21,9 @@ export const GlobalStateSlice = createSlice({
         addProductAction(state, action : PayloadAction<string>) {
             state.product.push(action.payload)
         }
+        // setProductAction(state, action : PayloadAction<string>) {
+        //     state.product = action.payload
+        // }
     }
 });
 
