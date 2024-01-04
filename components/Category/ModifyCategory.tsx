@@ -16,6 +16,7 @@ export default function ModifyCategory() {
 
   const [categoryName, setCategoryName] = useState<string>('');
   const [image, setImage] = useState<string | null>('');
+  const [selectedImage, setSelectedImage] = useState<string | null>('');
 
   const dispatch = useDispatch();
 
@@ -34,11 +35,13 @@ export default function ModifyCategory() {
           // console.log(result[0].name)
           setCategoryName(result[0].name)
           setImage(result[0].image)
+          setSelectedImage(result[0].image); 
         })
 
     } else {
       setCategoryName('');
       setImage(null);
+      setSelectedImage(null);
     }
   }, [param]);
 
@@ -57,6 +60,7 @@ export default function ModifyCategory() {
         uri: result.assets[0].uri,
       };
       setImage(pickedImage.uri || '');
+      setSelectedImage(pickedImage.uri || ''); // Update selectedImage when an image is picked
     }
   };
 
@@ -127,24 +131,23 @@ export default function ModifyCategory() {
         )}
         <TouchableOpacity onPress={pickImage}>
           <Image
-            className="h-40 w-40"
+            className=" h-48 w-48"
             // CHANGE ICON
-            source={require('../../assets/icons/circle-plus.png')}
+            source={selectedImage ? { uri: selectedImage } : require('../../assets/icons/add-photo.png')}
           />
         </TouchableOpacity>
       </View>
-      <View>
+      <View className=' w-11/12'>
         <SafeAreaView>
           <TextInput
-            className="w-100 text-center border-b-2 border-gray-500"
+            className=" w-3/5 text-center self-center border-b-2 border-zinc-400 text-xl"
             onChangeText={setCategoryName}
             value={categoryName}
-            // MAY SPACE ANG PLACEHOLDER HEHE [DI KO BALAN PANO MAINCREASE ANG WIDTH]
-            placeholder="                                               
-                            "
+            // INCREASE WIDTH 
+            placeholder=""
           />
         </SafeAreaView>
-        <Text className="text-center mt-3 text-gray-500">Enter Category Name</Text>
+        <Text className="text-center text-gray mt-2 mb-52">Enter Category Name</Text>
         
         <CustomPressable
           text="Save"

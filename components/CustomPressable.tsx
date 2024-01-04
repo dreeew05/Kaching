@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Text, TouchableHighlight } from 'react-native';
 
 type CustomPressableProps = {
   text: string;
@@ -9,14 +9,15 @@ type CustomPressableProps = {
 
 export default function CustomPressable({ text, onPress, disabled }: CustomPressableProps) {
   return (
-    <Pressable
+    <TouchableHighlight
       className={`w-3/5 self-center rounded-full p-3 mb-5 ${disabled ? 'bg-gray' : 'bg-green'}`} // Use the disabled prop to conditionally apply styles
       onPress={disabled ? undefined : onPress} // Prevent onPress if disabled
       disabled={disabled} // Set the disabled prop for accessibility
+      underlayColor={disabled ? 'transparent' : '#789c8c'} // Change the underlay color depending on disabled
     >
       <Text className={`text-white text-xl font-bold self-center ${disabled ? 'text-white' : ''}`}>
         {text}
       </Text>
-    </Pressable>
+    </TouchableHighlight>
   );
 }

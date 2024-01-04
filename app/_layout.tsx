@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Text, TextInput, View, Dimensions, Pressable } from 'react-native';
+import { Image, Text, TextInput, View, Pressable, TouchableHighlight } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
@@ -112,15 +112,16 @@ function OnboardingScreen({
               />
             </View>
 
-            <Pressable
+            <TouchableHighlight
               className={`w-64 self-center rounded-full p-3 mb-5 ${
                 storeName.trim() === '' ? 'bg-gray' : 'bg-green'
               } mt-6`}
               onPress={onConfirm}
               disabled={storeName.trim() === ''} // Disable button if store name is empty
+              underlayColor={'#789c8c'} // Change the underlay color when clicked
             >
               <Text className={`text-white text-xl font-bold self-center`}>Confirm</Text>
-            </Pressable>
+            </TouchableHighlight>
             <Text className={`text-gray mt-5 mb-1 self-center`}>
               By clicking confirm, you agree to our
             </Text>
@@ -131,12 +132,13 @@ function OnboardingScreen({
         </View>
       ) : null}
 
-      <Pressable
+      <TouchableHighlight
         className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green -inset-y-12`}
         onPress={onComplete}
+        underlayColor={'#789c8c'} // Change the underlay color when clicked
       >
         <Text className={`text-white text-xl font-bold self-center `}>Next</Text>
-      </Pressable>
+      </TouchableHighlight>
     </View>
   );
 }
