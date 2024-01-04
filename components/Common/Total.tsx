@@ -30,10 +30,10 @@ export default function Total({ page }: TotalProps) {
                 p-4 border-spacing-3 border-2 border-white
                 border-t-neutral-300"
       >
-        <Text className="text-xl text-gray" style={{ fontFamily: 'Poppins-Regular' }}>
+        <Text className="text-xl text-zinc-500" style={{ fontFamily: 'Poppins-Regular' }}>
           Total price:
         </Text>
-        <Text className="text-3xl" style={{ fontFamily: 'Poppins-Regular' }}>
+        <Text className="text-3xl text-zinc-500" style={{ fontFamily: 'Poppins-Regular' }}>
           ${cartState}
         </Text>
       </View>
