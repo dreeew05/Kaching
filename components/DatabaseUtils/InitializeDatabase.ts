@@ -88,7 +88,8 @@ const initializeEODTable = () => {
                 cashiername TEXT NOT NULL,
                 contactnum TEXT NOT NULL,
                 start DATETIME DEFAULT CURRENT_TIMESTAMP,
-                end DATETIME DEFAULT CURRENT_TIMESTAMP
+                end DATETIME DEFAULT CURRENT_TIMESTAMP,
+                iscurrent INTEGER NOT NULL DEFAULT 1
             )`
         )
     })
