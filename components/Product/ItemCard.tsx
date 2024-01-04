@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
 import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
+import { addProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -41,6 +42,12 @@ export default function ItemCard({ item }: itemCardProps) {
     }
   }, [itemState]);
 
+  const selectProduct = () => {
+    dispatch(
+      addProductAction('select')
+    )
+  }
+
   return (
     <View className="ml-3 mr-3 mb-5">
       <View className="flex flex-row mb-3">
@@ -51,7 +58,7 @@ export default function ItemCard({ item }: itemCardProps) {
           }}
           asChild
         >
-          <TouchableOpacity>
+          <TouchableOpacity onPress={selectProduct}>
             <Image className="w-40 h-40 mr-1 rounded-md" source={{uri:item.image}} />
           </TouchableOpacity>
         </Link>

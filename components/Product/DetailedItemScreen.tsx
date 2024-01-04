@@ -16,8 +16,6 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
   const itemState = useSelector((state : RootState) => 
       selectCartItem(state, item.id)
   )
-  
-  console.log(itemState)
 
   const getStartingQuantity = () => {
       let startingQuantity = 0

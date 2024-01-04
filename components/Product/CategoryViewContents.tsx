@@ -2,10 +2,11 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import ItemCard from "./ItemCard";
-import { selectProducts } from "../DatabaseUtils/FetchInstructions/SelectProducts";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { useEffect, useState } from "react";
 import { BaseItemProps } from "../__utils__/interfaces/BaseItemProps";
+import { useSelector } from "react-redux";
+import { selectProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
 
 interface CategoryViewContentsProps {
     id : number,
@@ -18,6 +19,8 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
     const isEditComponent = data.type === 'edit';
 
     const db = getDatabase();
+
+    const actionState = useSelector(selectProduct);
 
     const [products, setProducts] = useState<BaseItemProps[]>([]);
 
@@ -36,7 +39,7 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
                 }
             )
         })
-    }, [data.id])
+    }, [actionState])
 
     return(
         <View className="flex-1 self-stretch bg-white dark:bg-black">
