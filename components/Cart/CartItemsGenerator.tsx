@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import CartItemList from './CartItemList';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -21,8 +21,11 @@ export default function CartItemsGenerator() {
           Cart
         </Text>
         <View className="flex-1 justify-center items-center">
-          <FontAwesome name="cart-plus" size={300} color="black" />
-          <Text className="text-2xl mt-5" style={{ fontFamily: 'Poppins-Medium' }}>
+          <Image
+            className="h-48 w-48"
+            source={require('../../assets/icons/cart.png')}
+            />
+          <Text className="text-2xl mt-5 text-zinc-400" style={{ fontFamily: 'Poppins-Medium' }}>
             Your cart is empty
           </Text>
         </View>
