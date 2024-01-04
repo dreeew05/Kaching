@@ -7,6 +7,11 @@
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Cart/CartItemsGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Cart/CartItemsGenerator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/modifyItems.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/modifyItems.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Product/CategoryViewContents.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/CategoryViewContents.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Product/DetailedItemScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/DetailedItemScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/__utils__/interfaces/BaseItemProps.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/__utils__/interfaces/BaseItemProps.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/__utils__/interfaces/CategoryProps.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/__utils__/interfaces/CategoryProps.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

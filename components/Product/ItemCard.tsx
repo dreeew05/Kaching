@@ -11,7 +11,7 @@ type Item = {
   id: number;
   name: string;
   price: number;
-  image: ImageSourcePropType;
+  image: string;
 };
 
 type itemCardProps = {
@@ -58,7 +58,7 @@ export default function ItemCard({ item }: itemCardProps) {
           asChild
         >
           <TouchableOpacity>
-            <Image className="w-40 h-40 mr-1 rounded-md" source={item.image} />
+            <Image className="w-40 h-40 mr-1 rounded-md" source={{uri:item.image}} />
           </TouchableOpacity>
         </Link>
 

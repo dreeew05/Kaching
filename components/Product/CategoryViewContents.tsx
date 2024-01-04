@@ -2,11 +2,11 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import TestProductInterface from "../../utils/testProductInterface";
-
+import ItemCard from "./ItemCard";
 import testAppetizerData from "../../utils/testAppetizerData";
 import testBeverageData from "../../utils/testBeveragesData";
 import constantProductImages from "../../constants/Products";
-import ItemCard from "./ItemCard";
+import { selectProducts } from "../DatabaseUtils/FetchInstructions/SelectProducts";
 
 interface CategoryViewContentsProps {
     id : number,
@@ -14,33 +14,12 @@ interface CategoryViewContentsProps {
     type : string
 }
 
-// TEST
-// [START]
-interface productProps {
-name : string,
-data : TestProductInterface[]
-}
-
-interface testDataProps {
-[id : number] : productProps
-}
-
-const testData : testDataProps = {
-10000 : {
-    name : 'Appetizer', 
-    data: testAppetizerData
-},
-10001 : {
-    name: 'Beverages',
-    data: testBeverageData
-}
-}
-
-  const products : TestProductInterface[] = testData[10000].data;
-
 export default function CategoryViewContents(data : CategoryViewContentsProps) {
 
     const isEditComponent = data.type === 'edit';
+
+    const products = selectProducts(data.id);
+    console.log(products)
 
     return(
         <View className="flex-1 self-stretch bg-white dark:bg-black">
@@ -82,10 +61,9 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
                 )}
             </View>
             <ScrollView className="p-2">
-            {products.map((product) => {
-                product.image = constantProductImages[product.id];
-                return <ItemCard key={product.id} item={product}/>
-            })}
+                {products.map((product) => {
+                    return <ItemCard key={product.id} item={product}/>
+                })}
             </ScrollView>
         </View>
     )
