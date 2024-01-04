@@ -33,6 +33,11 @@ export const insertData = (tableName : string, data : any[]) => {
     const placeholders : string = Object.values(data[0]).map(() => '?').join(', ');
     const values : any[] = Object.values(data[0]);
 
+    console.log(columns)
+    console.log(placeholders)
+    console.log(values)
+    console.log(tableName)
+
     const query = `INSERT INTO ${tableName} (${columns}) VALUES (${placeholders})`;
     return executeTransaction(query, values, 'insert')
 
@@ -76,7 +81,10 @@ export const executeTransaction = (query : string, values : any[],
         db.transaction(tx => {
             tx.executeSql(query, values, (_, result) => {
                 if(operation == "select") {
-                    resolve(result.rows._array)
+                    // resolve(result.rows._array)
+                    if(result.rows.length != 0){
+                        resolve(result.rows._array)
+                    }
                 }
                 else {
                     resolve(result);

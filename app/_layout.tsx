@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import TermsAndConditionsScreen from './TermsAndConScreen';
+import { insertData } from '../components/DatabaseUtils/CoreFunctions';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -38,7 +39,7 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
+  const [onboardingCompleted, setOnboardingCompleted] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [storeName, setStoreName] = useState('');
   const [showTermsModal, setShowTermsModal] = useState(false);
@@ -95,6 +96,21 @@ function OnboardingScreen({
   onTermsPress,
   onConfirm,
 }) {
+  
+  // Set store name
+  // const tableName = 'main';
+  // const data = [{
+  //   storeName : storeName
+  // }]
+  // insertData(tableName, data)
+  //   .then((result) => {
+  //     handleConfirm()
+  //     console.log(result)
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <Image source={image} className={'w-screen h-screen'} />

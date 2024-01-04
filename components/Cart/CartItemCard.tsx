@@ -46,7 +46,7 @@ export default function CartItemCard(item: CartItemProps) {
     <View>
       <View className="flex-row py-5 px-5 justify-between">
         <View>
-          <Image source={item.image} className="w-36 h-36 rounded-md" />
+          <Image source={{uri:item.image}} className="w-36 h-36 rounded-md" />
         </View>
         <View className="flex-1 ml-5">
           <Text className="text-lg text-darkgreen" style={{ fontFamily: 'Poppins-Medium' }}>

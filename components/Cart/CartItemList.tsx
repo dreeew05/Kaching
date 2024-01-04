@@ -14,7 +14,6 @@ const CartItemList: React.FC<CartProps> = ({ cart }) => {
   return (
     <ScrollView>
       {cart.map((item) => {
-        item.image = constantProducts[item.id];
         return (
           <View key={item.id}>
             <CartItemCard

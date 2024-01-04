@@ -4,8 +4,7 @@ import FinancialSummary from '../../components/FinancialSummaryTable';
 import ShareCSV from '../../components/ShareCSV';
 import CategoryTable from '../../components/CategoryTable';
 import { ScrollView } from 'react-native-gesture-handler';
-import { insertData } from '/home/jckarim/Desktop/New Folder/Kaching/components/DatabaseUtils/CoreFunctions';
-
+import { insertData } from '../../components/DatabaseUtils/CoreFunctions';
 export default function currentEOD() {
 
   insertData('eods', [{

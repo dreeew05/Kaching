@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Image, View, Text, Pressable, ImageSourcePropType, TouchableOpacity } from 'react-native';
+import { Image, View, Text, Pressable, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 import Stepper from '../Stepper';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
 import { RootState } from '../../redux/Store';
-
-type Item = {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-};
+import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 
 type itemCardProps = {
-  item: Item;
+  item: BaseItemProps;
 };
 
 export default function ItemCard({ item }: itemCardProps) {
@@ -36,7 +30,7 @@ export default function ItemCard({ item }: itemCardProps) {
         price: item.price,
         quantity: quantity,
         image: item.image,
-        category: 'Test Category',
+        category: item.category,
       }),
     );
   };

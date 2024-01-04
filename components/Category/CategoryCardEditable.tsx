@@ -36,7 +36,7 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
         dispatch(
           addCategoryAction('delete')
         )
-        console.log(result)
+        // console.log(result)
       })
       .catch((error) => {
         console.log("Deletion Failed", error)

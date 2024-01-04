@@ -1,90 +1,60 @@
-import React, { useState } from 'react';
-import { Text, View } from '../../components/Themed';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
 import { Provider } from 'react-redux';
+import { Store } from '../../redux/Store';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
+import { useEffect, useState } from 'react';
 import { DetailedItemProps } from '../../components/__utils__/interfaces/DetailedItemProps';
 import DetailedItemScreen from '../../components/Product/DetailedItemScreen';
-import { Store } from '../../redux/Store';
-
-interface tesDataProps {
-  [id: number]: DetailedItemProps;
-}
-
-// TEST DATA
-// START
-
-const testData: tesDataProps = {
-  10000: {
-    id: 10000,
-    name: 'Mozarella Sticks',
-    image: require('../../assets/images/products/10000.jpg'),
-    price: 5.99,
-    description: 'Sample Descrption 1',
-    category: 'Appetizer',
-  },
-  10001: {
-    id: 10001,
-    name: 'Bruschetta',
-    image: require('../../assets/images/products/10001.jpg'),
-    price: 7.99,
-    description: 'Sample Description 2',
-    category: 'Appetizer',
-  },
-  10002: {
-    id: 10002,
-    name: 'Deviled Eggs',
-    image: require('../../assets/images/products/10002.jpg'),
-    price: 9.99,
-    description: 'Sample Description 3',
-    category: 'Appetizer',
-  },
-  10003: {
-    id: 10003,
-    name: ' Beer',
-    image: require('../../assets/images/products/10003.jpg'),
-    price: 1.99,
-    description: 'Sample Description 4',
-    category: 'Beverages',
-  },
-  10004: {
-    id: 10004,
-    name: 'Coca-Cola',
-    image: require('../../assets/images/products/10004.jpg'),
-    price: 1.99,
-    description: 'Sample Description 5',
-    category: 'Beverages',
-  },
-  10005: {
-    id: 10005,
-    name: 'Pepsi',
-    image: require('../../assets/images/products/10005.jpg'),
-    price: 1.99,
-    description: 'Sample Description 6',
-    category: 'Beverages',
-  },
-};
-
-// END
 
 export default function ItemScreen() {
   const param = useLocalSearchParams();
+  const id = ParamsToInteger(param.id);
 
-  const id: number = ParamsToInteger(param.id);
-  const item: DetailedItemProps = testData[id];
+  const db = getDatabase();
+
+    const [product, setProduct] = useState<DetailedItemProps[]>([{
+        id: 0,
+        name: '',
+        image: '',
+        price: 0,
+        description: '',
+        category: ''
+    }]);
+
+    useEffect(() => {
+        db.transaction(tx => {
+            tx.executeSql(
+                `SELECT item.id, item.name, item.description, item.image, 
+                item.price,
+                category.name AS 'category'
+                FROM item
+                LEFT JOIN category ON item.category_id = category.id
+                WHERE item.id = ?`,
+                [id],
+                (_, result) => {
+                    setProduct(result.rows._array)
+                }
+            )
+        })
+    }, [id])
+
+    console.log(product)
 
   return (
     <Provider store={Store}>
-      <View className="flex-1 h-full relative z-0">
         <DetailedItemScreen
-          id={item.id}
-          name={item.name}
-          image={item.image}
-          price={item.price}
-          description={item.description}
-          category={item.category}
+            id={product[0].id}
+            name={product[0].name}
+            image={product[0].image}
+            price={product[0].price}
+            description={product[0].description}
+            category={product[0].category}
         />
-      </View>
     </Provider>
   );
+  
+  // return(
+  //   <View></View>
+  // )
 }
