@@ -30,9 +30,10 @@ const initializeItemTable = () => {
             `CREATE TABLE IF NOT EXISTS item(
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
-                price REAL NOT NULL,
-                category INTEGER NOT NULL,
-                FOREIGN KEY (category) REFERENCES category(id)
+                price NUMERIC NOT NULL,
+                image TEXT NOT NULL,
+                category_id INTEGER NOT NULL,
+                description TEXT
             )`
         )
     })

@@ -36,7 +36,7 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         price: item.price,
         quantity: quantity,
         image: item.image,
-        category: 'Test Category',
+        category_id: 'Test Category',
       }),
     );
   };
