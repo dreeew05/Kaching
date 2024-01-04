@@ -19,6 +19,8 @@
       <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/FetchInstructions/SelectProducts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/DatabaseUtils/FetchInstructions/SelectProducts.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/InitializeDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/DatabaseUtils/InitializeDatabase.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Product/AddItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/AddItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Cart/CartItemsGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Cart/CartItemsGenerator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/modifyItems.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/modifyItems.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Product/CategoryViewContents.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/CategoryViewContents.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Product/DetailedItemScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/DetailedItemScreen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Product/ItemCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ItemCard.tsx" afterDir="false" />
