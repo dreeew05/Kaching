@@ -36,7 +36,7 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         price: item.price,
         quantity: quantity,
         image: item.image,
-        category_id: 'Test Category',
+        category: 'Test Category',
       }),
     );
   };
@@ -59,7 +59,7 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         <Pressable onPress={gotToAddItem} className="absolute z-10 top-1 right-2.5 h-8">
           <FontAwesome name="edit" size={38} color="white" />
         </Pressable>
-        <Image source={item.image} className="w-full h-full rounded-3xl" />
+        <Image source={{uri:item.image}} className="w-full h-full rounded-3xl" />
         <Text className="text-center text-3xl pt-3 text-green">{item.price} PHP</Text>
         <Text className="text-center text-4xl pt-3">{item.name}</Text>
         <View className="h-36 justify-center items-center">
