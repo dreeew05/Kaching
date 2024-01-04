@@ -51,14 +51,14 @@ const initializeCategoryItemTable = () => {
     })
 }
 
-const initializeReceiptTable = () => {
+const initializeReceiptTable = () => { 
     db.transaction(tx => {
         tx.executeSql(
             `CREATE TABLE IF NOT EXISTS receipts(
                 receipt_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 total NUMERIC NOT NULL,
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-                mode_of_payment TEXT NOT NULL,
+                mode_of_payment TEXT NOT NULL
             )`
         )
     })
@@ -78,7 +78,7 @@ const initializeReceiptItemTable = () => {
     })
 }
 
-const initializeEODTable = () => {
+const initializeEODTable = () => {  
     db.transaction(tx => {
         tx.executeSql(
             `CREATE TABLE IF NOT EXISTS eods(
@@ -88,7 +88,7 @@ const initializeEODTable = () => {
                 cashiername TEXT NOT NULL,
                 contactnum TEXT NOT NULL,
                 start DATETIME DEFAULT CURRENT_TIMESTAMP,
-                end DATETIME DEFAULT CURRENT_TIMESTAMP,
+                end DATETIME DEFAULT CURRENT_TIMESTAMP
             )`
         )
     })
