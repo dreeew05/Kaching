@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/CoreFunctions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/DatabaseUtils/CoreFunctions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/CustomFunctions.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/FetchInstructions/SelectAllCategories.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/DatabaseUtils/FetchInstructions/SelectAllCategories.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/AddItemScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/AddItemScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/categoryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/categoryView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/FetchInstructions/SelectCategory.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DatabaseUtils/InitializeDatabase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/DatabaseUtils/InitializeDatabase.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

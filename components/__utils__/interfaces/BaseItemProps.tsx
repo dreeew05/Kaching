@@ -5,5 +5,5 @@ export interface BaseItemProps {
   name: string;
   image: ImageSourcePropType;
   price: number;
-  category: string;
+  category_id: string;
 }
