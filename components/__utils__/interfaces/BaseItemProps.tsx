@@ -3,7 +3,7 @@ import { ImageSourcePropType } from 'react-native';
 export interface BaseItemProps {
   id: number;
   name: string;
-  image: ImageSourcePropType;
+  image: string;
   price: number;
-  category_id: string;
+  category: string;
 }
