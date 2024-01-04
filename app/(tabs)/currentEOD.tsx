@@ -4,8 +4,22 @@ import FinancialSummary from '../../components/FinancialSummaryTable';
 import ShareCSV from '../../components/ShareCSV';
 import CategoryTable from '../../components/CategoryTable';
 import { ScrollView } from 'react-native-gesture-handler';
+import { insertData } from '/home/jckarim/Desktop/New Folder/Kaching/components/DatabaseUtils/CoreFunctions';
 
 export default function currentEOD() {
+
+  insertData('eods', [{
+    storename: 'WOW',
+    address: 'Miagao, Iloilo',
+    cashiername: 'Palmsdale Kevin Cordero',
+    contactnum: '09133287645'
+  }]).then((result) => {
+    console.log(result);
+  }
+  ).catch((error) => {
+    console.log(error);
+  });
+
   // TEST DATA
   const table1 = {
     header: ['Appetizer'],
