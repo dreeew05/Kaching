@@ -1,13 +1,9 @@
 import { Provider, useSelector } from "react-redux";
 import { Store } from "../../redux/Store";
-import { selectSpecificProduct } from "../DatabaseUtils/FetchInstructions/SelectProducts";
 import DetailedItemScreen from "./DetailedItemScreen";
-import { View } from "../Themed";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { useEffect, useState } from "react";
 import { DetailedItemProps } from "../__utils__/interfaces/DetailedItemProps";
-import { useLocalSearchParams } from "expo-router";
-import ParamsToInteger from "../__utils__/helper/ParamsToInteger";
 import { selectProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
 
 interface ItemScreenFetchDataProps {
@@ -16,9 +12,6 @@ interface ItemScreenFetchDataProps {
 
 export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
 
-    // const param = useLocalSearchParams();
-    // const id = ParamsToInteger(param.id);
-
     const db = getDatabase();
 
     const actionState = useSelector(selectProduct)
@@ -26,7 +19,7 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
     const [product, setProduct] = useState<DetailedItemProps[]>([{
         id: 0,
         name: '',
-        image: '',
+        image: '../../assets/icons/blank.jpg',
         price: 0,
         description: '',
         category: ''

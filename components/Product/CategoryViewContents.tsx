@@ -82,7 +82,13 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
             </View>
             <ScrollView className="p-2">
                 {products.map((product) => {
-                    return <ItemCard key={product.id} item={product}/>
+                    return (
+                        <ItemCard 
+                            key={product.id} 
+                            item={product} 
+                            isEditComponent={isEditComponent}
+                        />
+                    )
                 })}
             </ScrollView>
         </View>
