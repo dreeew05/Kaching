@@ -35,7 +35,7 @@ export default function ModifyCategory() {
           // console.log(result[0].name)
           setCategoryName(result[0].name)
           setImage(result[0].image)
-          setSelectedImage(result[0].image); // Set selectedImage initially
+          setSelectedImage(result[0].image); 
         })
 
     } else {
