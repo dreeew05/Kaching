@@ -27,8 +27,8 @@ export default function Total({ page }: TotalProps) {
     <View>
       <View
         className="flex-row justify-between 
-                p-4 border-spacing-3 border-2 border-white
-                border-t-neutral-300"
+          p-4 border-spacing-3 border-2 border-white
+          border-t-neutral-300"
       >
         <Text className="text-xl text-zinc-500" style={{ fontFamily: 'Poppins-Regular' }}>
           Total price:
