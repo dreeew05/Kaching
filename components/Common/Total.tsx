@@ -18,7 +18,7 @@ export default function Total({ page }: TotalProps) {
   };
 
   const viewPayment = () => {
-    router.push('/(tabs)/PaymentProvider');
+    router.push('/(tabs)/paymentWrapper');
   };
 
   const isCheckoutDisabled = cartState === 0;

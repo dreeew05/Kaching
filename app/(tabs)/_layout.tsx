@@ -16,6 +16,9 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
+
+  // To reset isEditComponent
+
   const colorScheme = useColorScheme();
 
   return (
@@ -28,9 +31,13 @@ export default function TabLayout() {
         name="index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => (
+              <TabBarIcon name="home" color={color} />
+          ),
           headerLeft: () => (
-            <FontAwesome5 name="store" size={24} color="green" style={{ marginLeft: 20 }} />
+            <FontAwesome5 name="store" size={24} 
+              color="green" style={{ marginLeft: 20 }} 
+            />
           ),
         }}
       />
@@ -71,7 +78,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="payment"
+        name="paymentWrapper"
         options={{
           title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
@@ -93,7 +100,29 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="receipt"
+        name="editItemScreen"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/cart" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={24}
+                    color="green"
+                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="receiptWrapper"
         options={{
           title: 'Receipt',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
@@ -124,22 +153,6 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="modifyCategoryView"
-        options={{
-          title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null, // Hide this tab from the tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="PaymentProvider"
-        options={{
-          title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null, // Hide this tab from the tab bar
-        }}
-      />
-      <Tabs.Screen
-        name="ReceiptProvider"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,

@@ -15,7 +15,7 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
 
     const actionState = useSelector(selectSpecificProduct);
     
-    console.log(actionState)
+    // console.log(actionState)
 
     const [product, setProduct] = useState<DetailedItemProps[]>([{
         id: 0,
