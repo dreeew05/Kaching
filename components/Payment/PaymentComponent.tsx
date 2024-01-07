@@ -14,23 +14,39 @@ export default function PaymentComponent() {
         { label: 'Online', value: 'online' },
     ]);
 
-    const router = useRouter();
-
-    const viewOrderSummary = () => {
-        router.push('/(tabs)/orderSummary');
-    };
-    const viewReceipt = () => {
-        router.push('/(tabs)/receipt');
-    };
-
-    const [number, onChangeNumber] = useState<string>('');
+    const [userPayment, onChangeUserPayment] = useState<string>('');
     const [inputMargin, setInputMargin] = useState(40); // Initial margin set to 40
 
     const handleDropdownToggle = (isOpen: boolean) => {
         setInputMargin(isOpen ? 150 : 40); // Set the margin to 150 when the dropdown is open, and 40 when it's closed
     };
-    
+
+    const router = useRouter();
+
     const actionState = useSelector(selectCartTotalPrice);
+
+    const viewOrderSummary = () => {
+        router.push('/(tabs)/orderSummary');
+    };
+
+    const verifyPayment = () => {
+        if(parseFloat(userPayment) < actionState) {
+            console.log("Insufficient Payment")
+        }
+        else if(userPayment === '') {
+            console.log("Please enter payment")
+        }
+        else {
+            viewReceipt();
+        }
+    }
+
+    const viewReceipt = () => {
+        router.push({
+            pathname : '/(tabs)/receiptWrapper',
+            params: { userPayment }
+        });
+    };
 
     return (
         <View
@@ -83,17 +99,19 @@ export default function PaymentComponent() {
             />
 
             <TextInput
-            className="border-2 border-gray rounded-xl p-2 m-5 mt-40 self-center w-2/3 text-gray text-base font-semibold"
-            onChangeText={onChangeNumber}
-            value={number}
-            placeholder="Enter Payment Amount"
-            keyboardType="decimal-pad"
-            style={{ marginTop: inputMargin }}
+                className="border-2 border-gray rounded-xl p-2 m-5 mt-40 self-center w-2/3 text-gray text-base font-semibold"
+                onChangeText={onChangeUserPayment}
+                value={userPayment}
+                placeholder="Enter Payment Amount"
+                keyboardType="decimal-pad"
+                style={{ marginTop: inputMargin }}
             />
         </View>
 
         <View>
-            <CustomPressable text="Confirm Payment" onPress={viewReceipt} />
+            <CustomPressable text="Confirm Payment" 
+                onPress={verifyPayment} 
+            />
         </View>
         </View>
     );

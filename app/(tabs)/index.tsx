@@ -7,9 +7,10 @@ import CategoryGenerator from '../../components/Home/CategoryGenerator';
 import { Provider } from 'react-redux';
 import { Store } from '../../redux/Store';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
+import { setIsEditComponent } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
 export default function HomeScreen() {
-
+  
   // Hide/Show start day pressable
   let hasStartDayData = false;
   let cashierName = 'Palmsdale Kevin'; // Replace with the actual cashier name
@@ -28,9 +29,9 @@ export default function HomeScreen() {
           console.log(cashierName);
         }
       },
-      (txObj, error) => {
-        hasStartDayData = false;
-      }
+      // (txObj, error) => {
+      //   hasStartDayData = false;
+      // }
     );
   });
   

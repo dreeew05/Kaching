@@ -2,13 +2,13 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 
 // CONSTANT DATA
-import constantProducts from '../constants/Products';
+import constantProducts from '../../constants/Products';
 
 // COMPONENT
 import ReceiptItemCard from './ReceiptItemCard';
 
 // INTERFACE
-import { CartProps } from './__utils__/interfaces/CartItemProps';
+import { CartProps } from '../__utils__/interfaces/CartItemProps';
 
 const ReceiptItemList: React.FC<CartProps> = ({ cart }) => {
   return (

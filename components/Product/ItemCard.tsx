@@ -9,7 +9,6 @@ import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { addProductAction, setIsEditComponent, setSpecificProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
-import EditItemScreen from '../../app/(tabs)/editItemScreen';
 
 type itemCardProps = {
   item: BaseItemProps;

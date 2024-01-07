@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 
 // INTERFACE
-import { CartItemProps } from './__utils__/interfaces/CartItemProps';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 
 export default function CartItemCard(item: CartItemProps) {
   const subTotalPrice = item.price * item.quantity;

@@ -56,7 +56,7 @@ const initializeReceiptTable = () => {
     db.transaction(tx => {
         tx.executeSql(
             `CREATE TABLE IF NOT EXISTS receipts(
-                receipt_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                receipt_id INTEGER NOT NULL PRIMARY KEY,
                 total NUMERIC NOT NULL,
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                 mode_of_payment TEXT NOT NULL
