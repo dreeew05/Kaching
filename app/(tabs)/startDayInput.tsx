@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { Alert, View, Text } from 'react-native';
 import StartDayInput from '../../components/StartDay';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
+import { useRouter } from 'expo-router';
 
 // Define an interface for the start day data
 interface StartDayData {
@@ -14,8 +16,35 @@ export default function ParentComponent() {
   const [startDayData, setStartDayData] = useState<StartDayData | null>(null);
 
   const handleStartDay = (startDayData: StartDayData) => {
+    // Save the start day data to the database
     setStartDayData(startDayData);
-    Alert.alert('Show Alert Action', 'This is a dummy action.');
+    const db = getDatabase();
+
+    db.transaction((tx) => {
+      tx.executeSql(
+        'INSERT INTO eods (cashiername, contactnum, pettycash) VALUES (?, ?, ?)',
+        [ startDayData.cashierName, 
+          startDayData.contactNumber, 
+          startDayData.pettyCashAmount
+        ],
+        (txObj, resultSet) => {
+          console.log('Start day data inserted.');
+          console.log(resultSet);
+        },
+        (txObj, error) => {
+          console.log('Error inserting start day data.');
+          console.log(error);
+        }
+      );
+    });
+
+    // go back to home screen
+    goBack();
+  };
+
+  const router = useRouter();
+  const goBack = () => {
+    router.back();
   };
 
   return (

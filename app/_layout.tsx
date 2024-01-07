@@ -6,7 +6,10 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import TermsAndConditionsScreen from './TermsAndConScreen';
+import { initializeDatabase } from '../components/DatabaseUtils/InitializeDatabase';
 import { insertData } from '../components/DatabaseUtils/CoreFunctions';
+import { getDatabase } from '../components/DatabaseUtils/OpenDatabase';
+
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -39,7 +42,7 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  const [onboardingCompleted, setOnboardingCompleted] = useState(true);
+  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [storeName, setStoreName] = useState('');
   const [showTermsModal, setShowTermsModal] = useState(false);
@@ -56,6 +59,21 @@ export default function RootLayout() {
   }, [loaded]);
 
   const handleConfirm = () => {
+    const db = getDatabase();
+    db.transaction((tx) => {
+      tx.executeSql(
+        'INSERT INTO store(storename) VALUES (?)',
+        [storeName],
+        (tx, results) => {
+          console.log('Results', results.rowsAffected);
+          if (results.rowsAffected > 0) {
+            console.log('Success');
+          } else {
+            console.log('Failed');
+          }
+        }
+      );
+    });
     setOnboardingCompleted(true);
   };
 
@@ -64,6 +82,7 @@ export default function RootLayout() {
   }
 
   if (!onboardingCompleted) {
+    initializeDatabase();
     return (
       <View style={{ flex: 1 }}>
         <OnboardingScreen
@@ -97,19 +116,9 @@ function OnboardingScreen({
   onConfirm,
 }) {
   
-  // Set store name
-  // const tableName = 'main';
-  // const data = [{
-  //   storeName : storeName
-  // }]
-  // insertData(tableName, data)
-  //   .then((result) => {
-  //     handleConfirm()
-  //     console.log(result)
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  //Set store name
+  const tableName = 'main';
+  
 
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
