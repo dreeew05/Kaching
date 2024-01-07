@@ -83,9 +83,9 @@ export default function ModifyCategory() {
       updateData(tableName, targetAttrib, targetValue, refAttrib, 
         refValue)
         .then((result) => {
-          dispatch(
-            addCategoryAction('update')
-          )
+          // dispatch(
+          //   addCategoryAction('update')
+          // )
           // console.log(result)
         })
         .catch((error) => {
@@ -95,14 +95,14 @@ export default function ModifyCategory() {
       updateData(tableName, targetAttrib2, targetValue2, refAttrib, 
         refValue)
         .then((result) => {
-          dispatch(
-            addCategoryAction('update')
-          )
           // console.log(result)
         })
         .catch((error) => {
           console.log(error)
         })
+        dispatch(
+          addCategoryAction('update')
+        )
     }
     else {
       insertData(tableName, data)

@@ -1,11 +1,10 @@
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { Store } from "../../redux/Store";
 import DetailedItemScreen from "./DetailedItemScreen";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { useEffect, useState } from "react";
 import { DetailedItemProps } from "../__utils__/interfaces/DetailedItemProps";
-import { selectProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
-
+import { selectSpecificProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
 interface ItemScreenFetchDataProps {
     id : number
 }
@@ -14,7 +13,9 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
 
     const db = getDatabase();
 
-    const actionState = useSelector(selectProduct)
+    const actionState = useSelector(selectSpecificProduct);
+    
+    console.log(actionState)
 
     const [product, setProduct] = useState<DetailedItemProps[]>([{
         id: 0,
@@ -28,7 +29,7 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
     useEffect(() => {
         db.transaction(tx => {
             tx.executeSql(
-                `SELECT item.id, item.name, item.description, item.image, 
+                `SELECT item.id, item.name, item.description, item.image,
                 item.price,
                 category.name AS 'category'
                 FROM item
@@ -36,13 +37,11 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
                 WHERE item.id = ?`,
                 [data.id],
                 (_, result) => {
-                    setProduct(result.rows._array)
+                    setProduct(result.rows._array);
                 }
             )
         })
-    }, [actionState])
-
-    console.log(product)
+    }, [data.id, actionState]);
 
     return (
         <Provider store={Store}>
@@ -56,5 +55,5 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
             />
         </Provider>
     );
-
+      
 }

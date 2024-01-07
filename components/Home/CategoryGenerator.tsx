@@ -7,8 +7,7 @@ import { selectAllCategories } from '../DatabaseUtils/FetchInstructions/SelectAl
 export default function CategoryGenerator() {
   const router = useRouter();
 
-  // Get categories from database
-  const categoryData = selectAllCategories();
+  const categoryData = selectAllCategories()
 
   const editCategories = () => {
     router.push('/(tabs)/modifyCategoryView');

@@ -47,7 +47,11 @@ export default function Total({ page }: TotalProps) {
             disabled={isCheckoutDisabled}
           />
         )}
-        {page === 'summary' && <CustomPressable text="Proceed to Payment" onPress={viewPayment} />}
+        {page === 'summary' && 
+          <CustomPressable text="Proceed to Payment" 
+            onPress={viewPayment} 
+          />
+        }
       </View>
     </View>
   );

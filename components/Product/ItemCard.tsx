@@ -7,7 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
 import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
-import { addProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { addProductAction, setIsEditComponent, setSpecificProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { deleteData } from '../DatabaseUtils/CoreFunctions';
+import EditItemScreen from '../../app/(tabs)/editItemScreen';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -45,9 +47,30 @@ export default function ItemCard(item: itemCardProps) {
     }
   }, [itemState]);
 
-  const selectProduct = () => {
+  const deleteProduct = (id : number) => {
+    const tableName : string = 'item';
+    const refAttribute : string = 'id';
+
+    deleteData(tableName, refAttribute, id)
+      .then((result) => {
+        dispatch(
+          addProductAction('delete')
+        )
+        dispatch(
+          setSpecificProductAction({
+            id : 0,
+            action : 'delete'
+          })
+        )
+      })
+      dispatch(
+        setIsEditComponent(true)
+      )
+  }
+
+  const editProduct = () => {
     dispatch(
-      addProductAction('select')
+      setIsEditComponent(true)
     )
   }
 
@@ -61,7 +84,7 @@ export default function ItemCard(item: itemCardProps) {
           }}
           asChild
         >
-          <TouchableOpacity onPress={selectProduct}>
+          <TouchableOpacity>
             <Image className="w-40 h-40 mr-1 rounded-md" 
               source={{uri:item.item.image}} 
             />
@@ -98,14 +121,35 @@ export default function ItemCard(item: itemCardProps) {
         ) :
         (
           <View className="flex flex-row items-center">
-            <View className="flex-1 justify-center">
-              <Pressable
-                className="bg-green w-60 h-10 border-2 border-green 
-                            rounded-md self-center flex-1 items-center justify-center"
-                onPress={addToCartEvent}
+            <View className="flex flex-row justify-center">
+              <Link
+                href={{
+                  pathname : '/(tabs)/editItemScreen',
+                  params: {
+                    id : item.item.id,
+                  }
+                }}
+                asChild
               >
-                <Text className="text-white text-lg" style={{ fontFamily: 'Poppins-Bold' }}>
-                  Edit Product
+                <Pressable
+                  className="bg-green h-10 border-2 border-green  mr-2
+                              rounded-md self-center flex-1 items-center justify-center"
+                  onPress={() => editProduct()}
+                >
+                  <Text className="text-white text-lg" style={{ fontFamily: 'Poppins-Bold' }}>
+                    Edit Product
+                  </Text>
+                </Pressable>
+              </Link>
+              <Pressable
+                className="bg-red-500 h-10 border-2 border-red-500 ml-2
+                            rounded-md self-center flex-1 items-center justify-center"
+                onPress={() => deleteProduct(item.item.id)}
+              >
+                <Text className="text-white text-lg" 
+                  style={{ fontFamily: 'Poppins-Bold' }}
+                >
+                  Delete Product
                 </Text>
               </Pressable>
             </View>

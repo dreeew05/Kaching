@@ -7,7 +7,10 @@ import { OrderSummaryProps } from '../__utils__/interfaces/OrderSummaryProps';
 export default function OrderSummaryItemCard(item: OrderSummaryProps) {
   return (
     <View className="flex flex-row items-center bg-slate-200 rounded-xl m-3 p-1 justify-between">
-      <Image source={item.image} className="w-16 h-16 rounded border-4 self-center m-1" />
+      <Image 
+        source={{uri : item.image}}
+        className="w-16 h-16 rounded border-4 self-center m-1" 
+      />
 
       <View className="w-16">
         <Text
