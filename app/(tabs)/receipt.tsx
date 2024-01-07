@@ -2,13 +2,15 @@ import React from 'react';
 
 import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { selectCartItems } from '../../redux/CartRedux/CartSelectors';
 
 // COMPONENTS
 import ReceiptItemList from '../../components/ReceiptItemList';
 
 // TEST DATA
-import testData from '../../utils/testCartData';
 import { ScrollView } from 'react-native-gesture-handler';
+
 
 export default function TabOneScreen() {
   const router = useRouter();
@@ -16,9 +18,10 @@ export default function TabOneScreen() {
     router.push('../');
   };
 
+  const data = useSelector(selectCartItems);
+
   return (
     <View className="flex-1 self-stretch bg-white dark:bg-black">
-      <Text className="text-4xl ml-5 font-semibold text-green">Payment</Text>
       <Text className="text-2xl font-semibold text-green self-center">Transaction Recorded!</Text>
       <View className="flex flex-row self-center">
         <Text className="text-2xl font-semibold text-green self-center">Change: </Text>
@@ -34,7 +37,7 @@ export default function TabOneScreen() {
         </View>
         <View>
           {/* Generate Items */}
-          <ReceiptItemList cart={testData} />
+          <ReceiptItemList cart={data} />
         </View>
       </ScrollView>
 

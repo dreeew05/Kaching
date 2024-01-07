@@ -94,15 +94,12 @@ const initializeEODTable = () => {
         tx.executeSql(
             `CREATE TABLE IF NOT EXISTS eods(
                 eod_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                storename TEXT NOT NULL,
-                address TEXT NOT NULL,
                 cashiername TEXT NOT NULL,
                 contactnum TEXT NOT NULL,
-                pettyca
+                pettycash NUMERIC NOT NULL DEFAULT 0,
                 start DATETIME DEFAULT CURRENT_TIMESTAMP,
                 end DATETIME DEFAULT CURRENT_TIMESTAMP,
-                iscurrent INTEGER NOT NULL DEFAULT 1,
-                FOREIGN KEY(storename) REFERENCES store(storename)
+                iscurrent INTEGER NOT NULL DEFAULT 1
             )`
         )
     })
