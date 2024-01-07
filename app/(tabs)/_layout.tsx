@@ -101,14 +101,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="modifyItems"
-        options={{
-          title: 'ModifyItems',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null, // Hide this tab from the tab bar
-        }}
-      />
-      <Tabs.Screen
         name="categoryView"
         options={{
           title: 'Back',

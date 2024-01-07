@@ -5,8 +5,9 @@ import ItemCard from "./ItemCard";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { useEffect, useState } from "react";
 import { BaseItemProps } from "../__utils__/interfaces/BaseItemProps";
-import { useSelector } from "react-redux";
-import { selectProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsEditComponent, selectProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
+import { setIsEditComponent } from "../../redux/GlobalStateRedux/GlobalStateSlice";
 
 interface CategoryViewContentsProps {
     id : number,
@@ -16,11 +17,12 @@ interface CategoryViewContentsProps {
 
 export default function CategoryViewContents(data : CategoryViewContentsProps) {
 
-    const isEditComponent = data.type === 'edit';
-
     const db = getDatabase();
 
+    const dispatch = useDispatch();
+
     const actionState = useSelector(selectProduct);
+    const actionStateEdit = useSelector(selectIsEditComponent);
 
     const [products, setProducts] = useState<BaseItemProps[]>([]);
 
@@ -41,6 +43,43 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
         })
     }, [actionState])
 
+    const showModifyProductsComponent = () => {
+        if(actionStateEdit && products.length > 0) {
+            return (
+                <Pressable className="ml-3"
+                    onPress={() => dispatch(
+                        setIsEditComponent(false)
+                    )}
+                >
+                    <FontAwesome5 name="edit" size={25} 
+                        color="darkgreen" 
+                    />
+                </Pressable>
+            )
+        }
+        else if (!actionStateEdit || products.length == 0) {
+            return(
+                <Link href={{
+                    pathname : '/(tabs)/AddItemScreen',
+                    params : {
+                        id : data.id,
+                    }
+                    }} asChild>
+        
+                    <Pressable className="ml-3"
+                        onPress={() => dispatch(
+                            setIsEditComponent(true)
+                        )}
+                    >
+                        <FontAwesome5 name="plus" size={25} 
+                            color="darkgreen" 
+                        />
+                    </Pressable>
+                </Link>
+            )
+        }
+    }
+
     return(
         <View className="flex-1 self-stretch bg-white dark:bg-black">
             <View className='flex flex-row'>
@@ -49,36 +88,7 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
             >
                 {data.name}
             </Text>
-                {isEditComponent ? (
-                    <Link href={{
-                        pathname : '/(tabs)/modifyItems',
-                        params : {
-                            id : data.id,
-                            category : data.name
-                        }
-                        }} asChild>
-        
-                        <Pressable className="ml-3">
-                            <FontAwesome5 name="edit" size={25} color="darkgreen" />
-                        </Pressable>
-        
-                    </Link>
-                ) : 
-                (
-                    <Link href={{
-                        pathname : '/(tabs)/AddItemScreen',
-                        params : {
-                            id : data.id,
-                            category : data.name
-                        }
-                        }} asChild>
-        
-                        <Pressable className="ml-3">
-                            <FontAwesome5 name="plus" size={25} color="darkgreen" />
-                        </Pressable>
-        
-                    </Link>
-                )}
+                {showModifyProductsComponent()}
             </View>
             <ScrollView className="p-2">
                 {products.map((product) => {
@@ -86,7 +96,7 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
                         <ItemCard 
                             key={product.id} 
                             item={product} 
-                            isEditComponent={isEditComponent}
+                            isEditComponent={actionStateEdit}
                         />
                     )
                 })}

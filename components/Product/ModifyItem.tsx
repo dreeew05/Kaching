@@ -1,23 +1,48 @@
-import React, { useState } from 'react';
-import { Text, View } from '../../components/Themed';
+import React, { useEffect, useState } from 'react';
+import { Text, View } from '../Themed';
 import { Image, Pressable, TextInput } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign } from '@expo/vector-icons';
-import CustomModal from '../../components/CustomModal';
-import { useLocalSearchParams } from 'expo-router';
-import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
+import CustomModal from '../CustomModal';
 import { useDispatch } from 'react-redux';
-import { insertData } from '../DatabaseUtils/CoreFunctions';
-import { addProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { insertData, selectData, updateData } from '../DatabaseUtils/CoreFunctions';
+import { addProductAction, setSpecificProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
-export default function AddItem() {
+interface ModifyItemProps {
+    type : string
+    id : number
+}
 
-    const [name, onChangeName] = useState('');
-    const [price, onChangePrice] = useState('');
-    const [info, onChangeInfo] = useState('');
-    const [selectedImage, setSelectedImage] = useState('');
+export default function ModifyItem(data : ModifyItemProps) {
+
+    const [name, onChangeName] = useState<string>('');
+    const [price, onChangePrice] = useState<string>();
+    const [info, onChangeInfo] = useState<string>('');
+    const [selectedImage, setSelectedImage] = useState<string>('');
     const [modalVisible, setModalVisible] = useState(false);
+
+    useEffect(() => {
+        if(data.type == 'add') {
+            onChangeName('');
+            onChangePrice('');
+            onChangeInfo('');
+            setSelectedImage('');
+        }
+        else {
+            const tableName = 'item';
+            const column = ['*'];
+            const targetAttrib = 'id';
+
+            selectData(tableName, column, targetAttrib, data.id)
+                .then((result) => {
+                    onChangeName(result[0].name)
+                    onChangePrice((result[0].price).toString())
+                    onChangeInfo(result[0].description)
+                    setSelectedImage(result[0].image)
+                })
+        }
+    }, [data.id])
 
     const closeModal = () => {
         setModalVisible(false);
@@ -61,40 +86,74 @@ export default function AddItem() {
     };
 
     const dispatch = useDispatch();
-    const param = useLocalSearchParams();
-    const categoryID = ParamsToInteger(param.id)
 
     const saveProduct = () => {
-        const tableName = 'item';
-        const data = [{
-            name : name,
-            price : price,
-            category_id : categoryID,
-            description : info,
-            image : selectedImage
-        }]
-
-        console.log(data)
-
-        // console.log(data)
-        
-        insertData(tableName, data)
-            .then((result) => {
-                dispatch(
-                    addProductAction('add')
-                )
-            })
-            .catch((error) => {
-                console.log(error)
+        if(data.type == 'add') {
+            const tableName = 'item';
+            const product = [{
+                name : name,
+                price : price,
+                category_id : data.id,
+                description : info,
+                image : selectedImage
+            }]
             
-            })
+            insertData(tableName, product)
+                .then((result) => {
+                    dispatch(
+                        addProductAction('add')
+                    )
+                })
+                .catch((error) => {
+                    console.log(error)
+                
+                })
+        }
+        else {
+            const tableName = 'item';
+            const refAttrib = 'id';
+            const refValue = data.id;
+            const targetAttrib = 'name';
+            const targetAttribValue = name;
+            const targetAttrib2 = 'price';
+            const targetAttribValue2 = price;
+            const targetAttrib3 = 'description';
+            const targetAttribValue3 = info;
+            const targetAttrib4 = 'image';
+            const targetAttribValue4 = selectedImage;
+
+            updateData(tableName, targetAttrib, targetAttribValue,
+                refAttrib, refValue)
+            updateData(tableName, targetAttrib2, targetAttribValue2,
+                refAttrib, refValue)
+            updateData(tableName, targetAttrib3, targetAttribValue3,
+                refAttrib, refValue)
+            updateData(tableName, targetAttrib3, targetAttribValue3,
+                refAttrib, refValue)
+            updateData(tableName, targetAttrib4, targetAttribValue4,
+                refAttrib, refValue)
+            dispatch(
+                addProductAction('edit') 
+            )
+        }
+        setSpecificProductAction({
+            id : data.id,
+            action : 'edit'
+        })
     }
 
     return (
         <View className="px-4 h-full">
         <View className="flex flex-row mb-3">
             <View className="w-1/5"></View>
-            <Text className="w-3/5 text-center text-xl font-bold">Add Item</Text>
+            {
+                data.type == 'add' ? (
+                    <Text className="w-3/5 text-center text-xl font-bold">Add Item</Text>
+                ) :
+                (
+                    <Text className="w-3/5 text-center text-xl font-bold">Edit Item</Text>
+                )
+            }
             <Pressable className="w-1/5">
             {isAnyInputEmpty() ? (
                 <View className="flex flex-row align-middle justify-center">
@@ -126,22 +185,22 @@ export default function AddItem() {
         <View className="mb-6">
             <Text className="text-extrabold text-lg text-gray">Price</Text>
             <TextInput
-            className="text-light border-b-[0.5px]"
-            onChangeText={onChangePrice}
-            value={price}
-            placeholder="Enter product price"
-            placeholderTextColor="gray"
-            keyboardType="numeric"
+                className="text-light border-b-[0.5px]"
+                onChangeText={onChangePrice}
+                value={price}
+                placeholder="Enter product price"
+                placeholderTextColor="gray"
+                keyboardType="numeric"
             />
         </View>
         <View className="mb-6">
             <Text className="text-extrabold text-lg text-gray">Product Information</Text>
             <TextInput
-            className="text-light border-b-[0.5px]"
-            onChangeText={onChangeInfo}
-            value={info}
-            placeholder="Enter product information"
-            placeholderTextColor="gray"
+                className="text-light border-b-[0.5px]"
+                onChangeText={onChangeInfo}
+                value={info}
+                placeholder="Enter product information"
+                placeholderTextColor="gray"
             />
         </View>
         <View className="w-26">

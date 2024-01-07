@@ -5,7 +5,7 @@ export interface OrderSummaryProps {
   name: string;
   quantity: number;
   totalPrice: number;
-  image: ImageSourcePropType;
+  image: string;
 }
 
 export interface OrderSummaryListProps {

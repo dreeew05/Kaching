@@ -35,12 +35,9 @@ export default function CartItemCard(item: CartItemProps) {
   };
 
   useEffect(() => {
-    setQuantity(item.quantity);
-  }, [item.quantity]);
-
-  useEffect(() => {
-    setSubtotalPrice(() => item.price * quantity);
-  }, [quantity]);
+    setQuantity(item.quantity)
+    setSubtotalPrice(() => item.price * quantity)
+  }, [quantity])
 
   return (
     <View>

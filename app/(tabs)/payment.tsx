@@ -67,7 +67,9 @@ export default function TabOneScreen() {
     setInputMargin(isOpen ? 150 : 40); // Set the margin to 150 when the dropdown is open, and 40 when it's closed
   };
 
+export default function paymentWrapper() {
   return (
+
     <View
       style={{ flex: 1, justifyContent: 'space-between' }}
       className="flex-1 self-stretch bg-white dark-bg-black"
@@ -128,4 +130,5 @@ export default function TabOneScreen() {
       </View>
     </View>
   );
+
 }

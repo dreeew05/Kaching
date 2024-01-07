@@ -3,9 +3,7 @@ import { Text, View, Image } from 'react-native';
 import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
-import { useRouter } from 'expo-router';
 import { Pressable } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import Stepper from '../Stepper';
 import { RootState } from '../../redux/Store';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
@@ -42,12 +40,6 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
       }))
   }
 
-  const router = useRouter();
-
-  const gotToAddItem = () => {
-      router.push('/(tabs)/AddItemScreen')
-  }
-
   useEffect(() => {
       if(itemState != undefined) {
           setQuantity(itemState.quantity)
@@ -57,30 +49,25 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
   return(
       <View className="flex-1 h-full relative z-0">
           <View className="h-96 px-3">
-              <Pressable
-                  onPress={gotToAddItem}
-                  className="absolute z-10 top-1 right-2.5 h-8">
-                  <FontAwesome name="edit" size={38} color="white" />
-              </Pressable>
-                  <Image
-                      source={
-                          {uri : item.image}
-                      }
-                  className="w-full h-full rounded-3xl"
-              />
-              <Text className="text-center text-3xl pt-3 text-green">
-                  {item.price} PHP
-              </Text>
-              <Text className="text-center text-4xl pt-3">
-                  {item.name}
-              </Text>
-              <View className="h-36 justify-center items-center">
-                  <Text className="text-center text-base text-gray 
-                      font-light px-3"
-                  >
-                      {item.description}
-                  </Text>
-              </View>
+                <Image
+                    source={
+                        {uri : item.image}
+                    }
+                    className="w-full h-full rounded-3xl"
+                />
+                <Text className="text-center text-3xl pt-3 text-green">
+                    {item.price} PHP
+                </Text>
+                <Text className="text-center text-4xl pt-3">
+                    {item.name}
+                </Text>
+                <View className="h-36 justify-center items-center">
+                    <Text className="text-center text-base text-gray 
+                        font-light px-3"
+                    >
+                        {item.description}
+                    </Text>
+                </View>
           </View>
 
           <View className="flex flex-row h-16 absolute inset-x-0
