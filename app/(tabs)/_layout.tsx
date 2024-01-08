@@ -103,20 +103,7 @@ export default function TabLayout() {
           title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
-          headerLeft: () => (
-            <Link href="/cart" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="green"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
