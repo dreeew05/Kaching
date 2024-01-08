@@ -8,7 +8,7 @@ const ReceiptItemList: React.FC<CartProps> = ({ cart }) => {
   console.log(cart)
 
   return (
-    <ScrollView className="border-2 rounded m-5">
+    <ScrollView className="">
       {cart.map((item) => {
         return (
           <View key={item.id}>

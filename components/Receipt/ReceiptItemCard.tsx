@@ -29,21 +29,31 @@ export default function CartItemCard(item: CartItemProps) {
     //   </View>
     // </View>
 
-    <View>
-      <View>
-        <Text>{item.name}</Text>
-        <Text>{item.price}</Text>
-      </View>
-      <View>
-        <View>
-          <View>
-            <Text>{item.quantity}</Text>
-            <View>
-              <Text>{subTotalPrice}</Text>
-            </View>
+    <View className="flex-1 self-stretch">
+      <View className="flex-row self-center">
+        <View className="flex-row justify-end space-x-6">
+          {/* Container for Quantity */}
+          <View className="flex items-center w-14 overflow-hidden">
+            <Text className="py-2 text-lg text-right text-gray font-medium">{item.quantity}</Text>
+          </View>
+          
+          {/* Container for Name */}
+          <View className="flex items-center w-20 overflow-hidden">
+            <Text className="py-2 text-lg text-right text-gray font-medium">{item.name}</Text>
+          </View>
+          
+          {/* Container for Price */}
+          <View className="flex items-center w-14 overflow-hidden">
+            <Text className="py-2 text-lg text-right text-gray font-medium ">{item.price}</Text>
+          </View>
+          
+          {/* Container for Subtotal */}
+          <View className="flex items-center w-14 overflow-hidden">
+            <Text className="py-2 text-lg text-right text-gray font-medium">{subTotalPrice}</Text>
           </View>
         </View>
       </View>
     </View>
+
   );
 }
