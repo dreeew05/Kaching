@@ -29,7 +29,7 @@ export default function Stepper(parentMixIn: StepperProps) {
   return (
     <View
       className="flex flex-row
-            border-gray-300 items-left"
+            border-gray-300 items-left "
     >
       <View>
         <View
