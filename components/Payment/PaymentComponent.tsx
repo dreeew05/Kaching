@@ -118,11 +118,7 @@ export default function PaymentComponent() {
             }}
             className="flex-1 self-stretch bg-white dark-bg-black"
         >
-        <View
-            style={{
-                marginTop: 60
-            }}
-        >
+        <View>
             <Text className="text-4xl ml-5 text-green" style={{ fontFamily: 'Poppins-Medium' }}>
             Payment
             </Text>

@@ -66,7 +66,7 @@ export default function ReceiptComponent() {
                     {/* Container for Total Change */}
                     <View className="flex-row overflow-hidden">
                         <Text className="py-2 text-lg mr-auto text-right text-zinc-500 font-medium">Change: </Text>
-                        <Text className="py-2 text-lg text-zinc-500 font-medium items-end">${change}</Text>
+                        <Text className="py-2 text-lg text-zinc-500 font-medium items-end">${change.toFixed(2)}</Text>
                     </View>
                 </View>
             </View>

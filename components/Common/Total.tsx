@@ -34,7 +34,7 @@ export default function Total({ page }: TotalProps) {
           Total price:
         </Text>
         <Text className="text-3xl text-zinc-500" style={{ fontFamily: 'Poppins-Regular' }}>
-          ${cartState}
+          P{cartState.toFixed(2)}
         </Text>
       </View>
 
