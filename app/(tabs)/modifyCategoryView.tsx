@@ -13,10 +13,17 @@ export default function ModifyCategoryView() {
   return (
     <View
       className="flex-1 self-stretch bg-white 
-            dark:bg-black"
+            dark:bg-black px-2"
     >
       <View className="flex flex-row">
-        <Text className="text-5xl ml-2 font-semibold text-green">Categories</Text>
+        <Text 
+          className="text-4xl ml-2 font-semibold text-green"
+          style={{
+            fontFamily: 'Poppins-Bold'
+          }}
+        >
+          Categories
+        </Text>
         <Link
           href={{
             pathname: '/(tabs)/modifyCategory',

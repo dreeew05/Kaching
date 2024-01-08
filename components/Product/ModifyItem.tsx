@@ -4,7 +4,7 @@ import { Image, Pressable, TextInput } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import CustomModal from '../CustomModal';
+import CustomModal from '../Modals/CustomModal';
 import { useDispatch } from 'react-redux';
 import { insertData, selectData, updateData } from '../DatabaseUtils/CoreFunctions';
 import { addProductAction, addSpecificProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';

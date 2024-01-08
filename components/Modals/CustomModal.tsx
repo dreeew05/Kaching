@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { View, Pressable, Modal, TouchableOpacity } from 'react-native';
-import { Text } from './Themed';
+import { Text } from '../Themed';
 
 interface CustomModalProps {
   visible: boolean;
