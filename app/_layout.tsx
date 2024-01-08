@@ -7,7 +7,6 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import TermsAndConditionsScreen from './TermsAndConScreen';
 import { initializeDatabase } from '../components/DatabaseUtils/InitializeDatabase';
-import { insertData } from '../components/DatabaseUtils/CoreFunctions';
 import { getDatabase } from '../components/DatabaseUtils/OpenDatabase';
 
 
@@ -47,6 +46,21 @@ export default function RootLayout() {
   const [storeName, setStoreName] = useState('');
   const [showTermsModal, setShowTermsModal] = useState(false);
 
+  const db = getDatabase();
+
+  useEffect(() => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT storename FROM store`,
+        [],
+        (_, result) => {
+          if(result.rows.length > 0) {
+            setOnboardingCompleted(true);
+          }
+        }
+      )},
+  )}, [])
+
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
@@ -59,7 +73,6 @@ export default function RootLayout() {
   }, [loaded]);
 
   const handleConfirm = () => {
-    const db = getDatabase();
     db.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO store(storename) VALUES (?);',
@@ -116,10 +129,6 @@ function OnboardingScreen({
   onConfirm,
 }) {
   
-  //Set store name
-  const tableName = 'main';
-  
-
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <Image source={image} className={'w-screen h-screen'} />
