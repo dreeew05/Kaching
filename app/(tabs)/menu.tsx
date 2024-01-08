@@ -4,9 +4,11 @@ import { useRouter } from 'expo-router';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import CustomAlert from '../../components/CustomAlert';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 
 export default function MenuSettings() {
   const [alertVisible, setAlertVisible] = useState(false);
+  const db = getDatabase();
 
   const handleShowAlert = () => {
     setAlertVisible(true);
@@ -20,6 +22,21 @@ export default function MenuSettings() {
   const handleConfirm = () => {
     // Handle the confirmation logic here
     setAlertVisible(false);
+    // Update the iscurrent column of the eods table to 0
+    db.transaction((tx) => {
+      tx.executeSql(
+        `UPDATE eods SET iscurrent = 0 WHERE iscurrent = 1`,
+        [],
+        (txObj, resultSet) => {
+          console.log('iscurrent column updated to 0.');
+          console.log(resultSet);
+        },
+        (txObj, error) => {
+          console.log('Error updating iscurrent column.');
+          console.log(error);
+        }
+      );
+    });
     goToPahuwayBanner();
   };
 

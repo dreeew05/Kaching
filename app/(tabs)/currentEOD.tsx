@@ -20,27 +20,16 @@ export default function currentEOD() {
   const db = getDatabase();
   const fetchCurrentEODData = () => {
   db.transaction(tx => {
-    tx.executeSql(`
-    SELECT
-        c.name AS category_name,
-        i.name AS item_name,
-    COUNT(ri.receipt_id) AS total_sales
-    FROM
-        eod_receipts er
-        JOIN receipts r ON er.receipt_id = r.receipt_id
-        JOIN receipt_items ri ON r.receipt_id = ri.receipt_id
-        JOIN item i ON ri.item_id = i.id
-        JOIN category_items ci ON i.id = ci.item_id
-        JOIN category c ON ci.category_id = c.id
-        JOIN eods e ON er.eod_id = e.eod_id
-    WHERE
-        e.iscurrent = 1
-    GROUP BY
-        c.name, i.name;`,
+    tx.executeSql(`SELECT category.name AS category_name, item.name AS item_name, SUM(receipt_items.quantity) AS total_quantity
+    FROM receipt_items
+    JOIN item ON receipt_items.item_id = item.id
+    JOIN category ON item.category_id = category.id
+    GROUP BY category_name, item_name
+    ORDER BY category_name, item_name;
+    `,
       [],
       (tx, results) => {
         setCurrentEOD(results);
-        console.log(results.rows._array);
       },
     )
   })
@@ -72,7 +61,7 @@ export default function currentEOD() {
     fetchCurrentEODData();
     fetchStoreInfo();
     fetchStoreInfo2();
-  }, [currentEOD]);
+  }, []);
 
   const table1 = {
     header: ['Appetizer'],
