@@ -28,7 +28,7 @@ export default function ItemCard(item: itemCardProps) {
   };
 
   const addToCartEvent = () => {
-    if(quantity > 1) {
+    if(quantity > 0) {
       dispatch(addToCart({
           id : item.item.id,
           name : item.item.name,
