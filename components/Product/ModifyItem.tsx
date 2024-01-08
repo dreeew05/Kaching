@@ -22,12 +22,11 @@ export default function ModifyItem(data : ModifyItemProps) {
     const [selectedImage, setSelectedImage] = useState<string>('');
     const [modalVisible, setModalVisible] = useState(false);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         if(data.type == 'add') {
-            onChangeName('');
-            onChangePrice('');
-            onChangeInfo('');
-            setSelectedImage('');
+            clearData();
         }
         else {
             const tableName = 'item';
@@ -85,7 +84,12 @@ export default function ModifyItem(data : ModifyItemProps) {
         }
     };
 
-    const dispatch = useDispatch();
+    const clearData = () => {
+        onChangeName('');
+        onChangePrice('');
+        onChangeInfo('');
+        setSelectedImage('');
+    }
 
     const saveProduct = () => {
         if(data.type == 'add') {
@@ -140,6 +144,7 @@ export default function ModifyItem(data : ModifyItemProps) {
             id : data.id,
             action : 'edit'
         })
+        clearData();
     }
 
     return (
@@ -148,10 +153,18 @@ export default function ModifyItem(data : ModifyItemProps) {
             <View className="w-1/5"></View>
             {
                 data.type == 'add' ? (
-                    <Text className="w-3/5 text-center text-xl font-bold">Add Item</Text>
+                    <Text className="w-3/5 text-center 
+                        text-xl font-bold"
+                    >
+                        Add Item
+                    </Text>
                 ) :
                 (
-                    <Text className="w-3/5 text-center text-xl font-bold">Edit Item</Text>
+                    <Text className="w-3/5 text-center 
+                        text-xl font-bold"
+                    >
+                        Edit Item
+                    </Text>
                 )
             }
             <Pressable className="w-1/5">
