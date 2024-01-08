@@ -1,5 +1,4 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
 import ReceiptItemCard from './ReceiptItemCard';
 import { CartProps } from '../__utils__/interfaces/CartItemProps';
 
