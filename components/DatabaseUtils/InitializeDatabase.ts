@@ -58,6 +58,7 @@ const initializeReceiptTable = () => {
             `CREATE TABLE IF NOT EXISTS receipts(
                 receipt_id INTEGER NOT NULL PRIMARY KEY,
                 total NUMERIC NOT NULL,
+                amount_paid NUMERIC NOT NULL,
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                 mode_of_payment TEXT NOT NULL
             )`
@@ -72,6 +73,7 @@ const initializeReceiptItemTable = () => {
                 receipt_id INTEGER NOT NULL,
                 item_id INTEGER NOT NULL,
                 quantity INTEGER NOT NULL,
+                price NUMERIC NOT NULL,
                 FOREIGN KEY(receipt_id) REFERENCES receipts(receipt_id),
                 FOREIGN KEY(item_id) REFERENCES item(item_id)
             )`
