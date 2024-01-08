@@ -28,17 +28,17 @@ export default function ItemCard(item: itemCardProps) {
   };
 
   const addToCartEvent = () => {
-    dispatch(
-      addToCart({
-        id: item.item.id,
-        name: item.item.name,
-        price: item.item.price,
-        quantity: quantity,
-        image: item.item.image,
-        category: item.item.category,
-      }),
-    );
-  };
+    if(quantity > 1) {
+      dispatch(addToCart({
+          id : item.item.id,
+          name : item.item.name,
+          price : item.item.price,
+          quantity : quantity,
+          image : item.item.image,
+          category : item.item.category,
+      }))
+    }
+}
 
   useEffect(() => {
     if (itemState != undefined) {

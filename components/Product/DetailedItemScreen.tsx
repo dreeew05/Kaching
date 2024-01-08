@@ -30,14 +30,16 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
   }
   
   const addToCartEvent = () => {
-      dispatch(addToCart({
-          id : item.id,
-          name : item.name,
-          price : item.price,
-          quantity : quantity,
-          image : item.image,
-          category : item.category,
-      }))
+      if(quantity > 1) {
+        dispatch(addToCart({
+            id : item.id,
+            name : item.name,
+            price : item.price,
+            quantity : quantity,
+            image : item.image,
+            category : item.category,
+        }))
+      }
   }
 
   useEffect(() => {
