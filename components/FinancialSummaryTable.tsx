@@ -9,13 +9,6 @@ const FinancialSummary = () => {
   const db = getDatabase();
   const [currentEODData, setCurrentEODData] = React.useState<SQLResultSet | null>(null);
 
-  useEffect(() => {
-    // Code to run after component renders
-      //get total cash from receipts table in db
-      fetchCurrentEODData();
-  
-  }, [currentEODData]);
-
   const fetchCurrentEODData = () => {
     db.transaction(tx => {
       tx.executeSql(`
@@ -29,13 +22,20 @@ const FinancialSummary = () => {
       `,
         [],
         (tx, results) => {
-          console.log(results.rows._array);
           setCurrentEODData(results);
         },
       )
       }
     );
+
   }
+
+  useEffect(() => {
+    // Code to run after component renders
+      //get total cash from receipts table in db
+      fetchCurrentEODData();
+  
+  }, [currentEODData]);
 
   const tableData = [
     ['Cash Total', 'P'+currentEODData?.rows._array[0].total_cash],
