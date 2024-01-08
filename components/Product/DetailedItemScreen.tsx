@@ -96,7 +96,7 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
             </View>
 
             <View className="flex flex-row h-16 absolute inset-x-0
-                bottom-0 w-full border-t-[0.5px] space-x-10 border-gray-300 items-left
+                bottom-0 w-full border-t-[0.5px] space-x-12 border-gray-300 items-left
                 py-2 pl-3 "
             >
                 <View className="w-4/12">
@@ -110,7 +110,7 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
                 </View>
 
                 <View className="w-6/12">
-                    <Pressable className="w-full h-10 rounded-md
+                    <Pressable className="w-full h-10 rounded-lg
                         items-center justify-center bg-green shadow-md 
                         shadow-neutral-600"
                         onPress={addToCartEvent}
