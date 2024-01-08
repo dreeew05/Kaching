@@ -22,12 +22,11 @@ export default function ModifyItem(data : ModifyItemProps) {
     const [selectedImage, setSelectedImage] = useState<string>('');
     const [modalVisible, setModalVisible] = useState(false);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         if(data.type == 'add') {
-            onChangeName('');
-            onChangePrice('');
-            onChangeInfo('');
-            setSelectedImage('');
+            clearData();
         }
         else {
             const tableName = 'item';
@@ -65,27 +64,36 @@ export default function ModifyItem(data : ModifyItemProps) {
         // No permissions request is necessary for launching the image library
         let result: ImagePicker.ImagePickerResult;
         if (mode == 'camera') {
-        result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 1,
-        });
+            result = await ImagePicker.launchCameraAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+            });
+            if (!result.canceled) {
+                setSelectedImage(result.assets[0].uri);
+            }
         }
         if (mode == 'gallery') {
-        result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 1,
-        });
+            result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+            });
+            if (!result.canceled) {
+                setSelectedImage(result.assets[0].uri);
+            }
         }
-        if (!result.canceled) {
-        setSelectedImage(result.assets[0].uri);
-        }
+        
     };
 
-    const dispatch = useDispatch();
+    const clearData = () => {
+        onChangeName('');
+        onChangePrice('');
+        onChangeInfo('');
+        setSelectedImage('');
+    }
 
     const saveProduct = () => {
         if(data.type == 'add') {
@@ -140,6 +148,7 @@ export default function ModifyItem(data : ModifyItemProps) {
             id : data.id,
             action : 'edit'
         })
+        clearData();
     }
 
     return (
@@ -148,10 +157,18 @@ export default function ModifyItem(data : ModifyItemProps) {
             <View className="w-1/5"></View>
             {
                 data.type == 'add' ? (
-                    <Text className="w-3/5 text-center text-xl font-bold">Add Item</Text>
+                    <Text className="w-3/5 text-center 
+                        text-xl font-bold"
+                    >
+                        Add Item
+                    </Text>
                 ) :
                 (
-                    <Text className="w-3/5 text-center text-xl font-bold">Edit Item</Text>
+                    <Text className="w-3/5 text-center 
+                        text-xl font-bold"
+                    >
+                        Edit Item
+                    </Text>
                 )
             }
             <Pressable className="w-1/5">

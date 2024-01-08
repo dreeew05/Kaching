@@ -30,7 +30,7 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
   }
   
   const addToCartEvent = () => {
-      if(quantity > 1) {
+      if(quantity > 0) {
         dispatch(addToCart({
             id : item.id,
             name : item.name,
