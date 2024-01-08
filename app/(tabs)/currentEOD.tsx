@@ -88,7 +88,7 @@ export default function currentEOD() {
     currentEOD?.rows._array.forEach((item) => {
       if (item.category_name === category) {
         //include total sales in the tableData
-        tableData.push([item.item_name, 'x' + item.total_quantity, 'P' + item.total_sales]);
+        tableData.push([item.item_name, 'x' + item.total_quantity, '₱' + item.total_sales]);
       }
     });
     tables.push({
@@ -97,8 +97,8 @@ export default function currentEOD() {
     });
   });
 
-  console.log(tables);
-  
+  //current date
+  const date = new Date();
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
@@ -111,7 +111,12 @@ export default function currentEOD() {
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
         <Text className="text-l">CURRENT DAY REPORT</Text>
-        <Text className="text-l">{}</Text>
+        <Text className="text-l">{
+          date.toISOString().slice(0, 10)+" "
+          //add leading zero to hours, minutes, and seconds if less than 10
+          +("0"+date.getHours()).slice(-2)+":"+("0"+date.getMinutes()).slice(-2)+":"
+          +("0"+date.getSeconds()).slice(-2)
+          }</Text>
 
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
