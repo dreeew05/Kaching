@@ -32,6 +32,7 @@ const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
         });
         csvData += '\n';
       });
+      console.log(csvData);
       const csvFileName = `eod_${date.getFullYear()}-${date.getMonth()}-${date.getDate()}.csv`;
       const csvFilePath = tempDir + csvFileName;
 
