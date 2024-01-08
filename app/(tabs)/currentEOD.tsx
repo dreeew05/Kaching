@@ -4,22 +4,65 @@ import FinancialSummary from '../../components/FinancialSummaryTable';
 import ShareCSV from '../../components/ShareCSV';
 import CategoryTable from '../../components/CategoryTable';
 import { ScrollView } from 'react-native-gesture-handler';
-import { insertData } from '../../components/DatabaseUtils/CoreFunctions';
+import { insertData, selectData } from '../../components/DatabaseUtils/CoreFunctions';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
+import { useEffect, useState } from 'react';
+import { SQLResultSet } from 'expo-sqlite';
+
 export default function currentEOD() {
 
-  insertData('eods', [{
-    storename: 'WOW',
-    address: 'Miagao, Iloilo',
-    cashiername: 'Palmsdale Kevin Cordero',
-    contactnum: '09133287645'
-  }]).then((result) => {
-    console.log(result);
-  }
-  ).catch((error) => {
-    console.log(error);
-  });
+  const [currentEOD, setCurrentEOD] = useState<SQLResultSet|null>(null);
+  const [storeInfo, setStoreInfo] = useState<SQLResultSet|null>(null);
+  const [storeInfo2, setStoreInfo2] = useState<SQLResultSet|null>(null);
+
 
   // TEST DATA
+  const db = getDatabase();
+  const fetchCurrentEODData = () => {
+  db.transaction(tx => {
+    tx.executeSql(`SELECT category.name AS category_name, item.name AS item_name, SUM(receipt_items.quantity) AS total_quantity
+    FROM receipt_items
+    JOIN item ON receipt_items.item_id = item.id
+    JOIN category ON item.category_id = category.id
+    GROUP BY category_name, item_name
+    ORDER BY category_name, item_name;
+    `,
+      [],
+      (tx, results) => {
+        setCurrentEOD(results);
+      },
+    )
+  })
+}
+  const fetchStoreInfo = () => {
+    db.transaction(tx => {
+      tx.executeSql(`
+      SELECT * FROM eods e WHERE e.iscurrent = 1`,
+        [],
+        (tx, results) => {
+          setStoreInfo(results);
+        },
+      )
+    })
+  }
+
+  const fetchStoreInfo2 = () => {
+    db.transaction(tx => {
+      tx.executeSql(`SELECT * FROM store`,
+        [],
+        (tx, results) => {
+          setStoreInfo2(results);
+        },
+      )
+    })
+  }
+
+  useEffect(() => { 
+    fetchCurrentEODData();
+    fetchStoreInfo();
+    fetchStoreInfo2();
+  }, []);
+
   const table1 = {
     header: ['Appetizer'],
     tableData: [
@@ -60,15 +103,15 @@ export default function currentEOD() {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
       <View style={styles.container}>
-        <Text className="font-bold text-xl text-green">Store Name</Text>
+        <Text className="font-bold text-xl text-green">{storeInfo2?.rows._array[0].storename}</Text>
         <Text className="text-m">Miagao, Iloilo</Text>
-        <Text className="text-m">Palmsdale Kevin Cordero</Text>
+        <Text className="text-m">{storeInfo?.rows._array[0].cashiername}</Text>
         <Text className="text-m">09133287645</Text>
 
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
-        <Text className="text-l">END OF DAY REPORT</Text>
-        <Text className="text-l">01/09/2023 5:45 AM</Text>
+        <Text className="text-l">CURRENT DAY REPORT</Text>
+        <Text className="text-l">{}</Text>
 
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 

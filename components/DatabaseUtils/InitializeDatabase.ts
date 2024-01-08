@@ -85,7 +85,7 @@ const initializeStoreTable = () => {
     db.transaction(tx => {
         tx.executeSql(
             `CREATE TABLE IF NOT EXISTS store(
-                storename TEXT NOT NULL PRIMARY KEY DEFAULT 'Dayl Pogi'
+                storename TEXT NOT NULL
             )`)
         }
     )

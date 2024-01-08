@@ -62,12 +62,12 @@ export default function RootLayout() {
     const db = getDatabase();
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO store(storename) VALUES (?)',
+        'INSERT INTO store(storename) VALUES (?);',
         [storeName],
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
-            console.log('Success');
+            console.log('Success inserting storname');
           } else {
             console.log('Failed');
           }
