@@ -9,6 +9,13 @@ import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import { useEffect, useState } from 'react';
 import { SQLResultSet } from 'expo-sqlite';
 
+interface TableData {
+  header: string[];
+  tableData: string[][];
+}
+
+
+
 export default function currentEOD() {
 
   const [currentEOD, setCurrentEOD] = useState<SQLResultSet|null>(null);
@@ -20,13 +27,15 @@ export default function currentEOD() {
   const db = getDatabase();
   const fetchCurrentEODData = () => {
   db.transaction(tx => {
-    tx.executeSql(`SELECT category.name AS category_name, item.name AS item_name, SUM(receipt_items.quantity) AS total_quantity
-    FROM receipt_items
-    JOIN item ON receipt_items.item_id = item.id
-    JOIN category ON item.category_id = category.id
-    GROUP BY category_name, item_name
-    ORDER BY category_name, item_name;
-    `,
+    tx.executeSql(`SELECT category.name AS category_name, item.name AS item_name,
+    SUM(receipt_items.quantity) AS total_quantity,
+    SUM(receipt_items.quantity * receipt_items.price) AS total_sales
+  FROM receipt_items
+  JOIN item ON receipt_items.item_id = item.id
+  JOIN category ON item.category_id = category.id
+  GROUP BY category_name, item_name
+  ORDER BY category_name, item_name;
+  `,
       [],
       (tx, results) => {
         setCurrentEOD(results);
@@ -61,44 +70,35 @@ export default function currentEOD() {
     fetchCurrentEODData();
     fetchStoreInfo();
     fetchStoreInfo2();
-  }, []);
+  }, [currentEOD]);
 
-  const table1 = {
-    header: ['Appetizer'],
-    tableData: [
-      ['Mozarella Sticks', 'x25', 'P565.50'],
-      ['Bruschetta', 'x15', 'P25,000.00'],
-      ['Deviled Eggs', 'x100', 'P100.00'],
-    ],
-  };
+  // enumerate all categories in the currentEOD
+  let categories: string[] = [];
+  currentEOD?.rows._array.forEach((item) => {
+    if (!categories.includes(item.category_name)) {
+      categories.push(item.category_name);
+    }
+  });
 
-  const table2 = {
-    header: ['Beverages'],
-    tableData: [
-      ['Beer', 'x25', 'P565.50'],
-      ['Coke', 'x15', 'P25,000.00'],
-      ['Pepsi', 'x100', 'P100.00'],
-    ],
-  };
 
-  const table3 = {
-    header: ['Desserts'],
-    tableData: [
-      ['Mango Graham', 'x25', 'P565.50'],
-      ['Brownies', 'x15', 'P25,000.00'],
-      ['Muffins', 'x100', 'P100.00'],
-    ],
-  };
+  //assign each category as a header, and assign the items under each category as tableData
+  let tables: TableData[] = [];
+  categories.forEach((category) => {
+    let tableData: any[] = [];
+    currentEOD?.rows._array.forEach((item) => {
+      if (item.category_name === category) {
+        //include total sales in the tableData
+        tableData.push([item.item_name, 'x' + item.total_quantity, 'P' + item.total_sales]);
+      }
+    });
+    tables.push({
+      header: [category],
+      tableData: tableData,
+    });
+  });
 
-  const table4 = {
-    header: ['Desserts'],
-    tableData: [
-      ['Mango Graham', 'x25', 'P565.50'],
-      ['Brownies', 'x15', 'P25,000.00'],
-      ['Muffins', 'x100', 'P100.00'],
-    ],
-  };
-  // END TEST DATA
+  console.log(tables);
+  
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
@@ -125,15 +125,16 @@ export default function currentEOD() {
         {/* START ORDER SUMMARY */}
         <View>
           <Text className="font-bold text-l content-center mt-2">Order Summary</Text>
-          <CategoryTable table={table1} />
-          <CategoryTable table={table2} />
-          <CategoryTable table={table3} />
-          <CategoryTable table={table4} />
+            {tables.map
+              ((table) => { return (
+                  <CategoryTable table={table} />
+                );})
+              }
         </View>
         {/* END ORDER SUMMARY */}
 
         <View className="mt-5 mb-5">
-          <ShareCSV data={table3} />
+          <ShareCSV data={tables} />
         </View>
       </View>
     </ScrollView>
