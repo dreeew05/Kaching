@@ -5,25 +5,22 @@ import { CartProps } from '../__utils__/interfaces/CartItemProps';
 
 const ReceiptItemList: React.FC<CartProps> = ({ cart }) => {
 
-  console.log(cart)
+  // console.log(cart)
 
   return (
-    <ScrollView className="">
-      {cart.map((item) => {
+      cart.map((item) => {
         return (
-          <View key={item.id}>
-            <ReceiptItemCard
-              id={item.id}
-              name={item.name}
-              image={item.image}
-              category={item.category}
-              quantity={item.quantity}
-              price={item.price}
-            />
-          </View>
+          <ReceiptItemCard
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            image={item.image}
+            category={item.category}
+            quantity={item.quantity}
+            price={item.price}
+          />
         );
-      })}
-    </ScrollView>
+      })
   );
 };
 

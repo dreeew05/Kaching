@@ -37,7 +37,7 @@ export default function ReceiptComponent() {
         <Text className="text-2xl font-semibold text-green self-center">Transaction Recorded!</Text>
 
         <ScrollView>
-            <View className="flex flex-collumn items-center mt-5">
+            <View className="flex flex-column items-center mt-5">
                 <Text className="text-5xl font-semibold text-green">Store Name</Text>
                 <Text className="text-sm ml-5 ">Glen Bulaong</Text>
                 <Text className="text-sm ml-5 ">09123456789</Text>
