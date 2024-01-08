@@ -16,9 +16,6 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-
-  // To reset isEditComponent
-
   const colorScheme = useColorScheme();
 
   return (
@@ -31,9 +28,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => (
-              <TabBarIcon name="home" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerLeft: () => (
             <FontAwesome5 name="store" size={24} 
               color="green" style={{ marginLeft: 20 }} 
@@ -134,7 +129,8 @@ export default function TabLayout() {
         options={{
           title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null, // Hide this tab from the tab bar
+          href: null, // Hide this tab from the tab bar,
+          headerShown: false,
           headerLeft: () => (
             <Link href="//" asChild>
               <Pressable>
