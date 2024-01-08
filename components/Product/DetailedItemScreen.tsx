@@ -96,10 +96,10 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
             </View>
 
             <View className="flex flex-row h-16 absolute inset-x-0
-                bottom-0 w-full border-t-[0.5px] border-gray-300 items-left
+                bottom-0 w-full border-t-[0.5px] space-x-10 border-gray-300 items-left
                 py-2 pl-3 "
             >
-                <View className="w-2/5">
+                <View className="w-4/12">
                 
                     <Stepper
                         id={item.id}
@@ -109,7 +109,7 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
 
                 </View>
 
-                <View className="w-3/5 pr-3">
+                <View className="w-6/12">
                     <Pressable className="w-full h-10 rounded-md
                         items-center justify-center bg-green shadow-md 
                         shadow-neutral-600"

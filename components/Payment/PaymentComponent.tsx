@@ -129,19 +129,15 @@ export default function PaymentComponent() {
             className="flex-1 self-stretch bg-white dark-bg-black"
         >
         <View>
-            <Text className="text-4xl ml-5 text-green" style={{ fontFamily: 'Poppins-Medium' }}>
+            <Text className="text-3xl self-center mt-10 text-green" style={{ fontFamily: 'Poppins-Medium' }}>
             Payment
             </Text>
-            <Text className="text-5xl mt-5 font-medium 
-                p-5 text-yellow self-center"
+            <Text className="text-4xl mt-5 font-medium 
+                p-5 text-yellow self-center" style={{ fontFamily: 'Poppins-Medium' }}
             >
-                PHP
+                PHP {totalCartPrice.toFixed(2)}
             </Text>
-            <Text className="text-7xl font-medium 
-                p-5 text-yellow self-center">
-                {totalCartPrice.toFixed(2)}
-            </Text>
-            <Text className="text-xl mb-2 font-base text-gray self-center">
+            <Text className="text-base mb-2 font-base text-gray self-center" style={{ fontFamily: 'Poppins-Medium' }}>
             Please select a mode of payment
             </Text>
 
