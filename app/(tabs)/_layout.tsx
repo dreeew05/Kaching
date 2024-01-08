@@ -129,7 +129,8 @@ export default function TabLayout() {
         options={{
           title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          href: null, // Hide this tab from the tab bar
+          href: null, // Hide this tab from the tab bar,
+          headerShown: false,
           headerLeft: () => (
             <Link href="//" asChild>
               <Pressable>

@@ -1,5 +1,5 @@
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Link, router } from "expo-router";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import ItemCard from "./ItemCard";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
@@ -80,27 +80,74 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
         }
     }
 
+    const goBackAction = () => {
+        dispatch(
+            setIsEditComponent(true)
+        );
+    }
+
+    const showModifyProductHeader = () => {
+        // TO DO : Change Style
+        if(!actionStateEdit) {
+            return (
+                <View className="flex-row">
+                    <Link
+                        href={{
+                            pathname : '/(tabs)/categoryView',
+                            params : {
+                                id : data.id,
+                            }
+                        }}
+                        asChild
+                    >
+                        <Pressable className="ml-3 mb-2"
+                            onPress={() => goBackAction()}
+                        >
+                            <Ionicons 
+                                name="chevron-back" 
+                                size={30} 
+                                color="green" 
+                            />
+                        </Pressable>
+                    </Link>
+                    <Text 
+                        style={{
+                            fontFamily: 'Poppins-Bold',
+                            fontSize: 22,
+                            color: "green"
+                        }}
+                    >
+                        Exit Edit Mode
+                    </Text>
+                </View>
+            )
+        }
+    }
+
     return(
         <View className="flex-1 self-stretch bg-white dark:bg-black">
-            <View className='flex flex-row'>
-            <Text className="text-4xl text-green ml-5 mb-5"
-                style={{ fontFamily: 'Poppins-Bold' }}
-            >
-                {data.name}
-            </Text>
-                {showModifyProductsComponent()}
+            <View style={{marginTop: 60}}>
+                {showModifyProductHeader()}
+                <View className='flex flex-row'>
+                <Text className="text-4xl text-green ml-5 mb-5"
+                    style={{ fontFamily: 'Poppins-Bold' }}
+                >
+                    {data.name}
+                </Text>
+                    {showModifyProductsComponent()}
+                </View>
+                <ScrollView className="p-2">
+                    {products.map((product) => {
+                        return (
+                            <ItemCard 
+                                key={product.id} 
+                                item={product} 
+                                isEditComponent={actionStateEdit}
+                            />
+                        )
+                    })}
+                </ScrollView>
             </View>
-            <ScrollView className="p-2">
-                {products.map((product) => {
-                    return (
-                        <ItemCard 
-                            key={product.id} 
-                            item={product} 
-                            isEditComponent={actionStateEdit}
-                        />
-                    )
-                })}
-            </ScrollView>
         </View>
     )
 
