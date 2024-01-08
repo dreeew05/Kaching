@@ -8,6 +8,8 @@ import { selectCartItems, selectCartTotalPrice } from "../../redux/CartRedux/Car
 import { insertData } from "../DatabaseUtils/CoreFunctions";
 import { generateUniqueId } from "../__utils__/helper/GenerateUniqueId";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
+import CustomModal from "../Modals/CustomModal";
+import { PopUpModal } from "../Modals/PopUpModal";
 
 export default function PaymentComponent() {
     const [open, setOpen] = useState(false);
@@ -20,6 +22,10 @@ export default function PaymentComponent() {
     const [userPayment, onChangeUserPayment] = useState<string>('');
     const [inputMargin, setInputMargin] = useState(40); // Initial margin set to 40
 
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [insufficientPopup, setInsufficientPopup] = useState<boolean>(false);
+    const [invalidPopup, setInvalidPopup] = useState<boolean>(false);
+    
     const handleDropdownToggle = (isOpen: boolean) => {
         setInputMargin(isOpen ? 150 : 40); // Set the margin to 150 when the dropdown is open, and 40 when it's closed
     };
@@ -31,18 +37,22 @@ export default function PaymentComponent() {
     const cartItems = useSelector(selectCartItems);
 
     const verifyPayment = () => {
-        // TO DO: Create GUI for this
+        setModalVisible(false)
         if(userPayment === '' || modeOfPayment === null) {
-            console.log('Invalid Action')
+            setInvalidPopup(true);
         }
         else if(parseFloat(userPayment) < totalCartPrice) {
-            console.log('Insufficient Payment')
+            setInsufficientPopup(true);
         }
         else {
             saveReceiptToDB();
             clearData();
             viewReceipt();
         }
+    }
+
+    const showModal = () => {
+        setModalVisible(true);
     }
 
     const clearData = () => {
@@ -122,10 +132,14 @@ export default function PaymentComponent() {
             <Text className="text-4xl ml-5 text-green" style={{ fontFamily: 'Poppins-Medium' }}>
             Payment
             </Text>
-            <Text className="text-7xl mt-5 font-medium 
+            <Text className="text-5xl mt-5 font-medium 
                 p-5 text-yellow self-center"
             >
-                PHP {totalCartPrice.toFixed(2)}
+                PHP
+            </Text>
+            <Text className="text-7xl font-medium 
+                p-5 text-yellow self-center">
+                {totalCartPrice.toFixed(2)}
             </Text>
             <Text className="text-xl mb-2 font-base text-gray self-center">
             Please select a mode of payment
@@ -175,9 +189,35 @@ export default function PaymentComponent() {
 
         <View>
             <CustomPressable text="Confirm Payment" 
-                onPress={verifyPayment} 
+                onPress={showModal} 
             />
         </View>
+
+            <CustomModal
+                visible={modalVisible}
+                message="Are you sure?"
+                optionOneText="Yes"
+                optionTwoText="No"
+                optionOnePressed={() => verifyPayment()}
+                optionTwoPressed={() => setModalVisible(false)}
+                optionTwoColor="red"
+                closeModal={() => setModalVisible(false)}
+            />
+
+            <PopUpModal
+                visible={insufficientPopup}
+                message="Insufficent Amount"
+                agreeText="Okay"
+                closeModal={() => setInsufficientPopup(false)}
+            />
+
+            <PopUpModal
+                visible={invalidPopup}
+                message="Invalid Action"
+                agreeText="Okay"
+                closeModal={() => setInvalidPopup(false)}
+            />
+
         </View>
     );
 }

@@ -18,7 +18,7 @@ export default function CartItemCard(item: CartItemProps) {
   };
 
   const [quantity, setQuantity] = useState(item.quantity);
-  const [subtotalPrice, setSubtotalPrice] = useState(item.price);
+  const [subtotalPrice, setSubtotalPrice] = useState<number>(item.price);
 
   const updateQuantityEvent = (quantity: number) => {
     setQuantity(quantity);

@@ -22,6 +22,7 @@ export default function ModifyItem(data : ModifyItemProps) {
     const [info, onChangeInfo] = useState<string>('');
     const [selectedImage, setSelectedImage] = useState<string>('');
     const [modalVisible, setModalVisible] = useState(false);
+    const [saveModalVisible, setSaveModalVisible] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -47,6 +48,10 @@ export default function ModifyItem(data : ModifyItemProps) {
     const closeModal = () => {
         setModalVisible(false);
     };
+
+    const closeSaveModal = () => {
+        setSaveModalVisible(false);
+    }
 
     const openCamera = () => {
         openImagePicker('camera');
@@ -145,6 +150,7 @@ export default function ModifyItem(data : ModifyItemProps) {
                 addProductAction('edit') 
             )
         }
+        closeSaveModal();
         dispatch(
             addSpecificProductAction('edit')
         );
@@ -184,21 +190,19 @@ export default function ModifyItem(data : ModifyItemProps) {
                         )}
                     </View>
 
-                    <Pressable>
-                        {isAnyInputEmpty() ? (
-                        <View className="flex flex-row justify-center mr-5">
-                            <Text className="text-center text-base mx-1 text-gray">Save</Text>
-                            <FontAwesome5 name="file" size={22} color="gray" />
-                        </View>
-                        ) : (
-                        <View className="flex flex-row justify-center mr-5">
-                            <Text className="text-center text-base text-orange-400 mx-1" onPress={saveProduct}>
-                            Save
-                            </Text>
-                            <FontAwesome5 name="file" size={22} color="orange" />
-                        </View>
-                        )}
-                    </Pressable>
+                    {isAnyInputEmpty() ? (
+                    <View className="flex flex-row justify-center mr-5">
+                        <FontAwesome5 name="file" size={22} color="gray" />
+                    </View>
+                    ) : (
+                    <View className="flex flex-row justify-center mr-5">
+                        <Pressable onPress={() => setSaveModalVisible(true)}>
+                            <FontAwesome5 name="file" size={22} 
+                                color="orange" 
+                            />
+                        </Pressable>
+                    </View>
+                    )}
                 </View>
 
             <View className="px-5 h-full">
@@ -258,15 +262,27 @@ export default function ModifyItem(data : ModifyItemProps) {
                     )}
 
                     <CustomModal
-                    visible={modalVisible}
-                    message="Choose an option"
-                    optionOneText="Gallery"
-                    optionTwoText="Camera"
-                    optionOnePressed={openGallery}
-                    optionTwoPressed={openCamera}
-                    optionTwoColor='blue'
-                    closeModal={closeModal}
+                        visible={modalVisible}
+                        message="Choose an option"
+                        optionOneText="Gallery"
+                        optionTwoText="Camera"
+                        optionOnePressed={openGallery}
+                        optionTwoPressed={openCamera}
+                        optionTwoColor='blue'
+                        closeModal={closeModal}
                     />
+
+                    <CustomModal
+                        visible={saveModalVisible}
+                        message="Do you want to save your changes?"
+                        optionOneText="Yes"
+                        optionTwoText="No"
+                        optionOnePressed={() => saveProduct()}
+                        optionTwoPressed={() => setSaveModalVisible(false)}
+                        optionTwoColor='red'
+                        closeModal={() => closeSaveModal()}
+                    /> 
+
                     </View>
                 </View>
             </View>
