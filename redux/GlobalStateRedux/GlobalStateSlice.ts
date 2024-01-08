@@ -7,7 +7,8 @@ interface GlobalStateProps {
     isEditComponent : boolean,
     isDetailedViewLoading : boolean,
     isCategoryViewLoading : boolean,
-    storeNameAction : string[]
+    storeNameAction : string[],
+    hasStartDay : boolean
 }
 
 const initialState : GlobalStateProps = {
@@ -17,7 +18,8 @@ const initialState : GlobalStateProps = {
     isEditComponent : true,
     isDetailedViewLoading : true,
     isCategoryViewLoading : true,
-    storeNameAction : []
+    storeNameAction : [],
+    hasStartDay : false
 }
 
 export const GlobalStateSlice = createSlice({
@@ -49,12 +51,16 @@ export const GlobalStateSlice = createSlice({
             PayloadAction<string>) {
                 state.storeNameAction.push(action.payload)
         },
+        setHasStartDay(state, action :
+            PayloadAction<boolean>) {
+                state.hasStartDay = action.payload
+        },
     }
 });
 
 export const { addCategoryAction, addProductAction,
    addSpecificProductAction, setIsEditComponent, 
    setIsDetailedViewLoading, addStoreNameAction,
-   setIsCategoryViewProductLoading } = GlobalStateSlice.actions;
+   setIsCategoryViewProductLoading, setHasStartDay } = GlobalStateSlice.actions;
 
 export default GlobalStateSlice.reducer;

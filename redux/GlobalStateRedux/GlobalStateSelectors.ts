@@ -7,3 +7,4 @@ export const selectIsEditComponent = (state : RootState) => state.globalState.is
 export const selectIsEditDetailedViewLoading = (state : RootState) => state.globalState.isDetailedViewLoading;
 export const selectIsCategoryViewLoading = (state : RootState) => state.globalState.isCategoryViewLoading;
 export const selectStoreNameAction = (state : RootState) => state.globalState.storeNameAction;
+export const selectHasStartDay = (state : RootState) => state.globalState.hasStartDay;
