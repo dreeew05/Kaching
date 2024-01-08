@@ -1,25 +1,35 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems, selectCartTotalPrice } from "../../redux/CartRedux/CartSelectors";
 import { View, Text, ScrollView, Pressable } from "react-native";
 import ReceiptItemList from "./ReceiptItemList";
 import { ParamsToFloat } from "../__utils__/helper/ParamsToFloat";
+import { clearCart } from "../../redux/CartRedux/CartSlice";
 
 export default function ReceiptComponent() {
     const router = useRouter();
+
     const viewIndex = () => {
+        clearCartAction();
         router.push('../');
     };
 
+    const dispatch = useDispatch()
+
     const params = useLocalSearchParams();
     const userPayment : number = ParamsToFloat(params.userPayment);
-    console.log(userPayment);
 
 
     const cartItems = useSelector(selectCartItems);
     const totalPrice = useSelector(selectCartTotalPrice)
 
     const change : number = userPayment - totalPrice;
+
+    const clearCartAction = () => {
+        dispatch(
+            clearCart()
+        )
+    }
 
     return (
         <View className="flex-1 self-stretch bg-white dark:bg-black">

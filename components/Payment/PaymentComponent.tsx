@@ -29,10 +29,6 @@ export default function PaymentComponent() {
 
     const cartItems = useSelector(selectCartItems);
 
-    // const viewOrderSummary = () => {
-    //     router.push('/(tabs)/orderSummary');
-    // };
-
     const verifyPayment = () => {
         // TO DO: Create GUI for this
         if(userPayment === '' || modeOfPayment === null) {
@@ -43,8 +39,14 @@ export default function PaymentComponent() {
         }
         else {
             saveReceiptToDB();
+            clearData();
             viewReceipt();
         }
+    }
+
+    const clearData = () => {
+        setModeOfPayment(null);
+        onChangeUserPayment('');
     }
 
     const saveReceiptToDB = () => {
@@ -61,7 +63,7 @@ export default function PaymentComponent() {
         }]
         insertData(tableName, data)
             .then((result) => {
-                console.log("Insert Success");
+                // console.log("Insert Success");
             })
             .catch((error) => {
                 console.log(error);
@@ -76,7 +78,7 @@ export default function PaymentComponent() {
                 quantity : item.quantity,
                 price : item.price,
             }]
-            console.log(cartData)
+            // console.log(cartData)
             insertData(tableName2, cartData)
                 .then((result) => {
                     console.log("Insert Success");
