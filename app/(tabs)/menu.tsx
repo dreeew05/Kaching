@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import CustomAlert from '../../components/CustomAlert';
+import { SQLResultSet } from 'expo-sqlite';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 
 export default function MenuSettings() {
   const [alertVisible, setAlertVisible] = useState(false);
+  const [currentEOD, setCurrentEOD] = useState<SQLResultSet|null>(null);
   const db = getDatabase();
+
+  const fetchCurrentEODData = () => {
+  db.transaction(tx => {
+    tx.executeSql(`SELECT SUM(receipt_items.quantity * receipt_items.price) AS total_sales
+      FROM receipt_items
+      JOIN item ON receipt_items.item_id = item.id
+      JOIN category ON item.category_id = category.id`, 
+      [],
+      (tx, results) => {
+        setCurrentEOD(results);
+      },
+    )
+  })
+}
 
   const handleShowAlert = () => {
     setAlertVisible(true);
@@ -55,17 +71,50 @@ export default function MenuSettings() {
       onCancel: () => Alert.alert('Cancelled'),
     });
   };
+
+  const currentDate = new Date();
+  const getCurrentDateInfo = (currentDate: Date) => {
+    const months = [
+      "January", "February", "March",
+      "April", "May", "June",
+      "July", "August", "September",
+      "October", "November", "December"
+    ];
+  
+    const days = [
+      "Sunday", "Monday", "Tuesday",
+      "Wednesday", "Thursday", "Friday", "Saturday"
+    ];
+  
+
+    const currentMonth = months[currentDate.getMonth()];
+    const currentDay = days[currentDate.getDay()];
+  
+    return {
+      month: currentMonth,
+      day: currentDay
+    };
+  };
+  
+  // Usage example
+  const currentDateInfo = getCurrentDateInfo(currentDate);
+
+  useEffect(() => {
+    fetchCurrentEODData();
+  }
+  , [currentEOD]);
+
   return (
     <View className=" py-10 marker:flex-1 self-stretch bg-white dark:bg-black">
       <View className=" flex-row justify-around w-3/4 self-center">
-        <Text className="text-white font-bold  bg-green px-2 rounded-lg ">7</Text>
-        <Text className="text-green font-bold px-2 rounded-full">October</Text>
-        <Text className="text-green font-bold px-2 rounded-full flex items">Wednesday</Text>
+        <Text className="text-white font-bold  bg-green px-2 rounded-lg ">{currentDate.getDay()}</Text>
+        <Text className="text-green font-bold px-2 rounded-full">{currentDateInfo.month}</Text>
+        <Text className="text-green font-bold px-2 rounded-full flex items">{currentDate.getFullYear()}</Text>
       </View>
 
       <View className="flex items-center ">
         <Text className=" px-16 py-3 self-center bg-green text-center rounded-md  text-white text-4xl font-bold m-3">
-          $123.56
+          {"₱ "+currentEOD?.rows._array[0].total_sales}
         </Text>
         <Text className="text-green text-2xl font-bold self-center mb-10 px-2 rounded-full flex items">
           Total Sales

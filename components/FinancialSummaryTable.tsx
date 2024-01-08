@@ -38,9 +38,9 @@ const FinancialSummary = () => {
   }, [currentEODData]);
 
   const tableData = [
-    ['Cash Total', 'P'+currentEODData?.rows._array[0].total_cash],
-    ['Online Total', 'P'+currentEODData?.rows._array[0].total_online],
-    ['Grand Total', 'P'+(currentEODData?.rows._array[0].total_cash + currentEODData?.rows._array[0].total_online)]
+    ['Cash Total', '₱ '+currentEODData?.rows._array[0].total_cash],
+    ['Online Total', '₱ '+currentEODData?.rows._array[0].total_online],
+    ['Grand Total', '₱ '+(currentEODData?.rows._array[0].total_cash + currentEODData?.rows._array[0].total_online)]
   ];
 
   return (

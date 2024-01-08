@@ -88,7 +88,7 @@ export default function currentEOD() {
     currentEOD?.rows._array.forEach((item) => {
       if (item.category_name === category) {
         //include total sales in the tableData
-        tableData.push([item.item_name, 'x' + item.total_quantity, 'P' + item.total_sales]);
+        tableData.push([item.item_name, 'x' + item.total_quantity, '₱' + item.total_sales]);
       }
     });
     tables.push({
