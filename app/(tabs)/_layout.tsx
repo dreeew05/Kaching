@@ -1,7 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 import Colors from '../../constants/Colors';
 
@@ -41,6 +41,7 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -53,18 +54,19 @@ export default function TabLayout() {
       <Tabs.Screen
         name="orderSummary"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/cart" asChild>
-              <Pressable>
+              <Pressable
+                className='ml-3'
+              >
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="green"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                  <Ionicons 
+                    name="arrow-back-outline" 
+                    size={30} 
+                    color="green" 
                   />
                 )}
               </Pressable>
@@ -78,20 +80,7 @@ export default function TabLayout() {
           title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
-          headerLeft: () => (
-            <Link href="/cart" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="green"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -131,20 +120,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar,
           headerShown: false,
-          headerLeft: () => (
-            <Link href="//" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="green"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen
@@ -169,20 +144,7 @@ export default function TabLayout() {
           title: 'Back',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
-          headerLeft: () => (
-            <Link href="/menu" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="green"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -258,7 +220,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
-            <Link href="/menu" asChild>
+            <Link href="/(tabs)/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome5

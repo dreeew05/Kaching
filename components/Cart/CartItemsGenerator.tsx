@@ -16,7 +16,11 @@ export default function CartItemsGenerator() {
 
   if (isCartEmpty()) {
     return (
-      <View className="flex-1">
+      <View className="flex-1"
+        style={{
+          marginTop: 60
+        }}
+      >
         <Text className="text-4xl ml-5 text-green" style={{ fontFamily: 'Poppins-Medium' }}>
           Cart
         </Text>
@@ -33,7 +37,11 @@ export default function CartItemsGenerator() {
     );
   } else {
     return (
-      <ScrollView>
+      <ScrollView
+        style={{
+          marginTop: 60
+        }}
+      >
         <Text className="text-4xl ml-5 text-green" style={{ fontFamily: 'Poppins-Medium' }}>
           Cart
         </Text>

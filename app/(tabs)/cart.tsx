@@ -11,9 +11,8 @@ export default function CartScreen() {
   return (
     <Provider store={Store}>
       <View className="flex-1 self-stretch bg-white dark:bg-black">
-        <CartItemsGenerator />
-
-        <Total page="cart" />
+          <CartItemsGenerator />
+          <Total page="cart" />
       </View>
     </Provider>
   );
