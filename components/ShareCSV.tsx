@@ -9,7 +9,8 @@ interface TableData {
   tableData: string[][];
 }
 
-const ShareCSV: React.FC<{ data: TableData }> = ({ data }) => {
+
+const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
   const [csvData, setCSVData] = useState('');
   const [csvFileName, setCSVFileName] = useState('');
   const [csvFilePath, setCSVFilePath] = useState('');
@@ -23,9 +24,14 @@ const ShareCSV: React.FC<{ data: TableData }> = ({ data }) => {
       await FileSystem.makeDirectoryAsync(tempDir, { intermediates: true });
 
       // Create a CSV file
-      const csvData = `${data.header.join(',')}\n${data.tableData
-        .map((row) => row.join(','))
-        .join('\n')}`;
+      let csvData = '';
+      data.forEach((table) => {
+        csvData += table.header.join(',') + '\n';
+        table.tableData.forEach((row) => {
+          csvData += row.join(',') + '\n';
+        });
+        csvData += '\n';
+      });
       const csvFileName = `eod_${date.getFullYear()}-${date.getMonth()}-${date.getDate()}.csv`;
       const csvFilePath = tempDir + csvFileName;
 
