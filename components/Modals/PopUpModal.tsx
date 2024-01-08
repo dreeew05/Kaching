@@ -35,7 +35,7 @@ export const PopUpModal = (props : PopUpModalProps) => {
                             <View className="flex flex-row ">
                                 <View>
                                     <Pressable onPress={props.closeModal}>
-                                        <Text className="text-xl text-red-700 text-center py-2.5">{props.agreeText}</Text>
+                                        <Text className="text-xl text-blue-700 text-center py-2.5">{props.agreeText}</Text>
                                     </Pressable>
                                 </View>
                             </View>

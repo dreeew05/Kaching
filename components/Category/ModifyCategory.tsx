@@ -109,7 +109,6 @@ export default function ModifyCategory() {
       updateData(tableName, targetAttrib2, targetValue2, refAttrib, 
         refValue)
         .then((result) => {
-          // console.log(result)
         })
         .catch((error) => {
           console.log(error)
@@ -177,6 +176,7 @@ export default function ModifyCategory() {
           optionTwoText='No'
           optionOnePressed={() => checkIfValid()}
           optionTwoPressed={() => setModalVisible(false)}
+          optionTwoColor='red'
           closeModal={() => setModalVisible(false)}
         />
 

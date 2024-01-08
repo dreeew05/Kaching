@@ -16,7 +16,14 @@ export default function CategoryGenerator() {
   return (
     <View>
       <View className="flex flex-row items-end">
-        <Text className="text-3xl font-base ml-5 text-darkgreen">Categories</Text>
+        <Text 
+          className="text-3xl font-base ml-5 text-darkgreen"
+          style={{
+            fontFamily: 'Poppins-Medium'
+          }}
+        >
+          Categories
+        </Text>
         <Pressable className="self-center ml-3" onPress={editCategories}>
           <FontAwesome5 name="edit" size={25} color="darkgreen" />
         </Pressable>

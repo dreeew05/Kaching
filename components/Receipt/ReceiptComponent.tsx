@@ -55,18 +55,18 @@ export default function ReceiptComponent() {
                     {/* Container for Total Price */}
                     <View className="flex-row overflow-hidden">
                         <Text className="py-2 text-lg mr-auto text-zinc-500 font-medium">Total: </Text>
-                        <Text className="py-2 text-lg  text-zinc-500 font-medium items-end">${totalPrice}</Text>
+                        <Text className="py-2 text-lg  text-zinc-500 font-medium items-end">P{totalPrice}</Text>
                     </View>
                     
                     {/* Container for Total User Payment */}
                     <View className="flex-row overflow-hidden">
                         <Text className="py-2 text-lg mr-auto text-zinc-500 font-medium">Payment: </Text>
-                        <Text className="py-2 text-lg text-zinc-500 font-medium items-end">${userPayment}</Text>
+                        <Text className="py-2 text-lg text-zinc-500 font-medium items-end">P{userPayment}</Text>
                     </View>
                     {/* Container for Total Change */}
                     <View className="flex-row overflow-hidden">
                         <Text className="py-2 text-lg mr-auto text-right text-zinc-500 font-medium">Change: </Text>
-                        <Text className="py-2 text-lg text-zinc-500 font-medium items-end">${change.toFixed(2)}</Text>
+                        <Text className="py-2 text-lg text-zinc-500 font-medium items-end">P{change.toFixed(2)}</Text>
                     </View>
                 </View>
             </View>
