@@ -64,24 +64,28 @@ export default function ModifyItem(data : ModifyItemProps) {
         // No permissions request is necessary for launching the image library
         let result: ImagePicker.ImagePickerResult;
         if (mode == 'camera') {
-        result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 1,
-        });
+            result = await ImagePicker.launchCameraAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+            });
+            if (!result.canceled) {
+                setSelectedImage(result.assets[0].uri);
+            }
         }
         if (mode == 'gallery') {
-        result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [1, 1],
-            quality: 1,
-        });
+            result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+            });
+            if (!result.canceled) {
+                setSelectedImage(result.assets[0].uri);
+            }
         }
-        if (!result.canceled) {
-        setSelectedImage(result.assets[0].uri);
-        }
+        
     };
 
     const clearData = () => {
