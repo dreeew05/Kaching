@@ -44,7 +44,7 @@ export default function HomeScreen() {
 
           <DayStarter hasStartDayData={hasStartDayData} 
             cashierName={cashierName} />
-
+          
           <SaleDashboard />
 
           <CategoryGenerator />
