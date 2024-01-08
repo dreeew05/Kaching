@@ -10,6 +10,8 @@ import { insertData, selectData, updateData } from '../../components/DatabaseUti
 import { useDispatch } from 'react-redux';
 import { addCategoryAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
+import CustomModal from '../Modals/CustomModal';
+import { PopUpModal } from '../Modals/PopUpModal';
 
 export default function ModifyCategory() {
   const param = useLocalSearchParams();
@@ -21,6 +23,9 @@ export default function ModifyCategory() {
   const dispatch = useDispatch();
 
   const db = getDatabase();
+
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [popModalVisible, setPopModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (param.operation == 'editCategory') {
@@ -53,8 +58,6 @@ export default function ModifyCategory() {
       quality: 1,
     });
 
-    // console.log(result);
-
     if (!result.canceled) {
       const pickedImage: ImageSourcePropType = {
         uri: result.assets[0].uri,
@@ -63,6 +66,17 @@ export default function ModifyCategory() {
       setSelectedImage(pickedImage.uri || ''); // Update selectedImage when an image is picked
     }
   };
+
+  const checkIfValid = () => {
+    if (categoryName == '' || image == '') {
+      setModalVisible(false);
+      // console.log('Error')
+      setPopModalVisible(true);
+    }
+    else {
+      saveCategory();
+    }
+  }
 
   const saveCategory = () => {
     const tableName = 'category';
@@ -116,6 +130,7 @@ export default function ModifyCategory() {
         console.log(error);
       });
     }
+    setModalVisible(false);
   }
 
   return (
@@ -151,8 +166,25 @@ export default function ModifyCategory() {
         
         <CustomPressable
           text="Save"
-          onPress={saveCategory}
+          onPress={() => setModalVisible(true)}
           disabled={false}
+        />
+
+        <CustomModal
+          visible={modalVisible}
+          message='Do you want to save your changes?'
+          optionOneText='Yes'
+          optionTwoText='No'
+          optionOnePressed={() => checkIfValid()}
+          optionTwoPressed={() => setModalVisible(false)}
+          closeModal={() => setModalVisible(false)}
+        />
+
+        <PopUpModal
+          visible={popModalVisible}
+          message='Please fill out all fields'
+          agreeText='Okay'
+          closeModal={() => setPopModalVisible(false)}
         />
 
       </View>

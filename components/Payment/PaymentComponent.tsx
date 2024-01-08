@@ -58,7 +58,7 @@ export default function PaymentComponent() {
         const tableName = 'receipts';
         const data = [{
             receipt_id : receiptID,
-            total : totalCartPrice,
+            total : totalCartPrice.toFixed(2),
             amount_paid : parseFloat(userPayment),
             mode_of_payment : modeOfPayment,
         }]
@@ -112,8 +112,11 @@ export default function PaymentComponent() {
 
     return (
         <View
-        style={{ flex: 1, justifyContent: 'space-between' }}
-        className="flex-1 self-stretch bg-white dark-bg-black"
+            style={{ 
+                flex: 1, 
+                justifyContent: 'space-between',
+            }}
+            className="flex-1 self-stretch bg-white dark-bg-black"
         >
         <View>
             <Text className="text-4xl ml-5 text-green" style={{ fontFamily: 'Poppins-Medium' }}>
@@ -122,7 +125,7 @@ export default function PaymentComponent() {
             <Text className="text-7xl mt-5 font-medium 
                 p-5 text-yellow self-center"
             >
-                PHP {totalCartPrice}
+                PHP {totalCartPrice.toFixed(2)}
             </Text>
             <Text className="text-xl mb-2 font-base text-gray self-center">
             Please select a mode of payment

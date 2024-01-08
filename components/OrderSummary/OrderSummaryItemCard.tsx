@@ -5,6 +5,9 @@ import { Image, View, Text } from 'react-native';
 import { OrderSummaryProps } from '../__utils__/interfaces/OrderSummaryProps';
 
 export default function OrderSummaryItemCard(item: OrderSummaryProps) {
+  
+  const subTotalPrice = item.totalPrice * item.quantity;
+
   return (
     <View className="flex flex-row items-center bg-slate-200 rounded-xl m-3 p-1 justify-between">
       <Image 
@@ -23,7 +26,7 @@ export default function OrderSummaryItemCard(item: OrderSummaryProps) {
       </View>
 
       <View className="w-16">
-        <Text className="text-lg text-gray self-center">${item.totalPrice}</Text>
+        <Text className="text-lg text-gray self-center">P{item.totalPrice.toFixed(2)}</Text>
       </View>
 
       <View className="w-16">
@@ -32,7 +35,7 @@ export default function OrderSummaryItemCard(item: OrderSummaryProps) {
 
       <View className="w-16">
         <Text className="text-lg font-medium text-gray self-center">
-          ${item.totalPrice * item.quantity}
+          P{subTotalPrice.toFixed(2)}
         </Text>
       </View>
     </View>

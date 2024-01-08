@@ -52,7 +52,7 @@ export default function CartItemCard(item: CartItemProps) {
           <Text className="text-md text-gray " style={{ fontFamily: 'Poppins-Regular' }}>
             {item.category}
           </Text>
-          <Text className="text-md text-black mt-3">${subtotalPrice}</Text>
+          <Text className="text-md text-black mt-3">P{subtotalPrice.toFixed(2)}</Text>
           <View className="mt-6">
             <Stepper id={item.id} quantity={quantity} updateQuantity={updateQuantityEvent} />
           </View>

@@ -7,6 +7,8 @@ import { Pressable } from 'react-native';
 import Stepper from '../Stepper';
 import { RootState } from '../../redux/Store';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
+import { Link, router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function DetailedItemScreen(item : DetailedItemProps) {
 
@@ -48,60 +50,81 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
       }
   }, [itemState])
 
+  const goBackAction = () => {
+    router.push('//')
+  }
+
   return(
-      <View className="flex-1 h-full relative z-0">
-          <View className="h-96 px-3">
-                <Image
-                    source={
-                        {uri : item.image}
-                    }
-                    className="w-full h-full rounded-3xl"
+        <View 
+            className="flex-1 h-full relative z-0"
+            style={{
+                marginTop: 60
+            }}
+        >
+
+            <Pressable 
+                onPress={() => goBackAction()}
+                className='ml-3'
+            >
+                <Ionicons 
+                    name="arrow-back-outline" 
+                    size={30} 
+                    color="green" 
                 />
-                <Text className="text-center text-3xl pt-3 text-green">
-                    {item.price} PHP
-                </Text>
-                <Text className="text-center text-4xl pt-3">
-                    {item.name}
-                </Text>
-                <View className="h-36 justify-center items-center">
-                    <Text className="text-center text-base text-gray 
-                        font-light px-3"
-                    >
-                        {item.description}
+            </Pressable>
+
+            <View className="h-96 px-3 mt-5">
+                    <Image
+                        source={
+                            {uri : item.image}
+                        }
+                        className="w-full h-full rounded-3xl"
+                    />
+                    <Text className="text-center text-3xl pt-3 text-green">
+                        {item.price} PHP
                     </Text>
+                    <Text className="text-center text-4xl pt-3">
+                        {item.name}
+                    </Text>
+                    <View className="h-36 justify-center items-center">
+                        <Text className="text-center text-base text-gray 
+                            font-light px-3"
+                        >
+                            {item.description}
+                        </Text>
+                    </View>
+            </View>
+
+            <View className="flex flex-row h-16 absolute inset-x-0
+                bottom-0 w-full border-t-[0.5px] border-gray-300 items-left
+                py-2 pl-3 "
+            >
+                <View className="w-2/5">
+                
+                    <Stepper
+                        id={item.id}
+                        quantity={quantity}
+                        updateQuantity={updateQuantity}
+                    />
+
                 </View>
-          </View>
 
-          <View className="flex flex-row h-16 absolute inset-x-0
-              bottom-0 w-full border-t-[0.5px] border-gray-300 items-left
-              py-2 pl-3 "
-          >
-              <View className="w-2/5">
-              
-                  <Stepper
-                      id={item.id}
-                      quantity={quantity}
-                      updateQuantity={updateQuantity}
-                  />
+                <View className="w-3/5 pr-3">
+                    <Pressable className="w-full h-10 rounded-md
+                        items-center justify-center bg-green shadow-md 
+                        shadow-neutral-600"
+                        onPress={addToCartEvent}
+                    >
+                        <Text className="text-center text-lg font-semibold 
+                            text-white"
+                        >
+                            Add to Cart
+                        </Text>
+                    </Pressable>
+                </View>
 
-              </View>
-
-              <View className="w-3/5 pr-3">
-                  <Pressable className="w-full h-10 rounded-md
-                      items-center justify-center bg-green shadow-md 
-                      shadow-neutral-600"
-                      onPress={addToCartEvent}
-                  >
-                      <Text className="text-center text-lg font-semibold 
-                          text-white"
-                      >
-                          Add to Cart
-                      </Text>
-                  </Pressable>
-              </View>
-
-          </View>
-      </View>
+            </View>
+        </View>
   )
 
 }
