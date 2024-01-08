@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { selectCartItems, selectCartTotalPrice } from "../../redux/CartRedux/CartSelectors";
 import { insertData } from "../DatabaseUtils/CoreFunctions";
 import { generateUniqueId } from "../__utils__/helper/GenerateUniqueId";
+import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 
 export default function PaymentComponent() {
     const [open, setOpen] = useState(false);
@@ -86,6 +87,19 @@ export default function PaymentComponent() {
                 .catch((error) => {
                     console.log(error);
                 })
+        })
+
+        getDatabase().transaction(tx => {
+            tx.executeSql(`
+            INSERT INTO eod_receipts (eod_id, receipt_id)
+            VALUES (
+              (SELECT eod_id FROM eods WHERE iscurrent = 1),
+              (SELECT receipt_id FROM receipts ORDER BY receipt_id DESC LIMIT 1))`,
+              [],
+                (tx, results) => {
+                    console.log(results.rowsAffected);
+                },
+            )
         })
     }
 

@@ -1,14 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Table, Rows } from 'react-native-table-component';
+import { getDatabase } from './DatabaseUtils/OpenDatabase';
+import { SQLResultSet, SQLiteCallback } from 'expo-sqlite';
 
 const FinancialSummary = () => {
+
+  const db = getDatabase();
+  const [currentEODData, setCurrentEODData] = React.useState<SQLResultSet | null>(null);
+
+  useEffect(() => {
+    // Code to run after component renders
+      //get total cash from receipts table in db
+      fetchCurrentEODData();
+  
+  }, [currentEODData]);
+
+  const fetchCurrentEODData = () => {
+    db.transaction(tx => {
+      tx.executeSql(`
+      SELECT
+      SUM(CASE WHEN r.mode_of_payment = 'cash' THEN r.total ELSE 0 END) AS total_cash,
+      SUM(CASE WHEN r.mode_of_payment = 'online' THEN r.total ELSE 0 END) AS total_online
+      FROM eod_receipts er
+      JOIN receipts r ON er.receipt_id = r.receipt_id
+      JOIN eods e ON er.eod_id = e.eod_id
+      WHERE e.iscurrent = 1;
+      `,
+        [],
+        (tx, results) => {
+          console.log(results.rows._array);
+          setCurrentEODData(results);
+        },
+      )
+      }
+    );
+  }
+
   const tableData = [
-    ['Cash Total', 'P12,345.76'],
-    ['Online Total', 'P12,345.76'],
-    ['Grand Total', 'P12,345.76'],
-    ['Petty Cash', 'P12,345.76'],
-    ['Gross Total', 'P12,345.76'],
+    ['Cash Total', 'P'+currentEODData?.rows._array[0].total_cash],
+    ['Online Total', 'P'+currentEODData?.rows._array[0].total_online],
+    ['Grand Total', 'P'+(currentEODData?.rows._array[0].total_cash + currentEODData?.rows._array[0].total_online)]
   ];
 
   return (
