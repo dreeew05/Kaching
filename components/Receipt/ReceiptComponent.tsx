@@ -5,6 +5,7 @@ import { View, Text, ScrollView, Pressable } from "react-native";
 import ReceiptItemList from "./ReceiptItemList";
 import { ParamsToFloat } from "../__utils__/helper/ParamsToFloat";
 import { clearCart } from "../../redux/CartRedux/CartSlice";
+import ReceiptSummaryTable from "./ReceiptSummaryTable";
 
 export default function ReceiptComponent() {
     const router = useRouter();
@@ -34,35 +35,47 @@ export default function ReceiptComponent() {
     return (
         <View className="flex-1 self-stretch bg-white dark:bg-black">
         <Text className="text-2xl font-semibold text-green self-center">Transaction Recorded!</Text>
-        <View className="flex flex-row self-center">
-            <Text className="text-2xl font-semibold 
-                text-green self-center"
-            >
-                Change: 
-            </Text>
-            <Text className="text-2xl font-semibold text-yellow 
-                self-center"
-            >
-                {change}
-            </Text>
-        </View>
 
         <ScrollView>
             <View className="flex flex-collumn items-center mt-5">
-            <Text className="text-5xl font-semibold text-green">Store Name</Text>
-            <Text className="text-sm ml-5 ">Glen Bulaong</Text>
-            <Text className="text-sm ml-5 ">09123456789</Text>
-            <Text className="text-sm ml-5 mb-5">October 24, 2023</Text>
+                <Text className="text-5xl font-semibold text-green">Store Name</Text>
+                <Text className="text-sm ml-5 ">Glen Bulaong</Text>
+                <Text className="text-sm ml-5 ">09123456789</Text>
+                <Text className="text-sm ml-5 mb-5">October 24, 2023</Text>
             </View>
-            <View>
-            {/* Generate Items */}
-            <ReceiptItemList cart={cartItems} />
+            
+            <View className=" bg-slate-100 dark:bg-black p-3 m-5 mb-0 border-2 border-zinc-300 rounded-xl">
+
+                <ReceiptSummaryTable/>
+                <ReceiptItemList cart={cartItems} />
+            
+                <Text className=" text-zinc-500 text-base self-center">________________________________________________</Text>
+                <View className=" dark:bg-black p-3 m-5 mt-0 mb-0">
+                    
+                    {/* Container for Total Price */}
+                    <View className="flex-row overflow-hidden">
+                        <Text className="py-2 text-lg mr-auto text-zinc-500 font-medium">Total: </Text>
+                        <Text className="py-2 text-lg  text-zinc-500 font-medium items-end">${totalPrice}</Text>
+                    </View>
+                    
+                    {/* Container for Total User Payment */}
+                    <View className="flex-row overflow-hidden">
+                        <Text className="py-2 text-lg mr-auto text-zinc-500 font-medium">Payment: </Text>
+                        <Text className="py-2 text-lg text-zinc-500 font-medium items-end">${userPayment}</Text>
+                    </View>
+                    {/* Container for Total Change */}
+                    <View className="flex-row overflow-hidden">
+                        <Text className="py-2 text-lg mr-auto text-right text-zinc-500 font-medium">Change: </Text>
+                        <Text className="py-2 text-lg text-zinc-500 font-medium items-end">${change}</Text>
+                    </View>
+                </View>
             </View>
+
         </ScrollView>
 
         <View className="flex-row justify-between p-4 border-spacing-3 border border-white border-t-gray"></View>
         <Pressable
-            className="bg-transparent w-2/3 self-center bg-green items-center rounded-full py-2 px-4 mb-5 ml-2 self-center"
+            className="bg-transparent w-2/3 bg-green items-center rounded-full py-2 px-4 mb-5 ml-2 self-center"
             onPress={viewIndex}
         >
             <Text className="text-white text-xl font-bold">Done</Text>
