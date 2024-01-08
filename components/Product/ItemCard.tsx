@@ -55,12 +55,6 @@ export default function ItemCard(item: itemCardProps) {
         dispatch(
           addProductAction('delete')
         )
-        dispatch(
-          setSpecificProductAction({
-            id : 0,
-            action : 'delete'
-          })
-        )
       })
       dispatch(
         setIsEditComponent(true)
