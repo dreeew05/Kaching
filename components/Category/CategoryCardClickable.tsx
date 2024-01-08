@@ -6,7 +6,7 @@ import { Link } from 'expo-router';
 import CategoryCard from './CategoryCard';
 import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
 import { useDispatch } from 'react-redux';
-import { addProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { addProductAction, setIsCategoryViewProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
 export default function CategoryCardClickable({ id, name, image }: CategoryProps) {
 
@@ -15,6 +15,9 @@ export default function CategoryCardClickable({ id, name, image }: CategoryProps
   const clickHandler = () => {
     dispatch(
       addProductAction('select')
+    );
+    dispatch(
+      setIsCategoryViewProductLoading(true)
     );
   }
   

@@ -5,7 +5,8 @@ interface GlobalStateProps {
     product : string[],
     specificProduct : string[],
     isEditComponent : boolean,
-    isDetailedViewLoading : boolean
+    isDetailedViewLoading : boolean,
+    isCategoryViewLoading : boolean
 }
 
 const initialState : GlobalStateProps = {
@@ -13,7 +14,8 @@ const initialState : GlobalStateProps = {
     product : [],
     specificProduct : [],
     isEditComponent : true,
-    isDetailedViewLoading : true
+    isDetailedViewLoading : true,
+    isCategoryViewLoading : true
 }
 
 export const GlobalStateSlice = createSlice({
@@ -36,12 +38,17 @@ export const GlobalStateSlice = createSlice({
         setIsDetailedViewLoading(state, action : 
             PayloadAction<boolean>) {
                 state.isDetailedViewLoading = action.payload
+        },
+        setIsCategoryViewProductLoading(state, action : 
+            PayloadAction<boolean>) {
+                state.isCategoryViewLoading = action.payload
         }
     }
 });
 
 export const { addCategoryAction, addProductAction,
    addSpecificProductAction, setIsEditComponent, 
-   setIsDetailedViewLoading } = GlobalStateSlice.actions;
+   setIsDetailedViewLoading, 
+   setIsCategoryViewProductLoading } = GlobalStateSlice.actions;
 
 export default GlobalStateSlice.reducer;

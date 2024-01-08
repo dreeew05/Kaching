@@ -1,13 +1,13 @@
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
-import { View, Text, Pressable, ScrollView } from "react-native";
+import { View, Text, Pressable, ScrollView, ActivityIndicator } from "react-native";
 import ItemCard from "./ItemCard";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { useEffect, useState } from "react";
 import { BaseItemProps } from "../__utils__/interfaces/BaseItemProps";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsEditComponent, selectProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
-import { setIsEditComponent } from "../../redux/GlobalStateRedux/GlobalStateSlice";
+import { selectIsCategoryViewLoading, selectIsEditComponent, selectProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
+import { setIsCategoryViewProductLoading, setIsEditComponent } from "../../redux/GlobalStateRedux/GlobalStateSlice";
 
 interface CategoryViewContentsProps {
     id : number,
@@ -24,6 +24,8 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
     const actionState = useSelector(selectProduct);
     const actionStateEdit = useSelector(selectIsEditComponent);
 
+    const isLoading = useSelector(selectIsCategoryViewLoading);
+
     const [products, setProducts] = useState<BaseItemProps[]>([]);
 
     useEffect(() => {
@@ -38,10 +40,56 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
                 [data.id],
                 (_, result) => {
                     setProducts(result.rows._array)
+                    dispatch(
+                        setIsCategoryViewProductLoading(false)
+                    );
                 }
             )
         })
     }, [actionState])
+
+    const showOverallComponent = () => {
+        if(isLoading) {
+            return(
+                <View 
+                    style={{ 
+                        marginTop: 350 
+                    }}
+                >
+                    <ActivityIndicator
+                        size={75}
+                        color="green"
+                    />
+                </View>
+            )
+        }
+        else {
+            return(
+                <View>
+                    {showModifyProductHeader()}
+                    <View className='flex flex-row'>
+                    <Text className="text-4xl text-green ml-5 mb-5"
+                        style={{ fontFamily: 'Poppins-Bold' }}
+                    >
+                        {data.name}
+                    </Text>
+                        {showModifyProductsComponent()}
+                    </View>
+                    <ScrollView className="p-2">
+                        {products.map((product) => {
+                            return (
+                                <ItemCard 
+                                    key={product.id} 
+                                    item={product} 
+                                    isEditComponent={actionStateEdit}
+                                />
+                            )
+                        })}
+                    </ScrollView>
+                </View>
+            )
+        }
+    }
 
     const showModifyProductsComponent = () => {
         if(actionStateEdit && products.length > 0) {
@@ -126,27 +174,10 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
 
     return(
         <View className="flex-1 self-stretch bg-white dark:bg-black">
-            <View style={{marginTop: 60}}>
-                {showModifyProductHeader()}
-                <View className='flex flex-row'>
-                <Text className="text-4xl text-green ml-5 mb-5"
-                    style={{ fontFamily: 'Poppins-Bold' }}
-                >
-                    {data.name}
-                </Text>
-                    {showModifyProductsComponent()}
-                </View>
-                <ScrollView className="p-2">
-                    {products.map((product) => {
-                        return (
-                            <ItemCard 
-                                key={product.id} 
-                                item={product} 
-                                isEditComponent={actionStateEdit}
-                            />
-                        )
-                    })}
-                </ScrollView>
+            <View
+                style={{marginTop: 60}}
+            >
+                {showOverallComponent()}
             </View>
         </View>
     )

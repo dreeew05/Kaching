@@ -5,7 +5,7 @@ import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { useEffect, useState } from "react";
 import { DetailedItemProps } from "../__utils__/interfaces/DetailedItemProps";
 import { selectIsEditDetailedViewLoading, selectSpecificProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { setIsDetailedViewLoading } from "../../redux/GlobalStateRedux/GlobalStateSlice";
 interface ItemScreenFetchDataProps {
     id : number
@@ -20,8 +20,6 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
     const isLoading = useSelector(selectIsEditDetailedViewLoading);
 
     const dispatch = useDispatch();
-    
-    // console.log(specificProduct)
 
     const [product, setProduct] = useState<DetailedItemProps[]>([{
         id: 0,
@@ -31,9 +29,6 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
         description: '',
         category: ''
     }]);
-    // const [isLoading, setIsLoading] = useState(true);
-
-
 
     useEffect(() => {
         db.transaction(tx => {
@@ -53,15 +48,21 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
                 }
             )
         })
-    }, [data.id, specificProduct]);
+    }, [specificProduct]);
 
     const showComponent = () => {
         if(isLoading) {
             return(
-                <ActivityIndicator
-                    size="large"
-                    color="green"
-                />
+                <View 
+                    style={{ 
+                        marginTop: 350 
+                    }}
+                >
+                    <ActivityIndicator
+                        size={75}
+                        color="green"
+                    />
+                </View>
             )
         }
         else {
