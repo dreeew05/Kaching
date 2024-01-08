@@ -4,7 +4,9 @@ import DetailedItemScreen from "./DetailedItemScreen";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { useEffect, useState } from "react";
 import { DetailedItemProps } from "../__utils__/interfaces/DetailedItemProps";
-import { selectSpecificProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
+import { selectIsEditDetailedViewLoading, selectSpecificProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
+import { ActivityIndicator } from "react-native";
+import { setIsDetailedViewLoading } from "../../redux/GlobalStateRedux/GlobalStateSlice";
 interface ItemScreenFetchDataProps {
     id : number
 }
@@ -13,9 +15,13 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
 
     const db = getDatabase();
 
-    const actionState = useSelector(selectSpecificProduct);
+    const specificProduct = useSelector(selectSpecificProduct);
+
+    const isLoading = useSelector(selectIsEditDetailedViewLoading);
+
+    const dispatch = useDispatch();
     
-    // console.log(actionState)
+    // console.log(specificProduct)
 
     const [product, setProduct] = useState<DetailedItemProps[]>([{
         id: 0,
@@ -25,6 +31,9 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
         description: '',
         category: ''
     }]);
+    // const [isLoading, setIsLoading] = useState(true);
+
+
 
     useEffect(() => {
         db.transaction(tx => {
@@ -38,21 +47,41 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
                 [data.id],
                 (_, result) => {
                     setProduct(result.rows._array);
+                    dispatch(
+                        setIsDetailedViewLoading(false)
+                    );
                 }
             )
         })
-    }, [data.id, actionState]);
+    }, [data.id, specificProduct]);
+
+    const showComponent = () => {
+        if(isLoading) {
+            return(
+                <ActivityIndicator
+                    size="large"
+                    color="green"
+                />
+            )
+        }
+        else {
+            return (
+                <DetailedItemScreen
+                    key={product[0].id}
+                    id={product[0].id}
+                    name={product[0].name}
+                    image={product[0].image}
+                    price={product[0].price}
+                    description={product[0].description}
+                    category={product[0].category}
+                />
+            )
+        }
+    }
 
     return (
         <Provider store={Store}>
-            <DetailedItemScreen
-                id={product[0].id}
-                name={product[0].name}
-                image={product[0].image}
-                price={product[0].price}
-                description={product[0].description}
-                category={product[0].category}
-            />
+            {showComponent()}
         </Provider>
     );
       

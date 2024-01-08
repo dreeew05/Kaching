@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import CustomModal from '../CustomModal';
 import { useDispatch } from 'react-redux';
 import { insertData, selectData, updateData } from '../DatabaseUtils/CoreFunctions';
-import { addProductAction, setSpecificProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { addProductAction, addSpecificProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
 interface ModifyItemProps {
     type : string
@@ -144,10 +144,9 @@ export default function ModifyItem(data : ModifyItemProps) {
                 addProductAction('edit') 
             )
         }
-        setSpecificProductAction({
-            id : data.id,
-            action : 'edit'
-        })
+        dispatch(
+            addSpecificProductAction('edit')
+        );
         clearData();
     }
 
