@@ -21,7 +21,7 @@ export default function GenerateAllData() {
         });
     }, []);
 
-    console.log(categories)
+    // console.log(categories)
 
     const test = 'hello';
 
