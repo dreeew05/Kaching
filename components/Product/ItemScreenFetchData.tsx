@@ -4,7 +4,9 @@ import DetailedItemScreen from "./DetailedItemScreen";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { useEffect, useState } from "react";
 import { DetailedItemProps } from "../__utils__/interfaces/DetailedItemProps";
-import { selectSpecificProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
+import { selectIsEditDetailedViewLoading, selectSpecificProduct } from "../../redux/GlobalStateRedux/GlobalStateSelectors";
+import { ActivityIndicator, View } from "react-native";
+import { setIsDetailedViewLoading } from "../../redux/GlobalStateRedux/GlobalStateSlice";
 interface ItemScreenFetchDataProps {
     id : number
 }
@@ -13,9 +15,11 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
 
     const db = getDatabase();
 
-    const actionState = useSelector(selectSpecificProduct);
-    
-    // console.log(actionState)
+    const specificProduct = useSelector(selectSpecificProduct);
+
+    const isLoading = useSelector(selectIsEditDetailedViewLoading);
+
+    const dispatch = useDispatch();
 
     const [product, setProduct] = useState<DetailedItemProps[]>([{
         id: 0,
@@ -38,21 +42,47 @@ export default function ItemScreenFetchData(data : ItemScreenFetchDataProps) {
                 [data.id],
                 (_, result) => {
                     setProduct(result.rows._array);
+                    dispatch(
+                        setIsDetailedViewLoading(false)
+                    );
                 }
             )
         })
-    }, [data.id, actionState]);
+    }, [specificProduct]);
+
+    const showComponent = () => {
+        if(isLoading) {
+            return(
+                <View 
+                    style={{ 
+                        marginTop: 350 
+                    }}
+                >
+                    <ActivityIndicator
+                        size={75}
+                        color="green"
+                    />
+                </View>
+            )
+        }
+        else {
+            return (
+                <DetailedItemScreen
+                    key={product[0].id}
+                    id={product[0].id}
+                    name={product[0].name}
+                    image={product[0].image}
+                    price={product[0].price}
+                    description={product[0].description}
+                    category={product[0].category}
+                />
+            )
+        }
+    }
 
     return (
         <Provider store={Store}>
-            <DetailedItemScreen
-                id={product[0].id}
-                name={product[0].name}
-                image={product[0].image}
-                price={product[0].price}
-                description={product[0].description}
-                category={product[0].category}
-            />
+            {showComponent()}
         </Provider>
     );
       
