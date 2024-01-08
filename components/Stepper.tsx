@@ -33,10 +33,10 @@ export default function Stepper(parentMixIn: StepperProps) {
     >
       <View>
         <View
-          className="w-40 h-10 border-[0.5px]
+          className="w-40 h-10 border-[2px]
                     flex flex-row rounded-md items-center justify-center"
         >
-          <Pressable className="border-r-[0.5px]" onPress={decrementQuantity}>
+          <Pressable className=" border-r-2" onPress={decrementQuantity}>
             <Text className="text-lg px-5" style={{ fontFamily: 'Poppins-Medium' }}>
               -
             </Text>
@@ -46,7 +46,7 @@ export default function Stepper(parentMixIn: StepperProps) {
             {value}
           </Text>
 
-          <Pressable className="border-l-[0.5px]" onPress={incrementQuantity}>
+          <Pressable className="border-l-2" onPress={incrementQuantity}>
             <Text className="text-lg px-5" style={{ fontFamily: 'Poppins-Medium' }}>
               +
             </Text>
