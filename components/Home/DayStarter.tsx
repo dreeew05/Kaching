@@ -41,7 +41,7 @@ export default function DayStarter() {
   };
 
   const showComponent = () => {
-    if(hasStartDay.isStartDay && !hasStartDay.isDisable) {
+    if(hasStartDay.isStartDay) {
       return(
         <View>
           <Text className="text-sm ml-5 mb-5">Cashier's Name: {cashierName}</Text>
@@ -49,7 +49,7 @@ export default function DayStarter() {
         </View>
       )
     }
-    else if(!hasStartDay.isStartDay && !hasStartDay.isDisable) {
+    else if(!hasStartDay.isStartDay) {
       return(
         <Pressable
           className="bg-transparent w-36 border-2 border-green rounded-xl py-2 px-4 mt-2 mb-5 ml-5"
@@ -60,11 +60,6 @@ export default function DayStarter() {
             <Text className="text-green text-base ml-3 font-bold mr-3">Start Day</Text>
           </View>
         </Pressable>
-      )
-    }
-    else if(hasStartDay.isStartDay && hasStartDay.isDisable) {
-      return(
-        <View></View>
       )
     }
   }

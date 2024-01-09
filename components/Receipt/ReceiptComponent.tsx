@@ -6,6 +6,13 @@ import ReceiptItemList from "./ReceiptItemList";
 import { ParamsToFloat } from "../__utils__/helper/ParamsToFloat";
 import { clearCart } from "../../redux/CartRedux/CartSlice";
 import ReceiptSummaryTable from "./ReceiptSummaryTable";
+import { getDatabase } from "../DatabaseUtils/OpenDatabase";
+import { useEffect, useState } from "react";
+
+interface DataFromDbProps {
+    cashiername : string,
+    contactnum : string
+}
 
 export default function ReceiptComponent() {
     const router = useRouter();
@@ -32,6 +39,33 @@ export default function ReceiptComponent() {
         )
     }
 
+    const db = getDatabase();
+
+    const [receiptStoreInfo, setReceiptStoreInfo] = useState<DataFromDbProps>({
+        cashiername : '',
+        contactnum : ''
+    })
+
+    useEffect(() => {
+        db.transaction(tx => {
+            tx.executeSql(
+                `SELECT cashiername, contactnum
+                FROM eods
+                WHERE iscurrent = 1`,
+                [],
+                (_, result) => {
+                    if(result.rows.length > 0) {
+                        const resultData = result.rows._array;
+                        setReceiptStoreInfo({
+                            cashiername : resultData[0].cashiername,
+                            contactnum : resultData[0].contactnum
+                        });
+                    }
+                }
+            ); 
+        });
+    }, [])
+
     return (
         <View className="flex-1 self-stretch bg-white dark:bg-black">
         <Text className="text-2xl font-semibold text-green self-center">Transaction Recorded!</Text>
@@ -39,8 +73,8 @@ export default function ReceiptComponent() {
         <ScrollView>
             <View className="flex flex-column items-center mt-5">
                 <Text className="text-5xl font-semibold text-green">Store Name</Text>
-                <Text className="text-sm ml-5 ">Glen Bulaong</Text>
-                <Text className="text-sm ml-5 ">09123456789</Text>
+                <Text className="text-sm ml-5 ">{receiptStoreInfo.cashiername}</Text>
+                <Text className="text-sm ml-5 ">{receiptStoreInfo.contactnum}</Text>
                 <Text className="text-sm ml-5 mb-5">October 24, 2023</Text>
             </View>
             
