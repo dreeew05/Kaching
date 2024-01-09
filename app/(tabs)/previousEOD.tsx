@@ -3,35 +3,45 @@ import { Pressable } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import PreviousDatesScrollView from '../../components/PreviousDatesGenerator';
 import CalendarPicker from '../../components/CalendarPicker';
+import currentEOD from './olderEODSbyDate';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase'; 
+import { useRouter } from 'expo-router';
+
 import { Ionicons } from '@expo/vector-icons';
 
 
 // TEST DATA
-const table1 = 
-  {
-    header : ['Appetizer'],
-    tableData : [['Mozarella Sticks', 'x25', 'P565.50'],
-                ['Bruschetta', 'x15', 'P25,000.00'],
-                ['Deviled Eggs', 'x100', 'P100.00']]
-  }
 
 export default function TabTwoScreen() {
   const [showCalendar, setShowCalendar] = useState(false);
+  const [datePicked, setDatePicked] = useState(false);
+
   let callEOD: boolean = false;
   let date = new Date();
 
   const handleDateFromPicker = (dateSelected: Date) => {
     date = dateSelected;
-    callEOD = true;
-    console.log(date);
+    const db = getDatabase();
+    db.transaction(tx => {
+      tx.executeSql(`INSERT INTO date_picked (date) VALUES (?)`,
+        [date.toISOString().slice(0, 10)],
+        (tx, results) => {
+        },
+      )
+    })
+    goToEOD();
+  };
 
+  const router = useRouter();
+  const goToEOD = () => {
+    router.push('/(tabs)/olderEODSbyDate');
   };
 
   return (
     <>
       {
         showCalendar ? 
-        (  
+        (
         <View className='flex-1'> 
         <View className='flex items-end pr-4'>
           <Pressable
