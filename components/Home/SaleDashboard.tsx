@@ -23,10 +23,10 @@ export default function SaleDashboard() {
   })
 
   db.transaction(tx => {
-    tx.executeSql(`SELECT count(receipt_id) FROM receipts`, 
+    tx.executeSql(`SELECT count(receipt_id) AS total_orders FROM receipts`, 
       [],
       (tx, results) => {
-        setCurrentOrders(results);        
+        setCurrentOrders(results);
       },
     )
   })
@@ -67,7 +67,7 @@ export default function SaleDashboard() {
           className=" px-7 self-center text-center text-green
                     text-3xl font-bold"
         >
-          {currentOrders?.rows.length-1}
+          {currentOrders?.rows.item(0).total_orders}
         </Text>
         <Text
           className=" px-7 self-center text-center text-black

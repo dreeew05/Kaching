@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Alert } from 'react-native';
 import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
@@ -42,6 +42,7 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
             category : item.category,
         }))
       }
+      Alert.alert('Item added to cart!')
   }
 
   useEffect(() => {
@@ -113,13 +114,14 @@ export default function DetailedItemScreen(item : DetailedItemProps) {
                     <Pressable className="w-full h-10 rounded-lg
                         items-center justify-center bg-green shadow-md 
                         shadow-neutral-600"
-                        onPress={addToCartEvent}
+                        onPress={addToCartEvent} 
                     >
                         <Text className="text-center text-lg font-semibold 
                             text-white"
                         >
                             Add to Cart
                         </Text>
+                        
                     </Pressable>
                 </View>
 
