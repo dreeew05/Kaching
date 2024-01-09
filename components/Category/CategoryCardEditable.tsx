@@ -42,6 +42,7 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
         console.log("Deletion Failed", error)
       })
   }
+  
 
   return (
     <View
@@ -61,10 +62,10 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
         asChild
       >
         <TouchableOpacity
-          className="h-7 rounded-md bg-green 
+          className="h-10 rounded-md bg-green 
                     justify-center items-center"
         >
-          <Text className="text-white">Edit</Text>
+          <Text className="text-white text-lg self-center mt-1" style={{ fontFamily: 'Poppins-Medium' }}>Edit</Text>
         </TouchableOpacity>
       </Link>
 

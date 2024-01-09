@@ -185,6 +185,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="olderEODSbyDate"
+        options={{
+          title: 'Back',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          href: null, // Hide this tab from the tab bar
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="ItemScreen"
         options={{
           title: 'Back',

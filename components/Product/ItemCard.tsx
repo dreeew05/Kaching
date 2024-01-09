@@ -134,8 +134,8 @@ export default function ItemCard(item: itemCardProps) {
                 asChild
               >
                 <Pressable
-                  className="bg-green h-10 border-2 border-green  mr-2
-                              rounded-md self-center flex-1 items-center justify-center"
+                  className="bg-green h-10 border-2 border-green
+                              rounded-md self-center flex-1 items-center justify-center w"
                   onPress={() => editProduct()}
                 >
                   <Text className="text-white text-lg" style={{ fontFamily: 'Poppins-Bold' }}>
@@ -144,7 +144,7 @@ export default function ItemCard(item: itemCardProps) {
                 </Pressable>
               </Link>
               <Pressable
-                className="bg-red-500 h-10 border-2 border-red-500 ml-2
+                className="bg-red-500 h-10 border-2 border-red-500 ml-11
                             rounded-md self-center flex-1 items-center justify-center"
                 onPress={() => deleteProduct(item.item.id)}
               >
