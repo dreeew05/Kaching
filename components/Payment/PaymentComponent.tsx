@@ -191,7 +191,7 @@ export default function PaymentComponent() {
 
             <CustomModal
                 visible={modalVisible}
-                message="Are you sure?"
+                message="Confirm Payment?"
                 optionOneText="Yes"
                 optionTwoText="No"
                 optionOnePressed={() => verifyPayment()}

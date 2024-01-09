@@ -25,8 +25,8 @@ SplashScreen.preventAutoHideAsync();
 
 // Define the onboarding images
 const onboardingImages = [
-  require('../assets/images/onboarding/Onboarding1.png'),
-  require('../assets/images/onboarding/Onboarding2.png'),
+  require('../assets/images/onboarding/Onboarding_1.png'),
+  require('../assets/images/onboarding/Onboarding_2.png'),
   require('../assets/images/onboarding/Login.png'),
 ];
 

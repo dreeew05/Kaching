@@ -8,7 +8,7 @@ import CustomModal from '../Modals/CustomModal';
 import { useDispatch } from 'react-redux';
 import { insertData, selectData, updateData } from '../DatabaseUtils/CoreFunctions';
 import { addProductAction, addSpecificProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 interface ModifyItemProps {
     type : string
@@ -25,6 +25,7 @@ export default function ModifyItem(data : ModifyItemProps) {
     const [saveModalVisible, setSaveModalVisible] = useState(false);
 
     const dispatch = useDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         if(data.type == 'add') {
@@ -122,6 +123,7 @@ export default function ModifyItem(data : ModifyItemProps) {
                     console.log(error)
                 
                 })
+                router.push('/')
         }
         else {
             const tableName = 'item';

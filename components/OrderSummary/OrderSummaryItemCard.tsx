@@ -26,15 +26,25 @@ export default function OrderSummaryItemCard(item: OrderSummaryProps) {
       </View>
 
       <View className="w-16">
-        <Text className="text-lg text-gray self-center">P{item.totalPrice.toFixed(2)}</Text>
+        <Text
+          className="text-lg text-gray self-center"
+          numberOfLines={1} // limit the number of lines to 1
+          ellipsizeMode="tail" // add ellipsis at the end of the truncated text
+          >P{item.totalPrice.toFixed(2)}</Text>
       </View>
 
-      <View className="w-16">
-        <Text className="text-lg text-gray self-center">{item.quantity}</Text>
+      <View className="w-12">
+        <Text
+        className="text-lg text-gray self-center"
+        >{item.quantity}</Text>
       </View>
 
-      <View className="w-16">
-        <Text className="text-lg font-medium text-gray self-center">
+      <View className="w-20">
+        <Text
+        className="text-lg font-medium text-gray self-center"
+        numberOfLines={1} // limit the number of lines to 1
+        ellipsizeMode="tail" // add ellipsis at the end of the truncated text
+        >
           P{subTotalPrice.toFixed(2)}
         </Text>
       </View>
