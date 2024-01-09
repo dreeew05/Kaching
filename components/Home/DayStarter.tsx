@@ -24,8 +24,7 @@ export default function DayStarter() {
       [],
       (txObj, resultSet) => {
         if(resultSet.rows.length > 0) {
-          // setHasStartDayData(true);
-          setCashierName(resultSet.rows.item(0).cashier_name);
+          setCashierName(resultSet.rows.item(0).cashiername);
 
         }
       }

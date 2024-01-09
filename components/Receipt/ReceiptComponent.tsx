@@ -75,7 +75,7 @@ export default function ReceiptComponent() {
                 <Text className="text-5xl font-semibold text-green">Store Name</Text>
                 <Text className="text-sm ml-5 ">{receiptStoreInfo.cashiername}</Text>
                 <Text className="text-sm ml-5 ">{receiptStoreInfo.contactnum}</Text>
-                <Text className="text-sm ml-5 mb-5">October 24, 2023</Text>
+                <Text className="text-sm ml-5 mb-5">January 9, 2024</Text>
             </View>
             
             <View className=" bg-slate-100 dark:bg-black p-3 m-5 mb-0 border-2 border-zinc-300 rounded-xl">
