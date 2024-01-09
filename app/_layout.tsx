@@ -81,6 +81,7 @@ export default function RootLayout() {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
             console.log('Success inserting storname');
+            setOnboardingCompleted(true);
           } else {
             console.log('Failed');
           }
