@@ -162,10 +162,10 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
                         style={{
                             fontFamily: 'Poppins-Bold',
                             fontSize: 22,
-                            color: "green"
+                            color: "darkgreen"
                         }}
                     >
-                        Exit Edit Mode
+                        Cancel Edit
                     </Text>
                 </View>
             )

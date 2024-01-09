@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { updateData } from "../DatabaseUtils/CoreFunctions";
 import { TextInput, View } from "react-native";
 import CustomPressable from "../CustomPressable";
@@ -34,6 +34,7 @@ export default function EditStoreName() {
             .catch((error) => {
                 console.log(error)
             })
+        router.push('/(tabs)/');
     }
 
     return (

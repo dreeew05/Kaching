@@ -182,7 +182,7 @@ export default function ModifyItem(data : ModifyItemProps) {
 
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         {data.type === 'add' ? (
-                        <Text className="text-center text-xl w-4/5" style={{ fontFamily: 'Poppins-Bold' }}>
+                        <Text className="text-center text-xl w-4/5 text-green" style={{ fontFamily: 'Poppins-Bold' }}>
                             Add Item
                         </Text>
                         ) : (
@@ -207,10 +207,10 @@ export default function ModifyItem(data : ModifyItemProps) {
 
             <View className="px-5 h-full">
                 
-                <View className="mb-6">
+                <View className="mb-6 mt-7">
                     <Text className="text-extrabold text-lg text-gray">Product's Name</Text>
                     <TextInput
-                    className="text-light border-b-[0.5px]"
+                    className="text-light border-b-[1.5px] border-zinc-500"
                     onChangeText={onChangeName}
                     value={name}
                     placeholder="Enter product name"
@@ -218,9 +218,9 @@ export default function ModifyItem(data : ModifyItemProps) {
                     />
                 </View>
                 <View className="mb-6">
-                    <Text className="text-extrabold text-lg text-gray">Price</Text>
+                    <Text className=" mt-3 text-extrabold text-lg text-gray">Price</Text>
                     <TextInput
-                        className="text-light border-b-[0.5px]"
+                        className="text-light border-b-[1.5px] border-zinc-500"
                         onChangeText={onChangePrice}
                         value={price}
                         placeholder="Enter product price"
@@ -229,9 +229,9 @@ export default function ModifyItem(data : ModifyItemProps) {
                     />
                 </View>
                 <View className="mb-6">
-                    <Text className="text-extrabold text-lg text-gray">Product Information</Text>
+                    <Text className=" mt-3 text-extrabold text-lg text-zinc-600">Product Information</Text>
                     <TextInput
-                        className="text-light border-b-[0.5px]"
+                        className="text-light border-b-[1.5px] border-zinc-500"
                         onChangeText={onChangeInfo}
                         value={info}
                         placeholder="Enter product information"
@@ -239,7 +239,7 @@ export default function ModifyItem(data : ModifyItemProps) {
                     />
                 </View>
                 <View className="w-26">
-                    <Text className="text-bold text-lg text-gray mb-3">Product Photo</Text>
+                    <Text className=" mt-3 text-bold text-lg text-gray mb-3">Product Photo</Text>
                     {selectedImage ? (
                     <Pressable
                         onPress={() => setModalVisible(true)}
@@ -274,7 +274,7 @@ export default function ModifyItem(data : ModifyItemProps) {
 
                     <CustomModal
                         visible={saveModalVisible}
-                        message="Do you want to save your changes?"
+                        message="Save item?"
                         optionOneText="Yes"
                         optionTwoText="No"
                         optionOnePressed={() => saveProduct()}

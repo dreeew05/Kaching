@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Image, Text, ImageSourcePropType } from 'react-
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams, useRouter } from 'expo-router';
 import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
 import CustomPressable from '../../components/CustomPressable';
 import { insertData, selectData, updateData } from '../../components/DatabaseUtils/CoreFunctions';
@@ -21,6 +21,7 @@ export default function ModifyCategory() {
   const [selectedImage, setSelectedImage] = useState<string | null>('');
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const db = getDatabase();
 
@@ -75,6 +76,7 @@ export default function ModifyCategory() {
     }
     else {
       saveCategory();
+      router.push('//')
     }
   }
 
