@@ -1,110 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Pressable, Text, View } from 'react-native';
-import { useRouter } from 'expo-router';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { Link } from 'expo-router';
-import CustomAlert from '../../components/CustomAlert';
-import { SQLResultSet } from 'expo-sqlite';
-import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
+import { Provider } from 'react-redux';
+import { Store } from '../../redux/Store';
+import MenuComponent from '../../components/Menu/MenuComponent';
 
 export default function MenuSettings() {
-  const [alertVisible, setAlertVisible] = useState(false);
-  const [currentEOD, setCurrentEOD] = useState<SQLResultSet|null>(null);
-  const db = getDatabase();
-
-  const fetchCurrentEODData = () => {
-  db.transaction(tx => {
-    tx.executeSql(`SELECT SUM(receipt_items.quantity * receipt_items.price) AS total_sales
-      FROM receipt_items
-      JOIN item ON receipt_items.item_id = item.id
-      JOIN category ON item.category_id = category.id`, 
-      [],
-      (tx, results) => {
-        setCurrentEOD(results);
-      },
-    )
-  })
-}
-
-  const handleShowAlert = () => {
-    setAlertVisible(true);
-  };
-
-  const router = useRouter();
-  const goToPahuwayBanner = () => {
-    router.push('/(tabs)/pahuwayBanner');
-  };
-
-  const handleConfirm = () => {
-    // Handle the confirmation logic here
-    setAlertVisible(false);
-    // Update the iscurrent column of the eods table to 0
-    db.transaction((tx) => {
-      tx.executeSql(
-        `UPDATE eods SET iscurrent = 0 WHERE iscurrent = 1`,
-        [],
-        (txObj, resultSet) => {
-          console.log('iscurrent column updated to 0.');
-          console.log(resultSet);
-        },
-        (txObj, error) => {
-          console.log('Error updating iscurrent column.');
-          console.log(error);
-        }
-      );
-    });
-    goToPahuwayBanner();
-  };
-
-  const handleCancel = () => {
-    // Handle the cancel logic here
-    setAlertVisible(false);
-  };
-
-  const showAlert = () => {
-    CustomAlert({
-      title: 'Are you sure you want to end the day?',
-      message: '',
-      confirmText: 'Yes',
-      cancelText: 'Cancel',
-      onConfirm: () => handleConfirm(),
-      onCancel: () => Alert.alert('Cancelled'),
-    });
-  };
-
-  const currentDate = new Date();
-  const getCurrentDateInfo = (currentDate: Date) => {
-    const months = [
-      "January", "February", "March",
-      "April", "May", "June",
-      "July", "August", "September",
-      "October", "November", "December"
-    ];
-  
-    const days = [
-      "Sunday", "Monday", "Tuesday",
-      "Wednesday", "Thursday", "Friday", "Saturday"
-    ];
-  
-
-    const currentMonth = months[currentDate.getMonth()];
-    const currentDay = days[currentDate.getDay()];
-  
-    return {
-      month: currentMonth,
-      day: currentDay
-    };
-  };
-  
-  // Usage example
-  const currentDateInfo = getCurrentDateInfo(currentDate);
-
-  useEffect(() => {
-    fetchCurrentEODData();
-  }
-  , [currentEOD]);
-
   return (
+    <Provider store={Store}>
+      <MenuComponent/>
+    </Provider>
+  )
     <View className=" py-10 marker:flex-1 self-stretch bg-white dark:bg-black">
       <View className=" flex-row justify-around w-3/4 self-center">
         <Text className="text-white font-bold  bg-green px-2 rounded-lg ">{currentDate.getDate()}</Text>

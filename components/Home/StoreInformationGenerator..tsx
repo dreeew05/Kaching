@@ -25,6 +25,14 @@ export default function StoreInformationGenerator() {
     });
   }, [actionState]);
 
+  // const now = new Date();
+  //   const options = {
+  //     weekday: 'long',
+  //     year: 'numeric',
+  //     month: 'long',
+  //     day: 'numeric',
+  //   };
+  //   const formattedCurrentDay = now.toLocaleDateString('en-US', options);
 
   return (
     <View>
@@ -46,3 +54,4 @@ export default function StoreInformationGenerator() {
     </View>
   );
 }
+
