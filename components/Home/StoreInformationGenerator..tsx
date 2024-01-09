@@ -25,14 +25,13 @@ export default function StoreInformationGenerator() {
     });
   }, [actionState]);
 
-  // const now = new Date();
-  //   const options = {
-  //     weekday: 'long',
-  //     year: 'numeric',
-  //     month: 'long',
-  //     day: 'numeric',
-  //   };
-  //   const formattedCurrentDay = now.toLocaleDateString('en-US', options);
+  const date = new Date();
+
+  const monthInWords = (month: number) => {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+    return monthNames[month];
+  }
 
   return (
     <View>
@@ -50,7 +49,7 @@ export default function StoreInformationGenerator() {
           </Pressable>
       </Link>
       
-      <Text className="text-sm ml-5">October 24, 2023</Text>
+      <Text className="text-sm ml-5">{monthInWords(date.getMonth())+" "+date.getDate()+","+ " "+date.getFullYear()}</Text>
     </View>
   );
 }

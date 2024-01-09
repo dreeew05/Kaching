@@ -75,7 +75,7 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
                     </Text>
                         {showModifyProductsComponent()}
                     </View>
-                    <ScrollView className="p-2">
+                    <ScrollView className="p-2 mb-32">
                         {products.map((product) => {
                             return (
                                 <ItemCard 
@@ -159,13 +159,7 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
                         </Pressable>
                     </Link>
                     <Text 
-                        style={{
-                            fontFamily: 'Poppins-Bold',
-                            fontSize: 22,
-                            color: "darkgreen"
-                        }}
-                    >
-                        Cancel Edit
+                        className="text-xl text-green ml-5 mt-1" style={{ fontFamily: 'Poppins-Medium' }}>Cancel Edit
                     </Text>
                 </View>
             )
@@ -173,9 +167,10 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
     }
 
     return(
+        
         <View className="flex-1 self-stretch bg-white dark:bg-black">
             <View
-                style={{marginTop: 60}}
+                className="mt-16"
             >
                 {showOverallComponent()}
             </View>

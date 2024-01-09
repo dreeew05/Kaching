@@ -117,7 +117,7 @@ export default function MenuComponent() {
     return (
         <View className=" py-10 marker:flex-1 self-stretch bg-white dark:bg-black">
         <View className=" flex-row justify-around w-3/4 self-center">
-            <Text className="text-white font-bold  bg-green px-2 rounded-lg ">{currentDate.getDay()}</Text>
+            <Text className="text-white font-bold  bg-green px-2 rounded-lg ">{currentDate.getDate()}</Text>
             <Text className="text-green font-bold px-2 rounded-full">{currentDateInfo.month}</Text>
             <Text className="text-green font-bold px-2 rounded-full flex items">{currentDate.getFullYear()}</Text>
         </View>
