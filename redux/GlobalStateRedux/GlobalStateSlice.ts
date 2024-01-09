@@ -1,5 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+interface hasStartDayProps {
+    isStartDay : boolean,
+    isDisable : boolean,
+}
+
 interface GlobalStateProps {
     category : string[],
     product : string[],
@@ -8,7 +13,7 @@ interface GlobalStateProps {
     isDetailedViewLoading : boolean,
     isCategoryViewLoading : boolean,
     storeNameAction : string[],
-    hasStartDay : boolean
+    hasStartDay : hasStartDayProps,
 }
 
 const initialState : GlobalStateProps = {
@@ -19,7 +24,10 @@ const initialState : GlobalStateProps = {
     isDetailedViewLoading : true,
     isCategoryViewLoading : true,
     storeNameAction : [],
-    hasStartDay : false
+    hasStartDay : {
+        isStartDay : false,
+        isDisable : false,
+    },
 }
 
 export const GlobalStateSlice = createSlice({
@@ -52,7 +60,7 @@ export const GlobalStateSlice = createSlice({
                 state.storeNameAction.push(action.payload)
         },
         setHasStartDay(state, action :
-            PayloadAction<boolean>) {
+            PayloadAction<hasStartDayProps>) {
                 state.hasStartDay = action.payload
         },
     }

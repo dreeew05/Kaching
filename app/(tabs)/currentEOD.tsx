@@ -105,7 +105,7 @@ export default function currentEOD() {
       <View style={styles.container}>
         <Text className="font-bold text-xl text-green">{storeInfo2?.rows._array[0].storename}</Text>
         <Text className="text-m">Miagao, Iloilo</Text>
-        <Text className="text-m">{storeInfo?.rows._array[0].cashiername}</Text>
+        {/* <Text className="text-m">{storeInfo?.rows._array[0].cashiername}</Text> */}
         <Text className="text-m">09133287645</Text>
 
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />

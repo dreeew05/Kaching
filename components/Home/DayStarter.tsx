@@ -4,17 +4,15 @@ import { useRouter } from 'expo-router';
 import { Pressable, View, Text } from 'react-native';
 import SaleDashboard from '../../components/Home/SaleDashboard';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 
 
 export default function DayStarter() {
   // const [hasStartDayData, setHasStartDayData] = useState(false);
-  const [cashierName, setCashierName] = useState('cashierName');
-  const dispatch = useDispatch();
-  
+  const [cashierName, setCashierName] = useState<string>('cashierName');
+
   //check for start day data
   const db = getDatabase();
   const hasStartDay = useSelector(selectHasStartDay)
@@ -25,44 +23,34 @@ export default function DayStarter() {
       'SELECT * FROM eods WHERE iscurrent = 1',
       [],
       (txObj, resultSet) => {
-        if (resultSet.rows.length > 0) {
+        if(resultSet.rows.length > 0) {
           // setHasStartDayData(true);
-          setCashierName (resultSet.rows.item(0).cashiername);
-          console.log(cashierName);
-          // console.log(hasStartDayData);
-          // dispatch(setHasStartDay(true));
+          setCashierName(resultSet.rows.item(0).cashier_name);
+
         }
-      },
-      // (txObj, error) => {
-      //   hasStartDayData = false;
-      // }
+      }
     );
   });
 
-
   const router = useRouter();
 
+  console.log(hasStartDay)
+
   const startDay = () => {
-    router.push('/(tabs)/startDayInput');
+    router.push('/StartDay');
   };
 
-  // if (hasStartDayData) {
-  //   console.log('hasStartDayData is true');
-  // } else {
-  //   console.log('hasStartDayData is false');
-  // }
-
-  return (
-    <View>
-      {/* {hasStartDayData ? ( */}
-      {hasStartDay ? (
-        // Render nothing when startDayData is available
+  const showComponent = () => {
+    if(hasStartDay.isStartDay && !hasStartDay.isDisable) {
+      return(
         <View>
           <Text className="text-sm ml-5 mb-5">Cashier's Name: {cashierName}</Text>
           <SaleDashboard />
         </View>
-      ) : (
-        // Render Start Day Pressable when data is not available
+      )
+    }
+    else if(!hasStartDay.isStartDay && !hasStartDay.isDisable) {
+      return(
         <Pressable
           className="bg-transparent w-36 border-2 border-green rounded-xl py-2 px-4 mt-2 mb-5 ml-5"
           onPress={startDay}
@@ -72,7 +60,18 @@ export default function DayStarter() {
             <Text className="text-green text-base ml-3 font-bold mr-3">Start Day</Text>
           </View>
         </Pressable>
-      )}
+      )
+    }
+    else if(hasStartDay.isStartDay && hasStartDay.isDisable) {
+      return(
+        <View></View>
+      )
+    }
+  }
+
+  return (
+    <View>
+      {showComponent()}
     </View>
   );
 }

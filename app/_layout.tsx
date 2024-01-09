@@ -87,7 +87,6 @@ export default function RootLayout() {
         }
       );
     });
-    setOnboardingCompleted(true);
   };
 
   if (!loaded) {
