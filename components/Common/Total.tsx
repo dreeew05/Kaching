@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { useSelector } from 'react-redux';
 import { selectCartTotalPrice } from '../../redux/CartRedux/CartSelectors';
 import { View, Text } from 'react-native';
-import CustomPressable from '../CustomPressable';
+import CustomPressable from './CustomPressable';
 
 interface TotalProps {
   page: string;

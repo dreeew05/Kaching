@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Table, Rows } from 'react-native-table-component';
-import { getDatabase } from './DatabaseUtils/OpenDatabase';
+import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { SQLResultSet, SQLiteCallback } from 'expo-sqlite';
 
 const FinancialSummary = () => {

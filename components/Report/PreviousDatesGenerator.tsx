@@ -1,7 +1,7 @@
 //create flatlist from previous dates, starting from the most recent
 import React from 'react';
 import { ScrollView, Pressable } from 'react-native';
-import { Text, View } from './Themed';
+import { Text, View } from '../Themed';
 
 interface PreviousDatesScrollViewProps {
   numDates: number;

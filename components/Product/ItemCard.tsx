@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, View, Text, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { Link } from 'expo-router';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
-import Stepper from '../Stepper';
+import Stepper from '../Common/Stepper';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
 import { RootState } from '../../redux/Store';

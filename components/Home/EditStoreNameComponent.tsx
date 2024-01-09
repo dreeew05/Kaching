@@ -3,7 +3,7 @@ import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { router, useLocalSearchParams } from "expo-router";
 import { updateData } from "../DatabaseUtils/CoreFunctions";
 import { TextInput, View } from "react-native";
-import CustomPressable from "../CustomPressable";
+import CustomPressable from "../Common/CustomPressable";
 import { useDispatch } from "react-redux";
 import { addStoreNameAction } from "../../redux/GlobalStateRedux/GlobalStateSlice";
 

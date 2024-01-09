@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View, Text, TextInput } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import CustomPressable from "../CustomPressable";
+import CustomPressable from "../Common/CustomPressable";
 import { useSelector } from "react-redux";
 import { selectCartItems, selectCartTotalPrice } from "../../redux/CartRedux/CartSelectors";
 import { insertData } from "../DatabaseUtils/CoreFunctions";

@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams, useRouter } from 'expo-router';
 import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
-import CustomPressable from '../../components/CustomPressable';
+import CustomPressable from '../Common/CustomPressable';
 import { insertData, selectData, updateData } from '../../components/DatabaseUtils/CoreFunctions';
 import { useDispatch } from 'react-redux';
 import { addCategoryAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';

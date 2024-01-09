@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getDatabase } from "../DatabaseUtils/OpenDatabase";
 import { SQLResultSet } from "expo-sqlite";
 import { Link, useRouter } from "expo-router";
-import CustomAlert from "../CustomAlert";
+import CustomAlert from "../Modals/CustomAlert";
 import { Alert, Pressable, View, Text } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";

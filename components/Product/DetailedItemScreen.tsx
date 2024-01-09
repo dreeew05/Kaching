@@ -4,7 +4,7 @@ import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
 import { Pressable } from 'react-native';
-import Stepper from '../Stepper';
+import Stepper from '../Common/Stepper';
 import { RootState } from '../../redux/Store';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 import { Link, router } from 'expo-router';

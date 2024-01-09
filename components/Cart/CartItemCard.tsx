@@ -6,7 +6,7 @@ import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 
 // COMPONENT
-import Stepper from '../Stepper';
+import Stepper from '../Common/Stepper';
 import { useDispatch } from 'react-redux';
 import { removeFromCart, updateItemQuantity } from '../../redux/CartRedux/CartSlice';
 

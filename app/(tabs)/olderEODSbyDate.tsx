@@ -1,8 +1,8 @@
 import { Alert, StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
-import FinancialSummary from '../../components/FinancialSummaryTable';
-import ShareCSV from '../../components/ShareCSV';
-import CategoryTable from '../../components/CategoryTable';
+import FinancialSummary from '../../components/Report/FinancialSummaryTable';
+import ShareCSV from '../../components/Report/ShareCSV';
+import CategoryTable from '../../components/Report/CategoryTable';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import { useEffect, useState } from 'react';
