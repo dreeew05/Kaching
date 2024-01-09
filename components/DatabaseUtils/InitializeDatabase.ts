@@ -120,6 +120,19 @@ const initializeEODReceiptTable = () => {
     })
 }
 
+const initializeDatePickedTable = () => {
+    db.transaction(tx => {
+        tx.executeSql(
+            `CREATE TABLE IF NOT EXISTS date_picked(
+                date_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                date TEXT NOT NULL
+            )`
+        ), (error) => {
+            console.log(error)
+        }
+    })
+}
+
 export const initializeDatabase = () => {
     initializeMainTable()
     initializeCategoryTable()
@@ -130,4 +143,5 @@ export const initializeDatabase = () => {
     initializeEODTable()
     initializeEODReceiptTable()
     initializeStoreTable()
+    initializeDatePickedTable()
 }

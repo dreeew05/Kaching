@@ -8,6 +8,7 @@ interface PreviousDatesScrollViewProps {
   getDate: (date: Date) => void;
 }
 
+
 const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ numDates, getDate }) => {
   // Function to generate an array of previous dates
   const generatePreviousDates = (numDays: number): [string, Date][] => {
