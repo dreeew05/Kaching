@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, View, Text, Pressable, TouchableOpacity } from 'react-native';
+import { Image, View, Text, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { Link } from 'expo-router';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 import Stepper from '../Stepper';
@@ -38,6 +38,7 @@ export default function ItemCard(item: itemCardProps) {
           category : item.item.category,
       }))
     }
+    Alert.alert('Item added to cart!')
 }
 
   useEffect(() => {
