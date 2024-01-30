@@ -12,6 +12,7 @@ interface AddToCartInterface {
 
 export const addToCartEvent = (item : AddToCartInterface) => {
 
+    // TO DO: Create custom alert component
     if(item.itemState == undefined) {
         if(item.quantity > 0) {
             item.dispatch(addToCart({

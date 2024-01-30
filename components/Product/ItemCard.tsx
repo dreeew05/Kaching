@@ -4,7 +4,6 @@ import { Link } from 'expo-router';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 import Stepper from '../Common/Stepper';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../redux/CartRedux/CartSlice';
 import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { addProductAction, addSpecificProductAction, setIsDetailedViewLoading, setIsEditComponent } from '../../redux/GlobalStateRedux/GlobalStateSlice';
@@ -29,25 +28,6 @@ export default function ItemCard(item: itemCardProps) {
   };
 
   const addToCart = () => {
-    // if(itemState == undefined) {
-    //   if(quantity > 0) {
-    //     dispatch(addToCart({
-    //       id : item.item.id,
-    //       name : item.item.name,
-    //       price : item.item.price,
-    //       quantity : quantity,
-    //       image : item.item.image,
-    //       category : item.item.category,
-    //     }));
-    //     Alert.alert('Item added to cart!')
-    //   }
-    //   else {
-    //     Alert.alert('Please add quantity!')
-    //   }
-    // }
-    // else {
-    //   Alert.alert('Item already in cart!')
-    // }
     addToCartEvent({
       quantity : quantity,
       itemState : itemState,
