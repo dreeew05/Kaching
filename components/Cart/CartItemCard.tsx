@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Image, View, Text, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 
 // INTERFACE
@@ -17,14 +17,16 @@ export default function CartItemCard(item: CartItemProps) {
     dispatch(removeFromCart(item.id));
   };
 
-  const [quantity, setQuantity] = useState(item.quantity);
+  const [quantity, setQuantity] = useState<number>(item.quantity);
   const [subtotalPrice, setSubtotalPrice] = useState<number>(item.price);
 
   const updateQuantityEvent = (quantity: number) => {
+    console.log(quantity)
     setQuantity(quantity);
     if (quantity == 0) {
       dispatch(removeFromCart(item.id));
     } else {
+      setSubtotalPrice(() => item.price * quantity);
       dispatch(
         updateItemQuantity({
           id: item.id,
@@ -33,11 +35,6 @@ export default function CartItemCard(item: CartItemProps) {
       );
     }
   };
-
-  useEffect(() => {
-    setQuantity(item.quantity)
-    setSubtotalPrice(() => item.price * quantity)
-  }, [quantity])
 
   return (
     <View>

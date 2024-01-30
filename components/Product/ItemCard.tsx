@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Image, View, Text, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { Link } from 'expo-router';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
@@ -9,6 +9,7 @@ import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { addProductAction, addSpecificProductAction, setIsDetailedViewLoading, setIsEditComponent } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
+import { addToCartEvent } from './AddToCart';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -27,25 +28,33 @@ export default function ItemCard(item: itemCardProps) {
     setQuantity(quantity);
   };
 
-  const addToCartEvent = () => {
-    if(quantity > 0) {
-      dispatch(addToCart({
-          id : item.item.id,
-          name : item.item.name,
-          price : item.item.price,
-          quantity : quantity,
-          image : item.item.image,
-          category : item.item.category,
-      }))
-    }
-    Alert.alert('Item added to cart!')
+  const addToCart = () => {
+    // if(itemState == undefined) {
+    //   if(quantity > 0) {
+    //     dispatch(addToCart({
+    //       id : item.item.id,
+    //       name : item.item.name,
+    //       price : item.item.price,
+    //       quantity : quantity,
+    //       image : item.item.image,
+    //       category : item.item.category,
+    //     }));
+    //     Alert.alert('Item added to cart!')
+    //   }
+    //   else {
+    //     Alert.alert('Please add quantity!')
+    //   }
+    // }
+    // else {
+    //   Alert.alert('Item already in cart!')
+    // }
+    addToCartEvent({
+      quantity : quantity,
+      itemState : itemState,
+      product : item.item,
+      dispatch : dispatch
+    });
 }
-
-  useEffect(() => {
-    if (itemState != undefined) {
-      setQuantity(itemState.quantity);
-    }
-  }, [itemState]);
 
   const deleteProduct = (id : number) => {
     const tableName : string = 'item';
@@ -113,7 +122,7 @@ export default function ItemCard(item: itemCardProps) {
             <Pressable
               className="bg-green w-52 h-10 border-2 border-green 
                           rounded-md self-center ml-6 flex-1 items-center justify-center"
-              onPress={addToCartEvent}
+              onPress={addToCart}
             >
               <Text className="text-white text-lg" style={{ fontFamily: 'Poppins-Bold' }}>
                 Add to Cart
