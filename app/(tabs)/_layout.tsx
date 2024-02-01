@@ -154,7 +154,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="modifyCategory"
+        name="modifyCategoryWrapper"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,

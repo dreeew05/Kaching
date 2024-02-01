@@ -12,10 +12,11 @@ import { addCategoryAction, setIsModifyCategoryLoading } from '../../redux/Globa
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
-import { Skeleton } from 'moti/skeleton';
+import { Skeleton } from '@rneui/themed';
 import { StyleSheet } from 'react-native';
 import { selectIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import { MotiView } from 'moti';
+import { LinearGradient } from 'expo-linear-gradient';
+import { ActivityIndicator } from 'react-native';
 
 export default function ModifyCategory() {
   const param = useLocalSearchParams();
@@ -48,7 +49,7 @@ export default function ModifyCategory() {
             dispatch(
               setIsModifyCategoryLoading(false)
             );
-          }, 2000);
+          }, 200);
           setCategoryName(result[0].name);
           setSelectedImage(result[0].image); 
       });
@@ -57,40 +58,108 @@ export default function ModifyCategory() {
       dispatch(
         setIsModifyCategoryLoading(false)
       );
+      setSelectedImage(null);
       setCategoryName('');
     }
   }, [param]);
 
-  const show = () => {
+  const styles = StyleSheet.create({
+    image : {
+      height : 200,
+      width : 200
+    }
+  })
+
+  const showImageComponent = () => {
     return(
-      <MotiView
-        transition={{
-          type: 'timing',
-        }}
-        animate={{ backgroundColor: '#ffffff' }}
+      <View
+        className='h-60 w-60 justify-center items-center'
       >
-        <Skeleton 
-          show={isLoading}
-          width={200}
-          colorMode='dark'
-        >
-          <Image
-            // className=" h-48 w-48"
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 200,
-              width: 200
-            }}
-            // CHANGE ICON
-            source={
-              selectedImage 
-                ? { uri: selectedImage } 
-                : require('../../assets/icons/add-photo.png')
-              }
+        {isLoading ? loadingImageComponent() : loadedImageComponent()}
+      </View>
+    )
+  }
+
+  const loadingImageComponent = () => {
+    return(
+      <View
+        // TODO: Give proper styling [Brute Force]
+        style={{
+          marginBottom: 60
+        }}
+      >
+        <Skeleton
+          animation="wave"
+          width={styles.image.width}
+          height={styles.image.height}
+          LinearGradientComponent={LinearGradient}
+        />
+      </View>
+    )
+  }
+
+  const loadedImageComponent = () => {
+    return(
+      <TouchableOpacity onPress={pickImage}>
+        <Image
+          style={styles.image}
+          source={
+            selectedImage 
+              ? { uri: selectedImage } 
+              : require('../../assets/icons/add-photo.png')
+          }
+        />
+      </TouchableOpacity>
+    )
+  }
+
+  const showTextComponent = () => {
+    return(
+      <View className='w-11/12'>
+        {isLoading ? loadingTextComponent() : loadedTextComponent()}
+      </View>
+    )
+  }
+
+  const loadingTextComponent = () => {
+    return(
+      // <>
+      //   <Skeleton
+      //     animation="wave"
+      //     width={375}
+      //     height={100}
+      //     LinearGradientComponent={LinearGradient}
+      //   />
+      // </>
+      <ActivityIndicator
+        size='large'
+        color='green'
+      />
+    )
+  }
+
+  const loadedTextComponent = () => {
+    return(
+      <>
+        <SafeAreaView className='mt-2'>
+          <TextInput
+            className='w-3/5 text-center self-center border-b-2 
+              border-zinc-400 text-xl'
+            placeholder='Category Name'
+            value={categoryName}
+            onChangeText={(text) => setCategoryName(text)}
           />
-        </Skeleton>
-      </MotiView>
+        </SafeAreaView>
+        <Text className="text-center text-gray mt-2">
+          Enter Category Name
+        </Text>
+        {/* <CustomPressable
+            text="Save"
+            onPress={() => setModalVisible(true)}
+            disabled={false}
+          /> */}
+      </>
+      
     )
   }
 
@@ -177,79 +246,30 @@ export default function ModifyCategory() {
     setModalVisible(false);
   }
 
-  const styles = StyleSheet.create({
-    image : {
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 60,
-      width: 60
-    }
-  })
-
   return (
-    <View className="flex-1 justify-center items-center">
-      {/* {isLoading && (
-        <Text>Loading</Text>
-      )} */}
-      {/* <Skeleton.Group show={true}> */}
-        {/* <View
-          // className="h-60 w-60 justify-center items-center"
-          style={styles.image}
-        >
-          <TouchableOpacity onPress={pickImage}>
-            <Skeleton show={isLoading} colorMode='light'>
-              <Image
-                className=" h-48 w-48"
-                // CHANGE ICON
-                source={
-                  selectedImage 
-                    ? { uri: selectedImage } 
-                    : require('../../assets/icons/add-photo.png')
-                  }
-              />
-            </Skeleton>
-          </TouchableOpacity>
-        </View>
-      <View className=' w-11/12'>
-        <SafeAreaView>
-          <TextInput
-            className=" w-3/5 text-center self-center border-b-2 border-zinc-400 text-xl"
-            onChangeText={setCategoryName}
-            value={categoryName}
-            // INCREASE WIDTH 
-            placeholder=""
-          />
-        </SafeAreaView>
-        <Text className="text-center text-gray mt-2 mb-52">
-          Enter Category Name
-        </Text>
-        
-        <CustomPressable
-          text="Save"
-          onPress={() => setModalVisible(true)}
-          disabled={false}
-        />
+    <View className='flex-1 justify-center items-center'>
 
-        <CustomModal
-          visible={modalVisible}
-          message='Do you want to save your changes?'
-          optionOneText='Yes'
-          optionTwoText='No'
-          optionOnePressed={() => checkIfValid()}
-          optionTwoPressed={() => setModalVisible(false)}
-          optionTwoColor='red'
-          closeModal={() => setModalVisible(false)}
-        />
+      {showImageComponent()}
+      {showTextComponent()}
 
-        <PopUpModal
-          visible={popModalVisible}
-          message='Please fill out all fields'
-          agreeText='Okay'
-          closeModal={() => setPopModalVisible(false)}
-        />
+      <CustomModal
+        visible={modalVisible}
+        message='Do you want to save your changes?'
+        optionOneText='Yes'
+        optionTwoText='No'
+        optionOnePressed={() => checkIfValid()}
+        optionTwoPressed={() => setModalVisible(false)}
+        optionTwoColor='red'
+        closeModal={() => setModalVisible(false)}
+      />
 
-      </View> */}
-      {show()}
+      <PopUpModal
+        visible={popModalVisible}
+        message='Please fill out all fields'
+        agreeText='Okay'
+        closeModal={() => setPopModalVisible(false)}
+      />
+
     </View>
   );
 }

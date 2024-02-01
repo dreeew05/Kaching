@@ -45,7 +45,7 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
 
   const productID = useRef<number>(0);
 
-  const setLoadingScreen = (id : number) => {
+  const setLoadingScreen = () => {
     dispatch(
       setIsModifyCategoryLoading(true)
     );
@@ -60,7 +60,7 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
 
       <Link
         href={{
-          pathname: '/(tabs)/modifyCategory',
+          pathname: '/(tabs)/modifyCategoryWrapper',
           params: {
             operation: 'editCategory',
             id: id,
@@ -69,7 +69,7 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
         asChild
       >
         <TouchableOpacity 
-          onPress={() => setLoadingScreen(id)}
+          onPress={() => setLoadingScreen()}
           className="h-10 rounded-md bg-green 
                     justify-center items-center"
         >
