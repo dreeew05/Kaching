@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Pressable, View, Text, Alert, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +7,7 @@ import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
 import CategoryCard from './CategoryCard';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { useDispatch } from 'react-redux';
-import { addCategoryAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { addCategoryAction, setIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
 export default function CategoryCardEditable({ id, name, image }: CategoryProps) {
   
@@ -42,8 +42,15 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
         console.log("Deletion Failed", error)
       })
   }
-  
 
+  const productID = useRef<number>(0);
+
+  const setLoadingScreen = (id : number) => {
+    dispatch(
+      setIsModifyCategoryLoading(true)
+    );
+  }
+  
   return (
     <View
       className="bg-white dark:bg-black 
@@ -61,7 +68,8 @@ export default function CategoryCardEditable({ id, name, image }: CategoryProps)
         }}
         asChild
       >
-        <TouchableOpacity
+        <TouchableOpacity 
+          onPress={() => setLoadingScreen(id)}
           className="h-10 rounded-md bg-green 
                     justify-center items-center"
         >

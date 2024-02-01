@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, TouchableOpacity, Image, Text, ImageSourcePropType } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,17 +7,20 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
 import CustomPressable from '../Common/CustomPressable';
 import { insertData, selectData, updateData } from '../../components/DatabaseUtils/CoreFunctions';
-import { useDispatch } from 'react-redux';
-import { addCategoryAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCategoryAction, setIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
+import { Skeleton } from 'moti/skeleton';
+import { StyleSheet } from 'react-native';
+import { selectIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { MotiView } from 'moti';
 
 export default function ModifyCategory() {
   const param = useLocalSearchParams();
 
   const [categoryName, setCategoryName] = useState<string>('');
-  const [image, setImage] = useState<string | null>('');
   const [selectedImage, setSelectedImage] = useState<string | null>('');
 
   const dispatch = useDispatch();
@@ -28,29 +31,68 @@ export default function ModifyCategory() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [popModalVisible, setPopModalVisible] = useState<boolean>(false);
 
+  const isLoading = useSelector(selectIsModifyCategoryLoading);
+
+  const currentID = useRef<number>(0);
+
   useEffect(() => {
-    if (param.operation == 'editCategory') {
-      const id = ParamsToInteger(param.id);
-      
+    if(param.operation == 'editCategory') {
       const tableName    = 'category',
             column       = ['*'],
             targetAttrib = 'id';
 
-      selectData(tableName, column, targetAttrib, id)
+      selectData(tableName, column, targetAttrib, param.id)
         .then((result) => {
-          // console.log(result[0].name)
-          setCategoryName(result[0].name)
-          setImage(result[0].image)
+          // Add timeout to have a smooth loading screen
+          setTimeout(() => {
+            dispatch(
+              setIsModifyCategoryLoading(false)
+            );
+          }, 2000);
+          setCategoryName(result[0].name);
           setSelectedImage(result[0].image); 
-        })
+      });
     }
-
-    return () => {
+    else {
+      dispatch(
+        setIsModifyCategoryLoading(false)
+      );
       setCategoryName('');
-      setImage(null);
-      setSelectedImage(null);
     }
   }, [param]);
+
+  const show = () => {
+    return(
+      <MotiView
+        transition={{
+          type: 'timing',
+        }}
+        animate={{ backgroundColor: '#ffffff' }}
+      >
+        <Skeleton 
+          show={isLoading}
+          width={200}
+          colorMode='dark'
+        >
+          <Image
+            // className=" h-48 w-48"
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 200,
+              width: 200
+            }}
+            // CHANGE ICON
+            source={
+              selectedImage 
+                ? { uri: selectedImage } 
+                : require('../../assets/icons/add-photo.png')
+              }
+          />
+        </Skeleton>
+      </MotiView>
+    )
+  }
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -64,14 +106,13 @@ export default function ModifyCategory() {
       const pickedImage: ImageSourcePropType = {
         uri: result.assets[0].uri,
       };
-      setImage(pickedImage.uri || '');
       // Update selectedImage when an image is picked
       setSelectedImage(pickedImage.uri || ''); 
     }
   };
 
   const checkIfValid = () => {
-    if (categoryName == '' || image == '') {
+    if (categoryName == '' || selectedImage == '') {
       setModalVisible(false);
       // console.log('Error')
       setPopModalVisible(true);
@@ -86,7 +127,7 @@ export default function ModifyCategory() {
     const tableName = 'category';
     const data = [{
       name : categoryName,
-      image : image
+      image : selectedImage
     }]
 
     if(param.operation == 'editCategory') {
@@ -136,25 +177,39 @@ export default function ModifyCategory() {
     setModalVisible(false);
   }
 
+  const styles = StyleSheet.create({
+    image : {
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 60,
+      width: 60
+    }
+  })
+
   return (
     <View className="flex-1 justify-center items-center">
-      <View className="h-60 w-60 justify-center items-center">
-        {image && (
-          <Image
-            source={{uri : image}}
-            style={{ width: 200, height: 200 }}
-            className="absolute top-1.8
-                            rounded-md"
-          />
-        )}
-        <TouchableOpacity onPress={pickImage}>
-          <Image
-            className=" h-48 w-48"
-            // CHANGE ICON
-            source={selectedImage ? { uri: selectedImage } : require('../../assets/icons/add-photo.png')}
-          />
-        </TouchableOpacity>
-      </View>
+      {/* {isLoading && (
+        <Text>Loading</Text>
+      )} */}
+      {/* <Skeleton.Group show={true}> */}
+        {/* <View
+          // className="h-60 w-60 justify-center items-center"
+          style={styles.image}
+        >
+          <TouchableOpacity onPress={pickImage}>
+            <Skeleton show={isLoading} colorMode='light'>
+              <Image
+                className=" h-48 w-48"
+                // CHANGE ICON
+                source={
+                  selectedImage 
+                    ? { uri: selectedImage } 
+                    : require('../../assets/icons/add-photo.png')
+                  }
+              />
+            </Skeleton>
+          </TouchableOpacity>
+        </View>
       <View className=' w-11/12'>
         <SafeAreaView>
           <TextInput
@@ -165,7 +220,9 @@ export default function ModifyCategory() {
             placeholder=""
           />
         </SafeAreaView>
-        <Text className="text-center text-gray mt-2 mb-52">Enter Category Name</Text>
+        <Text className="text-center text-gray mt-2 mb-52">
+          Enter Category Name
+        </Text>
         
         <CustomPressable
           text="Save"
@@ -191,7 +248,8 @@ export default function ModifyCategory() {
           closeModal={() => setPopModalVisible(false)}
         />
 
-      </View>
+      </View> */}
+      {show()}
     </View>
   );
 }

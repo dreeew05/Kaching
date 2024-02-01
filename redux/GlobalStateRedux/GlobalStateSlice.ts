@@ -14,6 +14,8 @@ interface GlobalStateProps {
     isCategoryViewLoading : boolean,
     storeNameAction : string[],
     hasStartDay : hasStartDayProps,
+    // New
+    isModifyCategoryLoading : boolean,
 }
 
 const initialState : GlobalStateProps = {
@@ -28,6 +30,8 @@ const initialState : GlobalStateProps = {
         isStartDay : false,
         isDisable : false,
     },
+    // New
+    isModifyCategoryLoading : true,
 }
 
 export const GlobalStateSlice = createSlice({
@@ -63,12 +67,18 @@ export const GlobalStateSlice = createSlice({
             PayloadAction<hasStartDayProps>) {
                 state.hasStartDay = action.payload
         },
+        // New
+        setIsModifyCategoryLoading(state, action :
+            PayloadAction<boolean>) {
+                state.isModifyCategoryLoading = action.payload
+        }
     }
 });
 
 export const { addCategoryAction, addProductAction,
-   addSpecificProductAction, setIsEditComponent, 
-   setIsDetailedViewLoading, addStoreNameAction,
-   setIsCategoryViewProductLoading, setHasStartDay } = GlobalStateSlice.actions;
+    addSpecificProductAction, setIsEditComponent, 
+    setIsDetailedViewLoading, addStoreNameAction,
+    setIsCategoryViewProductLoading, setHasStartDay,
+    setIsModifyCategoryLoading } = GlobalStateSlice.actions;
 
 export default GlobalStateSlice.reducer;

@@ -135,7 +135,7 @@ export default function CategoryViewContents(data : CategoryViewContentsProps) {
     }
 
     const showModifyProductHeader = () => {
-        // TO DO : Change Style
+        // TODO : Change Style
         if(!actionStateEdit) {
             return (
                 <View className="flex-row">
