@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, TouchableOpacity, Image, Text, ImageSourcePropType } from 'react-native';
+import { View, TouchableOpacity, Image, Text, ImageSourcePropType, Pressable } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
 import CustomPressable from '../Common/CustomPressable';
 import { insertData, selectData, updateData } from '../../components/DatabaseUtils/CoreFunctions';
@@ -17,12 +17,13 @@ import { StyleSheet } from 'react-native';
 import { selectIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ActivityIndicator } from 'react-native';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 export default function ModifyCategory() {
   const param = useLocalSearchParams();
 
   const [categoryName, setCategoryName] = useState<string>('');
-  const [selectedImage, setSelectedImage] = useState<string | null>('');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -85,7 +86,7 @@ export default function ModifyCategory() {
       <View
         // TODO: Give proper styling [Brute Force]
         style={{
-          marginBottom: 60
+          marginBottom: 85
         }}
       >
         <Skeleton
@@ -192,6 +193,10 @@ export default function ModifyCategory() {
     }
   }
 
+  const areFieldsValid = () => {
+    return categoryName == '' || selectedImage == null;
+  }
+
   const saveCategory = () => {
     const tableName = 'category';
     const data = [{
@@ -247,7 +252,70 @@ export default function ModifyCategory() {
   }
 
   return (
-    <View className='flex-1 justify-center items-center'>
+    <>
+      {/* Header [START] */}
+      <View style={{marginTop: 60}}>
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 10
+        }}>
+          <Link
+            href={{
+              pathname: '/(tabs)/modifyCategoryView',
+            }}
+            asChild
+          >
+            <Pressable className='ml-3'>
+              <Ionicons name="chevron-back" size={30} color="green"/>
+            </Pressable>
+          </Link>
+          
+          <View 
+            style={{ 
+              flex: 1, 
+              justifyContent: 'center', 
+              alignItems: 'center' 
+            }}
+          >
+            {param.operation === 'editCategory'
+              ? (
+                <Text className='text-center text-xl w-4/5 text-green'
+                  style={{fontFamily: 'Poppins-Bold'}}
+                >
+                  Edit Category
+                </Text>
+              )
+              : (
+                <Text className='text-center text-xl w-4/5 text-green'
+                  style={{fontFamily: 'Poppins-Bold'}}
+                >
+                  Add Category
+                </Text>
+              )
+            }
+          </View>
+
+          {areFieldsValid() 
+            ? (
+              <View className='mr-3'>
+                <FontAwesome5 name="file" size={30} color="gray"/>
+              </View>
+            ) 
+            : (
+              <Pressable className='mr-3' 
+                onPress={() => setModalVisible(true)}
+              >
+                <FontAwesome5 name="file" size={30} color="orange"/>
+              </Pressable>
+            )
+          }
+
+        </View>
+      </View>
+      {/* Header [END] */}
+      <View className='flex-1 justify-center items-center'>
 
       {showImageComponent()}
       {showTextComponent()}
@@ -270,6 +338,7 @@ export default function ModifyCategory() {
         closeModal={() => setPopModalVisible(false)}
       />
 
-    </View>
+      </View>
+    </>
   );
 }
