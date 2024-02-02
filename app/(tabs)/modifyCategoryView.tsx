@@ -26,7 +26,7 @@ export default function ModifyCategoryView() {
         </Text>
         <Link
           href={{
-            pathname: '/(tabs)/modifyCategory',
+            pathname: '/(tabs)/modifyCategoryWrapper',
             params: {
               operation: 'addCategory',
             },
