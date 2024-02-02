@@ -47,7 +47,7 @@ export const GlobalStateSlice = createSlice({
         addSpecificProductAction(state, action : PayloadAction<string>) {
             state.specificProduct.push(action.payload)
         },
-        setIsEditComponent(state, action :
+        setIsEditButton(state, action :
             PayloadAction<boolean>) {
                 state.isEditComponent = action.payload
         },
@@ -76,7 +76,7 @@ export const GlobalStateSlice = createSlice({
 });
 
 export const { addCategoryAction, addProductAction,
-    addSpecificProductAction, setIsEditComponent, 
+    addSpecificProductAction, setIsEditButton, 
     setIsDetailedViewLoading, addStoreNameAction,
     setIsCategoryViewProductLoading, setHasStartDay,
     setIsModifyCategoryLoading } = GlobalStateSlice.actions;
