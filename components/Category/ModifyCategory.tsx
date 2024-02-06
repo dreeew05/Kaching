@@ -211,33 +211,53 @@ export default function ModifyCategory() {
     ];
 
     if (param.operation == 'editCategory') {
-      const targetAttrib = 'name',
-        targetAttrib2 = 'image',
-        targetValue = data[0].name,
-        targetValue2 = data[0].image,
-        refAttrib = 'id',
-        refValue = param.id;
+      // const targetAttrib = 'name',
+      //   targetAttrib2 = 'image',
+      //   targetValue = data[0].name,
+      //   targetValue2 = data[0].image,
+      //   refAttrib = 'id',
+      //   refValue = param.id;
 
-      // UPDATE NAME
+      // // UPDATE NAME
+      // updateData(
+      //   tableName,
+      //   targetAttrib,
+      //   targetValue,
+      //   refAttrib,
+      //   refValue,
+      // )
+      //   .then((result) => {
+      //     // Todo: Add success message
+      //   })
+      //   .catch((error) => {
+      //     // Todo: Add error message
+      //     console.log(error);
+      //   });
+      // // UPDATE IMAGE
+      // updateData(
+      //   tableName,
+      //   targetAttrib2,
+      //   targetValue2,
+      //   refAttrib,
+      //   refValue,
+      // )
+      //   .then((result) => {
+      //     dispatch(setCategoryModifedActions('update'));
+      //     // Todo: Add success message
+      //   })
+      //   .catch((error) => {
+      //     // Todo: Add error message
+      //     console.log(error);
+      //   });
+      const targetAttrib = ['name', 'image'];
+      const targetValue = [data[0].name, data[0].image];
+      const refAttrib = 'id';
+      const refValue = param.id;
+
       updateData(
         tableName,
         targetAttrib,
         targetValue,
-        refAttrib,
-        refValue,
-      )
-        .then((result) => {
-          // Todo: Add success message
-        })
-        .catch((error) => {
-          // Todo: Add error message
-          console.log(error);
-        });
-      // UPDATE IMAGE
-      updateData(
-        tableName,
-        targetAttrib2,
-        targetValue2,
         refAttrib,
         refValue,
       )
@@ -247,7 +267,6 @@ export default function ModifyCategory() {
         })
         .catch((error) => {
           // Todo: Add error message
-          console.log(error);
         });
     } else {
       insertData(tableName, data)
