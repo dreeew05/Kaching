@@ -6,21 +6,19 @@ import { Link } from 'expo-router';
 import CategoryCard from './CategoryCard';
 import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
 import { useDispatch } from 'react-redux';
-import { addProductAction, setIsCategoryViewProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { setIsCategoryViewProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
-export default function CategoryCardClickable({ id, name, image }: CategoryProps) {
-
+export default function CategoryCardClickable({
+  id,
+  name,
+  image,
+}: CategoryProps) {
   const dispatch = useDispatch();
 
   const clickHandler = () => {
-    dispatch(
-      addProductAction('select')
-    );
-    dispatch(
-      setIsCategoryViewProductLoading(true)
-    );
-  }
-  
+    dispatch(setIsCategoryViewProductLoading(true));
+  };
+
   return (
     <Link
       href={{
@@ -29,7 +27,8 @@ export default function CategoryCardClickable({ id, name, image }: CategoryProps
       }}
       asChild
     >
-      <TouchableOpacity onPress={clickHandler}
+      <TouchableOpacity
+        onPress={clickHandler}
         className="bg-white dark:bg-black 
                 shadow-md rounded-md m-2 p-2"
       >

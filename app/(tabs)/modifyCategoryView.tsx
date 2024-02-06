@@ -9,17 +9,16 @@ import { Provider } from 'react-redux';
 import { Store } from '../../redux/Store';
 
 export default function ModifyCategoryView() {
-
   return (
     <View
       className="flex-1 self-stretch bg-white 
             dark:bg-black px-2"
     >
       <View className="flex flex-row">
-        <Text 
+        <Text
           className="text-4xl ml-2 font-semibold text-green"
           style={{
-            fontFamily: 'Poppins-Bold'
+            fontFamily: 'Poppins-Bold',
           }}
         >
           Categories
@@ -45,9 +44,8 @@ export default function ModifyCategoryView() {
       </View>
 
       <Provider store={Store}>
-          <ModifyCategoryCardGenerator/>
+        <ModifyCategoryCardGenerator />
       </Provider>
-
     </View>
   );
 }

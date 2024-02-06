@@ -5,7 +5,6 @@ import {
   Text,
   Pressable,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import { Link } from 'expo-router';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
@@ -14,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import {
-  addProductAction,
   addSpecificProductAction,
   setIsDetailedViewLoading,
   setIsEditButton,
@@ -52,9 +50,7 @@ export default function ItemCard(item: itemCardProps) {
     const tableName: string = 'item';
     const refAttribute: string = 'id';
 
-    deleteData(tableName, refAttribute, id).then((result) => {
-      dispatch(addProductAction('delete'));
-    });
+    deleteData(tableName, refAttribute, id);
     dispatch(setIsEditButton(true));
   };
 
@@ -77,7 +73,9 @@ export default function ItemCard(item: itemCardProps) {
           }}
           asChild
         >
-          <TouchableOpacity onPress={() => toggleDetailedViewLoading()}>
+          <TouchableOpacity
+            onPress={() => toggleDetailedViewLoading()}
+          >
             <Image
               className="w-40 h-40 mr-1 rounded-md"
               source={{ uri: item.item.image }}
