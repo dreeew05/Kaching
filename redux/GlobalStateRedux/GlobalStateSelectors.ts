@@ -1,7 +1,5 @@
 import { RootState } from '../Store';
 
-export const selectSpecificProduct = (state: RootState) =>
-  state.globalState.specificProduct;
 export const selectIsEditComponent = (state: RootState) =>
   state.globalState.isEditComponent;
 export const selectIsEditDetailedViewLoading = (state: RootState) =>
@@ -16,3 +14,5 @@ export const selectIsModifyCategoryLoading = (state: RootState) =>
   state.globalState.isModifyCategoryLoading;
 export const selectCategoryModifiedActions = (state: RootState) =>
   state.globalState.categoryModifiedActions;
+export const selectProductModifiedActions = (state: RootState) =>
+  state.globalState.productModifiedActions;

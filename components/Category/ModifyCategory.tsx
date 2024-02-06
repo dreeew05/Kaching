@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -50,8 +50,6 @@ export default function ModifyCategory() {
 
   const isLoading = useSelector(selectIsModifyCategoryLoading);
 
-  const currentID = useRef<number>(0);
-
   useEffect(() => {
     if (param.operation == 'editCategory') {
       const tableName = 'category',
@@ -92,19 +90,14 @@ export default function ModifyCategory() {
 
   const loadingImageComponent = () => {
     return (
-      <View
-        // TODO: Give proper styling [Brute Force]
-        style={{
-          marginBottom: 85,
-        }}
-      >
+      <>
         <Skeleton
           animation="wave"
           width={styles.image.width}
           height={styles.image.height}
           LinearGradientComponent={LinearGradient}
         />
-      </View>
+      </>
     );
   };
 
@@ -133,15 +126,14 @@ export default function ModifyCategory() {
 
   const loadingTextComponent = () => {
     return (
-      // <>
-      //   <Skeleton
-      //     animation="wave"
-      //     width={375}
-      //     height={100}
-      //     LinearGradientComponent={LinearGradient}
-      //   />
-      // </>
-      <ActivityIndicator size="large" color="green" />
+      <>
+        <SafeAreaView className="mt-2">
+          <View className="w-3/5"></View>
+        </SafeAreaView>
+        <View className="mt-2">
+          <ActivityIndicator size="large" color="green" />
+        </View>
+      </>
     );
   };
 
@@ -160,11 +152,6 @@ export default function ModifyCategory() {
         <Text className="text-center text-gray mt-2">
           Enter Category Name
         </Text>
-        {/* <CustomPressable
-            text="Save"
-            onPress={() => setModalVisible(true)}
-            disabled={false}
-          /> */}
       </>
     );
   };
@@ -325,7 +312,9 @@ export default function ModifyCategory() {
         <PopUpModal
           visible={popModalVisible}
           message="Please fill out all fields"
-          agreeText="Okay"
+          text="Okay"
+          id={0}
+          link={null}
           closeModal={() => setPopModalVisible(false)}
         />
       </View>

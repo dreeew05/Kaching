@@ -6,7 +6,6 @@ interface hasStartDayProps {
 }
 
 interface GlobalStateProps {
-  specificProduct: string[];
   isEditComponent: boolean;
   isDetailedViewLoading: boolean;
   isCategoryViewLoading: boolean;
@@ -15,10 +14,10 @@ interface GlobalStateProps {
   // New
   isModifyCategoryLoading: boolean;
   categoryModifiedActions: string[];
+  productModifiedActions: string[];
 }
 
 const initialState: GlobalStateProps = {
-  specificProduct: [],
   isEditComponent: true,
   isDetailedViewLoading: true,
   isCategoryViewLoading: true,
@@ -30,15 +29,13 @@ const initialState: GlobalStateProps = {
   // New
   isModifyCategoryLoading: true,
   categoryModifiedActions: [],
+  productModifiedActions: [],
 };
 
 export const GlobalStateSlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
-    addSpecificProductAction(state, action: PayloadAction<string>) {
-      state.specificProduct.push(action.payload);
-    },
     setIsEditButton(state, action: PayloadAction<boolean>) {
       state.isEditComponent = action.payload;
     },
@@ -67,11 +64,13 @@ export const GlobalStateSlice = createSlice({
     setCategoryModifedActions(state, action: PayloadAction<string>) {
       state.categoryModifiedActions.push(action.payload);
     },
+    setProductModifiedActions(state, action: PayloadAction<string>) {
+      state.productModifiedActions.push(action.payload);
+    },
   },
 });
 
 export const {
-  addSpecificProductAction,
   setIsEditButton,
   setIsDetailedViewLoading,
   addStoreNameAction,
@@ -79,6 +78,7 @@ export const {
   setHasStartDay,
   setIsModifyCategoryLoading,
   setCategoryModifedActions,
+  setProductModifiedActions,
 } = GlobalStateSlice.actions;
 
 export default GlobalStateSlice.reducer;

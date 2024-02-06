@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import {
-  addSpecificProductAction,
   setIsDetailedViewLoading,
   setIsEditButton,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
@@ -50,6 +49,8 @@ export default function ItemCard(item: itemCardProps) {
     const tableName: string = 'item';
     const refAttribute: string = 'id';
 
+    // Todo: Add delete confirmation
+    // Todo: Add success message
     deleteData(tableName, refAttribute, id);
     dispatch(setIsEditButton(true));
   };
@@ -60,7 +61,6 @@ export default function ItemCard(item: itemCardProps) {
 
   const toggleDetailedViewLoading = () => {
     dispatch(setIsDetailedViewLoading(true));
-    dispatch(addSpecificProductAction('select'));
   };
 
   return (

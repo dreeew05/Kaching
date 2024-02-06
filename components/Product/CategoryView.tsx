@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectIsCategoryViewLoading,
   selectIsEditComponent,
+  selectProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import {
   View,
@@ -30,6 +31,9 @@ export default function CategoryView() {
   const db = SQLite.openDatabase('kaching_db.db');
   const isLoading = useSelector(selectIsCategoryViewLoading);
   const isEditButton = useSelector(selectIsEditComponent);
+  const productDataModifiedActions = useSelector(
+    selectProductModifiedActions,
+  );
   const dispatch = useDispatch();
 
   const getCategoryName = () => {
@@ -68,9 +72,11 @@ export default function CategoryView() {
   };
 
   useEffect(() => {
+    console.log(param);
+    console.log(productDataModifiedActions);
     getCategoryName();
     getProductData();
-  }, [param]);
+  }, [param, productDataModifiedActions]);
 
   const showOverallComponent = () => {
     if (isLoading) {
