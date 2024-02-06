@@ -1,15 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, TouchableOpacity, Image, Text, ImageSourcePropType, Pressable } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  ImageSourcePropType,
+  Pressable,
+} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
-import ParamsToInteger from '../../components/__utils__/helper/ParamsToInteger';
-import CustomPressable from '../Common/CustomPressable';
-import { insertData, selectData, updateData } from '../../components/DatabaseUtils/CoreFunctions';
+import {
+  insertData,
+  selectData,
+  updateData,
+} from '../../components/DatabaseUtils/CoreFunctions';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  addCategoryAction,
+  setCategoryModifedActions,
   setIsModifyCategoryLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
@@ -26,7 +35,9 @@ export default function ModifyCategory() {
   const param = useLocalSearchParams();
 
   const [categoryName, setCategoryName] = useState<string>('');
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    null,
+  );
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -34,7 +45,8 @@ export default function ModifyCategory() {
   const db = getDatabase();
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [popModalVisible, setPopModalVisible] = useState<boolean>(false);
+  const [popModalVisible, setPopModalVisible] =
+    useState<boolean>(false);
 
   const isLoading = useSelector(selectIsModifyCategoryLoading);
 
@@ -46,14 +58,16 @@ export default function ModifyCategory() {
         column = ['*'],
         targetAttrib = 'id';
 
-      selectData(tableName, column, targetAttrib, param.id).then((result) => {
-        // Add timeout to have a smooth loading screen
-        setTimeout(() => {
-          dispatch(setIsModifyCategoryLoading(false));
-        }, 200);
-        setCategoryName(result[0].name);
-        setSelectedImage(result[0].image);
-      });
+      selectData(tableName, column, targetAttrib, param.id).then(
+        (result) => {
+          // Add timeout to have a smooth loading screen
+          setTimeout(() => {
+            dispatch(setIsModifyCategoryLoading(false));
+          }, 200);
+          setCategoryName(result[0].name);
+          setSelectedImage(result[0].image);
+        },
+      );
     } else {
       dispatch(setIsModifyCategoryLoading(false));
       setSelectedImage(null);
@@ -100,7 +114,9 @@ export default function ModifyCategory() {
         <Image
           style={styles.image}
           source={
-            selectedImage ? { uri: selectedImage } : require('../../assets/icons/add-photo.png')
+            selectedImage
+              ? { uri: selectedImage }
+              : require('../../assets/icons/add-photo.png')
           }
         />
       </TouchableOpacity>
@@ -109,7 +125,9 @@ export default function ModifyCategory() {
 
   const showTextComponent = () => {
     return (
-      <View className="w-11/12">{isLoading ? loadingTextComponent() : loadedTextComponent()}</View>
+      <View className="w-11/12">
+        {isLoading ? loadingTextComponent() : loadedTextComponent()}
+      </View>
     );
   };
 
@@ -139,7 +157,9 @@ export default function ModifyCategory() {
             onChangeText={(text) => setCategoryName(text)}
           />
         </SafeAreaView>
-        <Text className="text-center text-gray mt-2">Enter Category Name</Text>
+        <Text className="text-center text-gray mt-2">
+          Enter Category Name
+        </Text>
         {/* <CustomPressable
             text="Save"
             onPress={() => setModalVisible(true)}
@@ -191,38 +211,34 @@ export default function ModifyCategory() {
     ];
 
     if (param.operation == 'editCategory') {
-      const targetAttrib = 'name',
-        targetAttrib2 = 'image',
-        targetValue = data[0].name,
-        targetValue2 = data[0].image,
-        refAttrib = 'id',
-        refValue = param.id;
+      const targetAttrib = ['name', 'image'];
+      const targetValue = [data[0].name, data[0].image];
+      const refAttrib = 'id';
+      const refValue = param.id;
 
-      // UPDATE NAME
-      updateData(tableName, targetAttrib, targetValue, refAttrib, refValue)
+      updateData(
+        tableName,
+        targetAttrib,
+        targetValue,
+        refAttrib,
+        refValue,
+      )
         .then((result) => {
-          // dispatch(
-          //   addCategoryAction('update')
-          // )
-          // console.log(result)
+          dispatch(setCategoryModifedActions('update'));
+          // Todo: Add success message
         })
         .catch((error) => {
-          console.log(error);
+          // Todo: Add error message
         });
-      // UPDATE IMAGE
-      updateData(tableName, targetAttrib2, targetValue2, refAttrib, refValue)
-        .then((result) => {})
-        .catch((error) => {
-          console.log(error);
-        });
-      dispatch(addCategoryAction('update'));
     } else {
       insertData(tableName, data)
         .then((result) => {
-          dispatch(addCategoryAction('add'));
-          // console.log(result)
+          console.log('inserted');
+          dispatch(setCategoryModifedActions('insert'));
+          // Todo: Add success message
         })
         .catch((error) => {
+          // Todo: Add error message
           console.log(error);
         });
     }
@@ -281,7 +297,10 @@ export default function ModifyCategory() {
               <FontAwesome5 name="file" size={22} color="gray" />
             </View>
           ) : (
-            <Pressable className="mr-5" onPress={() => setModalVisible(true)}>
+            <Pressable
+              className="mr-5"
+              onPress={() => setModalVisible(true)}
+            >
               <FontAwesome5 name="file" size={22} color="orange" />
             </Pressable>
           )}

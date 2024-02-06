@@ -1,62 +1,76 @@
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
-import { Link, router } from 'expo-router';
-import {
-  View,
-  Text,
-  Pressable,
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
-import ItemCard from './ItemCard';
-import { getDatabase } from '../DatabaseUtils/OpenDatabase';
+import * as SQLite from 'expo-sqlite';
 import { useEffect, useState } from 'react';
+import { selectData } from '../DatabaseUtils/CoreFunctions';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
+import { Link, useLocalSearchParams } from 'expo-router';
+import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectIsCategoryViewLoading,
   selectIsEditComponent,
-  selectProduct,
 } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  Pressable,
+} from 'react-native';
+import ItemCard from './ItemCard';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import {
   setIsCategoryViewProductLoading,
   setIsEditButton,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
-interface CategoryViewContentsProps {
-  id: number;
-  name: string;
-  type: string;
-}
-
-export default function CategoryViewContents(data: CategoryViewContentsProps) {
-  const db = getDatabase();
-
+export default function CategoryView() {
+  const param = useLocalSearchParams();
+  const id: number = ParamsToInteger(param.id);
+  const [categoryName, setCategoryName] = useState<string>('');
+  const db = SQLite.openDatabase('kaching_db.db');
+  const isLoading = useSelector(selectIsCategoryViewLoading);
+  const isEditButton = useSelector(selectIsEditComponent);
   const dispatch = useDispatch();
 
-  const actionState = useSelector(selectProduct);
-  const isEditButton = useSelector(selectIsEditComponent);
+  const getCategoryName = () => {
+    const tableName = 'category',
+      column = ['name'],
+      targetAttrib = 'id',
+      targetValue = id;
 
-  const isLoading = useSelector(selectIsCategoryViewLoading);
+    selectData(tableName, column, targetAttrib, targetValue)
+      .then((result) => {
+        setCategoryName(result[0].name);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
+  // Product Data Setter
   const [products, setProducts] = useState<BaseItemProps[]>([]);
 
-  useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
+  const getProductData = async () => {
+    const readOnly = true;
+    await db.transactionAsync(async (tx) => {
+      const result = await tx.executeSqlAsync(
         `SELECT item.id, item.name, item.price, item.image,
-                 category.name AS 'category'
-                 FROM item
-                 LEFT JOIN category ON item.category_id = category.id
-                 WHERE category.id = ?
-                 ORDER BY item.name ASC`,
-        [data.id],
-        (_, result) => {
-          setProducts(result.rows._array);
-          dispatch(setIsCategoryViewProductLoading(false));
-        },
+        category.name AS 'category'
+        FROM item
+        LEFT JOIN category ON item.category_id = category.id
+        WHERE category.id = ?
+        ORDER BY item.name ASC`,
+        [id],
       );
-    });
-  }, [actionState]);
+      setProducts(result.rows as BaseItemProps[]);
+      dispatch(setIsCategoryViewProductLoading(false));
+    }, readOnly);
+  };
+
+  useEffect(() => {
+    getCategoryName();
+    getProductData();
+  }, [param]);
 
   const showOverallComponent = () => {
     if (isLoading) {
@@ -78,7 +92,7 @@ export default function CategoryViewContents(data: CategoryViewContentsProps) {
               className="text-4xl text-green ml-5 mb-5"
               style={{ fontFamily: 'Poppins-Bold' }}
             >
-              {data.name}
+              {categoryName}
             </Text>
             {showModifyProductsComponent()}
           </View>
@@ -114,7 +128,7 @@ export default function CategoryViewContents(data: CategoryViewContentsProps) {
           href={{
             pathname: '/(tabs)/AddItemScreen',
             params: {
-              id: data.id,
+              id: ParamsToInteger(param.id),
             },
           }}
           asChild
