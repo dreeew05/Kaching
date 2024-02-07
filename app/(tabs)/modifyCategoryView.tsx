@@ -37,7 +37,10 @@ export default function ModifyCategoryView() {
               className="h-6 w-6 bg-green justify-center 
                             items-center rounded-full"
             >
-              <FontAwesomeIcon icon={faPlus} style={{ color: '#ffffff' }} />
+              <FontAwesomeIcon
+                icon={faPlus}
+                style={{ color: '#ffffff' }}
+              />
             </View>
           </TouchableOpacity>
         </Link>

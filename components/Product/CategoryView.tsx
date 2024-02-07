@@ -18,7 +18,11 @@ import {
   Pressable,
 } from 'react-native';
 import ItemCard from './ItemCard';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import {
+  AntDesign,
+  FontAwesome5,
+  Ionicons,
+} from '@expo/vector-icons';
 import {
   setIsCategoryViewProductLoading,
   setIsEditButton,
@@ -54,6 +58,7 @@ export default function CategoryView() {
   // Product Data Setter
   const [products, setProducts] = useState<BaseItemProps[]>([]);
 
+  // Todo: Interface database
   const getProductData = async () => {
     const readOnly = true;
     await db.transactionAsync(async (tx) => {
@@ -145,7 +150,7 @@ export default function CategoryView() {
             className="ml-3"
             onPress={() => dispatch(setIsEditButton(true))}
           >
-            <FontAwesome5 name="plus" size={25} color="darkgreen" />
+            <AntDesign name="pluscircle" size={24} color="#376b54" />
           </Pressable>
         </Link>
       );

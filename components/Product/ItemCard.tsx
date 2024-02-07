@@ -19,6 +19,7 @@ import {
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCart';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -103,6 +104,15 @@ export default function ItemCard(item: itemCardProps) {
             P{item.item.price}
           </Text>
         </View>
+
+        {/* DELETE BUTTON */}
+        {!item.isEditComponent ? (
+          <View className="absolute top-1 right-2">
+            <Pressable onPress={() => deleteProduct(item.item.id)}>
+              <FontAwesome5 name="trash" size={24} color="grey" />
+            </Pressable>
+          </View>
+        ) : null}
       </View>
 
       {item.isEditComponent ? (
@@ -155,18 +165,6 @@ export default function ItemCard(item: itemCardProps) {
                 </Text>
               </Pressable>
             </Link>
-            <Pressable
-              className="bg-red-500 h-10 border-2 border-red-500 ml-11
-                            rounded-md self-center flex-1 items-center justify-center"
-              onPress={() => deleteProduct(item.item.id)}
-            >
-              <Text
-                className="text-white text-lg"
-                style={{ fontFamily: 'Poppins-Bold' }}
-              >
-                Delete Product
-              </Text>
-            </Pressable>
           </View>
         </View>
       )}

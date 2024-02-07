@@ -53,7 +53,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
   useEffect(() => {
     if (type == 'add') {
-      clearData();
+      dispatch(setIsModifyProductLoading(false));
     } else {
       const tableName = 'item';
       const column = ['*'];
@@ -406,7 +406,6 @@ export default function ModifyItem({ type }: ModifyItemProps) {
                     <>
                       <AntDesign
                         name="pluscircle"
-                        // style={styles.image}
                         size={24}
                         color="gray"
                       />
