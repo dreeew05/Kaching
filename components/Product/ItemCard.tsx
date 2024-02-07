@@ -16,6 +16,7 @@ import {
   setIsDetailedViewLoading,
   setIsEditButton,
   setIsModifyProductLoading,
+  setProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCart';
@@ -53,8 +54,10 @@ export default function ItemCard(item: itemCardProps) {
     const refAttribute: string = 'id';
 
     // Todo: Add delete confirmation
-    // Todo: Add success message
-    deleteData(tableName, refAttribute, id);
+    deleteData(tableName, refAttribute, id).then((result) => {
+      // Todo: Add success message
+      dispatch(setProductModifiedActions('delete'));
+    });
     dispatch(setIsEditButton(true));
   };
 

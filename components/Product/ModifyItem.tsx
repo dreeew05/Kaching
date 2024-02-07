@@ -150,11 +150,11 @@ export default function ModifyItem({ type }: ModifyItemProps) {
       insertData(tableName, product)
         .then((result) => {
           // Todo: Add success message
+          dispatch(setProductModifiedActions('insert'));
         })
         .catch((error) => {
           console.log(error);
         });
-      router.push('/');
     } else {
       const tableName = 'item';
       const targetAttrib = ['name', 'price', 'description', 'image'];
@@ -444,7 +444,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               visible={successModalVisible}
               // Todo [Optional]: Give proper transaction name
               message="Transaction Successful"
-              text={'Okay'}
+              text={'Done'}
               link={'category'}
               id={categoryID}
               closeModal={closeSuccessModal}

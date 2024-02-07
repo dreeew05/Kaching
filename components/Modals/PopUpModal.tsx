@@ -1,8 +1,8 @@
 import { Modal, View, Text, Pressable } from 'react-native';
 import { Link } from 'expo-router';
-import { SuccessModalProps } from '../__utils__/interfaces/SuccessModalProps';
+import { PopUpModalProps } from '../__utils__/interfaces/PopUpModalProps';
 
-export const PopUpModal = (props: SuccessModalProps) => {
+export const PopUpModal = (props: PopUpModalProps) => {
   const getLink = () => {
     switch (props.link) {
       case 'category':
@@ -28,7 +28,15 @@ export const PopUpModal = (props: SuccessModalProps) => {
   const showModalContent = () => {
     return (
       <Pressable onPress={props.closeModal}>
-        <Text className="text-xl text-blue-700 text-center py-2.5">
+        <Text
+          className="text-center"
+          style={{
+            color: 'white',
+            margin: 5,
+            fontFamily: 'Poppins-Regular',
+            fontSize: 16,
+          }}
+        >
           {props.text}
         </Text>
       </Pressable>
@@ -55,15 +63,18 @@ export const PopUpModal = (props: SuccessModalProps) => {
         }}
       >
         <View className="flex-1 justify-center items-center">
-          <View className="flex-col rounded-2xl items-center bg-white shadow-sm">
-            <Text className="text-center text-xl font-medium py-5 px-10">
-              {props.message}
-            </Text>
-            <View className="border-t-[0.5px] border-t-gray-100 px-20">
-              <View className="flex flex-row ">
-                <View>{getLink()}</View>
-              </View>
+          <View className="flex-col rounded-2xl items-center bg-green shadow-sm">
+            <View className="px-7 py-5 bg-white rounded-tl-2xl rounded-tr-2xl">
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Bold',
+                  fontSize: 20,
+                }}
+              >
+                {props.message}
+              </Text>
             </View>
+            <View className="p-2">{getLink()}</View>
           </View>
         </View>
       </View>
