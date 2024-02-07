@@ -5,49 +5,60 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import CustomModal from '../Modals/CustomModal';
-import { useDispatch } from 'react-redux';
 import {
   insertData,
   selectData,
   updateData,
 } from '../DatabaseUtils/CoreFunctions';
-import { addSpecificProductAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
-import { Link, useRouter } from 'expo-router';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
+import { useDispatch } from 'react-redux';
+import {
+  setIsCategoryViewProductLoading,
+  setProductModifiedActions,
+} from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
+import { PopUpModal } from '../Modals/PopUpModal';
 
-interface ModifyItemProps {
+type ModifyItemProps = {
   type: string;
-  id: number;
-}
+};
 
-export default function ModifyItem(data: ModifyItemProps) {
-  const [name, onChangeName] = useState<string>('');
-  const [price, onChangePrice] = useState<string>();
-  const [info, onChangeInfo] = useState<string>('');
+export default function ModifyItem({ type }: ModifyItemProps) {
+  const [categoryID, setCategoryID] = useState<number>(0);
+  const [name, setName] = useState<string>('');
+  const [price, setPrice] = useState<string>();
+  const [info, setInfo] = useState<string>('');
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [modalVisible, setModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
+  const [successModalVisible, setSuccessModalVisible] =
+    useState(false);
 
-  const dispatch = useDispatch();
+  const param = useLocalSearchParams();
+  const id = ParamsToInteger(param.id);
+
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (data.type == 'add') {
+    if (type == 'add') {
       clearData();
     } else {
       const tableName = 'item';
       const column = ['*'];
       const targetAttrib = 'id';
 
-      selectData(tableName, column, targetAttrib, data.id).then(
+      selectData(tableName, column, targetAttrib, id).then(
         (result) => {
-          onChangeName(result[0].name);
-          onChangePrice(result[0].price.toString());
-          onChangeInfo(result[0].description);
+          setCategoryID(result[0].category_id);
+          setName(result[0].name);
+          setPrice(result[0].price.toString());
+          setInfo(result[0].description);
           setSelectedImage(result[0].image);
         },
       );
     }
-  }, [data.id]);
+  }, [id]);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -55,6 +66,10 @@ export default function ModifyItem(data: ModifyItemProps) {
 
   const closeSaveModal = () => {
     setSaveModalVisible(false);
+  };
+
+  const closeSuccessModal = () => {
+    setSuccessModalVisible(false);
   };
 
   const openCamera = () => {
@@ -100,20 +115,20 @@ export default function ModifyItem(data: ModifyItemProps) {
   };
 
   const clearData = () => {
-    onChangeName('');
-    onChangePrice('');
-    onChangeInfo('');
+    setName('');
+    setPrice('');
+    setInfo('');
     setSelectedImage('');
   };
 
   const saveProduct = () => {
-    if (data.type == 'add') {
+    if (type == 'add') {
       const tableName = 'item';
       const product = [
         {
           name: name,
           price: price,
-          category_id: data.id,
+          category_id: id,
           description: info,
           image: selectedImage,
         },
@@ -129,55 +144,30 @@ export default function ModifyItem(data: ModifyItemProps) {
       router.push('/');
     } else {
       const tableName = 'item';
+      const targetAttrib = ['name', 'price', 'description', 'image'];
+      const targetValue = [name, price, info, selectedImage];
       const refAttrib = 'id';
-      const refValue = data.id;
-      const targetAttrib = 'name';
-      const targetAttribValue = name;
-      const targetAttrib2 = 'price';
-      const targetAttribValue2 = price;
-      const targetAttrib3 = 'description';
-      const targetAttribValue3 = info;
-      const targetAttrib4 = 'image';
-      const targetAttribValue4 = selectedImage;
+      const refValue = id;
 
       updateData(
         tableName,
         targetAttrib,
-        targetAttribValue,
+        targetValue,
         refAttrib,
         refValue,
-      );
-      updateData(
-        tableName,
-        targetAttrib2,
-        targetAttribValue2,
-        refAttrib,
-        refValue,
-      );
-      updateData(
-        tableName,
-        targetAttrib3,
-        targetAttribValue3,
-        refAttrib,
-        refValue,
-      );
-      updateData(
-        tableName,
-        targetAttrib3,
-        targetAttribValue3,
-        refAttrib,
-        refValue,
-      );
-      updateData(
-        tableName,
-        targetAttrib4,
-        targetAttribValue4,
-        refAttrib,
-        refValue,
-      );
+      )
+        .then((result) => {
+          dispatch(setProductModifiedActions('update'));
+          dispatch(setIsCategoryViewProductLoading(true));
+          // Todo: Add success message
+        })
+        .catch((error) => {
+          // Todo: Add error message
+        });
     }
     closeSaveModal();
-    dispatch(addSpecificProductAction('edit'));
+    setSuccessModalVisible(true);
+    dispatch(setIsCategoryViewProductLoading(true));
     clearData();
   };
 
@@ -196,7 +186,7 @@ export default function ModifyItem(data: ModifyItemProps) {
             href={{
               pathname: '/(tabs)/categoryView',
               params: {
-                id: data.id,
+                id: categoryID,
               },
             }}
             asChild
@@ -213,7 +203,7 @@ export default function ModifyItem(data: ModifyItemProps) {
               alignItems: 'center',
             }}
           >
-            {data.type === 'add' ? (
+            {type === 'add' ? (
               <Text
                 className="text-center text-xl w-4/5 text-green"
                 style={{ fontFamily: 'Poppins-Bold' }}
@@ -247,7 +237,7 @@ export default function ModifyItem(data: ModifyItemProps) {
             </Text>
             <TextInput
               className="text-light border-b-[1.5px] border-zinc-500"
-              onChangeText={onChangeName}
+              onChangeText={setName}
               value={name}
               placeholder="Enter product name"
               placeholderTextColor="gray"
@@ -259,7 +249,7 @@ export default function ModifyItem(data: ModifyItemProps) {
             </Text>
             <TextInput
               className="text-light border-b-[1.5px] border-zinc-500"
-              onChangeText={onChangePrice}
+              onChangeText={setPrice}
               value={price}
               placeholder="Enter product price"
               placeholderTextColor="gray"
@@ -272,7 +262,7 @@ export default function ModifyItem(data: ModifyItemProps) {
             </Text>
             <TextInput
               className="text-light border-b-[1.5px] border-zinc-500"
-              onChangeText={onChangeInfo}
+              onChangeText={setInfo}
               value={info}
               placeholder="Enter product information"
               placeholderTextColor="gray"
@@ -322,9 +312,19 @@ export default function ModifyItem(data: ModifyItemProps) {
               optionOneText="Yes"
               optionTwoText="No"
               optionOnePressed={() => saveProduct()}
-              optionTwoPressed={() => setSaveModalVisible(false)}
+              optionTwoPressed={closeSaveModal}
               optionTwoColor="red"
-              closeModal={() => closeSaveModal()}
+              closeModal={closeSaveModal}
+            />
+
+            <PopUpModal
+              visible={successModalVisible}
+              // Todo [Optional]: Give proper transaction name
+              message="Transaction Successful"
+              text={'Okay'}
+              link={'category'}
+              id={categoryID}
+              closeModal={closeSuccessModal}
             />
           </View>
         </View>

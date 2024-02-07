@@ -1,40 +1,7 @@
 import { Modal, View, Text, Pressable } from 'react-native';
-import { Link } from 'expo-router';
-import { SuccessModalProps } from '../__utils__/interfaces/SuccessModalProps';
+import { PopUpModalProps } from '../__utils__/interfaces/PopUpModalProps';
 
-export const PopUpModal = (props: SuccessModalProps) => {
-  const getLink = () => {
-    switch (props.link) {
-      case 'category':
-        return (
-          <Link
-            href={{
-              pathname: '/(tabs)/categoryView',
-              params: {
-                id: props.id,
-              },
-            }}
-            asChild
-          >
-            {showModalContent()}
-          </Link>
-        );
-      default:
-        showModalContent();
-        break;
-    }
-  };
-
-  const showModalContent = () => {
-    return (
-      <Pressable onPress={props.closeModal}>
-        <Text className="text-xl text-blue-700 text-center py-2.5">
-          {props.text}
-        </Text>
-      </Pressable>
-    );
-  };
-
+export const SuccessModal = (props: PopUpModalProps) => {
   return (
     <Modal
       className="flex-1 justify-center items-center"
@@ -61,7 +28,13 @@ export const PopUpModal = (props: SuccessModalProps) => {
             </Text>
             <View className="border-t-[0.5px] border-t-gray-100 px-20">
               <View className="flex flex-row ">
-                <View>{getLink()}</View>
+                <View>
+                  <Pressable onPress={props.closeModal}>
+                    <Text className="text-xl text-blue-700 text-center py-2.5">
+                      {props.text}
+                    </Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
           </View>
