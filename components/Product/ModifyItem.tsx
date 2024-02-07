@@ -391,7 +391,11 @@ export default function ModifyItem({ type }: ModifyItemProps) {
             ) : (
               <>
                 <Text style={styles.textTitle}>Product Photo</Text>
-                <Pressable onPress={() => setModalVisible(true)}>
+                <Pressable
+                  onPress={() => setModalVisible(true)}
+                  style={styles.image}
+                  className="bg-zinc-200 justify-center items-center shadow-lg shadow-neutral-600"
+                >
                   {selectedImage ? (
                     <Image
                       style={styles.image}
@@ -402,7 +406,8 @@ export default function ModifyItem({ type }: ModifyItemProps) {
                     <>
                       <AntDesign
                         name="pluscircle"
-                        style={styles.image}
+                        // style={styles.image}
+                        size={24}
                         color="gray"
                       />
                       <Text className="text-center text-light text-zinc-400 mt-1">
