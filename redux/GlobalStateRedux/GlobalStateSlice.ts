@@ -15,6 +15,7 @@ interface GlobalStateProps {
   isModifyCategoryLoading: boolean;
   categoryModifiedActions: string[];
   productModifiedActions: string[];
+  isModifyProductLoading: boolean;
 }
 
 const initialState: GlobalStateProps = {
@@ -30,6 +31,7 @@ const initialState: GlobalStateProps = {
   isModifyCategoryLoading: true,
   categoryModifiedActions: [],
   productModifiedActions: [],
+  isModifyProductLoading: true,
 };
 
 export const GlobalStateSlice = createSlice({
@@ -67,6 +69,9 @@ export const GlobalStateSlice = createSlice({
     setProductModifiedActions(state, action: PayloadAction<string>) {
       state.productModifiedActions.push(action.payload);
     },
+    setIsModifyProductLoading(state, action: PayloadAction<boolean>) {
+      state.isModifyProductLoading = action.payload;
+    },
   },
 });
 
@@ -79,6 +84,7 @@ export const {
   setIsModifyCategoryLoading,
   setCategoryModifedActions,
   setProductModifiedActions,
+  setIsModifyProductLoading,
 } = GlobalStateSlice.actions;
 
 export default GlobalStateSlice.reducer;

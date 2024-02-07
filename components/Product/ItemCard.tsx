@@ -15,6 +15,7 @@ import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import {
   setIsDetailedViewLoading,
   setIsEditButton,
+  setIsModifyProductLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCart';
@@ -22,6 +23,7 @@ import { addToCartEvent } from './AddToCart';
 type itemCardProps = {
   item: BaseItemProps;
   isEditComponent: boolean;
+  categoryID: number;
 };
 
 export default function ItemCard(item: itemCardProps) {
@@ -57,6 +59,7 @@ export default function ItemCard(item: itemCardProps) {
 
   const editProduct = () => {
     dispatch(setIsEditButton(true));
+    dispatch(setIsModifyProductLoading(true));
   };
 
   const toggleDetailedViewLoading = () => {
@@ -69,7 +72,10 @@ export default function ItemCard(item: itemCardProps) {
         <Link
           href={{
             pathname: '/(tabs)/ItemScreen',
-            params: { id: item.item.id },
+            params: {
+              id: item.item.id,
+              category_id: item.categoryID,
+            },
           }}
           asChild
         >
@@ -128,9 +134,10 @@ export default function ItemCard(item: itemCardProps) {
           <View className="flex flex-row justify-center">
             <Link
               href={{
-                pathname: '/(tabs)/editItemScreen',
+                pathname: '/(tabs)/editItemWrapper',
                 params: {
                   id: item.item.id,
+                  category_id: item.categoryID,
                 },
               }}
               asChild

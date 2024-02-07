@@ -16,3 +16,5 @@ export const selectCategoryModifiedActions = (state: RootState) =>
   state.globalState.categoryModifiedActions;
 export const selectProductModifiedActions = (state: RootState) =>
   state.globalState.productModifiedActions;
+export const selectIsModifyProductLoading = (state: RootState) =>
+  state.globalState.isModifyProductLoading;

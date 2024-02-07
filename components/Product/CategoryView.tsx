@@ -26,7 +26,7 @@ import {
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
-  const id: number = ParamsToInteger(param.id);
+  const categoryID: number = ParamsToInteger(param.id);
   const [categoryName, setCategoryName] = useState<string>('');
   const db = SQLite.openDatabase('kaching_db.db');
   const isLoading = useSelector(selectIsCategoryViewLoading);
@@ -40,7 +40,7 @@ export default function CategoryView() {
     const tableName = 'category',
       column = ['name'],
       targetAttrib = 'id',
-      targetValue = id;
+      targetValue = categoryID;
 
     selectData(tableName, column, targetAttrib, targetValue)
       .then((result) => {
@@ -64,7 +64,7 @@ export default function CategoryView() {
         LEFT JOIN category ON item.category_id = category.id
         WHERE category.id = ?
         ORDER BY item.name ASC`,
-        [id],
+        [categoryID],
       );
       setProducts(result.rows as BaseItemProps[]);
       dispatch(setIsCategoryViewProductLoading(false));
@@ -109,6 +109,7 @@ export default function CategoryView() {
                   key={product.id}
                   item={product}
                   isEditComponent={isEditButton}
+                  categoryID={categoryID}
                 />
               );
             })}
@@ -132,9 +133,10 @@ export default function CategoryView() {
       return (
         <Link
           href={{
-            pathname: '/(tabs)/AddItemScreen',
+            pathname: '/(tabs)/addItemWrapper',
             params: {
-              id: ParamsToInteger(param.id),
+              id: 0,
+              category_id: categoryID,
             },
           }}
           asChild

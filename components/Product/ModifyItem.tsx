@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from '../Themed';
-import { Image, Pressable, TextInput } from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
@@ -11,20 +16,23 @@ import {
   updateData,
 } from '../DatabaseUtils/CoreFunctions';
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setIsCategoryViewProductLoading,
+  setIsModifyProductLoading,
   setProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
 import { PopUpModal } from '../Modals/PopUpModal';
+import { selectIsModifyProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { Skeleton } from '@rneui/base';
+import { LinearGradient } from 'expo-linear-gradient';
 
 type ModifyItemProps = {
   type: string;
 };
 
 export default function ModifyItem({ type }: ModifyItemProps) {
-  const [categoryID, setCategoryID] = useState<number>(0);
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<string>();
   const [info, setInfo] = useState<string>('');
@@ -35,10 +43,13 @@ export default function ModifyItem({ type }: ModifyItemProps) {
     useState(false);
 
   const param = useLocalSearchParams();
-  const id = ParamsToInteger(param.id);
+  const productID = ParamsToInteger(param.id);
+  const categoryID = ParamsToInteger(param.category_id);
 
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const isLoading = useSelector(selectIsModifyProductLoading);
 
   useEffect(() => {
     if (type == 'add') {
@@ -48,17 +59,19 @@ export default function ModifyItem({ type }: ModifyItemProps) {
       const column = ['*'];
       const targetAttrib = 'id';
 
-      selectData(tableName, column, targetAttrib, id).then(
+      selectData(tableName, column, targetAttrib, productID).then(
         (result) => {
-          setCategoryID(result[0].category_id);
           setName(result[0].name);
           setPrice(result[0].price.toString());
           setInfo(result[0].description);
           setSelectedImage(result[0].image);
+          setTimeout(() => {
+            dispatch(setIsModifyProductLoading(false));
+          }, 100);
         },
       );
     }
-  }, [id]);
+  }, [param]);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -128,7 +141,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
         {
           name: name,
           price: price,
-          category_id: id,
+          category_id: categoryID,
           description: info,
           image: selectedImage,
         },
@@ -147,7 +160,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
       const targetAttrib = ['name', 'price', 'description', 'image'];
       const targetValue = [name, price, info, selectedImage];
       const refAttrib = 'id';
-      const refValue = id;
+      const refValue = productID;
 
       updateData(
         tableName,
@@ -170,6 +183,37 @@ export default function ModifyItem({ type }: ModifyItemProps) {
     dispatch(setIsCategoryViewProductLoading(true));
     clearData();
   };
+
+  const styles = StyleSheet.create({
+    skeletonTextTitle: {
+      width: 180,
+      height: 30,
+    },
+    skeletonTextInput: {
+      width: 370,
+      height: 30,
+    },
+    textTitle: {
+      fontFamily: 'Poppins-Bold',
+      fontSize: 18,
+      color: 'gray',
+      height: 30,
+    },
+    textInput: {
+      borderBottomWidth: 1.5,
+      borderBottomColor: 'gray',
+      color: 'black',
+      fontSize: 16,
+      fontFamily: 'Poppins-Regular',
+      height: 30,
+    },
+    image: {
+      height: 120,
+      width: 120,
+      borderRadius: 20,
+      marginTop: 5,
+    },
+  });
 
   return (
     <View>
@@ -232,67 +276,147 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
         <View className="px-5 h-full">
           <View className="mb-6 mt-7">
-            <Text className="text-extrabold text-lg text-gray">
-              Product's Name
-            </Text>
-            <TextInput
-              className="text-light border-b-[1.5px] border-zinc-500"
-              onChangeText={setName}
-              value={name}
-              placeholder="Enter product name"
-              placeholderTextColor="gray"
-            />
+            {isLoading ? (
+              <>
+                <Skeleton
+                  animation="wave"
+                  width={styles.skeletonTextTitle.width}
+                  height={styles.skeletonTextInput.height}
+                  LinearGradientComponent={LinearGradient}
+                />
+                <View style={{ marginBottom: 6 }}></View>
+                <Skeleton
+                  animation="wave"
+                  width={styles.skeletonTextInput.width}
+                  height={styles.skeletonTextInput.height}
+                  LinearGradientComponent={LinearGradient}
+                />
+              </>
+            ) : (
+              <>
+                <Text style={styles.textTitle}>Product's Name</Text>
+                <View style={{ marginBottom: 5 }}></View>
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={setName}
+                  value={name}
+                  placeholder="Enter product name"
+                  placeholderTextColor="gray"
+                />
+              </>
+            )}
           </View>
           <View className="mb-6">
-            <Text className=" mt-3 text-extrabold text-lg text-gray">
-              Price
-            </Text>
-            <TextInput
-              className="text-light border-b-[1.5px] border-zinc-500"
-              onChangeText={setPrice}
-              value={price}
-              placeholder="Enter product price"
-              placeholderTextColor="gray"
-              keyboardType="numeric"
-            />
+            {isLoading ? (
+              <>
+                <Skeleton
+                  animation="wave"
+                  width={styles.skeletonTextTitle.width}
+                  height={styles.skeletonTextInput.height}
+                  LinearGradientComponent={LinearGradient}
+                />
+                <View style={{ marginBottom: 5 }}></View>
+                <Skeleton
+                  animation="wave"
+                  width={styles.skeletonTextInput.width}
+                  height={styles.skeletonTextInput.height}
+                  LinearGradientComponent={LinearGradient}
+                />
+              </>
+            ) : (
+              <>
+                <Text style={styles.textTitle}>Price</Text>
+                <View style={{ marginBottom: 5 }}></View>
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={setPrice}
+                  value={price}
+                  placeholder="Enter product price"
+                  placeholderTextColor="gray"
+                  keyboardType="numeric"
+                />
+              </>
+            )}
           </View>
           <View className="mb-6">
-            <Text className=" mt-3 text-extrabold text-lg text-zinc-600">
-              Product Information
-            </Text>
-            <TextInput
-              className="text-light border-b-[1.5px] border-zinc-500"
-              onChangeText={setInfo}
-              value={info}
-              placeholder="Enter product information"
-              placeholderTextColor="gray"
-            />
+            {isLoading ? (
+              <>
+                <Skeleton
+                  animation="wave"
+                  width={styles.skeletonTextTitle.width}
+                  height={styles.skeletonTextInput.height}
+                  LinearGradientComponent={LinearGradient}
+                />
+                <View style={{ marginBottom: 5 }}></View>
+                <Skeleton
+                  animation="wave"
+                  width={styles.skeletonTextInput.width}
+                  height={styles.skeletonTextInput.height}
+                  LinearGradientComponent={LinearGradient}
+                />
+              </>
+            ) : (
+              <>
+                <Text style={styles.textTitle}>
+                  Product Information
+                </Text>
+                <View style={{ marginBottom: 5 }}></View>
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={setInfo}
+                  value={info}
+                  placeholder="Enter product information"
+                  placeholderTextColor="gray"
+                />
+              </>
+            )}
           </View>
           <View className="w-26">
-            <Text className=" mt-3 text-bold text-lg text-gray mb-3">
-              Product Photo
-            </Text>
-            {selectedImage ? (
-              <Pressable
-                onPress={() => setModalVisible(true)}
-                className="h-24 w-24 bg-zinc-200 rounded-3xl justify-center items-center shadow-lg shadow-neutral-600"
-              >
-                <Image
-                  className="w-24 h-24 rounded-3xl "
-                  source={{ uri: selectedImage }}
-                  resizeMode="contain"
+            {isLoading ? (
+              <>
+                <Skeleton
+                  animation="wave"
+                  width={styles.skeletonTextTitle.width}
+                  height={styles.skeletonTextInput.height}
+                  LinearGradientComponent={LinearGradient}
                 />
-              </Pressable>
+                <View style={{ marginBottom: 5 }}></View>
+                <Skeleton
+                  animation="wave"
+                  width={styles.image.width}
+                  height={styles.image.height}
+                  LinearGradientComponent={LinearGradient}
+                />
+              </>
             ) : (
-              <Pressable
-                className="h-24 w-24 bg-zinc-200 rounded-3xl justify-center items-center shadow-lg shadow-neutral-600"
-                onPress={() => setModalVisible(true)}
-              >
-                <AntDesign name="pluscircle" size={24} color="gray" />
-                <Text className="text-center text-light text-zinc-400 mt-1">
-                  Add photos
-                </Text>
-              </Pressable>
+              <>
+                <Text style={styles.textTitle}>Product Photo</Text>
+                <Pressable
+                  onPress={() => setModalVisible(true)}
+                  style={styles.image}
+                  className="bg-zinc-200 justify-center items-center shadow-lg shadow-neutral-600"
+                >
+                  {selectedImage ? (
+                    <Image
+                      style={styles.image}
+                      source={{ uri: selectedImage }}
+                      resizeMode="contain"
+                    />
+                  ) : (
+                    <>
+                      <AntDesign
+                        name="pluscircle"
+                        // style={styles.image}
+                        size={24}
+                        color="gray"
+                      />
+                      <Text className="text-center text-light text-zinc-400 mt-1">
+                        Add photos
+                      </Text>
+                    </>
+                  )}
+                </Pressable>
+              </>
             )}
 
             <CustomModal
