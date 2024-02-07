@@ -15,6 +15,7 @@ import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import {
   setIsDetailedViewLoading,
   setIsEditButton,
+  setIsModifyProductLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCart';
@@ -58,6 +59,7 @@ export default function ItemCard(item: itemCardProps) {
 
   const editProduct = () => {
     dispatch(setIsEditButton(true));
+    dispatch(setIsModifyProductLoading(true));
   };
 
   const toggleDetailedViewLoading = () => {
