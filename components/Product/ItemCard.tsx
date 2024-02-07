@@ -22,6 +22,7 @@ import { addToCartEvent } from './AddToCart';
 type itemCardProps = {
   item: BaseItemProps;
   isEditComponent: boolean;
+  categoryID: number;
 };
 
 export default function ItemCard(item: itemCardProps) {
@@ -69,7 +70,10 @@ export default function ItemCard(item: itemCardProps) {
         <Link
           href={{
             pathname: '/(tabs)/ItemScreen',
-            params: { id: item.item.id },
+            params: {
+              id: item.item.id,
+              category_id: item.categoryID,
+            },
           }}
           asChild
         >
@@ -128,9 +132,10 @@ export default function ItemCard(item: itemCardProps) {
           <View className="flex flex-row justify-center">
             <Link
               href={{
-                pathname: '/(tabs)/editItemScreen',
+                pathname: '/(tabs)/editItemWrapper',
                 params: {
                   id: item.item.id,
+                  category_id: item.categoryID,
                 },
               }}
               asChild

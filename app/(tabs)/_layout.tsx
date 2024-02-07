@@ -12,7 +12,9 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return (
+    <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />
+  );
 }
 
 export default function TabLayout() {
@@ -28,10 +30,15 @@ export default function TabLayout() {
         name="index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="home" color={color} />
+          ),
           headerLeft: () => (
-            <FontAwesome5 name="store" size={24} 
-              color="green" style={{ marginLeft: 20 }} 
+            <FontAwesome5
+              name="store"
+              size={24}
+              color="green"
+              style={{ marginLeft: 20 }}
             />
           ),
         }}
@@ -40,7 +47,9 @@ export default function TabLayout() {
         name="cart"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="shopping-cart" color={color} />
+          ),
           headerShown: false,
         }}
       />
@@ -48,25 +57,27 @@ export default function TabLayout() {
         name="menu"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="bars" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="orderSummary"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/cart" asChild>
-              <Pressable
-                className='ml-3'
-              >
+              <Pressable className="ml-3">
                 {({ pressed }) => (
-                  <Ionicons 
-                    name="arrow-back-outline" 
-                    size={30} 
-                    color="green" 
+                  <Ionicons
+                    name="arrow-back-outline"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -78,18 +89,18 @@ export default function TabLayout() {
         name="paymentWrapper"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/(tabs)/orderSummary" asChild>
-              <Pressable
-                className='ml-3'
-              >
+              <Pressable className="ml-3">
                 {({ pressed }) => (
-                  <Ionicons 
-                    name="arrow-back-outline" 
-                    size={30} 
-                    color="green" 
+                  <Ionicons
+                    name="arrow-back-outline"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -101,15 +112,19 @@ export default function TabLayout() {
         name="StartDay"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
         }}
       />
       <Tabs.Screen
-        name="editItemScreen"
+        name="editItemWrapper"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerShown: false,
         }}
@@ -118,7 +133,9 @@ export default function TabLayout() {
         name="receiptWrapper"
         options={{
           title: 'Receipt',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
         }}
       />
@@ -126,7 +143,9 @@ export default function TabLayout() {
         name="categoryView"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar,
           headerShown: false,
         }}
@@ -135,17 +154,22 @@ export default function TabLayout() {
         name="modifyCategoryView"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar,
           headerLeft: () => (
             <Link href="/" asChild>
-              <Pressable className='ml-2'>
+              <Pressable className="ml-2">
                 {({ pressed }) => (
                   <FontAwesome5
                     name="arrow-left"
                     size={24}
                     color="green"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>
@@ -157,16 +181,20 @@ export default function TabLayout() {
         name="modifyCategoryWrapper"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerShown: false,
         }}
       />
       <Tabs.Screen
-        name="AddItemScreen"
+        name="addItemWrapper"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerShown: false,
         }}
@@ -175,7 +203,9 @@ export default function TabLayout() {
         name="olderEODSbyDate"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerShown: false,
         }}
@@ -184,16 +214,20 @@ export default function TabLayout() {
         name="ItemScreen"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Tabs.Screen
         name="currentEOD"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/menu" asChild>
@@ -203,7 +237,10 @@ export default function TabLayout() {
                     name="arrow-left"
                     size={24}
                     color="darkgreen"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>
@@ -215,7 +252,9 @@ export default function TabLayout() {
         name="previousEOD"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/menu" asChild>
@@ -225,7 +264,10 @@ export default function TabLayout() {
                     name="arrow-left"
                     size={24}
                     color="darkgreen"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>
@@ -237,7 +279,9 @@ export default function TabLayout() {
         name="termsOfService"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/(tabs)/menu" asChild>
@@ -247,7 +291,10 @@ export default function TabLayout() {
                     name="arrow-left"
                     size={24}
                     color="darkgreen"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>
@@ -259,7 +306,9 @@ export default function TabLayout() {
         name="privacyPolicy"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/menu" asChild>
@@ -269,7 +318,10 @@ export default function TabLayout() {
                     name="arrow-left"
                     size={24}
                     color="darkgreen"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>
@@ -281,7 +333,9 @@ export default function TabLayout() {
         name="faqs"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/menu" asChild>
@@ -291,7 +345,10 @@ export default function TabLayout() {
                     name="arrow-left"
                     size={24}
                     color="darkgreen"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>
@@ -303,7 +360,9 @@ export default function TabLayout() {
         name="pahuwayBanner"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/menu" asChild>
@@ -313,7 +372,10 @@ export default function TabLayout() {
                     name="arrow-left"
                     size={24}
                     color="green"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>
@@ -325,7 +387,9 @@ export default function TabLayout() {
         name="editStoreName"
         options={{
           title: 'Back',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
           href: null, // Hide this tab from the tab bar
           headerLeft: () => (
             <Link href="/" asChild>
@@ -335,7 +399,10 @@ export default function TabLayout() {
                     name="arrow-left"
                     size={24}
                     color="green"
-                    style={{ marginLeft: 10, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>

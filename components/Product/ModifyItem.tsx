@@ -24,7 +24,6 @@ type ModifyItemProps = {
 };
 
 export default function ModifyItem({ type }: ModifyItemProps) {
-  const [categoryID, setCategoryID] = useState<number>(0);
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<string>();
   const [info, setInfo] = useState<string>('');
@@ -35,7 +34,8 @@ export default function ModifyItem({ type }: ModifyItemProps) {
     useState(false);
 
   const param = useLocalSearchParams();
-  const id = ParamsToInteger(param.id);
+  const productID = ParamsToInteger(param.id);
+  const categoryID = ParamsToInteger(param.category_id);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -48,9 +48,8 @@ export default function ModifyItem({ type }: ModifyItemProps) {
       const column = ['*'];
       const targetAttrib = 'id';
 
-      selectData(tableName, column, targetAttrib, id).then(
+      selectData(tableName, column, targetAttrib, productID).then(
         (result) => {
-          setCategoryID(result[0].category_id);
           setName(result[0].name);
           setPrice(result[0].price.toString());
           setInfo(result[0].description);
@@ -58,7 +57,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
         },
       );
     }
-  }, [id]);
+  }, [productID]);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -128,7 +127,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
         {
           name: name,
           price: price,
-          category_id: id,
+          category_id: categoryID,
           description: info,
           image: selectedImage,
         },
@@ -147,7 +146,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
       const targetAttrib = ['name', 'price', 'description', 'image'];
       const targetValue = [name, price, info, selectedImage];
       const refAttrib = 'id';
-      const refValue = id;
+      const refValue = productID;
 
       updateData(
         tableName,
@@ -272,28 +271,29 @@ export default function ModifyItem({ type }: ModifyItemProps) {
             <Text className=" mt-3 text-bold text-lg text-gray mb-3">
               Product Photo
             </Text>
-            {selectedImage ? (
-              <Pressable
-                onPress={() => setModalVisible(true)}
-                className="h-24 w-24 bg-zinc-200 rounded-3xl justify-center items-center shadow-lg shadow-neutral-600"
-              >
+            <Pressable
+              onPress={() => setModalVisible(true)}
+              className="h-24 w-24 bg-zinc-200 rounded-3xl justify-center items-center shadow-lg shadow-neutral-600"
+            >
+              {selectedImage ? (
                 <Image
                   className="w-24 h-24 rounded-3xl "
                   source={{ uri: selectedImage }}
                   resizeMode="contain"
                 />
-              </Pressable>
-            ) : (
-              <Pressable
-                className="h-24 w-24 bg-zinc-200 rounded-3xl justify-center items-center shadow-lg shadow-neutral-600"
-                onPress={() => setModalVisible(true)}
-              >
-                <AntDesign name="pluscircle" size={24} color="gray" />
-                <Text className="text-center text-light text-zinc-400 mt-1">
-                  Add photos
-                </Text>
-              </Pressable>
-            )}
+              ) : (
+                <>
+                  <AntDesign
+                    name="pluscircle"
+                    size={24}
+                    color="gray"
+                  />
+                  <Text className="text-center text-light text-zinc-400 mt-1">
+                    Add photos
+                  </Text>
+                </>
+              )}
+            </Pressable>
 
             <CustomModal
               visible={modalVisible}
