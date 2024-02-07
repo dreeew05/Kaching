@@ -20,7 +20,7 @@ export const PopUpModal = (props: PopUpModalProps) => {
           </Link>
         );
       default:
-        showModalContent();
+        return <>{showModalContent()}</>;
         break;
     }
   };
