@@ -9,19 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/ItemScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/ItemScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/editItemScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/editItemScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Modals/CustomModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Modals/CustomModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Modals/PopUpModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Modals/PopUpModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Payment/PaymentComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Payment/PaymentComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Product/CategoryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/CategoryView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Product/DetailedItemScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/DetailedItemScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Product/ItemCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ItemCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Product/ItemScreenFetchData.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ItemScreenFetchData.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Product/ModifyItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ModifyItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redux/GlobalStateRedux/GlobalStateSelectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/redux/GlobalStateRedux/GlobalStateSelectors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redux/GlobalStateRedux/GlobalStateSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/redux/GlobalStateRedux/GlobalStateSlice.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

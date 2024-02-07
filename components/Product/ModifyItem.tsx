@@ -50,9 +50,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
       selectData(tableName, column, targetAttrib, id).then(
         (result) => {
-          // Todo: Bad Logic!
-          // Todo: Do Database Normalization
-          // setCategoryID(result[0].categoryID);
+          setCategoryID(result[0].category_id);
           setName(result[0].name);
           setPrice(result[0].price.toString());
           setInfo(result[0].description);
@@ -169,8 +167,8 @@ export default function ModifyItem({ type }: ModifyItemProps) {
     }
     closeSaveModal();
     setSuccessModalVisible(true);
-    clearData();
     dispatch(setIsCategoryViewProductLoading(true));
+    clearData();
   };
 
   return (
@@ -188,7 +186,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
             href={{
               pathname: '/(tabs)/categoryView',
               params: {
-                id: id,
+                id: categoryID,
               },
             }}
             asChild
@@ -314,7 +312,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               optionOneText="Yes"
               optionTwoText="No"
               optionOnePressed={() => saveProduct()}
-              optionTwoPressed={() => setSaveModalVisible(false)}
+              optionTwoPressed={closeSaveModal}
               optionTwoColor="red"
               closeModal={closeSaveModal}
             />
@@ -326,7 +324,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               text={'Okay'}
               link={'category'}
               id={categoryID}
-              closeModal={() => setSuccessModalVisible(false)}
+              closeModal={closeSuccessModal}
             />
           </View>
         </View>
