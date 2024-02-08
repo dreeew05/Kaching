@@ -220,18 +220,20 @@ export default function PaymentComponent() {
       <PopUpModal
         visible={insufficientPopup}
         message="Insufficent Amount"
-        text="Okay"
+        text="Done"
         link={null}
         id={0}
+        color="red"
         closeModal={() => setInsufficientPopup(false)}
       />
 
       <PopUpModal
         visible={invalidPopup}
         message="Invalid Action"
-        text="Okay"
+        text="Done"
         link={null}
         id={0}
+        color="red"
         closeModal={() => setInvalidPopup(false)}
       />
     </View>

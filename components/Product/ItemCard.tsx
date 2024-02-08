@@ -21,6 +21,7 @@ import {
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCart';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { PopUpModal } from '../Modals/PopUpModal';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -35,6 +36,11 @@ export default function ItemCard(item: itemCardProps) {
   );
 
   const [quantity, setQuantity] = useState(0);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showAddQuantityModal, setShowAddQuantityModal] =
+    useState(false);
+  const [showItemInCartModal, setShowItemInCartModal] =
+    useState(false);
 
   const updateQuantity = (quantity: number) => {
     setQuantity(quantity);
@@ -46,6 +52,9 @@ export default function ItemCard(item: itemCardProps) {
       itemState: itemState,
       product: item.item,
       dispatch: dispatch,
+      showAddModal: setShowAddModal,
+      showAddQuantityModal: setShowAddQuantityModal,
+      showItemInCartModal: setShowItemInCartModal,
     });
   };
 
@@ -171,6 +180,36 @@ export default function ItemCard(item: itemCardProps) {
           </View>
         </View>
       )}
+
+      <PopUpModal
+        visible={showAddModal}
+        message="Item added to cart"
+        text={'Done'}
+        link={null}
+        id={0}
+        color="green"
+        closeModal={() => setShowAddModal(false)}
+      />
+
+      <PopUpModal
+        visible={showAddQuantityModal}
+        message="Please add quantity to cart first."
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setShowAddQuantityModal(false)}
+      />
+
+      <PopUpModal
+        visible={showItemInCartModal}
+        message="Item already in cart."
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setShowItemInCartModal(false)}
+      />
     </View>
   );
 }

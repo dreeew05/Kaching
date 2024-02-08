@@ -40,12 +40,12 @@ export default function ModifyCategory() {
   );
 
   const dispatch = useDispatch();
-  const router = useRouter();
 
-  const db = getDatabase();
-
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [popModalVisible, setPopModalVisible] =
+  const [saveModalVisible, setSaveModalVisible] =
+    useState<boolean>(false);
+  const [updateModalVisible, setUpdateModalVisible] =
+    useState<boolean>(false);
+  const [insertModalVisible, setInsertModalVisible] =
     useState<boolean>(false);
 
   const isLoading = useSelector(selectIsModifyCategoryLoading);
@@ -173,17 +173,6 @@ export default function ModifyCategory() {
     }
   };
 
-  const checkIfValid = () => {
-    if (categoryName == '' || selectedImage == '') {
-      setModalVisible(false);
-      // console.log('Error')
-      setPopModalVisible(true);
-    } else {
-      saveCategory();
-      router.push('//');
-    }
-  };
-
   const areFieldsValid = () => {
     return categoryName == '' || selectedImage == null;
   };
@@ -196,6 +185,8 @@ export default function ModifyCategory() {
         image: selectedImage,
       },
     ];
+
+    setSaveModalVisible(false);
 
     if (param.operation == 'editCategory') {
       const targetAttrib = ['name', 'image'];
@@ -210,26 +201,25 @@ export default function ModifyCategory() {
         refAttrib,
         refValue,
       )
-        .then((result) => {
+        .then((_) => {
           dispatch(setCategoryModifedActions('update'));
-          // Todo: Add success message
+          setUpdateModalVisible(true);
         })
         .catch((error) => {
           // Todo: Add error message
+          console.log(error);
         });
     } else {
       insertData(tableName, data)
-        .then((result) => {
-          console.log('inserted');
+        .then((_) => {
           dispatch(setCategoryModifedActions('insert'));
-          // Todo: Add success message
+          setInsertModalVisible(true);
         })
         .catch((error) => {
           // Todo: Add error message
           console.log(error);
         });
     }
-    setModalVisible(false);
   };
 
   return (
@@ -286,7 +276,7 @@ export default function ModifyCategory() {
           ) : (
             <Pressable
               className="mr-5"
-              onPress={() => setModalVisible(true)}
+              onPress={() => setSaveModalVisible(true)}
             >
               <FontAwesome5 name="file" size={22} color="orange" />
             </Pressable>
@@ -299,23 +289,34 @@ export default function ModifyCategory() {
         {showTextComponent()}
 
         <CustomModal
-          visible={modalVisible}
+          visible={saveModalVisible}
           message="Do you want to save your changes?"
           optionOneText="Yes"
           optionTwoText="No"
-          optionOnePressed={() => checkIfValid()}
-          optionTwoPressed={() => setModalVisible(false)}
+          optionOnePressed={() => saveCategory()}
+          optionTwoPressed={() => setSaveModalVisible(false)}
           optionTwoColor="red"
-          closeModal={() => setModalVisible(false)}
+          closeModal={() => setSaveModalVisible(false)}
         />
 
         <PopUpModal
-          visible={popModalVisible}
-          message="Please fill out all fields"
-          text="Okay"
+          visible={updateModalVisible}
+          message="Item edited successfully."
+          text="Done"
           id={0}
-          link={null}
-          closeModal={() => setPopModalVisible(false)}
+          link={'goBack'}
+          color="green"
+          closeModal={() => setUpdateModalVisible(false)}
+        />
+
+        <PopUpModal
+          visible={insertModalVisible}
+          message="Item inserted successfully."
+          text="Done"
+          id={0}
+          link={'goBack'}
+          color="green"
+          closeModal={() => setInsertModalVisible(false)}
         />
       </View>
     </>

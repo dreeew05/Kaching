@@ -1,5 +1,5 @@
 import { Modal, View, Text, Pressable } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { PopUpModalProps } from '../__utils__/interfaces/PopUpModalProps';
 
 export const PopUpModal = (props: PopUpModalProps) => {
@@ -20,14 +20,31 @@ export const PopUpModal = (props: PopUpModalProps) => {
           </Link>
         );
       default:
-        showModalContent();
-        break;
+        return <>{showModalContent()}</>;
+    }
+  };
+
+  const getColor = () => {
+    switch (props.color) {
+      case 'green':
+        return '#14573a';
+      case 'red':
+        return '#cb0000';
+      default:
+        return '#14573a';
+    }
+  };
+
+  const modalClickedHandler = () => {
+    props.closeModal();
+    if (props.link === 'goBack') {
+      router.push('//');
     }
   };
 
   const showModalContent = () => {
     return (
-      <Pressable onPress={props.closeModal}>
+      <Pressable onPress={modalClickedHandler}>
         <Text
           className="text-center"
           style={{
@@ -63,7 +80,10 @@ export const PopUpModal = (props: PopUpModalProps) => {
         }}
       >
         <View className="flex-1 justify-center items-center">
-          <View className="flex-col rounded-2xl items-center bg-green shadow-sm">
+          <View
+            className="flex-col rounded-2xl items-center shadow-sm"
+            style={{ backgroundColor: getColor() }}
+          >
             <View className="px-7 py-5 bg-white rounded-tl-2xl rounded-tr-2xl">
               <Text
                 style={{

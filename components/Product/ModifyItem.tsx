@@ -255,7 +255,12 @@ export default function ModifyItem({ type }: ModifyItemProps) {
                 Add Item
               </Text>
             ) : (
-              <Text className="text-center text-xl font-bold">
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Bold',
+                  fontSize: 22,
+                }}
+              >
                 Edit Item
               </Text>
             )}
@@ -442,11 +447,12 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
             <PopUpModal
               visible={successModalVisible}
-              // Todo [Optional]: Give proper transaction name
+              // Todo [Optional]: Give proper message
               message="Transaction Successful"
               text={'Done'}
               link={'category'}
               id={categoryID}
+              color="green"
               closeModal={closeSuccessModal}
             />
           </View>

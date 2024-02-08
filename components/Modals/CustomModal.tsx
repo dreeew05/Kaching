@@ -21,46 +21,6 @@ const CustomModal: FC<CustomModalProps> = ({
 }) => {
   const router = useRouter();
 
-  const generateButton = () => {
-    // Todo: Fix UI of the buttons
-    if (optionTwoText != 'null') {
-      return (
-        <View className="flex flex-row">
-          <View className="flex-initial w-32 border-r-[0.25px] border-r-gray-100">
-            <Pressable onPress={optionOnePressed}>
-              <Text className="text-xl text-blue-500 text-center py-4">
-                {optionOneText}
-              </Text>
-            </Pressable>
-          </View>
-          <View className="flex-initial w-32 border-l-[0.75px] border-l-gray-100 py-4">
-            <Pressable onPress={optionTwoPressed}>
-              {optionTwoColor === 'red' ? (
-                <Text className="text-xl text-red-500 text-center w">
-                  {optionTwoText}
-                </Text>
-              ) : (
-                <Text className="text-xl text-blue-500 text-center">
-                  {optionTwoText}
-                </Text>
-              )}
-            </Pressable>
-          </View>
-        </View>
-      );
-    } else {
-      return (
-        <View className="w-40  border-r-gray-100">
-          <Pressable onPress={optionOnePressed}>
-            <Text className="text-xl text-blue-500 text-center py-4">
-              {optionOneText}
-            </Text>
-          </Pressable>
-        </View>
-      );
-    }
-  };
-
   return (
     <Modal
       className="flex-1 justify-center items-center"
@@ -89,8 +49,46 @@ const CustomModal: FC<CustomModalProps> = ({
             >
               {message}
             </Text>
-            <View className="border-t-[1px] border-t-gray-100">
-              {generateButton()}
+            <View
+              style={{
+                borderColor: 'grey',
+                borderTopWidth: 0.75,
+              }}
+            >
+              <View className="flex flex-row">
+                <View
+                  className="flex-initial w-32"
+                  style={{
+                    borderColor: 'grey',
+                    borderRightWidth: 0.25,
+                  }}
+                >
+                  <Pressable onPress={optionOnePressed}>
+                    <Text className="text-xl text-blue-500 text-center py-4">
+                      {optionOneText}
+                    </Text>
+                  </Pressable>
+                </View>
+                <View
+                  className="flex-initial w-32"
+                  style={{
+                    borderColor: 'grey',
+                    borderLeftWidth: 0.25,
+                  }}
+                >
+                  <Pressable onPress={optionTwoPressed}>
+                    {optionTwoColor === 'red' ? (
+                      <Text className="text-xl text-red-500 text-center py-4">
+                        {optionTwoText}
+                      </Text>
+                    ) : (
+                      <Text className="text-xl text-blue-500 text-center py-4">
+                        {optionTwoText}
+                      </Text>
+                    )}
+                  </Pressable>
+                </View>
+              </View>
             </View>
           </View>
         </View>
