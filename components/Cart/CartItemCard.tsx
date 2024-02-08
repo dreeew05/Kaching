@@ -8,20 +8,26 @@ import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 // COMPONENT
 import Stepper from '../Common/Stepper';
 import { useDispatch } from 'react-redux';
-import { removeFromCart, updateItemQuantity } from '../../redux/CartRedux/CartSlice';
+import {
+  removeFromCart,
+  updateItemQuantity,
+} from '../../redux/CartRedux/CartSlice';
 
 export default function CartItemCard(item: CartItemProps) {
   const dispatch = useDispatch();
 
   const removeFromCartEvent = () => {
+    // Todo: Add confirmation alert
     dispatch(removeFromCart(item.id));
   };
 
   const [quantity, setQuantity] = useState<number>(item.quantity);
-  const [subtotalPrice, setSubtotalPrice] = useState<number>(item.price);
+  const [subtotalPrice, setSubtotalPrice] = useState<number>(
+    item.price,
+  );
 
   const updateQuantityEvent = (quantity: number) => {
-    console.log(quantity)
+    console.log(quantity);
     setQuantity(quantity);
     if (quantity == 0) {
       dispatch(removeFromCart(item.id));
@@ -40,18 +46,33 @@ export default function CartItemCard(item: CartItemProps) {
     <View>
       <View className="flex-row py-5 px-5 justify-between">
         <View>
-          <Image source={{uri:item.image}} className="w-36 h-36 rounded-md" />
+          <Image
+            source={{ uri: item.image }}
+            className="w-36 h-36 rounded-md"
+          />
         </View>
         <View className="flex-1 ml-5">
-          <Text className="text-lg text-darkgreen" style={{ fontFamily: 'Poppins-Medium' }}>
+          <Text
+            className="text-lg text-darkgreen"
+            style={{ fontFamily: 'Poppins-Medium' }}
+          >
             {item.name}
           </Text>
-          <Text className="text-md text-gray " style={{ fontFamily: 'Poppins-Regular' }}>
+          <Text
+            className="text-md text-gray "
+            style={{ fontFamily: 'Poppins-Regular' }}
+          >
             {item.category}
           </Text>
-          <Text className="text-md text-black mt-3">P{subtotalPrice.toFixed(2)}</Text>
+          <Text className="text-md text-black mt-3">
+            P{subtotalPrice.toFixed(2)}
+          </Text>
           <View className="mt-6">
-            <Stepper id={item.id} quantity={quantity} updateQuantity={updateQuantityEvent} />
+            <Stepper
+              id={item.id}
+              quantity={quantity}
+              updateQuantity={updateQuantityEvent}
+            />
           </View>
         </View>
 

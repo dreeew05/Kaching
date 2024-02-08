@@ -187,6 +187,7 @@ export default function ItemCard(item: itemCardProps) {
         text={'Done'}
         link={null}
         id={0}
+        color="green"
         closeModal={() => setShowAddModal(false)}
       />
 
@@ -196,6 +197,7 @@ export default function ItemCard(item: itemCardProps) {
         text={'Dismiss'}
         link={null}
         id={0}
+        color="red"
         closeModal={() => setShowAddQuantityModal(false)}
       />
 
@@ -205,6 +207,7 @@ export default function ItemCard(item: itemCardProps) {
         text={'Dismiss'}
         link={null}
         id={0}
+        color="red"
         closeModal={() => setShowItemInCartModal(false)}
       />
     </View>

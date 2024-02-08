@@ -1,6 +1,5 @@
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
-import { Alert } from 'react-native';
 import { AppDispatch } from '../../redux/Store';
 
 interface AddToCartInterface {

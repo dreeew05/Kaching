@@ -223,6 +223,7 @@ export default function PaymentComponent() {
         text="Done"
         link={null}
         id={0}
+        color="red"
         closeModal={() => setInsufficientPopup(false)}
       />
 
@@ -232,6 +233,7 @@ export default function PaymentComponent() {
         text="Done"
         link={null}
         id={0}
+        color="red"
         closeModal={() => setInvalidPopup(false)}
       />
     </View>
