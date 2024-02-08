@@ -1,36 +1,33 @@
 import React, { useState } from 'react';
 import { Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
-
-// INTERFACE
 import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
-
-// COMPONENT
 import Stepper from '../Common/Stepper';
 import { useDispatch } from 'react-redux';
 import {
   removeFromCart,
   updateItemQuantity,
 } from '../../redux/CartRedux/CartSlice';
+import CustomModal from '../Modals/CustomModal';
 
 export default function CartItemCard(item: CartItemProps) {
   const dispatch = useDispatch();
-
-  const removeFromCartEvent = () => {
-    // Todo: Add confirmation alert
-    dispatch(removeFromCart(item.id));
-  };
-
+  const [isRemoveModalVisible, setIsRemoveModalVisible] =
+    useState(false);
   const [quantity, setQuantity] = useState<number>(item.quantity);
   const [subtotalPrice, setSubtotalPrice] = useState<number>(
     item.price,
   );
 
+  const removeFromCartEvent = () => {
+    setIsRemoveModalVisible(false);
+    dispatch(removeFromCart(item.id));
+  };
+
   const updateQuantityEvent = (quantity: number) => {
-    console.log(quantity);
     setQuantity(quantity);
-    if (quantity == 0) {
-      dispatch(removeFromCart(item.id));
+    if (quantity <= 0) {
+      setIsRemoveModalVisible(true);
     } else {
       setSubtotalPrice(() => item.price * quantity);
       dispatch(
@@ -76,9 +73,20 @@ export default function CartItemCard(item: CartItemProps) {
           </View>
         </View>
 
-        <Pressable onPress={removeFromCartEvent}>
+        <Pressable onPress={() => setIsRemoveModalVisible(true)}>
           <FontAwesome5 name="trash" size={20} color="gray" />
         </Pressable>
+
+        <CustomModal
+          visible={isRemoveModalVisible}
+          message="Are you sure you want to remove this item?"
+          optionOneText="Yes"
+          optionTwoText="Cancel"
+          optionOnePressed={() => removeFromCartEvent()}
+          optionTwoPressed={() => setIsRemoveModalVisible(false)}
+          optionTwoColor="red"
+          closeModal={() => setIsRemoveModalVisible(false)}
+        />
       </View>
     </View>
   );

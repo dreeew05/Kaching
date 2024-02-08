@@ -17,6 +17,8 @@ import {
   setCategoryModifedActions,
   setIsModifyCategoryLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { PopUpModal } from '../Modals/PopUpModal';
+import CustomModal from '../Modals/CustomModal';
 
 export default function CategoryCardEditable({
   id,
@@ -24,27 +26,18 @@ export default function CategoryCardEditable({
   image,
 }: CategoryProps) {
   const dispatch = useDispatch();
-
-  const deleteAlert = (id: number) => {
-    Alert.alert('Delete Category?', '', [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel'),
-        style: 'cancel',
-      },
-      {
-        text: 'Yes',
-        onPress: () => deleteCategory(id),
-      },
-    ]);
-  };
+  const [isDeleteModalVisible, setIsDeleteModalVisible] =
+    useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [deleteModalErrorVisible, setDeleteModalErrorVisible] =
+    useState(false);
 
   const deleteCategory = (id: number) => {
     const tableName: string = 'category';
     const refAttribute: string = 'id';
 
     deleteData(tableName, refAttribute, id)
-      .then((result) => {
+      .then((_) => {
         dispatch(setCategoryModifedActions('delete'));
         // Todo: Add success message
       })
@@ -53,8 +46,6 @@ export default function CategoryCardEditable({
         console.log('Deletion Failed', error);
       });
   };
-
-  const productID = useRef<number>(0);
 
   const setLoadingScreen = () => {
     dispatch(setIsModifyCategoryLoading(true));
@@ -94,13 +85,44 @@ export default function CategoryCardEditable({
       <Pressable
         className="h-8 p-1.5 absolute top-2 right-2
                 bg-red-500 rounded-md"
-        onPress={() => deleteAlert(id)}
+        onPress={() => setIsDeleteModalVisible(true)}
       >
         <FontAwesomeIcon
           icon={faTrash}
           style={{ color: '#ffffff' }}
         />
       </Pressable>
+
+      <CustomModal
+        visible={isDeleteModalVisible}
+        message="Are you sure you want to delete this category?"
+        optionOneText="Yes"
+        optionTwoText="Cancel"
+        optionOnePressed={() => deleteCategory(id)}
+        optionTwoPressed={() => setIsDeleteModalVisible(false)}
+        optionTwoColor="red"
+        closeModal={() => setIsDeleteModalVisible(false)}
+      />
+
+      <PopUpModal
+        visible={deleteModalVisible}
+        message="Category deleted successfully"
+        text={'Done'}
+        link={'goBack'}
+        id={0}
+        color="green"
+        closeModal={() => setDeleteModalVisible(false)}
+      />
+
+      <PopUpModal
+        visible={deleteModalErrorVisible}
+        message="Category deletion failed"
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setDeleteModalErrorVisible(false)}
+      />
     </View>
   );
 }

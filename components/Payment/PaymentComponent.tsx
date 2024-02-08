@@ -107,11 +107,12 @@ export default function PaymentComponent() {
 
     getDatabase().transaction((tx) => {
       tx.executeSql(
-        `
-            INSERT INTO eod_receipts (eod_id, receipt_id)
-            VALUES (
-              (SELECT eod_id FROM eods WHERE iscurrent = 1),
-              (SELECT receipt_id FROM receipts ORDER BY receipt_id DESC LIMIT 1))`,
+        `INSERT INTO eod_receipts (eod_id, receipt_id)
+          VALUES ((SELECT eod_id FROM eods WHERE iscurrent = 1),
+            (SELECT receipt_id FROM receipts ORDER BY receipt_id 
+              DESC LIMIT 1
+            )
+          )`,
         [],
         (tx, results) => {
           console.log(results.rowsAffected);
@@ -210,7 +211,7 @@ export default function PaymentComponent() {
         visible={modalVisible}
         message="Confirm Payment?"
         optionOneText="Yes"
-        optionTwoText="No"
+        optionTwoText="Cancel"
         optionOnePressed={() => verifyPayment()}
         optionTwoPressed={() => setModalVisible(false)}
         optionTwoColor="red"

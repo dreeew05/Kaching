@@ -18,7 +18,6 @@ import {
 import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setIsCategoryViewProductLoading,
   setIsModifyProductLoading,
   setProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
@@ -37,16 +36,15 @@ export default function ModifyItem({ type }: ModifyItemProps) {
   const [price, setPrice] = useState<string>();
   const [info, setInfo] = useState<string>('');
   const [selectedImage, setSelectedImage] = useState<string>('');
-  const [modalVisible, setModalVisible] = useState(false);
+  const [imageModalVisible, setImageModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
-  const [successModalVisible, setSuccessModalVisible] =
-    useState(false);
+  const [insertModalVisible, setInsertModalVisible] = useState(false);
+  const [updateModalVisible, setUpdateModalVisible] = useState(false);
 
   const param = useLocalSearchParams();
   const productID = ParamsToInteger(param.id);
   const categoryID = ParamsToInteger(param.category_id);
 
-  const router = useRouter();
   const dispatch = useDispatch();
 
   const isLoading = useSelector(selectIsModifyProductLoading);
@@ -73,25 +71,13 @@ export default function ModifyItem({ type }: ModifyItemProps) {
     }
   }, [param]);
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
-  const closeSaveModal = () => {
-    setSaveModalVisible(false);
-  };
-
-  const closeSuccessModal = () => {
-    setSuccessModalVisible(false);
-  };
-
   const openCamera = () => {
     openImagePicker('camera');
-    closeModal();
+    setImageModalVisible(false);
   };
   const openGallery = () => {
     openImagePicker('gallery');
-    closeModal();
+    setImageModalVisible(false);
   };
 
   const isAnyInputEmpty = () => {
@@ -135,6 +121,8 @@ export default function ModifyItem({ type }: ModifyItemProps) {
   };
 
   const saveProduct = () => {
+    setSaveModalVisible(false);
+
     if (type == 'add') {
       const tableName = 'item';
       const product = [
@@ -148,9 +136,9 @@ export default function ModifyItem({ type }: ModifyItemProps) {
       ];
 
       insertData(tableName, product)
-        .then((result) => {
-          // Todo: Add success message
+        .then((_) => {
           dispatch(setProductModifiedActions('insert'));
+          setInsertModalVisible(true);
         })
         .catch((error) => {
           console.log(error);
@@ -169,18 +157,14 @@ export default function ModifyItem({ type }: ModifyItemProps) {
         refAttrib,
         refValue,
       )
-        .then((result) => {
+        .then((_) => {
           dispatch(setProductModifiedActions('update'));
-          dispatch(setIsCategoryViewProductLoading(true));
-          // Todo: Add success message
+          setUpdateModalVisible(true);
         })
         .catch((error) => {
           // Todo: Add error message
         });
     }
-    closeSaveModal();
-    setSuccessModalVisible(true);
-    dispatch(setIsCategoryViewProductLoading(true));
     clearData();
   };
 
@@ -397,7 +381,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               <>
                 <Text style={styles.textTitle}>Product Photo</Text>
                 <Pressable
-                  onPress={() => setModalVisible(true)}
+                  onPress={() => setImageModalVisible(true)}
                   style={styles.image}
                   className="bg-zinc-200 justify-center items-center shadow-lg shadow-neutral-600"
                 >
@@ -424,36 +408,45 @@ export default function ModifyItem({ type }: ModifyItemProps) {
             )}
 
             <CustomModal
-              visible={modalVisible}
+              visible={imageModalVisible}
               message="Choose an option"
               optionOneText="Gallery"
               optionTwoText="Camera"
               optionOnePressed={openGallery}
               optionTwoPressed={openCamera}
               optionTwoColor="blue"
-              closeModal={closeModal}
+              closeModal={() => setImageModalVisible(false)}
             />
 
             <CustomModal
               visible={saveModalVisible}
-              message="Save item?"
+              message="Do you want to save the item?"
               optionOneText="Yes"
-              optionTwoText="No"
+              optionTwoText="Cancel"
               optionOnePressed={() => saveProduct()}
-              optionTwoPressed={closeSaveModal}
+              optionTwoPressed={() => setSaveModalVisible(false)}
               optionTwoColor="red"
-              closeModal={closeSaveModal}
+              closeModal={() => setSaveModalVisible(false)}
             />
 
             <PopUpModal
-              visible={successModalVisible}
-              // Todo [Optional]: Give proper message
-              message="Transaction Successful"
+              visible={insertModalVisible}
+              message="Item added successfully"
               text={'Done'}
               link={'category'}
               id={categoryID}
               color="green"
-              closeModal={closeSuccessModal}
+              closeModal={() => setInsertModalVisible(false)}
+            />
+
+            <PopUpModal
+              visible={updateModalVisible}
+              message="Item edited successfully"
+              text={'Done'}
+              link={'category'}
+              id={categoryID}
+              color="green"
+              closeModal={() => setUpdateModalVisible(false)}
             />
           </View>
         </View>
