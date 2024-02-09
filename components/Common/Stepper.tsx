@@ -5,15 +5,16 @@ import { TextInput } from 'react-native-gesture-handler';
 interface StepperProps {
   id: number;
   quantity: number;
+  caseType: string;
   updateQuantity: (newQuantity: number) => void;
-  resetQuantity: () => void;
 }
 
 export default function Stepper(parentMixIn: StepperProps) {
   const [value, setValue] = useState(parentMixIn.quantity);
 
   useEffect(() => {
-    if (value == 0) {
+    // If the item is added on cart, quantity should not be 0
+    if (parentMixIn.caseType === 'cart' && value == 0) {
       setValue(1);
     }
   }, [value]);

@@ -19,9 +19,9 @@ import {
   setProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
-import { addToCartEvent } from './AddToCart';
+import { addToCartEvent } from './AddToCartEvent';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { PopUpModal } from '../Modals/PopUpModal';
+import { AddToCartModals } from './AddToCartModals';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -133,6 +133,7 @@ export default function ItemCard(item: itemCardProps) {
             <Stepper
               id={item.item.id}
               quantity={quantity}
+              caseType="product"
               updateQuantity={updateQuantity}
             />
           </View>
@@ -181,34 +182,13 @@ export default function ItemCard(item: itemCardProps) {
         </View>
       )}
 
-      <PopUpModal
-        visible={showAddModal}
-        message="Item added to cart"
-        text={'Done'}
-        link={null}
-        id={0}
-        color="green"
-        closeModal={() => setShowAddModal(false)}
-      />
-
-      <PopUpModal
-        visible={showAddQuantityModal}
-        message="Please add quantity to cart first."
-        text={'Dismiss'}
-        link={null}
-        id={0}
-        color="red"
-        closeModal={() => setShowAddQuantityModal(false)}
-      />
-
-      <PopUpModal
-        visible={showItemInCartModal}
-        message="Item already in cart."
-        text={'Dismiss'}
-        link={null}
-        id={0}
-        color="red"
-        closeModal={() => setShowItemInCartModal(false)}
+      <AddToCartModals
+        isAddModal={showAddModal}
+        isAddQuantityModal={showAddQuantityModal}
+        isItemInCartModal={showItemInCartModal}
+        showAddModal={setShowAddModal}
+        showAddQuantityModal={setShowAddQuantityModal}
+        showItemInCartModal={setShowItemInCartModal}
       />
     </View>
   );

@@ -1,19 +1,7 @@
-import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { addToCart } from '../../redux/CartRedux/CartSlice';
-import { AppDispatch } from '../../redux/Store';
-
-interface AddToCartInterface {
-  quantity: number;
-  itemState: BaseItemProps | undefined;
-  product: BaseItemProps;
-  dispatch: AppDispatch;
-  showAddModal: (isClose: boolean) => void;
-  showAddQuantityModal: (isClose: boolean) => void;
-  showItemInCartModal: (isClose: boolean) => void;
-}
+import { AddToCartInterface } from '../__utils__/interfaces/AddToCartInterface';
 
 export const addToCartEvent = (item: AddToCartInterface) => {
-  // TODO: Create custom alert component
   if (item.itemState == undefined) {
     if (item.quantity > 0) {
       item.dispatch(

@@ -8,7 +8,8 @@ import { RootState } from '../../redux/Store';
 import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { addToCartEvent } from './AddToCart';
+import { addToCartEvent } from './AddToCartEvent';
+import { AddToCartModals } from './AddToCartModals';
 
 export default function DetailedItemScreen(item: DetailedItemProps) {
   const dispatch = useDispatch();
@@ -25,6 +26,11 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
   };
 
   const [quantity, setQuantity] = useState(getStartingQuantity);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showAddQuantityModal, setShowAddQuantityModal] =
+    useState(false);
+  const [showItemInCartModal, setShowItemInCartModal] =
+    useState(false);
 
   const updateQuantity = (quantity: number) => {
     setQuantity(quantity);
@@ -36,6 +42,9 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
       itemState: itemState,
       product: item,
       dispatch: dispatch,
+      showAddModal: setShowAddModal,
+      showAddQuantityModal: setShowAddQuantityModal,
+      showItemInCartModal: setShowItemInCartModal,
     });
   };
 
@@ -82,6 +91,7 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
           <Stepper
             id={item.id}
             quantity={quantity}
+            caseType="product"
             updateQuantity={updateQuantity}
           />
         </View>
@@ -102,6 +112,15 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
           </Pressable>
         </View>
       </View>
+
+      <AddToCartModals
+        isAddModal={showAddModal}
+        isAddQuantityModal={showAddQuantityModal}
+        isItemInCartModal={showItemInCartModal}
+        showAddModal={setShowAddModal}
+        showAddQuantityModal={setShowAddQuantityModal}
+        showItemInCartModal={setShowItemInCartModal}
+      />
     </View>
   );
 }
