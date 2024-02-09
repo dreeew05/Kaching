@@ -21,7 +21,6 @@ import {
   setCategoryModifedActions,
   setIsModifyCategoryLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
-import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
 import { Skeleton } from '@rneui/themed';
@@ -38,6 +37,8 @@ export default function ModifyCategory() {
   const [selectedImage, setSelectedImage] = useState<string | null>(
     null,
   );
+  const [mediaModalVisible, setMediaModalVisible] =
+    useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -103,7 +104,7 @@ export default function ModifyCategory() {
 
   const loadedImageComponent = () => {
     return (
-      <TouchableOpacity onPress={pickImage}>
+      <TouchableOpacity onPress={() => setMediaModalVisible(true)}>
         <Image
           style={styles.image}
           source={
@@ -156,21 +157,41 @@ export default function ModifyCategory() {
     );
   };
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const pickedImage: ImageSourcePropType = {
-        uri: result.assets[0].uri,
-      };
-      // Update selectedImage when an image is picked
-      setSelectedImage(pickedImage.uri || '');
+  const openImagePicker = async (mode: string) => {
+    // No permissions request is necessary for launching the image library
+    // Todo: Put to another component [Duplicate]
+    let result: ImagePicker.ImagePickerResult;
+    if (mode == 'camera') {
+      result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.canceled) {
+        setSelectedImage(result.assets[0].uri);
+      }
     }
+    if (mode == 'gallery') {
+      result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.canceled) {
+        setSelectedImage(result.assets[0].uri);
+      }
+    }
+  };
+
+  const openCamera = () => {
+    openImagePicker('camera');
+    setMediaModalVisible(false);
+  };
+  const openGallery = () => {
+    openImagePicker('gallery');
+    setMediaModalVisible(false);
   };
 
   const areFieldsValid = () => {
@@ -220,6 +241,13 @@ export default function ModifyCategory() {
           console.log(error);
         });
     }
+
+    clearFields();
+  };
+
+  const clearFields = () => {
+    setSelectedImage(null);
+    setCategoryName('');
   };
 
   return (
@@ -240,7 +268,7 @@ export default function ModifyCategory() {
             }}
             asChild
           >
-            <Pressable className="ml-3">
+            <Pressable className="ml-3" onPress={clearFields}>
               <Ionicons name="chevron-back" size={30} color="green" />
             </Pressable>
           </Link>
@@ -284,6 +312,7 @@ export default function ModifyCategory() {
         </View>
       </View>
       {/* Header [END] */}
+
       <View className="flex-1 justify-center items-center">
         {showImageComponent()}
         {showTextComponent()}
@@ -317,6 +346,17 @@ export default function ModifyCategory() {
           link={'goBack'}
           color="green"
           closeModal={() => setInsertModalVisible(false)}
+        />
+
+        <CustomModal
+          visible={mediaModalVisible}
+          message="Select an option"
+          optionOneText="Camera"
+          optionTwoText="Gallery"
+          optionOnePressed={openCamera}
+          optionTwoPressed={openGallery}
+          closeModal={() => setMediaModalVisible(false)}
+          optionTwoColor={''}
         />
       </View>
     </>

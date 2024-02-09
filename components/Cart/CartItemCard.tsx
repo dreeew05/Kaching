@@ -68,6 +68,7 @@ export default function CartItemCard(item: CartItemProps) {
             <Stepper
               id={item.id}
               quantity={quantity}
+              caseType="cart"
               updateQuantity={updateQuantityEvent}
             />
           </View>

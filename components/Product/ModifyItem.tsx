@@ -88,6 +88,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
   const openImagePicker = async (mode: string) => {
     // No permissions request is necessary for launching the image library
+    // Todo: Put to another component [Duplicate]
     let result: ImagePicker.ImagePickerResult;
     if (mode == 'camera') {
       result = await ImagePicker.launchCameraAsync({
@@ -141,6 +142,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
           setInsertModalVisible(true);
         })
         .catch((error) => {
+          // Todo: Add error message
           console.log(error);
         });
     } else {
@@ -163,6 +165,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
         })
         .catch((error) => {
           // Todo: Add error message
+          console.log(error);
         });
     }
     clearData();
@@ -410,10 +413,10 @@ export default function ModifyItem({ type }: ModifyItemProps) {
             <CustomModal
               visible={imageModalVisible}
               message="Choose an option"
-              optionOneText="Gallery"
-              optionTwoText="Camera"
-              optionOnePressed={openGallery}
-              optionTwoPressed={openCamera}
+              optionOneText="Camera"
+              optionTwoText="Gallery"
+              optionOnePressed={openCamera}
+              optionTwoPressed={openGallery}
               optionTwoColor="blue"
               closeModal={() => setImageModalVisible(false)}
             />
@@ -433,7 +436,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               visible={insertModalVisible}
               message="Item added successfully"
               text={'Done'}
-              link={'category'}
+              link={'allProducts'}
               id={categoryID}
               color="green"
               closeModal={() => setInsertModalVisible(false)}
@@ -443,7 +446,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               visible={updateModalVisible}
               message="Item edited successfully"
               text={'Done'}
-              link={'category'}
+              link={'allProducts'}
               id={categoryID}
               color="green"
               closeModal={() => setUpdateModalVisible(false)}
