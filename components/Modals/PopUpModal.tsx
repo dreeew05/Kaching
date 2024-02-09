@@ -1,8 +1,11 @@
 import { Modal, View, Text, Pressable } from 'react-native';
 import { Link, router } from 'expo-router';
 import { PopUpModalProps } from '../__utils__/interfaces/PopUpModalProps';
+import { setProductModifiedActions } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { useDispatch } from 'react-redux';
 
 export const PopUpModal = (props: PopUpModalProps) => {
+  const dispatch = useDispatch();
   const getLink = () => {
     switch (props.link) {
       case 'category':
@@ -39,6 +42,8 @@ export const PopUpModal = (props: PopUpModalProps) => {
     props.closeModal();
     if (props.link === 'goBack') {
       router.push('//');
+    } else if (props.link === 'dispatch') {
+      dispatch(setProductModifiedActions('delete'));
     }
   };
 

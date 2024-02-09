@@ -22,6 +22,8 @@ import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCartEvent';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AddToCartModals } from './AddToCartModals';
+import CustomModal from '../Modals/CustomModal';
+import { PopUpModal } from '../Modals/PopUpModal';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -41,6 +43,9 @@ export default function ItemCard(item: itemCardProps) {
     useState(false);
   const [showItemInCartModal, setShowItemInCartModal] =
     useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] =
+    useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const updateQuantity = (quantity: number) => {
     setQuantity(quantity);
@@ -62,10 +67,11 @@ export default function ItemCard(item: itemCardProps) {
     const tableName: string = 'item';
     const refAttribute: string = 'id';
 
-    // Todo: Add delete confirmation
-    deleteData(tableName, refAttribute, id).then((result) => {
-      // Todo: Add success message
-      dispatch(setProductModifiedActions('delete'));
+    setIsDeleteModalVisible(false);
+
+    deleteData(tableName, refAttribute, id).then((_) => {
+      // dispatch(setProductModifiedActions('delete'));
+      setDeleteModalVisible(true);
     });
     dispatch(setIsEditButton(true));
   };
@@ -120,7 +126,7 @@ export default function ItemCard(item: itemCardProps) {
         {/* DELETE BUTTON */}
         {!item.isEditComponent ? (
           <View className="absolute top-1 right-2">
-            <Pressable onPress={() => deleteProduct(item.item.id)}>
+            <Pressable onPress={() => setIsDeleteModalVisible(true)}>
               <FontAwesome5 name="trash" size={24} color="grey" />
             </Pressable>
           </View>
@@ -181,6 +187,27 @@ export default function ItemCard(item: itemCardProps) {
           </View>
         </View>
       )}
+
+      <CustomModal
+        visible={isDeleteModalVisible}
+        message="Are you sure you want to delete this product?"
+        optionOneText="Yes"
+        optionTwoText="Cancel"
+        optionOnePressed={() => deleteProduct(item.item.id)}
+        optionTwoPressed={() => setIsDeleteModalVisible(false)}
+        optionTwoColor="red"
+        closeModal={() => setIsDeleteModalVisible(false)}
+      />
+
+      <PopUpModal
+        visible={deleteModalVisible}
+        message="Product deleted successfully"
+        text={'Done'}
+        link={'dispatch'}
+        id={0}
+        color="green"
+        closeModal={() => setDeleteModalVisible(false)}
+      />
 
       <AddToCartModals
         isAddModal={showAddModal}
