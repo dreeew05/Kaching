@@ -16,7 +16,6 @@ import {
   setIsDetailedViewLoading,
   setIsEditButton,
   setIsModifyProductLoading,
-  setProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCartEvent';
@@ -70,7 +69,6 @@ export default function ItemCard(item: itemCardProps) {
     setIsDeleteModalVisible(false);
 
     deleteData(tableName, refAttribute, id).then((_) => {
-      // dispatch(setProductModifiedActions('delete'));
       setDeleteModalVisible(true);
     });
     dispatch(setIsEditButton(true));

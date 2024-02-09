@@ -7,7 +7,7 @@ import { selectAllCategories } from '../DatabaseUtils/FetchInstructions/SelectAl
 export default function CategoryGenerator() {
   const router = useRouter();
 
-  const categoryData = selectAllCategories()
+  const categoryData = selectAllCategories();
 
   const editCategories = () => {
     router.push('/(tabs)/modifyCategoryView');
@@ -16,20 +16,26 @@ export default function CategoryGenerator() {
   return (
     <View>
       <View className="flex flex-row items-end">
-        <Text 
+        <Text
           className="text-3xl font-base ml-5 text-darkgreen"
           style={{
-            fontFamily: 'Poppins-Medium'
+            fontFamily: 'Poppins-Medium',
           }}
         >
           Categories
         </Text>
-        <Pressable className="self-center ml-3" onPress={editCategories}>
+        <Pressable
+          className="self-center ml-3"
+          onPress={editCategories}
+        >
           <FontAwesome5 name="edit" size={25} color="darkgreen" />
         </Pressable>
       </View>
 
-      <CategoryList cardType={'clickable'} categories={categoryData} />
+      <CategoryList
+        cardType={'clickable'}
+        categories={categoryData}
+      />
     </View>
   );
 }

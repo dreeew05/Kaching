@@ -141,6 +141,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
           setInsertModalVisible(true);
         })
         .catch((error) => {
+          // Todo: Add error message
           console.log(error);
         });
     } else {
@@ -163,6 +164,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
         })
         .catch((error) => {
           // Todo: Add error message
+          console.log(error);
         });
     }
     clearData();
@@ -433,7 +435,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               visible={insertModalVisible}
               message="Item added successfully"
               text={'Done'}
-              link={'category'}
+              link={'allProducts'}
               id={categoryID}
               color="green"
               closeModal={() => setInsertModalVisible(false)}
@@ -443,7 +445,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               visible={updateModalVisible}
               message="Item edited successfully"
               text={'Done'}
-              link={'category'}
+              link={'allProducts'}
               id={categoryID}
               color="green"
               closeModal={() => setUpdateModalVisible(false)}

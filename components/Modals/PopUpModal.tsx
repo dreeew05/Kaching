@@ -8,7 +8,7 @@ export const PopUpModal = (props: PopUpModalProps) => {
   const dispatch = useDispatch();
   const getLink = () => {
     switch (props.link) {
-      case 'category':
+      case 'allProducts':
         return (
           <Link
             href={{
