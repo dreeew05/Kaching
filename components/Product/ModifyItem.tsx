@@ -88,6 +88,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
   const openImagePicker = async (mode: string) => {
     // No permissions request is necessary for launching the image library
+    // Todo: Put to another component [Duplicate]
     let result: ImagePicker.ImagePickerResult;
     if (mode == 'camera') {
       result = await ImagePicker.launchCameraAsync({
@@ -412,10 +413,10 @@ export default function ModifyItem({ type }: ModifyItemProps) {
             <CustomModal
               visible={imageModalVisible}
               message="Choose an option"
-              optionOneText="Gallery"
-              optionTwoText="Camera"
-              optionOnePressed={openGallery}
-              optionTwoPressed={openCamera}
+              optionOneText="Camera"
+              optionTwoText="Gallery"
+              optionOnePressed={openCamera}
+              optionTwoPressed={openGallery}
               optionTwoColor="blue"
               closeModal={() => setImageModalVisible(false)}
             />
