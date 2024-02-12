@@ -201,7 +201,7 @@ export default function ItemCard(item: itemCardProps) {
         visible={deleteModalVisible}
         message="Product deleted successfully"
         text={'Done'}
-        link={'dispatch'}
+        link={'dispatchProduct'}
         id={0}
         color="green"
         closeModal={() => setDeleteModalVisible(false)}
