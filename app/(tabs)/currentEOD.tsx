@@ -1,99 +1,146 @@
 import { Alert, StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
-import FinancialSummary from '../../components/FinancialSummaryTable';
-import ShareCSV from '../../components/ShareCSV';
-import CategoryTable from '../../components/CategoryTable';
+import FinancialSummary from '../../components/Report/FinancialSummaryTable';
+import ShareCSV from '../../components/Report/ShareCSV';
+import CategoryTable from '../../components/Report/CategoryTable';
 import { ScrollView } from 'react-native-gesture-handler';
+import { insertData, selectData } from '../../components/DatabaseUtils/CoreFunctions';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
+import { useEffect, useState } from 'react';
+import { SQLResultSet } from 'expo-sqlite';
+
+interface TableData {
+  header: string[];
+  tableData: string[][];
+}
+
 
 
 export default function currentEOD() {
+
+  const [currentEOD, setCurrentEOD] = useState<SQLResultSet|null>(null);
+  const [storeInfo, setStoreInfo] = useState<SQLResultSet|null>(null);
+  const [storeInfo2, setStoreInfo2] = useState<SQLResultSet|null>(null);
+
+
   // TEST DATA
-  const table1 = 
-    {
-      header : ['Appetizer'],
-      tableData : [['Mozarella Sticks', 'x25', 'P565.50'],
-                  ['Bruschetta', 'x15', 'P25,000.00'],
-                  ['Deviled Eggs', 'x100', 'P100.00']]
-    }
+  const db = getDatabase();
+  const fetchCurrentEODData = () => {
+  db.transaction(tx => {
+    tx.executeSql(`SELECT category.name AS category_name, item.name AS item_name,
+    SUM(receipt_items.quantity) AS total_quantity,
+    SUM(receipt_items.quantity * receipt_items.price) AS total_sales
+  FROM receipt_items
+  JOIN item ON receipt_items.item_id = item.id
+  JOIN category ON item.category_id = category.id
+  GROUP BY category_name, item_name
+  ORDER BY category_name, item_name;
+  `,
+      [],
+      (tx, results) => {
+        setCurrentEOD(results);
+      },
+    )
+  })
+}
+  const fetchStoreInfo = () => {
+    db.transaction(tx => {
+      tx.executeSql(`
+      SELECT * FROM eods e WHERE e.iscurrent = 1`,
+        [],
+        (tx, results) => {
+          setStoreInfo(results);
+        },
+      )
+    })
+  }
 
-  const table2 = 
-    {
-      header : ['Beverages'],
-      tableData : [['Beer', 'x25', 'P565.50'],
-                  ['Coke', 'x15', 'P25,000.00'],
-                  ['Pepsi', 'x100', 'P100.00']]
-    }
+  const fetchStoreInfo2 = () => {
+    db.transaction(tx => {
+      tx.executeSql(`SELECT * FROM store`,
+        [],
+        (tx, results) => {
+          setStoreInfo2(results);
+        },
+      )
+    })
+  }
 
-  const table3 = 
-    {
-      header : ['Desserts'],
-      tableData : [['Mango Graham', 'x25', 'P565.50'],
-                  ['Brownies', 'x15', 'P25,000.00'],
-                  ['Muffins', 'x100', 'P100.00']]
-    }
+  useEffect(() => { 
+    fetchCurrentEODData();
+    fetchStoreInfo();
+    fetchStoreInfo2();
+  }, [currentEOD]);
 
-  const table4 = 
-    {
-      header : ['Desserts'],
-      tableData : [['Mango Graham', 'x25', 'P565.50'],
-                  ['Brownies', 'x15', 'P25,000.00'],
-                  ['Muffins', 'x100', 'P100.00']]
+  // enumerate all categories in the currentEOD
+  let categories: string[] = [];
+  currentEOD?.rows._array.forEach((item) => {
+    if (!categories.includes(item.category_name)) {
+      categories.push(item.category_name);
     }
-  // END TEST DATA
-  
+  });
+
+
+  //assign each category as a header, and assign the items under each category as tableData
+  let tables: TableData[] = [];
+  categories.forEach((category) => {
+    let tableData: any[] = [];
+    currentEOD?.rows._array.forEach((item) => {
+      if (item.category_name === category) {
+        //include total sales in the tableData
+        tableData.push([item.item_name, 'x' + item.total_quantity, '₱' + item.total_sales]);
+      }
+    });
+    tables.push({
+      header: [category],
+      tableData: tableData,
+    });
+  });
+
+  //current date
+  const date = new Date();
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
       <View style={styles.container}>
-        <Text className='font-bold text-xl text-green'>
-            Store Name
-        </Text>
-        <Text className='text-m'>
-            Miagao, Iloilo
-        </Text>
-        <Text className='text-m'>
-            Palmsdale Kevin Cordero
-        </Text>
-        <Text className='text-m'>
-            09133287645
-        </Text>
+        <Text className="font-bold text-xl text-green">{storeInfo2?.rows._array[0].storename}</Text>
+        <Text className="text-m">Miagao, Iloilo</Text>
+        {/* <Text className="text-m">{storeInfo?.rows._array[0].cashiername}</Text> */}
+        <Text className="text-m">09133287645</Text>
 
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
-        <Text className='text-l'>
-            END OF DAY REPORT
-        </Text>
-        <Text className='text-l'>
-            01/09/2023 5:45 AM
-        </Text>
+        <Text className="text-l">CURRENT DAY REPORT</Text>
+        <Text className="text-l">{
+          date.toISOString().slice(0, 10)+" "
+          //add leading zero to hours, minutes, and seconds if less than 10
+          +("0"+date.getHours()).slice(-2)+":"+("0"+date.getMinutes()).slice(-2)+":"
+          +("0"+date.getSeconds()).slice(-2)
+          }</Text>
 
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
         {/* START FINANCIAL SUMMARY */}
         <View>
-          <Text className='font-bold text-l content-center'>
-              Financial Summary
-          </Text>
-          <FinancialSummary/>
+          <Text className="font-bold text-l content-center">Financial Summary</Text>
+          <FinancialSummary />
         </View>
         {/* END FINANCIAL SUMMARY */}
 
         {/* START ORDER SUMMARY */}
         <View>
-          <Text className='font-bold text-l content-center mt-2'>
-              Order Summary
-          </Text>
-          <CategoryTable table={table1}/>
-          <CategoryTable table={table2}/>
-          <CategoryTable table={table3}/>
-          <CategoryTable table={table4}/>
+          <Text className="font-bold text-l content-center mt-2">Order Summary</Text>
+            {tables.map
+              ((table) => { return (
+                  <CategoryTable table={table} />
+                );})
+              }
         </View>
         {/* END ORDER SUMMARY */}
 
-        <View className='mt-5 mb-5'>
-          <ShareCSV data={table3}/>
+        <View className="mt-5 mb-5">
+          <ShareCSV data={tables} />
         </View>
-
       </View>
     </ScrollView>
   );

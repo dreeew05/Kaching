@@ -1,67 +1,128 @@
-import React from "react";
-import { Pressable, View, Text, Alert, TouchableOpacity } from "react-native";
+import React, { useRef, useState } from 'react';
+import {
+  Pressable,
+  View,
+  Text,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Link } from "expo-router";
+import { Link } from 'expo-router';
+import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
+import CategoryCard from './CategoryCard';
+import { deleteData } from '../DatabaseUtils/CoreFunctions';
+import { useDispatch } from 'react-redux';
+import {
+  setCategoryModifedActions,
+  setIsModifyCategoryLoading,
+} from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { PopUpModal } from '../Modals/PopUpModal';
+import CustomModal from '../Modals/CustomModal';
 
-// INTERFACE
-import { CategoryProps } from "../__utils__/interfaces/CategoryProps";
+export default function CategoryCardEditable({
+  id,
+  name,
+  image,
+}: CategoryProps) {
+  const dispatch = useDispatch();
+  const [isDeleteModalVisible, setIsDeleteModalVisible] =
+    useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [deleteModalErrorVisible, setDeleteModalErrorVisible] =
+    useState(false);
 
-// COMPONENT
-import CategoryCard from "./CategoryCard";
+  const deleteCategory = (id: number) => {
+    const tableName: string = 'category';
+    const refAttribute: string = 'id';
 
-export default function CategoryCardEditable(
-    { id, name, image } : CategoryProps ) {
+    deleteData(tableName, refAttribute, id)
+      .then((_) => {
+        dispatch(setCategoryModifedActions('delete'));
+        // Todo: Add success message
+      })
+      .catch((error) => {
+        // Todo: Add error message
+        console.log('Deletion Failed', error);
+      });
+  };
 
-    const deleteAlert = (id : number) => {
-        Alert.alert('Delete Category?', '', [
-            {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel'),
-                style: 'cancel'
-            }, 
-            {
-                text: 'Yes',
-                onPress: () => console.log('Deleted Category with id: ' + id)
-            }
-        ]);
-    }
-    
-    return(
-        <View className="bg-white dark:bg-black 
-            shadow-md rounded-md m-2 p-2">
-        
-            <CategoryCard
-                id    = {id}
-                name  = {name}
-                image = {image}
-            />
+  const setLoadingScreen = () => {
+    dispatch(setIsModifyCategoryLoading(true));
+  };
 
-            <Link href={{
-                pathname : "/(tabs)/modifyCategory",
-                params : {
-                    operation : 'editCategory',
-                    id : id
-                }
-            }} asChild>
-                <TouchableOpacity className="h-7 rounded-md bg-green 
+  return (
+    <View
+      className="bg-white dark:bg-black 
+            shadow-md rounded-md m-2 p-2"
+    >
+      <CategoryCard id={id} name={name} image={image} />
+
+      <Link
+        href={{
+          pathname: '/(tabs)/modifyCategoryWrapper',
+          params: {
+            operation: 'editCategory',
+            id: id,
+          },
+        }}
+        asChild
+      >
+        <TouchableOpacity
+          onPress={() => setLoadingScreen()}
+          className="h-10 rounded-md bg-green 
                     justify-center items-center"
-                >
+        >
+          <Text
+            className="text-white text-lg self-center mt-1"
+            style={{ fontFamily: 'Poppins-Medium' }}
+          >
+            Edit
+          </Text>
+        </TouchableOpacity>
+      </Link>
 
-                    <Text className="text-white">Edit</Text>
-
-                </TouchableOpacity>
-            </Link>
-
-            <Pressable className="h-8 p-1.5 absolute top-2 right-2
+      <Pressable
+        className="h-8 p-1.5 absolute top-2 right-2
                 bg-red-500 rounded-md"
-                onPress={() => deleteAlert(id)}>
+        onPress={() => setIsDeleteModalVisible(true)}
+      >
+        <FontAwesomeIcon
+          icon={faTrash}
+          style={{ color: '#ffffff' }}
+        />
+      </Pressable>
 
-            <FontAwesomeIcon icon={faTrash} style={{color: "#ffffff",}} />
+      <CustomModal
+        visible={isDeleteModalVisible}
+        message="Are you sure you want to delete this category?"
+        optionOneText="Yes"
+        optionTwoText="Cancel"
+        optionOnePressed={() => deleteCategory(id)}
+        optionTwoPressed={() => setIsDeleteModalVisible(false)}
+        optionTwoColor="red"
+        closeModal={() => setIsDeleteModalVisible(false)}
+      />
 
-            </Pressable>
+      <PopUpModal
+        visible={deleteModalVisible}
+        message="Category deleted successfully"
+        text={'Done'}
+        link={'goBack'}
+        id={0}
+        color="green"
+        closeModal={() => setDeleteModalVisible(false)}
+      />
 
-        </View>
-    )
-
-}   
+      <PopUpModal
+        visible={deleteModalErrorVisible}
+        message="Category deletion failed"
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setDeleteModalErrorVisible(false)}
+      />
+    </View>
+  );
+}

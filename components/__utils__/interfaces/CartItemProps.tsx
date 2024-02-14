@@ -1,9 +1,9 @@
-import { BaseItemProps } from "./BaseItemProps"
+import { BaseItemProps } from './BaseItemProps';
 
 export interface CartItemProps extends BaseItemProps {
-    quantity : number
+  quantity: number;
 }
 
 export interface CartProps {
-    cart : CartItemProps[]
+  cart: CartItemProps[];
 }

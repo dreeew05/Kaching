@@ -1,30 +1,39 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import { useRouter, Link } from 'expo-router';
+import { TouchableOpacity } from 'react-native';
+import { Link } from 'expo-router';
 
 //  COMPONENT
 import CategoryCard from './CategoryCard';
 import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
+import { useDispatch } from 'react-redux';
+import { setIsCategoryViewProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
+export default function CategoryCardClickable({
+  id,
+  name,
+  image,
+}: CategoryProps) {
+  const dispatch = useDispatch();
 
-export default function CategoryCardClickable(
-    { id, name, image} : CategoryProps) {
+  const clickHandler = () => {
+    dispatch(setIsCategoryViewProductLoading(true));
+  };
 
-    return(
-        <Link href={{
-            pathname: "/(tabs)/categoryView",
-            params: {id : id}
-        }}asChild>
-
-            <TouchableOpacity className='bg-white dark:bg-black 
-                shadow-md rounded-md m-2 p-2'>
-                <CategoryCard 
-                    id={id}
-                    name={name} 
-                    image={image}
-                />
-            </TouchableOpacity>
-
-        </Link>
-    )
+  return (
+    <Link
+      href={{
+        pathname: '/(tabs)/categoryView',
+        params: { id: id },
+      }}
+      asChild
+    >
+      <TouchableOpacity
+        onPress={clickHandler}
+        className="bg-white dark:bg-black 
+                shadow-md rounded-md m-2 p-2"
+      >
+        <CategoryCard id={id} name={name} image={image} />
+      </TouchableOpacity>
+    </Link>
+  );
 }

@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="" />
+    <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/components/Product/ItemCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ItemCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Product/ModifyItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ModifyItem.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -26,9 +35,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.android.tools.idea.devicemanager.tab": "Physical",
-    "last_opened_file_path": "/home/jckarim/Desktop/New Folder/Kaching"
+    "git-widget-placeholder": "Improvements",
+    "last_opened_file_path": "C:/Users/glena/Desktop",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
