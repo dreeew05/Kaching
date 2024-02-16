@@ -3,13 +3,10 @@ import { CategoryProps } from '../../__utils__/interfaces/CategoryProps';
 import { selectData } from '../CoreFunctions';
 import { useSelector } from 'react-redux';
 import { selectCategoryModifiedActions } from '../../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { getDatabase } from '../OpenDatabase';
 
 export const selectAllCategories = () => {
-  const tableName = 'category',
-    column = ['*'],
-    targetAttrib = null,
-    targetValue = null,
-    orderBy = 'name';
+  const db = getDatabase();
 
   const [categoryData, setCategoryData] = useState<CategoryProps[]>(
     [],
@@ -18,14 +15,18 @@ export const selectAllCategories = () => {
     selectCategoryModifiedActions,
   );
 
+  const getCategoryData = async () => {
+    const readOnly = true;
+    await db.transactionAsync(async (tx) => {
+      const result = await tx.executeSqlAsync(
+        `SELECT * FROM category ORDER BY name`,
+      );
+      setCategoryData(result.rows as CategoryProps[]);
+    }, readOnly);
+  };
+
   useEffect(() => {
-    selectData(tableName, column, targetAttrib, targetValue, orderBy)
-      .then((result) => {
-        setCategoryData(result as CategoryProps[]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getCategoryData();
   }, [categoryModifiedActions]);
 
   return categoryData;
