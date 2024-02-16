@@ -17,15 +17,7 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
     selectCartItem(state, item.id),
   );
 
-  const getStartingQuantity = () => {
-    let startingQuantity = 0;
-    if (itemState != undefined) {
-      startingQuantity = itemState.quantity;
-    }
-    return startingQuantity;
-  };
-
-  const [quantity, setQuantity] = useState(getStartingQuantity);
+  const [quantity, setQuantity] = useState(0);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showAddQuantityModal, setShowAddQuantityModal] =
     useState(false);
