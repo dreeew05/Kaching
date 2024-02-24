@@ -1,13 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import CartItemList from './CartItemList';
-import {
-  View,
-  Text,
-  Image,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
 import { useState } from 'react';
