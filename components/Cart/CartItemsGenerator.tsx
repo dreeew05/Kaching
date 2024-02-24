@@ -4,10 +4,15 @@ import CartItemList from './CartItemList';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
+import { PopUpModal } from '../Modals/PopUpModal';
+import { useState } from 'react';
+import CustomModal from '../Modals/CustomModal';
 
 export default function CartItemsGenerator() {
   const cartState = useSelector(selectCart);
   const dispatch = useDispatch();
+
+  const [removeModalVisible, setRemoveModalVisible] = useState(false);
 
   const isCartEmpty = () => {
     if (cartState.cart.length == 0) {
@@ -55,7 +60,9 @@ export default function CartItemsGenerator() {
           >
             Cart
           </Text>
-          <TouchableOpacity onPress={() => deleteAllItemsInCart()}>
+          <TouchableOpacity
+            onPress={() => setRemoveModalVisible(true)}
+          >
             <View
               className="flex-1 mr-5 bg-red-500 items-center 
               justify-center pl-5 pr-5 rounded-full"
@@ -72,6 +79,17 @@ export default function CartItemsGenerator() {
           </TouchableOpacity>
         </View>
         <CartItemList cart={cartState.cart} />
+
+        <CustomModal
+          visible={removeModalVisible}
+          message="Are you sure you want to remove all items in your cart?"
+          optionOneText="Yes"
+          optionTwoText="Cancel"
+          optionOnePressed={() => deleteAllItemsInCart()}
+          optionTwoPressed={() => setRemoveModalVisible(false)}
+          optionTwoColor="red"
+          closeModal={() => setRemoveModalVisible(false)}
+        />
       </ScrollView>
     );
   }
