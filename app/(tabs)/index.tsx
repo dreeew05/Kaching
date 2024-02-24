@@ -51,11 +51,36 @@ export default function HomeScreen() {
           marginTop={125}
           marginLeft={160}
           pointDirection="left"
-          isVisible={isStartModalVisible}
           message="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
           closeMessage="Continue"
           boxWidth={200}
+          isVisible={isStartModalVisible}
           setVisible={setStartModalVisible}
+          continueModal={() => setEditCategoryModalVisible(true)}
+        />
+
+        <HelpModal
+          marginTop={220}
+          marginLeft={200}
+          pointDirection="top-left"
+          message="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+          closeMessage="Continue"
+          boxWidth={200}
+          isVisible={isEditCategoryModalVisible}
+          setVisible={setEditCategoryModalVisible}
+          continueModal={setClickCategoryModalVisible}
+        />
+
+        <HelpModal
+          marginTop={380}
+          marginLeft={130}
+          pointDirection="left"
+          message="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+          closeMessage="Done"
+          boxWidth={200}
+          isVisible={isClickCategoryModalVisible}
+          setVisible={setClickCategoryModalVisible}
+          continueModal={null}
         />
       </View>
     </Provider>
