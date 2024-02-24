@@ -6,7 +6,7 @@ import GlobalStateSlice from './GlobalStateRedux/GlobalStateSlice';
 export const Store = configureStore({
   reducer: {
     cart: CartSlice,
-    globalState : GlobalStateSlice
+    globalState: GlobalStateSlice,
   },
 });
 
