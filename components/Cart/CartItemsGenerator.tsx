@@ -5,8 +5,8 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
   Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
@@ -68,7 +68,9 @@ export default function CartItemsGenerator() {
           >
             Cart
           </Text>
-          <Pressable onPress={() => setRemoveModalVisible(true)}>
+          <TouchableOpacity
+            onPress={() => setRemoveModalVisible(true)}
+          >
             <View
               className="flex-1 mr-5 bg-red-500 items-center 
               justify-center pl-5 pr-5 rounded-full"
@@ -82,7 +84,7 @@ export default function CartItemsGenerator() {
                 Remove All
               </Text>
             </View>
-          </Pressable>
+          </TouchableOpacity>
         </View>
         <CartItemList cart={cartState.cart} />
 
