@@ -1,10 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import CartItemList from './CartItemList';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
-import { PopUpModal } from '../Modals/PopUpModal';
 import { useState } from 'react';
 import CustomModal from '../Modals/CustomModal';
 
@@ -14,6 +19,8 @@ export default function CartItemsGenerator() {
 
   const [removeModalVisible, setRemoveModalVisible] = useState(false);
 
+  console.log(removeModalVisible);
+
   const isCartEmpty = () => {
     if (cartState.cart.length == 0) {
       return true;
@@ -21,6 +28,7 @@ export default function CartItemsGenerator() {
   };
 
   const deleteAllItemsInCart = () => {
+    setRemoveModalVisible(false);
     dispatch(clearCart());
   };
 
@@ -60,9 +68,7 @@ export default function CartItemsGenerator() {
           >
             Cart
           </Text>
-          <TouchableOpacity
-            onPress={() => setRemoveModalVisible(true)}
-          >
+          <Pressable onPress={() => setRemoveModalVisible(true)}>
             <View
               className="flex-1 mr-5 bg-red-500 items-center 
               justify-center pl-5 pr-5 rounded-full"
@@ -76,7 +82,7 @@ export default function CartItemsGenerator() {
                 Remove All
               </Text>
             </View>
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <CartItemList cart={cartState.cart} />
 
