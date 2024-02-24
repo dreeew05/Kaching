@@ -1,5 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { CartItemProps, CartProps } from '../../components/__utils__/interfaces/CartItemProps';
+import {
+  CartItemProps,
+  CartProps,
+} from '../../components/__utils__/interfaces/CartItemProps';
 
 interface IdQuantityPair {
   id: number;
@@ -15,7 +18,10 @@ export const CartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<CartItemProps>) {
-      const itemExists = state.cart.find((item) => item.id === action.payload.id);
+      // Todo: Implement add all to cart
+      const itemExists = state.cart.find(
+        (item) => item.id === action.payload.id,
+      );
       if (itemExists) {
         itemExists.quantity = action.payload.quantity;
       } else if (!itemExists) {
@@ -23,10 +29,14 @@ export const CartSlice = createSlice({
       }
     },
     removeFromCart(state, action: PayloadAction<number>) {
-      state.cart = state.cart.filter((item) => item.id !== action.payload);
+      state.cart = state.cart.filter(
+        (item) => item.id !== action.payload,
+      );
     },
     updateItemQuantity(state, action: PayloadAction<IdQuantityPair>) {
-      const item = state.cart.find((item) => item.id === action.payload.id);
+      const item = state.cart.find(
+        (item) => item.id === action.payload.id,
+      );
       if (item) {
         item.quantity = action.payload.quantity;
       }
@@ -37,5 +47,10 @@ export const CartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, updateItemQuantity, clearCart } = CartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  updateItemQuantity,
+  clearCart,
+} = CartSlice.actions;
 export default CartSlice.reducer;
