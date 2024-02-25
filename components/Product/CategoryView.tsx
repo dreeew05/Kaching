@@ -89,6 +89,8 @@ export default function CategoryView() {
   };
 
   const deleteAllProducts = () => {
+    // Delete Items from database
+    // Reset checkedItems
     setDeleteModalVisible(false);
     if (checkedItems.length > 0) {
       const tableName: string = 'item';
@@ -97,8 +99,11 @@ export default function CategoryView() {
       checkedItems.forEach((id) => {
         deleteData(tableName, refAttribute, id).then((_) => {});
       });
+
+      setCheckedItems([]);
       setDeleteSuccessModalVisible(true);
     } else {
+      // Throw error message
       setDeleteFailedModalVisible(true);
     }
   };

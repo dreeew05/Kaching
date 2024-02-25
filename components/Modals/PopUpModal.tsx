@@ -51,7 +51,6 @@ export const PopUpModal = (props: PopUpModalProps) => {
         dispatch(setCategoryModifedActions('delete'));
         break;
       case 'dispatchProduct':
-        console.log('sup');
         dispatch(setProductModifiedActions('delete'));
         break;
     }
