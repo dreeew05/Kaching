@@ -77,7 +77,6 @@ export default function CategoryView() {
   };
 
   useEffect(() => {
-    console.log(productDataModifiedActions);
     getCategoryName();
     getProductData();
   }, [param, productDataModifiedActions]);

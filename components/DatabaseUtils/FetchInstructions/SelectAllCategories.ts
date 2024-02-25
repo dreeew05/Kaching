@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { CategoryProps } from '../../__utils__/interfaces/CategoryProps';
-import { selectData } from '../CoreFunctions';
 import { useSelector } from 'react-redux';
 import { selectCategoryModifiedActions } from '../../../redux/GlobalStateRedux/GlobalStateSelectors';
 import { getDatabase } from '../OpenDatabase';

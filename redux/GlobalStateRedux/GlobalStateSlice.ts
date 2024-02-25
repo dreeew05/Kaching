@@ -35,7 +35,7 @@ const initialState: GlobalStateProps = {
 };
 
 export const GlobalStateSlice = createSlice({
-  name: 'category',
+  name: 'globalState',
   initialState,
   reducers: {
     setIsEditButton(state, action: PayloadAction<boolean>) {
