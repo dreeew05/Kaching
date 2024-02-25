@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
 import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
