@@ -98,6 +98,7 @@ export default function CategoryCardEditable({
         optionTwoText="Cancel"
         optionOnePressed={() => deleteCategory(id)}
         optionTwoPressed={() => setIsDeleteModalVisible(false)}
+        optionOneColor="blue"
         optionTwoColor="red"
         closeModal={() => setIsDeleteModalVisible(false)}
       />

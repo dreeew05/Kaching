@@ -17,10 +17,12 @@ import {
   setIsEditButton,
   setIsModifyProductLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
-import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCartEvent';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { AddToCartModals } from './AddToCartModals';
+import { CheckBox } from '@rneui/base';
+
+// Unused imports
+import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
 
@@ -28,6 +30,8 @@ type itemCardProps = {
   item: BaseItemProps;
   isEditComponent: boolean;
   categoryID: number;
+  checkedItems: number[];
+  setCurrentCheckedItems: (checkedItems: number[]) => void;
 };
 
 export default function ItemCard(item: itemCardProps) {
@@ -42,9 +46,12 @@ export default function ItemCard(item: itemCardProps) {
     useState(false);
   const [showItemInCartModal, setShowItemInCartModal] =
     useState(false);
-  const [isDeleteModalVisible, setIsDeleteModalVisible] =
-    useState(false);
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [isNotChecked, setIsNotChecked] = useState(false);
+
+  // Unused
+  // const [isDeleteModalVisible, setIsDeleteModalVisible] =
+  //   useState(false);
+  // const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const updateQuantity = (quantity: number) => {
     setQuantity(quantity);
@@ -62,17 +69,18 @@ export default function ItemCard(item: itemCardProps) {
     });
   };
 
-  const deleteProduct = (id: number) => {
-    const tableName: string = 'item';
-    const refAttribute: string = 'id';
+  // Unused function
+  // const deleteProduct = (id: number) => {
+  //   const tableName: string = 'item';
+  //   const refAttribute: string = 'id';
 
-    setIsDeleteModalVisible(false);
+  //   setIsDeleteModalVisible(false);
 
-    deleteData(tableName, refAttribute, id).then((_) => {
-      setDeleteModalVisible(true);
-    });
-    dispatch(setIsEditButton(true));
-  };
+  //   deleteData(tableName, refAttribute, id).then((_) => {
+  //     setDeleteModalVisible(true);
+  //   });
+  //   dispatch(setIsEditButton(true));
+  // };
 
   const editProduct = () => {
     dispatch(setIsEditButton(true));
@@ -81,6 +89,20 @@ export default function ItemCard(item: itemCardProps) {
 
   const toggleDetailedViewLoading = () => {
     dispatch(setIsDetailedViewLoading(true));
+  };
+
+  const toggleCheckBox = () => {
+    setIsNotChecked(!isNotChecked);
+    if (!isNotChecked) {
+      item.setCurrentCheckedItems([
+        ...item.checkedItems,
+        item.item.id,
+      ]);
+    } else {
+      item.setCurrentCheckedItems(
+        item.checkedItems.filter((id) => id !== item.item.id),
+      );
+    }
   };
 
   return (
@@ -123,10 +145,21 @@ export default function ItemCard(item: itemCardProps) {
 
         {/* DELETE BUTTON */}
         {!item.isEditComponent ? (
-          <View className="absolute top-1 right-2">
-            <Pressable onPress={() => setIsDeleteModalVisible(true)}>
-              <FontAwesome5 name="trash" size={24} color="grey" />
-            </Pressable>
+          <View className="absolute -top-1 -right-1">
+            <CheckBox
+              checked={isNotChecked}
+              onPress={() => toggleCheckBox()}
+              size={35}
+              iconType="material-community"
+              checkedIcon="checkbox-marked"
+              uncheckedIcon="checkbox-blank-outline"
+              checkedColor="grey"
+              containerStyle={{
+                backgroundColor: 'transparent',
+                marginRight: -5,
+                marginTop: -5,
+              }}
+            />
           </View>
         ) : null}
       </View>
@@ -186,27 +219,6 @@ export default function ItemCard(item: itemCardProps) {
         </View>
       )}
 
-      <CustomModal
-        visible={isDeleteModalVisible}
-        message="Are you sure you want to delete this product?"
-        optionOneText="Yes"
-        optionTwoText="Cancel"
-        optionOnePressed={() => deleteProduct(item.item.id)}
-        optionTwoPressed={() => setIsDeleteModalVisible(false)}
-        optionTwoColor="red"
-        closeModal={() => setIsDeleteModalVisible(false)}
-      />
-
-      <PopUpModal
-        visible={deleteModalVisible}
-        message="Product deleted successfully"
-        text={'Done'}
-        link={'dispatchProduct'}
-        id={0}
-        color="green"
-        closeModal={() => setDeleteModalVisible(false)}
-      />
-
       <AddToCartModals
         isAddModal={showAddModal}
         isAddQuantityModal={showAddQuantityModal}
@@ -215,6 +227,30 @@ export default function ItemCard(item: itemCardProps) {
         showAddQuantityModal={setShowAddQuantityModal}
         showItemInCartModal={setShowItemInCartModal}
       />
+
+      {/* Unused Modal */}
+      {/* <CustomModal
+        visible={isDeleteModalVisible}
+        message="Are you sure you want to delete this product?"
+        optionOneText="Yes"
+        optionTwoText="Cancel"
+        optionOnePressed={() => deleteProduct(item.item.id)}
+        optionOneColor="blue"
+        optionTwoPressed={() => setIsDeleteModalVisible(false)}
+        optionTwoColor="red"
+        closeModal={() => setIsDeleteModalVisible(false)}
+      /> */}
+
+      {/* Unused Modal */}
+      {/* <PopUpModal
+        visible={deleteModalVisible}
+        message="Product deleted successfully"
+        text={'Done'}
+        link={'dispatchProduct'}
+        id={0}
+        color="green"
+        closeModal={() => setDeleteModalVisible(false)}
+      /> */}
     </View>
   );
 }

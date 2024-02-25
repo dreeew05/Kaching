@@ -14,6 +14,7 @@ const CustomModal: FC<CustomModalProps> = ({
   message,
   optionOneText,
   optionOnePressed,
+  optionOneColor,
   optionTwoText,
   optionTwoPressed,
   optionTwoColor,
@@ -64,9 +65,15 @@ const CustomModal: FC<CustomModalProps> = ({
                   }}
                 >
                   <Pressable onPress={optionOnePressed}>
-                    <Text className="text-xl text-blue-500 text-center py-4">
-                      {optionOneText}
-                    </Text>
+                    {optionOneColor === 'red' ? (
+                      <Text className="text-xl text-red-500 text-center py-4">
+                        {optionOneText}
+                      </Text>
+                    ) : (
+                      <Text className="text-xl text-blue-500 text-center py-4">
+                        {optionOneText}
+                      </Text>
+                    )}
                   </Pressable>
                 </View>
                 <View

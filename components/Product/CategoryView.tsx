@@ -1,6 +1,9 @@
 import * as SQLite from 'expo-sqlite';
 import { useEffect, useState } from 'react';
-import { selectData } from '../DatabaseUtils/CoreFunctions';
+import {
+  deleteData,
+  selectData,
+} from '../DatabaseUtils/CoreFunctions';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { Link, useLocalSearchParams } from 'expo-router';
 import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
@@ -28,6 +31,8 @@ import {
   setIsEditButton,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import CustomModal from '../Modals/CustomModal';
+import { PopUpModal } from '../Modals/PopUpModal';
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -40,6 +45,12 @@ export default function CategoryView() {
     selectProductModifiedActions,
   );
   const dispatch = useDispatch();
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [deleteFailedModalVisible, setDeleteFailedModalVisible] =
+    useState(false);
+  const [deleteSuccessModalVisible, setDeleteSuccessModalVisible] =
+    useState(false);
 
   const getCategoryName = () => {
     const tableName = 'category',
@@ -75,6 +86,21 @@ export default function CategoryView() {
       setProducts(result.rows as BaseItemProps[]);
       dispatch(setIsCategoryViewProductLoading(false));
     }, readOnly);
+  };
+
+  const deleteAllProducts = () => {
+    setDeleteModalVisible(false);
+    if (checkedItems.length > 0) {
+      const tableName: string = 'item';
+      const refAttribute: string = 'id';
+
+      checkedItems.forEach((id) => {
+        deleteData(tableName, refAttribute, id).then((_) => {});
+      });
+      setDeleteSuccessModalVisible(true);
+    } else {
+      setDeleteFailedModalVisible(true);
+    }
   };
 
   useEffect(() => {
@@ -116,6 +142,8 @@ export default function CategoryView() {
                   item={product}
                   isEditComponent={isEditButton}
                   categoryID={categoryID}
+                  checkedItems={checkedItems}
+                  setCurrentCheckedItems={setCheckedItems}
                 />
               );
             })}
@@ -157,25 +185,41 @@ export default function CategoryView() {
           </View>
         </>
       );
-    } else if (!isEditButton || products.length == 0) {
+    } else {
       return (
-        <Link
-          href={{
-            pathname: '/(tabs)/addItemWrapper',
-            params: {
-              id: 0,
-              category_id: categoryID,
-            },
-          }}
-          asChild
-        >
-          <Pressable
-            className="ml-3"
-            onPress={() => dispatch(setIsEditButton(true))}
+        <>
+          <Link
+            href={{
+              pathname: '/(tabs)/addItemWrapper',
+              params: {
+                id: 0,
+                category_id: categoryID,
+              },
+            }}
+            asChild
           >
-            <AntDesign name="pluscircle" size={24} color="#376b54" />
-          </Pressable>
-        </Link>
+            <Pressable
+              className="ml-3 flex-1"
+              onPress={() => dispatch(setIsEditButton(true))}
+            >
+              <AntDesign
+                name="pluscircle"
+                size={30}
+                color="#18573a"
+              />
+            </Pressable>
+          </Link>
+          {products.length > 0 ? (
+            <View className="mr-6">
+              <TouchableOpacity
+                // Todo: Add onPress event
+                onPress={() => setDeleteModalVisible(true)}
+              >
+                <FontAwesome5 name="trash" size={25} color="red" />
+              </TouchableOpacity>
+            </View>
+          ) : null}
+        </>
       );
     }
   };
@@ -228,6 +272,37 @@ export default function CategoryView() {
       <View className="flex-1 self-stretch">
         <View>{showOverallComponent()}</View>
       </View>
+
+      {/* MODALS */}
+      <CustomModal
+        visible={deleteModalVisible}
+        message="Are you sure you want to delete the selected items?"
+        optionOneText="Delete"
+        optionTwoText="Cancel"
+        optionOnePressed={() => deleteAllProducts()}
+        optionTwoPressed={() => setDeleteModalVisible(false)}
+        optionOneColor="red"
+        optionTwoColor="blue"
+        closeModal={() => setDeleteModalVisible(false)}
+      />
+      <PopUpModal
+        visible={deleteFailedModalVisible}
+        message="Please select item/s to delete"
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setDeleteFailedModalVisible(false)}
+      />
+      <PopUpModal
+        visible={deleteSuccessModalVisible}
+        message="Item/s deleted successfully"
+        text={'Done'}
+        link={'dispatchProduct'}
+        id={0}
+        color="green"
+        closeModal={() => setDeleteSuccessModalVisible(false)}
+      />
     </>
   );
 }

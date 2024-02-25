@@ -417,6 +417,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               optionTwoText="Gallery"
               optionOnePressed={openCamera}
               optionTwoPressed={openGallery}
+              optionOneColor="blue"
               optionTwoColor="blue"
               closeModal={() => setImageModalVisible(false)}
             />
@@ -428,6 +429,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               optionTwoText="Cancel"
               optionOnePressed={() => saveProduct()}
               optionTwoPressed={() => setSaveModalVisible(false)}
+              optionOneColor="blue"
               optionTwoColor="red"
               closeModal={() => setSaveModalVisible(false)}
             />

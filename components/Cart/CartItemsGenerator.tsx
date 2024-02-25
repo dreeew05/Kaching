@@ -89,6 +89,7 @@ export default function CartItemsGenerator() {
           optionTwoText="Cancel"
           optionOnePressed={() => deleteAllItemsInCart()}
           optionTwoPressed={() => setRemoveModalVisible(false)}
+          optionOneColor="blue"
           optionTwoColor="red"
           closeModal={() => setRemoveModalVisible(false)}
         />

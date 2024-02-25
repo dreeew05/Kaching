@@ -85,6 +85,7 @@ export default function CartItemCard(item: CartItemProps) {
           optionTwoText="Cancel"
           optionOnePressed={() => removeFromCartEvent()}
           optionTwoPressed={() => setIsRemoveModalVisible(false)}
+          optionOneColor="blue"
           optionTwoColor="red"
           closeModal={() => setIsRemoveModalVisible(false)}
         />
