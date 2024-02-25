@@ -133,7 +133,7 @@ export default function ItemCard(item: itemCardProps) {
 
       {item.isEditComponent ? (
         <View className="flex flex-row items-center">
-          <View className="flex items-center">
+          <View className="flex items-center mr-5">
             <Stepper
               id={item.item.id}
               quantity={quantity}
@@ -143,8 +143,8 @@ export default function ItemCard(item: itemCardProps) {
           </View>
           <View className="flex-1 justify-center">
             <Pressable
-              className="bg-green w-52 h-10 border-2 border-green 
-                          rounded-md self-center ml-6 flex-1 items-center justify-center"
+              className="bg-green w-48 h-10 border-2 border-green 
+                          rounded-md self-center ml-5 mr-5 flex-1 items-center justify-center"
               onPress={addToCart}
             >
               <Text

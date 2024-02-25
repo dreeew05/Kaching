@@ -27,6 +27,7 @@ import {
   setIsCategoryViewProductLoading,
   setIsEditButton,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -97,13 +98,15 @@ export default function CategoryView() {
         <View>
           {/* {showModifyProductHeader()} */}
           <View className="flex flex-row mt-2">
-            <Text
-              className="text-4xl text-green ml-5 mb-5"
-              style={{ fontFamily: 'Poppins-Bold' }}
-            >
-              {categoryName}
-            </Text>
-            {showModifyProductsComponent()}
+            <View className="flex-row flex-1">
+              <Text
+                className="text-4xl text-green ml-5 mb-5"
+                style={{ fontFamily: 'Poppins-Bold' }}
+              >
+                {categoryName}
+              </Text>
+              {showModifyProductsComponent()}
+            </View>
           </View>
           <ScrollView className="p-2 mb-32">
             {products.map((product) => {
@@ -125,12 +128,34 @@ export default function CategoryView() {
   const showModifyProductsComponent = () => {
     if (isEditButton && products.length > 0) {
       return (
-        <Pressable
-          className="ml-3"
-          onPress={() => dispatch(setIsEditButton(false))}
-        >
-          <FontAwesome5 name="edit" size={25} color="darkgreen" />
-        </Pressable>
+        <>
+          <Pressable
+            className="ml-3 flex-1"
+            onPress={() => dispatch(setIsEditButton(false))}
+          >
+            <FontAwesome5 name="edit" size={25} color="darkgreen" />
+          </Pressable>
+          <View
+            className="mr-5 bg-green h-8 items-center 
+              justify-center rounded-full h-10"
+            style={{ marginTop: -8 }}
+          >
+            <TouchableOpacity
+            // Todo: Add onPress event
+            // onPress={}
+            >
+              <Text
+                className="px-5"
+                style={{
+                  color: 'white',
+                  fontFamily: 'Poppins-Bold',
+                }}
+              >
+                Add all
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </>
       );
     } else if (!isEditButton || products.length == 0) {
       return (
