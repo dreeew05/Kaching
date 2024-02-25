@@ -18,10 +18,10 @@ export const CartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<CartItemProps>) {
-      // Todo: Implement add all to cart
       const itemExists = state.cart.find(
         (item) => item.id === action.payload.id,
       );
+      // For Add All Purpose
       if (itemExists) {
         itemExists.quantity = action.payload.quantity;
       } else if (!itemExists) {

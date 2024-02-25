@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   View,
@@ -20,11 +20,12 @@ import {
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
 import { CheckBox } from '@rneui/base';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 
 // Unused imports
-import { deleteData } from '../DatabaseUtils/CoreFunctions';
-import CustomModal from '../Modals/CustomModal';
-import { PopUpModal } from '../Modals/PopUpModal';
+// import { deleteData } from '../DatabaseUtils/CoreFunctions';
+// import CustomModal from '../Modals/CustomModal';
+// import { PopUpModal } from '../Modals/PopUpModal';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -32,6 +33,8 @@ type itemCardProps = {
   categoryID: number;
   checkedItems: number[];
   setCurrentCheckedItems: (checkedItems: number[]) => void;
+  tempCart: CartItemProps[];
+  setTempCart: (tempCart: CartItemProps[]) => void;
 };
 
 export default function ItemCard(item: itemCardProps) {
@@ -55,6 +58,34 @@ export default function ItemCard(item: itemCardProps) {
 
   const updateQuantity = (quantity: number) => {
     setQuantity(quantity);
+
+    // Add All properties
+    const itemExists = item.tempCart.find(
+      (itemInCart) => itemInCart.id === item.item.id,
+    );
+    item.setTempCart(
+      itemExists
+        ? quantity === 0
+          ? item.tempCart.filter(
+              (itemInCart) => itemInCart.id !== item.item.id,
+            )
+          : item.tempCart.map((itemInCart) =>
+              itemInCart.id !== item.item.id
+                ? itemInCart
+                : { ...itemInCart, quantity },
+            )
+        : [
+            ...item.tempCart,
+            {
+              id: item.item.id,
+              name: item.item.name,
+              price: item.item.price,
+              quantity: quantity,
+              image: item.item.image,
+              category: item.item.category,
+            },
+          ],
+    );
   };
 
   const addToCart = () => {

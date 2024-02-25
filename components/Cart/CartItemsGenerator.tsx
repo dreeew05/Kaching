@@ -13,8 +13,6 @@ export default function CartItemsGenerator() {
 
   const [removeModalVisible, setRemoveModalVisible] = useState(false);
 
-  console.log(removeModalVisible);
-
   const isCartEmpty = () => {
     if (cartState.cart.length == 0) {
       return true;

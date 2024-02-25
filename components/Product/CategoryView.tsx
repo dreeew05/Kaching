@@ -33,6 +33,8 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
+import { addToCart } from '../../redux/CartRedux/CartSlice';
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -51,6 +53,9 @@ export default function CategoryView() {
     useState(false);
   const [deleteSuccessModalVisible, setDeleteSuccessModalVisible] =
     useState(false);
+  const [temporaryCart, setTemporaryCart] = useState<CartItemProps[]>(
+    [],
+  );
 
   const getCategoryName = () => {
     const tableName = 'category',
@@ -108,6 +113,22 @@ export default function CategoryView() {
     }
   };
 
+  const addAllProducts = () => {
+    // console.log(temporaryCart);
+    temporaryCart.forEach((item) => {
+      dispatch(
+        addToCart({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+          category: item.category,
+        }),
+      );
+    });
+  };
+
   useEffect(() => {
     getCategoryName();
     getProductData();
@@ -149,6 +170,8 @@ export default function CategoryView() {
                   categoryID={categoryID}
                   checkedItems={checkedItems}
                   setCurrentCheckedItems={setCheckedItems}
+                  tempCart={temporaryCart}
+                  setTempCart={setTemporaryCart}
                 />
               );
             })}
@@ -174,8 +197,8 @@ export default function CategoryView() {
             style={{ marginTop: -8 }}
           >
             <TouchableOpacity
-            // Todo: Add onPress event
-            // onPress={}
+              // Todo: Add onPress event
+              onPress={() => addAllProducts()}
             >
               <Text
                 className="px-5"
