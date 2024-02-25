@@ -55,6 +55,7 @@ export default function HelpModal(item: HelpModalProps) {
         settings.triangleType = 'triangle-up';
         settings.triangleStyle = triangleDirectionStyles.top_left;
         break;
+      // Add case if necessary
       default:
         settings.modalFlexDirection = 'flex-row';
         settings.triangleType = 'triangle-left';
