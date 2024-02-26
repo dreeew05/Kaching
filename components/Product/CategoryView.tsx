@@ -53,6 +53,10 @@ export default function CategoryView() {
     useState(false);
   const [deleteSuccessModalVisible, setDeleteSuccessModalVisible] =
     useState(false);
+  const [addModalVisble, setAddModalVisible] = useState(false);
+  const [addFailedModalVisible, setAddFailedModalVisible] =
+    useState(false);
+  const [isAddAllPressed, setIsAddAllPressed] = useState(false);
   const [temporaryCart, setTemporaryCart] = useState<CartItemProps[]>(
     [],
   );
@@ -113,6 +117,12 @@ export default function CategoryView() {
     }
   };
 
+  const checkAddedProducts = () => {
+    temporaryCart.length > 0
+      ? addAllProducts()
+      : setAddFailedModalVisible(true);
+  };
+
   const addAllProducts = () => {
     // console.log(temporaryCart);
     temporaryCart.forEach((item) => {
@@ -127,6 +137,8 @@ export default function CategoryView() {
         }),
       );
     });
+    setAddModalVisible(true);
+    setIsAddAllPressed(true);
   };
 
   useEffect(() => {
@@ -172,6 +184,8 @@ export default function CategoryView() {
                   setCurrentCheckedItems={setCheckedItems}
                   tempCart={temporaryCart}
                   setTempCart={setTemporaryCart}
+                  isAddAllPressed={isAddAllPressed}
+                  setIsAddAllPressed={setIsAddAllPressed}
                 />
               );
             })}
@@ -198,7 +212,7 @@ export default function CategoryView() {
           >
             <TouchableOpacity
               // Todo: Add onPress event
-              onPress={() => addAllProducts()}
+              onPress={() => checkAddedProducts()}
             >
               <Text
                 className="px-5"
@@ -330,6 +344,24 @@ export default function CategoryView() {
         id={0}
         color="green"
         closeModal={() => setDeleteSuccessModalVisible(false)}
+      />
+      <PopUpModal
+        visible={addModalVisble}
+        message="Item/s added to cart successfully"
+        text={'Done'}
+        link={null}
+        id={0}
+        color="green"
+        closeModal={() => setAddModalVisible(false)}
+      />
+      <PopUpModal
+        visible={addFailedModalVisible}
+        message="Please input quantity for item/s to add"
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setAddFailedModalVisible(false)}
       />
     </>
   );
