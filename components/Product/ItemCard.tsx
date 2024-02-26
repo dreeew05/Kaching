@@ -7,10 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Link } from 'expo-router';
-import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 import Stepper from '../Common/Stepper';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import {
   setIsDetailedViewLoading,
@@ -26,6 +24,7 @@ import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 // import { deleteData } from '../DatabaseUtils/CoreFunctions';
 // import CustomModal from '../Modals/CustomModal';
 // import { PopUpModal } from '../Modals/PopUpModal';
+// import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 
 type itemCardProps = {
   item: BaseItemProps;
@@ -35,13 +34,17 @@ type itemCardProps = {
   setCurrentCheckedItems: (checkedItems: number[]) => void;
   tempCart: CartItemProps[];
   setTempCart: (tempCart: CartItemProps[]) => void;
+  isAddAllPressed: boolean;
+  setIsAddAllPressed: (isAddAllPressed: boolean) => void;
 };
 
 export default function ItemCard(item: itemCardProps) {
   const dispatch = useDispatch();
-  const itemState = useSelector((state: RootState) =>
-    selectCartItem(state, item.item.id),
-  );
+
+  // Unused [For searching the item in the cart]
+  // const itemState = useSelector((state: RootState) =>
+  //   selectCartItem(state, item.item.id),
+  // );
 
   const [quantity, setQuantity] = useState(0);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -55,6 +58,16 @@ export default function ItemCard(item: itemCardProps) {
   // const [isDeleteModalVisible, setIsDeleteModalVisible] =
   //   useState(false);
   // const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
+  // Check if add all button is pressed
+  useEffect(() => {
+    if (item.isAddAllPressed) {
+      setQuantity(0);
+      return () => {
+        item.setIsAddAllPressed(false);
+      };
+    }
+  }, [item.isAddAllPressed]);
 
   const updateQuantity = (quantity: number) => {
     setQuantity(quantity);
@@ -89,9 +102,12 @@ export default function ItemCard(item: itemCardProps) {
   };
 
   const addToCart = () => {
+    // Reset quantity to 0
+    setQuantity(0);
+
     addToCartEvent({
       quantity: quantity,
-      itemState: itemState,
+      // itemState: itemState,
       product: item.item,
       dispatch: dispatch,
       showAddModal: setShowAddModal,
