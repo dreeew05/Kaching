@@ -214,6 +214,7 @@ export default function PaymentComponent() {
         optionTwoText="Cancel"
         optionOnePressed={() => verifyPayment()}
         optionTwoPressed={() => setModalVisible(false)}
+        optionOneColor="blue"
         optionTwoColor="red"
         closeModal={() => setModalVisible(false)}
       />

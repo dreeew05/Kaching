@@ -93,7 +93,7 @@ export const PopUpModal = (props: PopUpModalProps) => {
           backgroundColor: 'rgba(0,0,0,0.32)',
         }}
       >
-        <View className="flex-1 justify-center items-center">
+        <View className="flex-1 justify-center items-center mx-5">
           <View
             className="flex-col rounded-2xl items-center shadow-sm"
             style={{ backgroundColor: getColor() }}
@@ -103,6 +103,7 @@ export const PopUpModal = (props: PopUpModalProps) => {
                 style={{
                   fontFamily: 'Poppins-Bold',
                   fontSize: 20,
+                  textAlign: 'center',
                 }}
               >
                 {props.message}

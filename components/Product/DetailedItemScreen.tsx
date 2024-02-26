@@ -4,19 +4,23 @@ import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pressable } from 'react-native';
 import Stepper from '../Common/Stepper';
-import { RootState } from '../../redux/Store';
-import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 import { Link, router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
 import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
 
+// Unused imports
+// import { RootState } from '../../redux/Store';
+// import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
+
 export default function DetailedItemScreen(item: DetailedItemProps) {
   const dispatch = useDispatch();
-  const itemState = useSelector((state: RootState) =>
-    selectCartItem(state, item.id),
-  );
+
+  // Unused [For searching the item in the cart]
+  // const itemState = useSelector((state: RootState) =>
+  //   selectCartItem(state, item.id),
+  // );
 
   const param = useLocalSearchParams();
   const categoryID: number = ParamsToInteger(param.category_id);
@@ -35,9 +39,12 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
   };
 
   const addToCart = () => {
+    // Reset quantity to 0
+    updateQuantity(0);
+
     addToCartEvent({
       quantity: quantity,
-      itemState: itemState,
+      // itemState: itemState,
       product: item,
       dispatch: dispatch,
       showAddModal: setShowAddModal,

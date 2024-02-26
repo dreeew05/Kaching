@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   View,
@@ -7,34 +7,44 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Link } from 'expo-router';
-import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 import Stepper from '../Common/Stepper';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/Store';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import {
   setIsDetailedViewLoading,
   setIsEditButton,
   setIsModifyProductLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
-import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { addToCartEvent } from './AddToCartEvent';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { AddToCartModals } from './AddToCartModals';
-import CustomModal from '../Modals/CustomModal';
-import { PopUpModal } from '../Modals/PopUpModal';
+import { CheckBox } from '@rneui/base';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
+
+// Unused imports
+// import { deleteData } from '../DatabaseUtils/CoreFunctions';
+// import CustomModal from '../Modals/CustomModal';
+// import { PopUpModal } from '../Modals/PopUpModal';
+// import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 
 type itemCardProps = {
   item: BaseItemProps;
   isEditComponent: boolean;
   categoryID: number;
+  checkedItems: number[];
+  setCurrentCheckedItems: (checkedItems: number[]) => void;
+  tempCart: CartItemProps[];
+  setTempCart: (tempCart: CartItemProps[]) => void;
+  isAddAllPressed: boolean;
+  setIsAddAllPressed: (isAddAllPressed: boolean) => void;
 };
 
 export default function ItemCard(item: itemCardProps) {
   const dispatch = useDispatch();
-  const itemState = useSelector((state: RootState) =>
-    selectCartItem(state, item.item.id),
-  );
+
+  // Unused [For searching the item in the cart]
+  // const itemState = useSelector((state: RootState) =>
+  //   selectCartItem(state, item.item.id),
+  // );
 
   const [quantity, setQuantity] = useState(0);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -42,18 +52,62 @@ export default function ItemCard(item: itemCardProps) {
     useState(false);
   const [showItemInCartModal, setShowItemInCartModal] =
     useState(false);
-  const [isDeleteModalVisible, setIsDeleteModalVisible] =
-    useState(false);
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [isNotChecked, setIsNotChecked] = useState(false);
+
+  // Unused
+  // const [isDeleteModalVisible, setIsDeleteModalVisible] =
+  //   useState(false);
+  // const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
+  // Check if add all button is pressed
+  useEffect(() => {
+    if (item.isAddAllPressed) {
+      setQuantity(0);
+      return () => {
+        item.setIsAddAllPressed(false);
+      };
+    }
+  }, [item.isAddAllPressed]);
 
   const updateQuantity = (quantity: number) => {
     setQuantity(quantity);
+
+    // Add All properties
+    const itemExists = item.tempCart.find(
+      (itemInCart) => itemInCart.id === item.item.id,
+    );
+    item.setTempCart(
+      itemExists
+        ? quantity === 0
+          ? item.tempCart.filter(
+              (itemInCart) => itemInCart.id !== item.item.id,
+            )
+          : item.tempCart.map((itemInCart) =>
+              itemInCart.id !== item.item.id
+                ? itemInCart
+                : { ...itemInCart, quantity },
+            )
+        : [
+            ...item.tempCart,
+            {
+              id: item.item.id,
+              name: item.item.name,
+              price: item.item.price,
+              quantity: quantity,
+              image: item.item.image,
+              category: item.item.category,
+            },
+          ],
+    );
   };
 
   const addToCart = () => {
+    // Reset quantity to 0
+    setQuantity(0);
+
     addToCartEvent({
       quantity: quantity,
-      itemState: itemState,
+      // itemState: itemState,
       product: item.item,
       dispatch: dispatch,
       showAddModal: setShowAddModal,
@@ -62,17 +116,18 @@ export default function ItemCard(item: itemCardProps) {
     });
   };
 
-  const deleteProduct = (id: number) => {
-    const tableName: string = 'item';
-    const refAttribute: string = 'id';
+  // Unused function
+  // const deleteProduct = (id: number) => {
+  //   const tableName: string = 'item';
+  //   const refAttribute: string = 'id';
 
-    setIsDeleteModalVisible(false);
+  //   setIsDeleteModalVisible(false);
 
-    deleteData(tableName, refAttribute, id).then((_) => {
-      setDeleteModalVisible(true);
-    });
-    dispatch(setIsEditButton(true));
-  };
+  //   deleteData(tableName, refAttribute, id).then((_) => {
+  //     setDeleteModalVisible(true);
+  //   });
+  //   dispatch(setIsEditButton(true));
+  // };
 
   const editProduct = () => {
     dispatch(setIsEditButton(true));
@@ -81,6 +136,20 @@ export default function ItemCard(item: itemCardProps) {
 
   const toggleDetailedViewLoading = () => {
     dispatch(setIsDetailedViewLoading(true));
+  };
+
+  const toggleCheckBox = () => {
+    setIsNotChecked(!isNotChecked);
+    if (!isNotChecked) {
+      item.setCurrentCheckedItems([
+        ...item.checkedItems,
+        item.item.id,
+      ]);
+    } else {
+      item.setCurrentCheckedItems(
+        item.checkedItems.filter((id) => id !== item.item.id),
+      );
+    }
   };
 
   return (
@@ -123,17 +192,28 @@ export default function ItemCard(item: itemCardProps) {
 
         {/* DELETE BUTTON */}
         {!item.isEditComponent ? (
-          <View className="absolute top-1 right-2">
-            <Pressable onPress={() => setIsDeleteModalVisible(true)}>
-              <FontAwesome5 name="trash" size={24} color="grey" />
-            </Pressable>
+          <View className="absolute -top-1 -right-1">
+            <CheckBox
+              checked={isNotChecked}
+              onPress={() => toggleCheckBox()}
+              size={35}
+              iconType="material-community"
+              checkedIcon="checkbox-marked"
+              uncheckedIcon="checkbox-blank-outline"
+              checkedColor="grey"
+              containerStyle={{
+                backgroundColor: 'transparent',
+                marginRight: -5,
+                marginTop: -5,
+              }}
+            />
           </View>
         ) : null}
       </View>
 
       {item.isEditComponent ? (
         <View className="flex flex-row items-center">
-          <View className="flex items-center">
+          <View className="flex items-center mr-5">
             <Stepper
               id={item.item.id}
               quantity={quantity}
@@ -143,8 +223,8 @@ export default function ItemCard(item: itemCardProps) {
           </View>
           <View className="flex-1 justify-center">
             <Pressable
-              className="bg-green w-52 h-10 border-2 border-green 
-                          rounded-md self-center ml-6 flex-1 items-center justify-center"
+              className="bg-green w-48 h-10 border-2 border-green 
+                          rounded-md self-center ml-5 mr-5 flex-1 items-center justify-center"
               onPress={addToCart}
             >
               <Text
@@ -186,27 +266,6 @@ export default function ItemCard(item: itemCardProps) {
         </View>
       )}
 
-      <CustomModal
-        visible={isDeleteModalVisible}
-        message="Are you sure you want to delete this product?"
-        optionOneText="Yes"
-        optionTwoText="Cancel"
-        optionOnePressed={() => deleteProduct(item.item.id)}
-        optionTwoPressed={() => setIsDeleteModalVisible(false)}
-        optionTwoColor="red"
-        closeModal={() => setIsDeleteModalVisible(false)}
-      />
-
-      <PopUpModal
-        visible={deleteModalVisible}
-        message="Product deleted successfully"
-        text={'Done'}
-        link={'dispatchProduct'}
-        id={0}
-        color="green"
-        closeModal={() => setDeleteModalVisible(false)}
-      />
-
       <AddToCartModals
         isAddModal={showAddModal}
         isAddQuantityModal={showAddQuantityModal}
@@ -215,6 +274,30 @@ export default function ItemCard(item: itemCardProps) {
         showAddQuantityModal={setShowAddQuantityModal}
         showItemInCartModal={setShowItemInCartModal}
       />
+
+      {/* Unused Modal */}
+      {/* <CustomModal
+        visible={isDeleteModalVisible}
+        message="Are you sure you want to delete this product?"
+        optionOneText="Yes"
+        optionTwoText="Cancel"
+        optionOnePressed={() => deleteProduct(item.item.id)}
+        optionOneColor="blue"
+        optionTwoPressed={() => setIsDeleteModalVisible(false)}
+        optionTwoColor="red"
+        closeModal={() => setIsDeleteModalVisible(false)}
+      /> */}
+
+      {/* Unused Modal */}
+      {/* <PopUpModal
+        visible={deleteModalVisible}
+        message="Product deleted successfully"
+        text={'Done'}
+        link={'dispatchProduct'}
+        id={0}
+        color="green"
+        closeModal={() => setDeleteModalVisible(false)}
+      /> */}
     </View>
   );
 }
