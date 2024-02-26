@@ -24,7 +24,8 @@ export const AddToCartModals = (item: AddToCartModalsProps) => {
         closeModal={() => item.showAddQuantityModal(false)}
       />
 
-      <PopUpModal
+      {/* UNUSED MODAL */}
+      {/* <PopUpModal
         visible={item.isItemInCartModal}
         message="Item already in cart."
         text={'Dismiss'}
@@ -32,7 +33,7 @@ export const AddToCartModals = (item: AddToCartModalsProps) => {
         id={0}
         color="red"
         closeModal={() => item.showItemInCartModal(false)}
-      />
+      /> */}
     </>
   );
 };
