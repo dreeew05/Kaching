@@ -1,13 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-
-// CONSTANT DATA
-import constantProducts from '../../constants/Products';
-
-// COMPONENT
 import CartItemCard from './CartItemCard';
-
-// INTERFACE
 import { CartProps } from '../__utils__/interfaces/CartItemProps';
 
 const CartItemList: React.FC<CartProps> = ({ cart }) => {

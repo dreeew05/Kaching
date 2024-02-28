@@ -1,6 +1,9 @@
 import * as SQLite from 'expo-sqlite';
 import { useEffect, useState } from 'react';
-import { selectData } from '../DatabaseUtils/CoreFunctions';
+import {
+  deleteData,
+  selectData,
+} from '../DatabaseUtils/CoreFunctions';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { Link, useLocalSearchParams } from 'expo-router';
 import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
@@ -27,6 +30,11 @@ import {
   setIsCategoryViewProductLoading,
   setIsEditButton,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import CustomModal from '../Modals/CustomModal';
+import { PopUpModal } from '../Modals/PopUpModal';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
+import { addToCart } from '../../redux/CartRedux/CartSlice';
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -39,6 +47,19 @@ export default function CategoryView() {
     selectProductModifiedActions,
   );
   const dispatch = useDispatch();
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [deleteFailedModalVisible, setDeleteFailedModalVisible] =
+    useState(false);
+  const [deleteSuccessModalVisible, setDeleteSuccessModalVisible] =
+    useState(false);
+  const [addModalVisble, setAddModalVisible] = useState(false);
+  const [addFailedModalVisible, setAddFailedModalVisible] =
+    useState(false);
+  const [isAddAllPressed, setIsAddAllPressed] = useState(false);
+  const [temporaryCart, setTemporaryCart] = useState<CartItemProps[]>(
+    [],
+  );
 
   const getCategoryName = () => {
     const tableName = 'category',
@@ -76,8 +97,51 @@ export default function CategoryView() {
     }, readOnly);
   };
 
+  const deleteAllProducts = () => {
+    // Delete Items from database
+    // Reset checkedItems
+    setDeleteModalVisible(false);
+    if (checkedItems.length > 0) {
+      const tableName: string = 'item';
+      const refAttribute: string = 'id';
+
+      checkedItems.forEach((id) => {
+        deleteData(tableName, refAttribute, id).then((_) => {});
+      });
+
+      setCheckedItems([]);
+      setDeleteSuccessModalVisible(true);
+    } else {
+      // Throw error message
+      setDeleteFailedModalVisible(true);
+    }
+  };
+
+  const checkAddedProducts = () => {
+    temporaryCart.length > 0
+      ? addAllProducts()
+      : setAddFailedModalVisible(true);
+  };
+
+  const addAllProducts = () => {
+    // console.log(temporaryCart);
+    temporaryCart.forEach((item) => {
+      dispatch(
+        addToCart({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+          category: item.category,
+        }),
+      );
+    });
+    setAddModalVisible(true);
+    setIsAddAllPressed(true);
+  };
+
   useEffect(() => {
-    console.log(productDataModifiedActions);
     getCategoryName();
     getProductData();
   }, [param, productDataModifiedActions]);
@@ -98,13 +162,15 @@ export default function CategoryView() {
         <View>
           {/* {showModifyProductHeader()} */}
           <View className="flex flex-row mt-2">
-            <Text
-              className="text-4xl text-green ml-5 mb-5"
-              style={{ fontFamily: 'Poppins-Bold' }}
-            >
-              {categoryName}
-            </Text>
-            {showModifyProductsComponent()}
+            <View className="flex-row flex-1">
+              <Text
+                className="text-4xl text-green ml-5 mb-5"
+                style={{ fontFamily: 'Poppins-Bold' }}
+              >
+                {categoryName}
+              </Text>
+              {showModifyProductsComponent()}
+            </View>
           </View>
           <ScrollView className="p-2 mb-32">
             {products.map((product) => {
@@ -114,6 +180,12 @@ export default function CategoryView() {
                   item={product}
                   isEditComponent={isEditButton}
                   categoryID={categoryID}
+                  checkedItems={checkedItems}
+                  setCurrentCheckedItems={setCheckedItems}
+                  tempCart={temporaryCart}
+                  setTempCart={setTemporaryCart}
+                  isAddAllPressed={isAddAllPressed}
+                  setIsAddAllPressed={setIsAddAllPressed}
                 />
               );
             })}
@@ -126,32 +198,70 @@ export default function CategoryView() {
   const showModifyProductsComponent = () => {
     if (isEditButton && products.length > 0) {
       return (
-        <Pressable
-          className="ml-3"
-          onPress={() => dispatch(setIsEditButton(false))}
-        >
-          <FontAwesome5 name="edit" size={25} color="darkgreen" />
-        </Pressable>
-      );
-    } else if (!isEditButton || products.length == 0) {
-      return (
-        <Link
-          href={{
-            pathname: '/(tabs)/addItemWrapper',
-            params: {
-              id: 0,
-              category_id: categoryID,
-            },
-          }}
-          asChild
-        >
+        <>
           <Pressable
-            className="ml-3"
-            onPress={() => dispatch(setIsEditButton(true))}
+            className="ml-3 flex-1"
+            onPress={() => dispatch(setIsEditButton(false))}
           >
-            <AntDesign name="pluscircle" size={24} color="#376b54" />
+            <FontAwesome5 name="edit" size={25} color="darkgreen" />
           </Pressable>
-        </Link>
+          <View
+            className="mr-5 bg-green h-8 items-center 
+              justify-center rounded-full h-10"
+            style={{ marginTop: -8 }}
+          >
+            <TouchableOpacity
+              // Todo: Add onPress event
+              onPress={() => checkAddedProducts()}
+            >
+              <Text
+                className="px-5"
+                style={{
+                  color: 'white',
+                  fontFamily: 'Poppins-Bold',
+                }}
+              >
+                Add all
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Link
+            href={{
+              pathname: '/(tabs)/addItemWrapper',
+              params: {
+                id: 0,
+                category_id: categoryID,
+              },
+            }}
+            asChild
+          >
+            <Pressable
+              className="ml-3 flex-1"
+              onPress={() => dispatch(setIsEditButton(true))}
+            >
+              <AntDesign
+                name="pluscircle"
+                size={30}
+                color="#18573a"
+              />
+            </Pressable>
+          </Link>
+          {products.length > 0 ? (
+            <View className="mr-6">
+              <TouchableOpacity
+                // Todo: Add onPress event
+                onPress={() => setDeleteModalVisible(true)}
+              >
+                <FontAwesome5 name="trash" size={25} color="red" />
+              </TouchableOpacity>
+            </View>
+          ) : null}
+        </>
       );
     }
   };
@@ -204,6 +314,55 @@ export default function CategoryView() {
       <View className="flex-1 self-stretch">
         <View>{showOverallComponent()}</View>
       </View>
+
+      {/* MODALS */}
+      <CustomModal
+        visible={deleteModalVisible}
+        message="Are you sure you want to delete the selected items?"
+        optionOneText="Delete"
+        optionTwoText="Cancel"
+        optionOnePressed={() => deleteAllProducts()}
+        optionTwoPressed={() => setDeleteModalVisible(false)}
+        optionOneColor="red"
+        optionTwoColor="blue"
+        closeModal={() => setDeleteModalVisible(false)}
+      />
+      <PopUpModal
+        visible={deleteFailedModalVisible}
+        message="Please select item/s to delete"
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setDeleteFailedModalVisible(false)}
+      />
+      <PopUpModal
+        visible={deleteSuccessModalVisible}
+        message="Item/s deleted successfully"
+        text={'Done'}
+        link={'dispatchProduct'}
+        id={0}
+        color="green"
+        closeModal={() => setDeleteSuccessModalVisible(false)}
+      />
+      <PopUpModal
+        visible={addModalVisble}
+        message="Item/s added to cart successfully"
+        text={'Done'}
+        link={null}
+        id={0}
+        color="green"
+        closeModal={() => setAddModalVisible(false)}
+      />
+      <PopUpModal
+        visible={addFailedModalVisible}
+        message="Please input quantity for item/s to add"
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setAddFailedModalVisible(false)}
+      />
     </>
   );
 }

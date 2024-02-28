@@ -12,12 +12,9 @@ import CustomModal from '../Modals/CustomModal';
 
 export default function CartItemCard(item: CartItemProps) {
   const dispatch = useDispatch();
+
   const [isRemoveModalVisible, setIsRemoveModalVisible] =
     useState(false);
-  const [quantity, setQuantity] = useState<number>(item.quantity);
-  const [subtotalPrice, setSubtotalPrice] = useState<number>(
-    item.price,
-  );
 
   const removeFromCartEvent = () => {
     setIsRemoveModalVisible(false);
@@ -25,11 +22,9 @@ export default function CartItemCard(item: CartItemProps) {
   };
 
   const updateQuantityEvent = (quantity: number) => {
-    setQuantity(quantity);
     if (quantity <= 0) {
       setIsRemoveModalVisible(true);
     } else {
-      setSubtotalPrice(() => item.price * quantity);
       dispatch(
         updateItemQuantity({
           id: item.id,
@@ -62,12 +57,12 @@ export default function CartItemCard(item: CartItemProps) {
             {item.category}
           </Text>
           <Text className="text-md text-black mt-3">
-            P{subtotalPrice.toFixed(2)}
+            P{(item.price * item.quantity).toFixed(2)}
           </Text>
           <View className="mt-6">
             <Stepper
               id={item.id}
-              quantity={quantity}
+              quantity={item.quantity}
               caseType="cart"
               updateQuantity={updateQuantityEvent}
             />
@@ -85,6 +80,7 @@ export default function CartItemCard(item: CartItemProps) {
           optionTwoText="Cancel"
           optionOnePressed={() => removeFromCartEvent()}
           optionTwoPressed={() => setIsRemoveModalVisible(false)}
+          optionOneColor="blue"
           optionTwoColor="red"
           closeModal={() => setIsRemoveModalVisible(false)}
         />

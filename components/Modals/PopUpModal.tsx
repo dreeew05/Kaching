@@ -1,7 +1,10 @@
 import { Modal, View, Text, Pressable } from 'react-native';
 import { Link, router } from 'expo-router';
 import { PopUpModalProps } from '../__utils__/interfaces/PopUpModalProps';
-import { setProductModifiedActions } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import {
+  setCategoryModifedActions,
+  setProductModifiedActions,
+} from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { useDispatch } from 'react-redux';
 
 export const PopUpModal = (props: PopUpModalProps) => {
@@ -40,10 +43,16 @@ export const PopUpModal = (props: PopUpModalProps) => {
 
   const modalClickedHandler = () => {
     props.closeModal();
-    if (props.link === 'goBack') {
-      router.push('//');
-    } else if (props.link === 'dispatch') {
-      dispatch(setProductModifiedActions('delete'));
+    switch (props.link) {
+      case 'goBack':
+        router.push('//');
+        break;
+      case 'dispatchCategory':
+        dispatch(setCategoryModifedActions('delete'));
+        break;
+      case 'dispatchProduct':
+        dispatch(setProductModifiedActions('delete'));
+        break;
     }
   };
 
@@ -84,7 +93,7 @@ export const PopUpModal = (props: PopUpModalProps) => {
           backgroundColor: 'rgba(0,0,0,0.32)',
         }}
       >
-        <View className="flex-1 justify-center items-center">
+        <View className="flex-1 justify-center items-center mx-5">
           <View
             className="flex-col rounded-2xl items-center shadow-sm"
             style={{ backgroundColor: getColor() }}
@@ -94,6 +103,7 @@ export const PopUpModal = (props: PopUpModalProps) => {
                 style={{
                   fontFamily: 'Poppins-Bold',
                   fontSize: 20,
+                  textAlign: 'center',
                 }}
               >
                 {props.message}

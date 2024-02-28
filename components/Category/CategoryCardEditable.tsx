@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Pressable,
   View,
   Text,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -13,10 +12,7 @@ import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
 import CategoryCard from './CategoryCard';
 import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { useDispatch } from 'react-redux';
-import {
-  setCategoryModifedActions,
-  setIsModifyCategoryLoading,
-} from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { setIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { PopUpModal } from '../Modals/PopUpModal';
 import CustomModal from '../Modals/CustomModal';
 
@@ -29,6 +25,7 @@ export default function CategoryCardEditable({
   const [isDeleteModalVisible, setIsDeleteModalVisible] =
     useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  // Todo: Not used yet
   const [deleteModalErrorVisible, setDeleteModalErrorVisible] =
     useState(false);
 
@@ -36,10 +33,11 @@ export default function CategoryCardEditable({
     const tableName: string = 'category';
     const refAttribute: string = 'id';
 
+    setIsDeleteModalVisible(false);
+
     deleteData(tableName, refAttribute, id)
       .then((_) => {
-        dispatch(setCategoryModifedActions('delete'));
-        // Todo: Add success message
+        setDeleteModalVisible(true);
       })
       .catch((error) => {
         // Todo: Add error message
@@ -100,6 +98,7 @@ export default function CategoryCardEditable({
         optionTwoText="Cancel"
         optionOnePressed={() => deleteCategory(id)}
         optionTwoPressed={() => setIsDeleteModalVisible(false)}
+        optionOneColor="blue"
         optionTwoColor="red"
         closeModal={() => setIsDeleteModalVisible(false)}
       />
@@ -108,7 +107,7 @@ export default function CategoryCardEditable({
         visible={deleteModalVisible}
         message="Category deleted successfully"
         text={'Done'}
-        link={'goBack'}
+        link={'dispatchCategory'}
         id={0}
         color="green"
         closeModal={() => setDeleteModalVisible(false)}

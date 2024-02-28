@@ -4,28 +4,30 @@ import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pressable } from 'react-native';
 import Stepper from '../Common/Stepper';
-import { RootState } from '../../redux/Store';
-import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
-import { router } from 'expo-router';
+import { Link, router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
+import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
+
+// Unused imports
+// import { RootState } from '../../redux/Store';
+// import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 
 export default function DetailedItemScreen(item: DetailedItemProps) {
   const dispatch = useDispatch();
-  const itemState = useSelector((state: RootState) =>
-    selectCartItem(state, item.id),
-  );
 
-  const getStartingQuantity = () => {
-    let startingQuantity = 0;
-    if (itemState != undefined) {
-      startingQuantity = itemState.quantity;
-    }
-    return startingQuantity;
-  };
+  // Unused [For searching the item in the cart]
+  // const itemState = useSelector((state: RootState) =>
+  //   selectCartItem(state, item.id),
+  // );
 
-  const [quantity, setQuantity] = useState(getStartingQuantity);
+  const param = useLocalSearchParams();
+  const categoryID: number = ParamsToInteger(param.category_id);
+
+  console.log(categoryID);
+
+  const [quantity, setQuantity] = useState(0);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showAddQuantityModal, setShowAddQuantityModal] =
     useState(false);
@@ -37,9 +39,12 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
   };
 
   const addToCart = () => {
+    // Reset quantity to 0
+    updateQuantity(0);
+
     addToCartEvent({
       quantity: quantity,
-      itemState: itemState,
+      // itemState: itemState,
       product: item,
       dispatch: dispatch,
       showAddModal: setShowAddModal,
@@ -59,9 +64,19 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         marginTop: 60,
       }}
     >
-      <Pressable onPress={() => goBackAction()} className="ml-3">
-        <Ionicons name="arrow-back-outline" size={30} color="green" />
-      </Pressable>
+      <Link
+        href={{
+          pathname: '/(tabs)/categoryView',
+          params: {
+            id: categoryID,
+          },
+        }}
+        asChild
+      >
+        <Pressable onPress={() => goBackAction()} className="ml-3">
+          <Ionicons name="chevron-back" size={30} color="green" />
+        </Pressable>
+      </Link>
 
       <View className="h-96 px-3 mt-5">
         <Image

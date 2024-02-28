@@ -324,6 +324,7 @@ export default function ModifyCategory() {
           optionTwoText="No"
           optionOnePressed={() => saveCategory()}
           optionTwoPressed={() => setSaveModalVisible(false)}
+          optionOneColor="blue"
           optionTwoColor="red"
           closeModal={() => setSaveModalVisible(false)}
         />
@@ -356,6 +357,7 @@ export default function ModifyCategory() {
           optionOnePressed={openCamera}
           optionTwoPressed={openGallery}
           closeModal={() => setMediaModalVisible(false)}
+          optionOneColor=""
           optionTwoColor={''}
         />
       </View>

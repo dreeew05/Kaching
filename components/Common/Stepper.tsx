@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, Pressable, Text } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 
 interface StepperProps {
   id: number;
@@ -10,34 +11,33 @@ interface StepperProps {
 }
 
 export default function Stepper(parentMixIn: StepperProps) {
-  const [value, setValue] = useState(parentMixIn.quantity);
-
   useEffect(() => {
     // If the item is added on cart, quantity should not be 0
-    if (parentMixIn.caseType === 'cart' && value == 0) {
-      setValue(1);
+    if (
+      parentMixIn.caseType === 'cart' &&
+      parentMixIn.quantity == 0
+    ) {
+      parentMixIn.updateQuantity(1);
     }
-  }, [value]);
+  }, [parentMixIn.quantity]);
 
   const incrementQuantity = () => {
-    setValue(value + 1);
-    parentMixIn.updateQuantity(value + 1);
+    parentMixIn.updateQuantity(parentMixIn.quantity + 1);
   };
 
   const decrementQuantity = () => {
-    if (value > 0) {
-      setValue(value - 1);
-      parentMixIn.updateQuantity(value - 1);
+    if (parentMixIn.quantity > 0) {
+      parentMixIn.updateQuantity(parentMixIn.quantity - 1);
     }
   };
 
   const handleTextChange = (val: string) => {
+    let defaultValue: number =
+      parentMixIn.caseType === 'cart' ? 1 : 0;
     if (!Number.isNaN(parseInt(val))) {
-      setValue(parseInt(val));
       parentMixIn.updateQuantity(parseInt(val));
     } else {
-      setValue(1);
-      parentMixIn.updateQuantity(1);
+      parentMixIn.updateQuantity(defaultValue);
     }
   };
 
@@ -68,7 +68,7 @@ export default function Stepper(parentMixIn: StepperProps) {
         keyboardType="numeric"
         onChangeText={(val) => handleTextChange(val)}
       >
-        {value}
+        {parentMixIn.quantity.toString()}
       </TextInput>
 
       <Pressable onPress={incrementQuantity}>
