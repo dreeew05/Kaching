@@ -5,7 +5,7 @@ import { BaseItemProps } from './BaseItemProps';
 export interface AddToCartInterface
   extends AddToCartModalPropsMethods {
   quantity: number;
-  itemState: BaseItemProps | undefined;
+  // itemState: BaseItemProps | undefined;
   product: BaseItemProps;
   dispatch: AppDispatch;
 }
