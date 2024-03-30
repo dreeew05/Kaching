@@ -1,12 +1,12 @@
+import { Link } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Link } from 'expo-router';
 
 //  COMPONENT
-import CategoryCard from './CategoryCard';
-import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
 import { useDispatch } from 'react-redux';
 import { setIsCategoryViewProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
+import CategoryCard from './CategoryCard';
 
 export default function CategoryCardClickable({
   id,
