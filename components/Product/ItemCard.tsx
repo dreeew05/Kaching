@@ -36,6 +36,7 @@ type itemCardProps = {
   setTempCart: (tempCart: CartItemProps[]) => void;
   isAddAllPressed: boolean;
   setIsAddAllPressed: (isAddAllPressed: boolean) => void;
+  clearTempCart: () => void;
 };
 
 export default function ItemCard(item: itemCardProps) {
@@ -114,6 +115,7 @@ export default function ItemCard(item: itemCardProps) {
       showAddQuantityModal: setShowAddQuantityModal,
       showItemInCartModal: setShowItemInCartModal,
     });
+    item.clearTempCart();
   };
 
   // Unused function

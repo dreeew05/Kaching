@@ -118,7 +118,6 @@ export default function CategoryView() {
   };
 
   const checkAddedProducts = () => {
-    console.log(temporaryCart);
     temporaryCart.length > 0
       ? addAllProducts()
       : setAddFailedModalVisible(true);
@@ -191,6 +190,7 @@ export default function CategoryView() {
                   setTempCart={setTemporaryCart}
                   isAddAllPressed={isAddAllPressed}
                   setIsAddAllPressed={setIsAddAllPressed}
+                  clearTempCart={clearTemporaryCart}
                 />
               );
             })}
