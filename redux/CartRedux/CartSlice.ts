@@ -23,7 +23,7 @@ export const CartSlice = createSlice({
       );
       // For Add All Purpose
       if (itemExists) {
-        itemExists.quantity = action.payload.quantity;
+        itemExists.quantity += action.payload.quantity;
       } else if (!itemExists) {
         state.cart.push(action.payload);
       }
