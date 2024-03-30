@@ -6,9 +6,12 @@ import {
 } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  Image,
+  Animated,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   Text,
   TextInput,
@@ -56,8 +59,42 @@ export default function RootLayout() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [storeName, setStoreName] = useState('');
   const [showTermsModal, setShowTermsModal] = useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const opacity = useRef(new Animated.Value(1)).current;
 
   const db = getDatabase();
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+        // Hide image with transition when keyboard shows
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }).start();
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+        // Show image with transition when keyboard hides
+        Animated.timing(opacity, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      },
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -109,7 +146,10 @@ export default function RootLayout() {
   if (!onboardingCompleted) {
     initializeDatabase();
     return (
-      <View style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         <OnboardingScreen
           image={onboardingImages[currentImageIndex]}
           storeName={storeName}
@@ -122,12 +162,14 @@ export default function RootLayout() {
             currentImageIndex === onboardingImages.length - 1
           }
           onTermsPress={() => setShowTermsModal(true)}
+          isKeyboardVisible={isKeyboardVisible}
+          opacity={opacity}
         />
         <TermsAndConditionsScreen
           visible={showTermsModal}
           onClose={() => setShowTermsModal(false)}
         ></TermsAndConditionsScreen>
-      </View>
+      </KeyboardAvoidingView>
     );
   } else {
     // Navigate to RootLayoutNav
@@ -143,13 +185,16 @@ function OnboardingScreen({
   isLastPage,
   onTermsPress,
   onConfirm,
+  isKeyboardVisible,
+  opacity,
 }) {
   return (
     <View className="flex-1 justify-center items-center bg-white">
-      <Image
+      <Animated.Image
         source={image}
         style={{
           resizeMode: 'cover',
+          opacity: opacity, // Set opacity based on Animated value
         }}
         className="center"
       />
