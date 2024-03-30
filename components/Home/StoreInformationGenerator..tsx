@@ -53,13 +53,13 @@ export default function StoreInformationGenerator() {
         }}
         asChild
       >
-        <View className="flex-row">
-          <Pressable className="flex-1">
+        <Pressable className="flex-1">
+          <View className="flex-row">
             <Text className="text-5xl ml-5 font-semibold text-green">
               {storeName}
             </Text>
-          </Pressable>
-        </View>
+          </View>
+        </Pressable>
       </Link>
 
       <Text className="text-sm ml-5">
