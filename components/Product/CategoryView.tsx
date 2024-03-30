@@ -162,16 +162,18 @@ export default function CategoryView() {
         <View>
           {/* {showModifyProductHeader()} */}
           <View className="flex flex-row mb-3 mt-2 items-center">
-            <View className="flex-row flex-1 items-center">
+            <View className="flex-1 bg-emerald-300 ">
               <Text
                 numberOfLines={1}
-                className="text-green text-4xl ml-3 p-2 font-bold leading-tight"
+                // to fit the text in the container
+                adjustsFontSizeToFit
+                className="text-green ml-3 text-4xl p-2 font-bold"
                 style={{ fontFamily: 'Poppins-Bold' }}
               >
                 {categoryName}
               </Text>
-              {showModifyProductsComponent()}
             </View>
+            {showModifyProductsComponent()}
           </View>
           <ScrollView className="p-2 mb-32">
             {products.map((product) => {
@@ -201,13 +203,13 @@ export default function CategoryView() {
       return (
         <>
           <Pressable
-            className="ml-3 flex-1"
+            className="mr-3 "
             onPress={() => dispatch(setIsEditButton(false))}
           >
             <FontAwesome5 name="edit" size={25} color="darkgreen" />
           </Pressable>
           <View
-            className="mr-5 bg-green items-center 
+            className="mr-5 bg-green items-center
               justify-center rounded-full h-10"
           >
             <TouchableOpacity
