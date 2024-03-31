@@ -1,34 +1,33 @@
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { Skeleton } from '@rneui/themed';
+import * as ImagePicker from 'expo-image-picker';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Link, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
-  View,
-  TouchableOpacity,
+  ActivityIndicator,
   Image,
-  Text,
-  ImageSourcePropType,
   Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as ImagePicker from 'expo-image-picker';
-import { Link, useLocalSearchParams, useRouter } from 'expo-router';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   insertData,
   selectData,
   updateData,
 } from '../../components/DatabaseUtils/CoreFunctions';
-import { useDispatch, useSelector } from 'react-redux';
+import { selectIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import {
   setCategoryModifedActions,
   setIsModifyCategoryLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
-import { Skeleton } from '@rneui/themed';
-import { StyleSheet } from 'react-native';
-import { selectIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import { LinearGradient } from 'expo-linear-gradient';
-import { ActivityIndicator } from 'react-native';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 export default function ModifyCategory() {
   const param = useLocalSearchParams();
@@ -143,8 +142,7 @@ export default function ModifyCategory() {
       <>
         <SafeAreaView className="mt-2">
           <TextInput
-            className="w-3/5 text-center self-center border-b-2 
-              border-zinc-400 text-xl"
+            className="w-1/2 text-green font-medium text-center self-center border-b-gray border-b-2 text-xl"
             placeholder="Category Name"
             value={categoryName}
             onChangeText={(text) => setCategoryName(text)}
