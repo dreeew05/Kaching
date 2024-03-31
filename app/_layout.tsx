@@ -1,14 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Image, Text, TextInput, View, Pressable, TouchableHighlight } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useColorScheme } from 'react-native';
-import TermsAndConditionsScreen from './TermsAndConScreen';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Animated,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  View,
+  useColorScheme,
+} from 'react-native';
 import { initializeDatabase } from '../components/DatabaseUtils/InitializeDatabase';
 import { getDatabase } from '../components/DatabaseUtils/OpenDatabase';
-
+import TermsAndConditionsScreen from './TermsAndConScreen';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -25,9 +38,9 @@ SplashScreen.preventAutoHideAsync();
 
 // Define the onboarding images
 const onboardingImages = [
-  require('../assets/images/onboarding/Onboarding_1.png'),
-  require('../assets/images/onboarding/Onboarding_2.png'),
-  require('../assets/images/onboarding/Login.png'),
+  require('../assets/images/onboarding/one.png'),
+  require('../assets/images/onboarding/two.png'),
+  require('../assets/images/onboarding/three.png'),
 ];
 
 export default function RootLayout() {
@@ -41,12 +54,47 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
+  const [onboardingCompleted, setOnboardingCompleted] =
+    useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [storeName, setStoreName] = useState('');
   const [showTermsModal, setShowTermsModal] = useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const opacity = useRef(new Animated.Value(1)).current;
 
   const db = getDatabase();
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+        // Hide image with transition when keyboard shows
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }).start();
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+        // Show image with transition when keyboard hides
+        Animated.timing(opacity, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      },
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -54,12 +102,13 @@ export default function RootLayout() {
         `SELECT storename FROM store`,
         [],
         (_, result) => {
-          if(result.rows.length > 0) {
+          if (result.rows.length > 0) {
             setOnboardingCompleted(true);
           }
-        }
-      )},
-  )}, [])
+        },
+      );
+    });
+  }, []);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -85,7 +134,7 @@ export default function RootLayout() {
           } else {
             console.log('Failed');
           }
-        }
+        },
       );
     });
   };
@@ -97,21 +146,30 @@ export default function RootLayout() {
   if (!onboardingCompleted) {
     initializeDatabase();
     return (
-      <View style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         <OnboardingScreen
           image={onboardingImages[currentImageIndex]}
           storeName={storeName}
           setStoreName={setStoreName}
           onConfirm={handleConfirm}
-          onComplete={() => setCurrentImageIndex(currentImageIndex + 1)}
-          isLastPage={currentImageIndex === onboardingImages.length - 1}
+          onComplete={() =>
+            setCurrentImageIndex(currentImageIndex + 1)
+          }
+          isLastPage={
+            currentImageIndex === onboardingImages.length - 1
+          }
           onTermsPress={() => setShowTermsModal(true)}
+          isKeyboardVisible={isKeyboardVisible}
+          opacity={opacity}
         />
         <TermsAndConditionsScreen
           visible={showTermsModal}
           onClose={() => setShowTermsModal(false)}
         ></TermsAndConditionsScreen>
-      </View>
+      </KeyboardAvoidingView>
     );
   } else {
     // Navigate to RootLayoutNav
@@ -127,16 +185,26 @@ function OnboardingScreen({
   isLastPage,
   onTermsPress,
   onConfirm,
+  isKeyboardVisible,
+  opacity,
 }) {
-  
   return (
-    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <Image source={image} className={'w-screen h-screen'} />
+    <View className="flex-1 justify-center items-center bg-white">
+      <Animated.Image
+        source={image}
+        style={{
+          resizeMode: 'cover',
+          opacity: opacity, // Set opacity based on Animated value
+        }}
+        className="center"
+      />
 
       {isLastPage ? (
         <View>
-          <View className="ml-8 mr-8 mt-8 -inset-y-80">
-            <Text className="text-lg text-gray font-semibold mb-1 mt-3">Store Name: </Text>
+          <View className="ml-8 mr-8 mt-8">
+            <Text className="text-lg text-gray font-semibold mb-1 mt-3">
+              Store Name:{' '}
+            </Text>
             <View className="border-b-gray border-b-2 opacity-50">
               <TextInput
                 className="text-lg text-black font-medium mb-1"
@@ -154,25 +222,35 @@ function OnboardingScreen({
               disabled={storeName.trim() === ''} // Disable button if store name is empty
               underlayColor={'#789c8c'} // Change the underlay color when clicked
             >
-              <Text className={`text-white text-xl font-bold self-center`}>Confirm</Text>
+              <Text
+                className={`text-white text-xl font-bold self-center`}
+              >
+                Confirm
+              </Text>
             </TouchableHighlight>
             <Text className={`text-gray mt-5 mb-1 self-center`}>
               By clicking confirm, you agree to our
             </Text>
             <Pressable onPress={onTermsPress}>
-              <Text className={`text-yellow self-center`}>Show Terms and Conditions</Text>
+              <Text className={`text-yellow self-center`}>
+                Show Terms and Conditions
+              </Text>
             </Pressable>
           </View>
         </View>
-      ) : null}
-
-      <TouchableHighlight
-        className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green -inset-y-12`}
-        onPress={onComplete}
-        underlayColor={'#789c8c'} // Change the underlay color when clicked
-      >
-        <Text className={`text-white text-xl font-bold self-center `}>Next</Text>
-      </TouchableHighlight>
+      ) : (
+        <TouchableHighlight
+          className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green mt-5`}
+          onPress={onComplete}
+          underlayColor={'#789c8c'} // Change the underlay color when clicked
+        >
+          <Text
+            className={`text-white text-xl font-bold self-center `}
+          >
+            Next
+          </Text>
+        </TouchableHighlight>
+      )}
     </View>
   );
 }
@@ -181,10 +259,18 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider
+      value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+    >
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen
+          name="(tabs)"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="modal"
+          options={{ presentation: 'modal' }}
+        />
       </Stack>
     </ThemeProvider>
   );

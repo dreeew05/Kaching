@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { View, Text, Pressable } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import CategoryList from '../Category/CategoryList';
 import { selectAllCategories } from '../DatabaseUtils/FetchInstructions/SelectAllCategories';
 
