@@ -436,7 +436,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
             <PopUpModal
               visible={insertModalVisible}
-              message="Item added successfully"
+              message="Product added successfully"
               text={'Done'}
               link={'allProducts'}
               id={categoryID}

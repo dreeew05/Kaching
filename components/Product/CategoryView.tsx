@@ -124,7 +124,6 @@ export default function CategoryView() {
   };
 
   const addAllProducts = () => {
-    // console.log(temporaryCart);
     temporaryCart.forEach((item) => {
       dispatch(
         addToCart({
@@ -137,8 +136,13 @@ export default function CategoryView() {
         }),
       );
     });
+    clearTemporaryCart();
     setAddModalVisible(true);
     setIsAddAllPressed(true);
+  };
+
+  const clearTemporaryCart = () => {
+    setTemporaryCart([]);
   };
 
   useEffect(() => {
@@ -212,10 +216,7 @@ export default function CategoryView() {
             className="mr-5 bg-green items-center
               justify-center rounded-full h-10"
           >
-            <TouchableOpacity
-              // Todo: Add onPress event
-              onPress={() => checkAddedProducts()}
-            >
+            <TouchableOpacity onPress={() => checkAddedProducts()}>
               <Text
                 className="px-5"
                 style={{

@@ -16,7 +16,7 @@ export const AddToCartModals = (item: AddToCartModalsProps) => {
 
       <PopUpModal
         visible={item.isAddQuantityModal}
-        message="Please add quantity to cart first."
+        message="Please add quantity first."
         text={'Dismiss'}
         link={null}
         id={0}

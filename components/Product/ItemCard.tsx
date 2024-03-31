@@ -114,6 +114,15 @@ export default function ItemCard(item: itemCardProps) {
       showAddQuantityModal: setShowAddQuantityModal,
       showItemInCartModal: setShowItemInCartModal,
     });
+    removeFromTempCart();
+  };
+
+  const removeFromTempCart = () => {
+    item.setTempCart(
+      item.tempCart.filter(
+        (itemInCart) => itemInCart.id !== item.item.id,
+      ),
+    );
   };
 
   // Unused function
