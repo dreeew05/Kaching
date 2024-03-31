@@ -190,7 +190,6 @@ export default function CategoryView() {
                   setTempCart={setTemporaryCart}
                   isAddAllPressed={isAddAllPressed}
                   setIsAddAllPressed={setIsAddAllPressed}
-                  clearTempCart={clearTemporaryCart}
                 />
               );
             })}
