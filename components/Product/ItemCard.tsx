@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Link } from 'expo-router';
 import Stepper from '../Common/Stepper';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import {
   setIsDetailedViewLoading,
