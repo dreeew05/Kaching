@@ -166,7 +166,7 @@ export default function CategoryView() {
         <View>
           {/* {showModifyProductHeader()} */}
           <View className="flex flex-row mb-3 mt-2 items-center">
-            <View className="flex-1 bg-emerald-300 ">
+            <View className="flex-1 ">
               <Text
                 numberOfLines={1}
                 // to fit the text in the container
@@ -179,7 +179,7 @@ export default function CategoryView() {
             </View>
             {showModifyProductsComponent()}
           </View>
-          <ScrollView className="p-2 mb-32">
+          <ScrollView className="p-2 mb-40">
             {products.map((product) => {
               return (
                 <ItemCard
@@ -244,7 +244,7 @@ export default function CategoryView() {
             asChild
           >
             <Pressable
-              className="ml-3 flex-1"
+              className="mr-10"
               onPress={() => dispatch(setIsEditButton(true))}
             >
               <AntDesign
