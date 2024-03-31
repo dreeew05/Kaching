@@ -339,7 +339,7 @@ export default function ModifyCategory() {
 
         <PopUpModal
           visible={insertModalVisible}
-          message="Item inserted successfully."
+          message="Category inserted successfully."
           text="Done"
           id={0}
           link={'goBack'}
