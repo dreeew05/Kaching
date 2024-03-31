@@ -1,24 +1,24 @@
+import { CheckBox } from '@rneui/base';
+import { Link } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   Image,
-  View,
-  Text,
   Pressable,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import { Link } from 'expo-router';
-import Stepper from '../Common/Stepper';
-import { useDispatch, useSelector } from 'react-redux';
-import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
+import { useDispatch } from 'react-redux';
 import {
   setIsDetailedViewLoading,
   setIsEditButton,
   setIsModifyProductLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import Stepper from '../Common/Stepper';
+import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
-import { CheckBox } from '@rneui/base';
-import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 
 // Unused imports
 // import { deleteData } from '../DatabaseUtils/CoreFunctions';
@@ -153,8 +153,8 @@ export default function ItemCard(item: itemCardProps) {
   };
 
   return (
-    <View className="ml-3 mr-3 mb-5">
-      <View className="flex flex-row mb-3">
+    <View className="ml-3 mr-3 mb-5 flex">
+      <View className=" mb-3 flex-row ">
         <Link
           href={{
             pathname: '/(tabs)/ItemScreen',
@@ -212,8 +212,8 @@ export default function ItemCard(item: itemCardProps) {
       </View>
 
       {item.isEditComponent ? (
-        <View className="flex flex-row items-center">
-          <View className="flex items-center mr-5">
+        <View className="flex flex-row items-center ">
+          <View className=" items-center">
             <Stepper
               id={item.item.id}
               quantity={quantity}
@@ -221,10 +221,10 @@ export default function ItemCard(item: itemCardProps) {
               updateQuantity={updateQuantity}
             />
           </View>
-          <View className="flex-1 justify-center">
+          <View className="justify-center">
             <Pressable
-              className="bg-green w-48 h-10 border-2 border-green 
-                          rounded-md self-center ml-5 mr-5 flex-1 items-center justify-center"
+              className="bg-green w-40 h-10
+                          rounded-full self-center ml-5 mr-5 flex-1 items-center justify-center"
               onPress={addToCart}
             >
               <Text
@@ -250,8 +250,8 @@ export default function ItemCard(item: itemCardProps) {
               asChild
             >
               <Pressable
-                className="bg-green h-10 border-2 border-green
-                              rounded-md self-center flex-1 items-center justify-center w"
+                className="bg-green w-40 h-10 border-2 border-green
+                              rounded-full self-center items-center justify-center"
                 onPress={() => editProduct()}
               >
                 <Text

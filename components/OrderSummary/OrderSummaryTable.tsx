@@ -1,13 +1,43 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 export default function OrderSummaryTable() {
   return (
-    <View className="mt-5 items-end">
-      <View className="flex flex-row">
-        <Text className=" text-gray text-base self-center w-16 mr-5 font-semibold">Price</Text>
-        <Text className=" text-gray text-base self-center w-12 mr-2 font-semibold">Qty</Text>
-        <Text className=" text-gray text-base self-center w-20 mr-2 font-semibold">Subtotal</Text>
+    <View className="flex flex-row items-center rounded-xl m-3 p-1 justify-between">
+      <Image
+        source={{}}
+        className=" w-12 sm:w-12 md:w-16 lg:w-20 rounded border-4 self-center m-1 "
+      />
+      <View className=" w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6">
+        <Text className="text-lg font-medium text-gray"></Text>
+      </View>
+
+      <View className="  w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6">
+        <Text
+          numberOfLines={1}
+          className=" text-gray text-base text-center font-semibold"
+          adjustsFontSizeToFit
+        >
+          Price
+        </Text>
+      </View>
+      <View className=" w-1/12 sm:w-1/12 md:w-1/6 lg:w-1/6">
+        <Text
+          numberOfLines={1}
+          className=" text-gray text-base text-center  font-semibold"
+          adjustsFontSizeToFit
+        >
+          Qty
+        </Text>
+      </View>
+      <View className=" w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 mr-3">
+        <Text
+          numberOfLines={1}
+          className=" text-gray  text-base text-center font-semibold"
+          adjustsFontSizeToFit
+        >
+          Subtotal
+        </Text>
       </View>
     </View>
   );

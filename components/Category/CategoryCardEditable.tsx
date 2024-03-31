@@ -1,20 +1,20 @@
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Link } from 'expo-router';
 import React, { useState } from 'react';
 import {
   Pressable,
-  View,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'expo-router';
-import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
-import CategoryCard from './CategoryCard';
-import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import { useDispatch } from 'react-redux';
 import { setIsModifyCategoryLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
-import { PopUpModal } from '../Modals/PopUpModal';
+import { deleteData } from '../DatabaseUtils/CoreFunctions';
 import CustomModal from '../Modals/CustomModal';
+import { PopUpModal } from '../Modals/PopUpModal';
+import { CategoryProps } from '../__utils__/interfaces/CategoryProps';
+import CategoryCard from './CategoryCard';
 
 export default function CategoryCardEditable({
   id,
@@ -68,7 +68,7 @@ export default function CategoryCardEditable({
       >
         <TouchableOpacity
           onPress={() => setLoadingScreen()}
-          className="h-10 rounded-md bg-green 
+          className="h-10 rounded-md bg-green
                     justify-center items-center"
         >
           <Text
