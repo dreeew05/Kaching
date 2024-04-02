@@ -134,7 +134,7 @@ export default function PaymentComponent() {
       <View className="flex flex-col flex-1">
         <Text
           numberOfLines={1}
-          className=" text-2xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-3xl font-semibold self-center mt-10  text-green"
+          className=" text-2xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-semibold self-center mt-10  text-green"
           style={{ fontFamily: 'Poppins-Medium' }}
         >
           Amount to pay

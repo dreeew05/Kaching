@@ -42,6 +42,26 @@ export default function ReceiptComponent() {
 
   const db = getDatabase();
 
+  const date = new Date();
+
+  const monthInWords = (month: number) => {
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    return monthNames[month];
+  };
+
   const [receiptStoreInfo, setReceiptStoreInfo] =
     useState<DataFromDbProps>({
       cashiername: '',
@@ -69,39 +89,48 @@ export default function ReceiptComponent() {
   }, []);
 
   return (
-    <View className="flex-1 self-stretch bg-white dark:bg-black">
-      <Text className="text-2xl font-semibold text-green self-center">
-        Transaction Recorded!
-      </Text>
-
-      <ScrollView>
-        <View className="flex flex-column items-center mt-5">
-          <Text className="text-5xl font-semibold text-green">
+    <View className="flex-1 bg-white dark:bg-black">
+      <ScrollView className=" w-11/12 self-center mt-5 mb-5  rounded-3xl bg-slate-100">
+        <View className="flex flex-col flex-1 items-center">
+          <Text className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-7 font-semibold text-yellow self-center">
+            Transaction Recorded!
+          </Text>
+          <Text className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-3xl mt-5 font-semibold text-green">
             Store Name
           </Text>
-          <Text className="text-sm ml-5 ">
+        </View>
+        <View className="flex-1 items-center mt-5">
+          <Text className="ml-5 text-black text-base font-semibold">
             {receiptStoreInfo.cashiername}
           </Text>
-          <Text className="text-sm ml-5 ">
+          <Text className=" ml-5 text-red-black text-base ">
             {receiptStoreInfo.contactnum}
           </Text>
-          <Text className="text-sm ml-5 mb-5">January 9, 2024</Text>
+          <Text className="text-sm ml-5">
+            {monthInWords(date.getMonth()) +
+              ' ' +
+              date.getDate() +
+              ',' +
+              ' ' +
+              date.getFullYear()}
+          </Text>
         </View>
 
-        <View className=" bg-slate-100 dark:bg-black p-3 m-5 mb-0 border-2 border-zinc-300 rounded-xl">
-          <ReceiptSummaryTable />
-          <ReceiptItemList cart={cartItems} />
+        <View className="flex-1 w-10/12 self-center bg-white dark:bg-black p-3 m-5 mb-11  border-zinc-300 rounded-xl">
+          {/* Container for Receipt Summary Table and Receipt Item */}
+          <View className="mb-5 mt-3">
+            <ReceiptSummaryTable />
+            <ReceiptItemList cart={cartItems} />
+          </View>
 
-          <Text className=" text-zinc-500 text-base self-center">
-            ________________________________________________
-          </Text>
-          <View className=" dark:bg-black p-3 m-5 mt-0 mb-0">
+          {/* Container for Total Price, Payment, and Change */}
+          <View className="dark:bg-black p-3 flex-1 self-center justify-end w-11/12 border-t">
             {/* Container for Total Price */}
-            <View className="flex-row overflow-hidden">
+            <View className="flex-row overflow-hidden pt-3">
               <Text className="py-2 text-lg mr-auto text-zinc-500 font-medium">
                 Total:{' '}
               </Text>
-              <Text className="py-2 text-lg  text-zinc-500 font-medium items-end">
+              <Text className="py-2 text-lg text-zinc-500 font-medium items-end">
                 P{totalPrice}
               </Text>
             </View>
@@ -115,6 +144,7 @@ export default function ReceiptComponent() {
                 P{userPayment}
               </Text>
             </View>
+
             {/* Container for Total Change */}
             <View className="flex-row overflow-hidden">
               <Text className="py-2 text-lg mr-auto text-right text-zinc-500 font-medium">
