@@ -3,7 +3,7 @@ import { Image, Text, View } from 'react-native';
 
 export default function OrderSummaryTable() {
   return (
-    <View className="flex flex-row items-center rounded-xl m-3 p-1 justify-between">
+    <View className=" flex flex-row items-center rounded-xl m-3 p-1 justify-between">
       <Image
         source={{}}
         className=" w-12 sm:w-12 md:w-16 lg:w-20 rounded border-4 self-center m-1 "
