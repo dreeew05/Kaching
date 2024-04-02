@@ -9,12 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/OrderSummary/OrderSummaryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/OrderSummary/OrderSummaryTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Payment/PaymentComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Payment/PaymentComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Receipt/ReceiptComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Receipt/ReceiptComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Receipt/ReceiptItemCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Receipt/ReceiptItemCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Receipt/ReceiptItemList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Receipt/ReceiptItemList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Receipt/ReceiptSummaryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Receipt/ReceiptSummaryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Menu/MenuComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Menu/MenuComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
