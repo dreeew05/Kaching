@@ -145,7 +145,10 @@ export default function MenuComponent() {
         </View>
         <View className="flex item-center justify-between  ">
           <Text className=" bg-green text-center rounded-md text-white text-4xl font-bold p-3 my-3 py-2 sm:py-2 md:py-5 lg:py-5 xl:py-5">
-            {'₱ ' + currentEOD?.rows._array[0].total_sales.toFixed(2)}
+            {'₱ ' +
+              (currentEOD?.rows._array[0].total_sales || 0).toFixed(
+                2,
+              )}
           </Text>
           <Text className="text-green text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-bold self-center mb-10 px-2">
             Total Sales
