@@ -1,8 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
-// CONSTANT DATA
-
 // COMPONENT
 import CategoryCard from './CategoryCard';
 import CategoryCardClickable from './CategoryCardClickable';
