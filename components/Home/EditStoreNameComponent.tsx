@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { router, useLocalSearchParams } from 'expo-router';
-import { updateData } from '../DatabaseUtils/CoreFunctions';
+import { useState } from 'react';
 import { TextInput, View } from 'react-native';
-import CustomPressable from '../Common/CustomPressable';
 import { useDispatch } from 'react-redux';
 import { addStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import CustomPressable from '../Common/CustomPressable';
+import { updateData } from '../DatabaseUtils/CoreFunctions';
+import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 
 export default function EditStoreName() {
   const db = getDatabase();

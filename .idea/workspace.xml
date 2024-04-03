@@ -9,7 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Home/EditStoreNameComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Home/EditStoreNameComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Menu/MenuComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Menu/MenuComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
