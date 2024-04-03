@@ -86,6 +86,26 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="selectStoreType"
+        options={{
+          title: '',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="selectDefaultCategories"
+        options={{
+          title: '',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="paymentWrapper"
         options={{
           title: '',
