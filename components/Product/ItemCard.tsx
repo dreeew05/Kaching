@@ -199,7 +199,6 @@ export default function ItemCard(item: itemCardProps) {
           </Text>
         </View>
 
-        {/* DELETE BUTTON */}
         {!item.isEditComponent ? (
           <View className="absolute -top-1 -right-1">
             <CheckBox
