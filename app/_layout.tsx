@@ -22,6 +22,14 @@ import {
 import { initializeDatabase } from '../components/DatabaseUtils/InitializeDatabase';
 import { getDatabase } from '../components/DatabaseUtils/OpenDatabase';
 import TermsAndConditionsScreen from './TermsAndConScreen';
+import { insertData } from '../components/DatabaseUtils/CoreFunctions';
+import SelectStoreType from './selectStoreType';
+import SelectDefaultCategories from './selectDefaultCategories';
+
+export interface OnboardingModalProps {
+  visible: boolean;
+  onClose: () => void;
+}
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -58,9 +66,17 @@ export default function RootLayout() {
     useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [storeName, setStoreName] = useState('');
-  const [showTermsModal, setShowTermsModal] = useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const opacity = useRef(new Animated.Value(1)).current;
+
+  // Modal page
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showStoreTypeModal, setShowStoreTypeModal] = useState(false);
+  const [showDefaultCategoryModal, setShowDefaultCategoryModal] =
+    useState<boolean>(false);
+  const [defaultCategoryId, setDefaultCategoryId] = useState<
+    number | null
+  >(null);
 
   const db = getDatabase();
 
@@ -99,11 +115,15 @@ export default function RootLayout() {
   useEffect(() => {
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT storename FROM store`,
+        `SELECT setup_complete FROM store`,
         [],
         (_, result) => {
           if (result.rows.length > 0) {
-            setOnboardingCompleted(true);
+            // setOnboardingCompleted(true);
+            const setupComplete = result.rows.item(0).setup_complete;
+            if (setupComplete === 1) {
+              setOnboardingCompleted(true);
+            }
           }
         },
       );
@@ -122,21 +142,37 @@ export default function RootLayout() {
   }, [loaded]);
 
   const handleConfirm = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'INSERT INTO store(storename) VALUES (?);',
-        [storeName],
-        (tx, results) => {
-          console.log('Results', results.rowsAffected);
-          if (results.rowsAffected > 0) {
-            console.log('Success inserting storname');
-            setOnboardingCompleted(true);
-          } else {
-            console.log('Failed');
-          }
-        },
-      );
-    });
+    // db.transaction((tx) => {
+    //   tx.executeSql(
+    //     'INSERT INTO store(storename) VALUES (?);',
+    //     [storeName, 0],
+    //     (tx, results) => {
+    //       console.log('Results', results.rowsAffected);
+    //       if (results.rowsAffected > 0) {
+    //         console.log('Success inserting storname');
+    //         setOnboardingCompleted(true);
+    //       } else {
+    //         console.log('Failed');
+    //       }
+    //     },
+    //   );
+    // });
+    const tableName = 'store';
+    const data = [
+      {
+        storename: storeName,
+        setup_complete: 0,
+      },
+    ];
+    insertData(tableName, data)
+      .then((result) => {
+        // console.log(result);
+        // setOnboardingCompleted(true);
+        setShowStoreTypeModal(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   if (!loaded) {
@@ -165,6 +201,25 @@ export default function RootLayout() {
           isKeyboardVisible={isKeyboardVisible}
           opacity={opacity}
         />
+        <SelectStoreType
+          storeModalProps={{
+            visible: showStoreTypeModal,
+            onClose: () => setShowStoreTypeModal(false),
+          }}
+          openDefaultCategoryModal={() =>
+            setShowDefaultCategoryModal(true)
+          }
+          setCategoryId={setDefaultCategoryId}
+        ></SelectStoreType>
+        <SelectDefaultCategories
+          id={defaultCategoryId}
+          modalProps={{
+            visible: showDefaultCategoryModal,
+            onClose: () => setShowDefaultCategoryModal(false),
+          }}
+          goBackToStoreType={() => setShowStoreTypeModal(true)}
+          onboardingComplete={() => setOnboardingCompleted(true)}
+        ></SelectDefaultCategories>
         <TermsAndConditionsScreen
           visible={showTermsModal}
           onClose={() => setShowTermsModal(false)}
@@ -177,29 +232,31 @@ export default function RootLayout() {
   }
 }
 
-function OnboardingScreen({
-  image,
-  storeName,
-  setStoreName,
-  onComplete,
-  isLastPage,
-  onTermsPress,
-  onConfirm,
-  isKeyboardVisible,
-  opacity,
-}) {
+interface OnboardingScreenProps {
+  image: any;
+  storeName: string;
+  setStoreName: (text: string) => void;
+  onComplete: () => void;
+  isLastPage: boolean;
+  onTermsPress: () => void;
+  onConfirm: () => void;
+  opacity: Animated.Value;
+  isKeyboardVisible: boolean;
+}
+
+function OnboardingScreen(onboardingProps: OnboardingScreenProps) {
   return (
     <View className="flex-1 justify-center items-center bg-white">
       <Animated.Image
-        source={image}
+        source={onboardingProps.image}
         style={{
           resizeMode: 'cover',
-          opacity: opacity, // Set opacity based on Animated value
+          opacity: onboardingProps.opacity, // Set opacity based on Animated value
         }}
         className="center"
       />
 
-      {isLastPage ? (
+      {onboardingProps.isLastPage ? (
         <View>
           <View className="ml-8 mr-8 mt-8">
             <Text className="text-lg text-gray font-semibold mb-1 mt-3">
@@ -208,18 +265,20 @@ function OnboardingScreen({
             <View className="border-b-gray border-b-2 opacity-50">
               <TextInput
                 className="text-lg text-black font-medium mb-1"
-                value={storeName}
-                onChangeText={setStoreName}
+                value={onboardingProps.storeName}
+                onChangeText={onboardingProps.setStoreName}
                 placeholder="Enter Store Name"
               />
             </View>
 
             <TouchableHighlight
               className={`w-64 self-center rounded-full p-3 mb-5 ${
-                storeName.trim() === '' ? 'bg-gray' : 'bg-green'
+                onboardingProps.storeName.trim() === ''
+                  ? 'bg-gray'
+                  : 'bg-green'
               } mt-6`}
-              onPress={onConfirm}
-              disabled={storeName.trim() === ''} // Disable button if store name is empty
+              onPress={onboardingProps.onConfirm}
+              disabled={onboardingProps.storeName.trim() === ''} // Disable button if store name is empty
               underlayColor={'#789c8c'} // Change the underlay color when clicked
             >
               <Text
@@ -231,7 +290,7 @@ function OnboardingScreen({
             <Text className={`text-gray mt-5 mb-1 self-center`}>
               By clicking confirm, you agree to our
             </Text>
-            <Pressable onPress={onTermsPress}>
+            <Pressable onPress={onboardingProps.onTermsPress}>
               <Text className={`text-yellow self-center`}>
                 Show Terms and Conditions
               </Text>
@@ -241,7 +300,7 @@ function OnboardingScreen({
       ) : (
         <TouchableHighlight
           className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green mt-5`}
-          onPress={onComplete}
+          onPress={onboardingProps.onComplete}
           underlayColor={'#789c8c'} // Change the underlay color when clicked
         >
           <Text

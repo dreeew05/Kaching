@@ -1,5 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
+import { Link, Tabs, useSegments } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
@@ -20,10 +20,18 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  // To hide TabBar on certain pages
+  const segment = useSegments();
+  const page = segment[segment.length - 1];
+  const pagesToHide = ['selectStoreType', 'selectDefaultCategories'];
+
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarStyle: {
+          display: pagesToHide.includes(page) ? 'none' : 'flex',
+        },
       }}
     >
       <Tabs.Screen
@@ -62,6 +70,7 @@ export default function TabLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="orderSummary"
         options={{
@@ -85,26 +94,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="selectStoreType"
-        options={{
-          title: '',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="code" color={color} />
-          ),
-          headerShown: false,
-        }}
-      />
-      <Tabs.Screen
-        name="selectDefaultCategories"
-        options={{
-          title: '',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="code" color={color} />
-          ),
-          headerShown: false,
-        }}
-      />
+
       <Tabs.Screen
         name="paymentWrapper"
         options={{

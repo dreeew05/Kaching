@@ -5,7 +5,7 @@ import StartDayComponent from '../../components/StartDay/StartDayComponent';
 export default function StartDayInput() {
   return (
     <Provider store={Store}>
-      <StartDayComponent/>
+      <StartDayComponent />
     </Provider>
-  )
+  );
 }
