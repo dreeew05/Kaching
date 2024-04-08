@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
 import { Link } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { useSelector } from 'react-redux';
 import { selectStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
