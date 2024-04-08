@@ -57,7 +57,7 @@ export default function CartItemsGenerator() {
         <View className="flex flex-row mt-20 items-center">
           <Text
             className="text-4xl ml-5 mt-1 text-green flex-1"
-            style={{ fontFamily: 'Poppins-Medium' }}
+            style={{ fontFamily: 'Poppins-Bold' }}
           >
             Cart
           </Text>
