@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
 import HelpModal from '../Modals/HelpModal';
 
-export default function HelpTutorial() {
+export default function HomeHelpTutorial() {
   const [isStartModalVisible, setStartModalVisible] = useState(false);
   const [isEditCategoryModalVisible, setEditCategoryModalVisible] =
     useState(false);

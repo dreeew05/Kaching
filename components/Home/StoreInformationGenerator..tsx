@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { useSelector } from 'react-redux';
 import { selectStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import HelpTutorial from './HelpTutorial';
+import HomeHelpTutorial from './HomeHelpTutorial';
 
 export default function StoreInformationGenerator() {
   const db = getDatabase();
@@ -63,7 +63,7 @@ export default function StoreInformationGenerator() {
           </Pressable>
         </Link>
 
-        <HelpTutorial />
+        <HomeHelpTutorial />
       </View>
 
       <Text className="text-sm ml-5">
