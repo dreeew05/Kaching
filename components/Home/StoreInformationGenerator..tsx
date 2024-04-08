@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { useSelector } from 'react-redux';
 import { selectStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import HelpModal from '../Modals/HelpModal';
 import HelpTutorial from './HelpTutorial';
 
 export default function StoreInformationGenerator() {
