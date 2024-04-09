@@ -109,7 +109,7 @@ export default function HelpModal(item: HelpModalProps) {
     } else {
       return {
         position: 'absolute',
-        bottom: 120,
+        bottom: item.marginBottom,
         marginLeft: item.marginLeft,
       };
     }
