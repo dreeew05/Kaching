@@ -8,6 +8,7 @@ import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import CustomPressable from '../Common/CustomPressable';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomAlert from '../Modals/CustomAlert';
+import MenuHelpTutorial from './MenuHelpTutorial';
 
 export default function MenuComponent() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -131,6 +132,7 @@ export default function MenuComponent() {
 
   return (
     <View className="flex flex-1 bg-white dark:bg-black">
+      <MenuHelpTutorial />
       <View className=" self-center w-7/12 sm:w-7/12 md:w-8/12 lg:w-10/12 ">
         <View className="flex flex-row item-center justify-between mt-5">
           <Text className="text-white font-bold  bg-green px-2 rounded-lg text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl">
