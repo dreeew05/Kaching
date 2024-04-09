@@ -100,7 +100,7 @@ export default function MenuHelpTutorial() {
         marginLeft={120}
         marginBottom={160}
         pointDirection="bottom-left"
-        message="End current business day."
+        message="End current business day, finalizing sales data and preparing the app for the next business day."
         closeMessage="Done"
         boxWidth={200}
         isVisible={endDayModalVisible}
