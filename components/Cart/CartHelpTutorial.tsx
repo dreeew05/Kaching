@@ -66,7 +66,7 @@ export default function CartHelpTutorial() {
         marginLeft={95}
         pointDirection="top-right"
         message="Adjust item quantity in cart."
-        closeMessage="Done"
+        closeMessage="Continue"
         boxWidth={200}
         isVisible={quantityModalVisible}
         setVisible={setQuantityModalVisible}
