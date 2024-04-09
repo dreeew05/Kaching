@@ -11,6 +11,9 @@ import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
 import CustomModal from '../Modals/CustomModal';
 import CartItemList from './CartItemList';
+import { Entypo } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import CartHelpTutorial from './CartHelpTutorial';
 
 export default function CartItemsGenerator() {
   const cartState = useSelector(selectCart);
@@ -54,16 +57,20 @@ export default function CartItemsGenerator() {
   } else {
     return (
       <View className="flex-1">
-        <View className="flex flex-row mt-20 items-center">
-          <Text
-            className="text-4xl ml-5 mt-1 text-green flex-1"
-            style={{ fontFamily: 'Poppins-Medium' }}
-          >
-            Cart
-          </Text>
+        <View className="flex flex-row mt-20 mb-3">
+          <View className="flex-1 flex-row">
+            <Text
+              className="text-4xl ml-5 mt-1 text-green"
+              style={{ fontFamily: 'Poppins-Bold' }}
+            >
+              Cart
+            </Text>
+
+            <CartHelpTutorial />
+          </View>
 
           <TouchableHighlight
-            className={` self-center rounded-full p-2 mb-5 bg-red-500 mr-5`} // Use the disabled prop to conditionally apply styles
+            className={'mr-5 rounded-full p-2 bg-red-500'} // Use the disabled prop to conditionally apply styles
             onPress={() => setRemoveModalVisible(true)} // Pass a function that sets the removeModalVisible state to true
           >
             <Text

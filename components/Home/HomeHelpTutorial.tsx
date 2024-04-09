@@ -4,8 +4,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
 import HelpModal from '../Modals/HelpModal';
 
-export default function HelpTutorial() {
+export default function HomeHelpTutorial() {
   const [isStartModalVisible, setStartModalVisible] = useState(false);
+  const [startDayModalVisible, setStartDayModalVisible] =
+    useState(false);
   const [isEditCategoryModalVisible, setEditCategoryModalVisible] =
     useState(false);
   const [isClickCategoryModalVisible, setClickCategoryModalVisible] =
@@ -22,14 +24,26 @@ export default function HelpTutorial() {
 
       {/* HELP MODALS */}
       <HelpModal
-        marginTop={125}
-        marginLeft={160}
-        pointDirection="left"
-        message="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        marginTop={90}
+        marginLeft={20}
+        pointDirection="top-left"
+        message="Tap to edit your store name."
         closeMessage="Continue"
         boxWidth={200}
         isVisible={isStartModalVisible}
         setVisible={setStartModalVisible}
+        continueModal={() => setStartDayModalVisible(true)}
+      />
+
+      <HelpModal
+        marginTop={130}
+        marginLeft={160}
+        pointDirection="left"
+        message="Tapping the 'Start Day' button signifies the beginning of your business day. This ensures all sales and transactions from this point forward will be accurately recorded."
+        closeMessage="Continue"
+        boxWidth={200}
+        isVisible={startDayModalVisible}
+        setVisible={setStartDayModalVisible}
         continueModal={() => setEditCategoryModalVisible(true)}
       />
 
@@ -37,7 +51,7 @@ export default function HelpTutorial() {
         marginTop={220}
         marginLeft={200}
         pointDirection="top-left"
-        message="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        message="Create, edit, or delete categories."
         closeMessage="Continue"
         boxWidth={200}
         isVisible={isEditCategoryModalVisible}
@@ -49,7 +63,7 @@ export default function HelpTutorial() {
         marginTop={380}
         marginLeft={130}
         pointDirection="left"
-        message="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        message="Display all the items available in a specific category."
         closeMessage="Done"
         boxWidth={200}
         isVisible={isClickCategoryModalVisible}

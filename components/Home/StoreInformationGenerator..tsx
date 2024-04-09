@@ -1,11 +1,10 @@
 import { View, Text, Pressable } from 'react-native';
 import { Link } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { useSelector } from 'react-redux';
 import { selectStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import HelpModal from '../Modals/HelpModal';
-import HelpTutorial from './HelpTutorial';
+import HomeHelpTutorial from './HomeHelpTutorial';
 
 export default function StoreInformationGenerator() {
   const db = getDatabase();
@@ -64,7 +63,7 @@ export default function StoreInformationGenerator() {
           </Pressable>
         </Link>
 
-        <HelpTutorial />
+        <HomeHelpTutorial />
       </View>
 
       <Text className="text-sm ml-5">
