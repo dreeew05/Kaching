@@ -7,10 +7,12 @@ import {
   Pressable,
   StyleSheet,
   ViewStyle,
+  StyleProp,
 } from 'react-native';
 
 interface HelpModalProps {
-  marginTop: number;
+  marginTop: number | null;
+  marginBottom?: number;
   marginLeft: number;
   pointDirection: string;
   message: string;
@@ -29,12 +31,23 @@ interface ModalSettings {
 
 export default function HelpModal(item: HelpModalProps) {
   const MARGIN_SIZE = -13;
+  const SPECIAL_MARGIN_LEFT = 150;
   const triangleDirectionStyles = StyleSheet.create({
     left: {
       marginRight: MARGIN_SIZE,
     },
+    right: {
+      marginLeft: MARGIN_SIZE,
+    },
     top_left: {
       marginBottom: MARGIN_SIZE,
+    },
+    top_right: {
+      marginBottom: MARGIN_SIZE,
+      marginLeft: SPECIAL_MARGIN_LEFT,
+    },
+    bottom_left: {
+      marginTop: MARGIN_SIZE,
     },
   });
 
@@ -50,10 +63,25 @@ export default function HelpModal(item: HelpModalProps) {
         settings.triangleType = 'triangle-left';
         settings.triangleStyle = triangleDirectionStyles.left;
         break;
+      case 'right':
+        settings.modalFlexDirection = 'flex-row-reverse';
+        settings.triangleType = 'triangle-right';
+        settings.triangleStyle = triangleDirectionStyles.right;
+        break;
       case 'top-left':
         settings.modalFlexDirection = 'flex-col';
         settings.triangleType = 'triangle-up';
         settings.triangleStyle = triangleDirectionStyles.top_left;
+        break;
+      case 'top-right':
+        settings.modalFlexDirection = 'flex-col';
+        settings.triangleType = 'triangle-up';
+        settings.triangleStyle = triangleDirectionStyles.top_right;
+        break;
+      case 'bottom-left':
+        settings.modalFlexDirection = 'flex-col-reverse';
+        settings.triangleType = 'triangle-down';
+        settings.triangleStyle = triangleDirectionStyles.bottom_left;
         break;
       // Add case if necessary
       default:
@@ -69,6 +97,21 @@ export default function HelpModal(item: HelpModalProps) {
     item.setVisible(false);
     if (item.continueModal) {
       item.continueModal(true);
+    }
+  };
+
+  const getViewStyle = (): StyleProp<ViewStyle> => {
+    if (item.marginTop != null) {
+      return {
+        marginTop: item.marginTop,
+        marginLeft: item.marginLeft,
+      };
+    } else {
+      return {
+        position: 'absolute',
+        bottom: 120,
+        marginLeft: item.marginLeft,
+      };
     }
   };
 
@@ -90,10 +133,7 @@ export default function HelpModal(item: HelpModalProps) {
       >
         <View
           className={transformDirection().modalFlexDirection}
-          style={{
-            marginTop: item.marginTop,
-            marginLeft: item.marginLeft,
-          }}
+          style={getViewStyle()}
         >
           <Entypo
             name={transformDirection().triangleType}
