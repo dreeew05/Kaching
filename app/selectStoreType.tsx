@@ -36,10 +36,6 @@ export default function SelectStoreType(
 
   const showToCategories = () => {
     if (selectedBusinessId !== null) {
-      // router.push({
-      //   pathname: '/selectDefaultCategories',
-      //   params: { id: selectedBusinessId },
-      // });
       modalProps.setCategoryId(selectedBusinessId);
       modalProps.openDefaultCategoryModal();
       setModalVisible(false);
@@ -68,6 +64,11 @@ export default function SelectStoreType(
             <View className="flex flex-row flex-wrap justify-center">
               {Object.values(getBusinessTypes()).map(
                 (businessType: BusinessType) => {
+                  // Test
+                  console.log(
+                    Image.resolveAssetSource(businessType.image).uri,
+                  );
+                  // End Test
                   const isSelected = businessType.id === selectedId;
                   return (
                     <Pressable
