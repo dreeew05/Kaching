@@ -36,10 +36,6 @@ export default function SelectStoreType(
 
   const showToCategories = () => {
     if (selectedBusinessId !== null) {
-      // router.push({
-      //   pathname: '/selectDefaultCategories',
-      //   params: { id: selectedBusinessId },
-      // });
       modalProps.setCategoryId(selectedBusinessId);
       modalProps.openDefaultCategoryModal();
       setModalVisible(false);
