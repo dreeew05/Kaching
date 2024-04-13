@@ -4,13 +4,20 @@ import {
   DefaultCategory,
   getDefaultCategories,
 } from '../constants/DefaultCategories';
-import { Modal, Pressable } from 'react-native';
+import { Modal, Pressable, Image } from 'react-native';
 import { getScreenHeight } from '../constants/ScreenDimensions';
 import { useState } from 'react';
 import DefaultCategoryClickable from '../components/Onboarding/DefaultCategories/DefaultCategoryClickable';
 import { Ionicons } from '@expo/vector-icons';
 import { OnboardingModalProps } from './_layout';
-import { updateData } from '../components/DatabaseUtils/CoreFunctions';
+import {
+  insertData,
+  updateData,
+} from '../components/DatabaseUtils/CoreFunctions';
+import {
+  DefaultProduct,
+  getDefaultProducts,
+} from '../constants/DefaultProducts';
 
 interface SelectDefaultCategoriesProps {
   id: number | null;
@@ -31,7 +38,7 @@ export default function SelectDefaultCategories(
 
   const categories = getCategories();
   const [checkedCategories, setCheckedCategories] = useState<
-    number[]
+    DefaultCategory[]
   >([]);
 
   const goBackToStoreType = () => {
@@ -39,8 +46,44 @@ export default function SelectDefaultCategories(
     param.modalProps.onClose();
   };
 
+  const storeToDatabase = () => {
+    Object.values(checkedCategories).map(
+      (category: DefaultCategory) => {
+        // Insert category to Database
+        const categoryTableName = 'category';
+        const categoryData = [
+          {
+            id: category.categoryId,
+            name: category.name,
+            image: Image.resolveAssetSource(category.image).uri,
+          },
+        ];
+        insertData(categoryTableName, categoryData);
+
+        const products =
+          getDefaultProducts()[category.categoryId].products;
+        products.map((product: DefaultProduct) => {
+          // Insert product to Database
+          const productTableName = 'item';
+          const productData = [
+            {
+              id: product.productId,
+              name: product.name,
+              price: product.price,
+              image: Image.resolveAssetSource(product.image).uri,
+              category_id: category.categoryId,
+              description: product.description,
+            },
+          ];
+          insertData(productTableName, productData);
+        });
+      },
+    );
+  };
+
   const handleConfirm = () => {
-    console.log(checkedCategories);
+    // console.log(checkedCategories);
+    storeToDatabase();
     setOnboardingComplete();
   };
 
