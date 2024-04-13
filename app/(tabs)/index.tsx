@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { Store } from '../../redux/Store';
 
 export default function HomeScreen() {
-  // Hide/Show start day pressable
   return (
     <Provider store={Store}>
       <View className="flex-1 self-stretch bg-white dark:bg-black">
