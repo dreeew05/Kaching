@@ -8,8 +8,10 @@ import { AntDesign } from '@expo/vector-icons';
 
 interface DefaultCategoryClickableProps {
   category: DefaultCategory;
-  checkedCategories: number[];
-  setCheckedCategories: (checkedCategories: number[]) => void;
+  checkedCategories: DefaultCategory[];
+  setCheckedCategories: (
+    checkedCategories: DefaultCategory[],
+  ) => void;
 }
 
 export default function DefaultCategoryClickable(
@@ -22,14 +24,14 @@ export default function DefaultCategoryClickable(
     if (!isNotChecked) {
       defCategory.setCheckedCategories(
         defCategory.checkedCategories.filter(
-          (categoryID) =>
-            categoryID !== defCategory.category.categoryId,
+          (category) =>
+            category.categoryId !== defCategory.category.categoryId,
         ),
       );
     } else {
       defCategory.setCheckedCategories([
         ...defCategory.checkedCategories,
-        defCategory.category.categoryId,
+        defCategory.category,
       ]);
     }
   };
