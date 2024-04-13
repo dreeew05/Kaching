@@ -1,9 +1,11 @@
 import { ImageSourcePropType } from 'react-native';
 
-export interface BusinessType {
-  id: number;
+export interface BaseNameImage {
   name: string;
   image: ImageSourcePropType;
+}
+export interface BusinessType extends BaseNameImage {
+  id: number;
 }
 
 interface BusinessTypes {
@@ -14,53 +16,38 @@ export const getBusinessTypes = (): BusinessTypes => {
   return [
     {
       id: 0,
-      name: 'Electric Commerce',
-      image: require('../assets/images/onboarding/business_types/0.jpg'),
+      name: 'Coffee Shop',
+      image: require('../assets/images/onboarding/business_types/coffee_shop.jpg'),
     },
     {
       id: 1,
-      name: 'Business Process',
-      image: require('../assets/images/onboarding/business_types/1.jpg'),
+      name: 'Carinderia',
+      image: require('../assets/images/onboarding/business_types/carinderia.jpg'),
     },
     {
       id: 2,
-      name: 'Teamwork',
-      image: require('../assets/images/onboarding/business_types/2.jpg'),
+      name: 'Sari-Sari Store',
+      image: require('../assets/images/onboarding/business_types/sari-sari.jpg'),
     },
     {
       id: 3,
-      name: 'Accounting',
-      image: require('../assets/images/onboarding/business_types/3.jpg'),
+      name: 'School Supply Store',
+      image: require('../assets/images/onboarding/business_types/school_supply.jpg'),
     },
     {
       id: 4,
-      name: 'Business Tools',
-      image: require('../assets/images/onboarding/business_types/0.jpg'),
+      name: 'E-loading (Mobile Top-up)',
+      image: require('../assets/images/onboarding/business_types/e-loading.jpg'),
     },
     {
       id: 5,
-      name: 'Success',
-      image: require('../assets/images/onboarding/business_types/1.jpg'),
+      name: 'Printing Services',
+      image: require('../assets/images/onboarding/business_types/printing.jpg'),
     },
     {
       id: 6,
-      name: 'Profit',
-      image: require('../assets/images/onboarding/business_types/2.jpg'),
-    },
-    {
-      id: 7,
-      name: 'Idea',
-      image: require('../assets/images/onboarding/business_types/3.jpg'),
-    },
-    {
-      id: 8,
-      name: 'Online Advertising',
-      image: require('../assets/images/onboarding/business_types/0.jpg'),
-    },
-    {
-      id: 9,
-      name: 'Others',
-      image: require('../assets/images/onboarding/business_types/1.jpg'),
+      name: 'Bakeries & Pastry Shops',
+      image: require('../assets/images/onboarding/business_types/bakery.jpg'),
     },
   ];
 };
