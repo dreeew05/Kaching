@@ -9,9 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/selectStoreType.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/selectStoreType.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Category/CategoryCardClickable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/CategoryCardClickable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Receipt/ReceiptComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Receipt/ReceiptComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Onboarding/DefaultCategories/DefaultCategoryClickable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Onboarding/DefaultCategories/DefaultCategoryClickable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
