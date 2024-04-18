@@ -1,12 +1,12 @@
-import { Pressable, Image, Dimensions, Modal } from 'react-native';
-import { View, Text } from '../components/Themed';
+import { useState } from 'react';
+import { Image, Modal, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import CustomModal from '../components/Modals/CustomModal';
+import { Text, View } from '../components/Themed';
 import {
   BusinessType,
   getBusinessTypes,
 } from '../constants/BusinessTypes';
-import { useState } from 'react';
-import CustomModal from '../components/Modals/CustomModal';
 import { getScreenHeight } from '../constants/ScreenDimensions';
 import { OnboardingModalProps } from './_layout';
 
@@ -67,6 +67,7 @@ export default function SelectStoreType(
                   const isSelected = businessType.id === selectedId;
                   return (
                     <Pressable
+                      className="p-2"
                       onPress={() =>
                         highlightSelection(businessType.id)
                       }
@@ -77,20 +78,28 @@ export default function SelectStoreType(
                           : isSelected
                             ? 1
                             : 0.5,
+                        width: '50%', // Two items per row
+                        height: 200, // Fixed height for each container
                       }}
                     >
-                      <View className="flex flex-col items-center my-3">
-                        <Image
-                          source={businessType.image}
-                          style={{ width: 120, height: 120 }}
-                          className="rounded-md mx-3 my-3"
-                        />
-                        <Text
-                          className="text-center"
-                          style={{ fontFamily: 'Poppins-Medium' }}
-                        >
-                          {businessType.name}
-                        </Text>
+                      <View className="bg-white rounded-lg overflow-hidden">
+                        <View className="h-2/3">
+                          <Image
+                            source={businessType.image}
+                            resizeMode="cover"
+                            className="w-full h-full rounded-lg"
+                          />
+                        </View>
+                        <View className="h-1/3 p-2">
+                          <Text
+                            adjustsFontSizeToFit
+                            numberOfLines={2}
+                            className="text-center"
+                            style={{ fontFamily: 'Poppins-Medium' }}
+                          >
+                            {businessType.name}
+                          </Text>
+                        </View>
                       </View>
                     </Pressable>
                   );
@@ -98,6 +107,7 @@ export default function SelectStoreType(
               )}
             </View>
           </ScrollView>
+
           <Pressable
             className="mt-10 bg-white py-2 px-10 rounded-full"
             onPress={() => setModalVisible(true)}

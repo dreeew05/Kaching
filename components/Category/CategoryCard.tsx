@@ -11,7 +11,7 @@ export default function CategoryCard({
 }: CategoryProps) {
   return (
     <View>
-      <View className="h-40 bg-bl">
+      <View className="h-40">
         <Image
           source={{ uri: image }}
           resizeMode="cover"
