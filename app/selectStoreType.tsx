@@ -58,16 +58,16 @@ export default function SelectStoreType(
             Select Business Type
           </Text>
           <ScrollView
-            className="bg-white mx-10 px-5 rounded-lg"
+            className="bg-white mx-10  rounded-lg"
             style={{ height: getScreenHeight() * 0.6 }}
           >
-            <View className="flex flex-row flex-wrap justify-center">
+            <View className="flex flex-row flex-wrap justify-center mt-3 ">
               {Object.values(getBusinessTypes()).map(
                 (businessType: BusinessType) => {
                   const isSelected = businessType.id === selectedId;
                   return (
                     <Pressable
-                      className="p-2"
+                      className="p-2 mx-1 "
                       onPress={() =>
                         highlightSelection(businessType.id)
                       }
@@ -78,11 +78,11 @@ export default function SelectStoreType(
                           : isSelected
                             ? 1
                             : 0.5,
-                        width: '50%', // Two items per row
+                        width: 150, // Two items per row
                         height: 200, // Fixed height for each container
                       }}
                     >
-                      <View className="bg-white rounded-lg overflow-hidden">
+                      <View className=" rounded-lg flex flex-1">
                         <View className="h-2/3">
                           <Image
                             source={businessType.image}
@@ -93,7 +93,7 @@ export default function SelectStoreType(
                         <View className="h-1/3 p-2">
                           <Text
                             adjustsFontSizeToFit
-                            numberOfLines={2}
+                            numberOfLines={1}
                             className="text-center"
                             style={{ fontFamily: 'Poppins-Medium' }}
                           >
