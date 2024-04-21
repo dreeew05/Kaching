@@ -35,7 +35,8 @@ const initializeItemTable = () => {
                 price NUMERIC NOT NULL,
                 image TEXT NOT NULL,
                 category_id INTEGER NOT NULL,
-                description TEXT
+                description TEXT,
+                is_available INTEGER NOT NULL DEFAULT 1
             )`,
     );
   });

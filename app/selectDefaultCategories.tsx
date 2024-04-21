@@ -88,7 +88,6 @@ export default function SelectDefaultCategories(
   };
 
   const setOnboardingComplete = () => {
-    // Todo: Implement saveDefaultCategoriesToDB()
     const tableName = 'store';
     const targetAttrib = ['setup_complete'];
     const targetValue = [1];
@@ -108,10 +107,6 @@ export default function SelectDefaultCategories(
       .catch((error) => {
         console.log(error);
       });
-  };
-
-  const saveDefaultCategoriesToDB = () => {
-    // Todo: Save selected categories to the database
   };
 
   return (
