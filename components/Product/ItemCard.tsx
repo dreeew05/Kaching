@@ -1,16 +1,8 @@
-import { CheckBox } from '@rneui/base';
 import { Link } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import {
-  Image,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import {
-  setIsDetailedViewLoading,
   setIsEditButton,
   setIsModifyProductLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
@@ -19,6 +11,7 @@ import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
+import ItemClickable from './ItemClickable';
 
 // Unused imports
 // import { deleteData } from '../DatabaseUtils/CoreFunctions';
@@ -143,81 +136,18 @@ export default function ItemCard(item: itemCardProps) {
     dispatch(setIsModifyProductLoading(true));
   };
 
-  const toggleDetailedViewLoading = () => {
-    dispatch(setIsDetailedViewLoading(true));
-  };
-
-  const toggleCheckBox = () => {
-    setIsNotChecked(!isNotChecked);
-    if (!isNotChecked) {
-      item.setCurrentCheckedItems([
-        ...item.checkedItems,
-        item.item.id,
-      ]);
-    } else {
-      item.setCurrentCheckedItems(
-        item.checkedItems.filter((id) => id !== item.item.id),
-      );
-    }
-  };
-
   return (
     <View className="ml-3 mr-3 mb-5 flex">
-      <View className=" mb-3 flex-row ">
-        <Link
-          href={{
-            pathname: '/(tabs)/ItemScreen',
-            params: {
-              id: item.item.id,
-              category_id: item.categoryID,
-            },
-          }}
-          asChild
-        >
-          <TouchableOpacity
-            onPress={() => toggleDetailedViewLoading()}
-          >
-            <Image
-              className="w-40 h-40 mr-1 rounded-md"
-              source={{ uri: item.item.image }}
-            />
-          </TouchableOpacity>
-        </Link>
-
-        <View className="flex flex-column ml-5">
-          <Text
-            className="text-lg font-semibold"
-            style={{ fontFamily: 'Poppins-Medium' }}
-          >
-            {item.item.name}
-          </Text>
-          <Text
-            className="text-gray-500"
-            style={{ fontFamily: 'Poppins-Regular' }}
-          >
-            P{item.item.price}
-          </Text>
-        </View>
-
-        {!item.isEditComponent ? (
-          <View className="absolute -top-1 -right-1">
-            <CheckBox
-              checked={isNotChecked}
-              onPress={() => toggleCheckBox()}
-              size={35}
-              iconType="material-community"
-              checkedIcon="checkbox-marked"
-              uncheckedIcon="checkbox-blank-outline"
-              checkedColor="grey"
-              containerStyle={{
-                backgroundColor: 'transparent',
-                marginRight: -5,
-                marginTop: -5,
-              }}
-            />
-          </View>
-        ) : null}
-      </View>
+      <ItemClickable
+        id={item.item.id}
+        category_id={item.categoryID}
+        image={item.item.image}
+        name={item.item.name}
+        price={item.item.price}
+        isEditComponent={item.isEditComponent}
+        checkedItems={item.checkedItems}
+        setCurrentCheckedItems={item.setCurrentCheckedItems}
+      />
 
       {item.isEditComponent ? (
         <View className="flex flex-row items-center ">
