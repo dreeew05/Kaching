@@ -9,6 +9,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
 import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
+import { Switch } from 'react-native-gesture-handler';
+import { updateData } from '../DatabaseUtils/CoreFunctions';
 
 // Unused imports
 // import { RootState } from '../../redux/Store';
@@ -22,20 +24,50 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
   //   selectCartItem(state, item.id),
   // );
 
+  console.log(item.is_available);
+
   const param = useLocalSearchParams();
   const categoryID: number = ParamsToInteger(param.category_id);
 
-  console.log(categoryID);
+  // Out of Stock Switch
+  const [isItemExist, setItemExist] = useState<boolean>(
+    item.is_available === 1,
+  );
 
-  const [quantity, setQuantity] = useState(0);
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [quantity, setQuantity] = useState<number>(0);
+  const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [showAddQuantityModal, setShowAddQuantityModal] =
-    useState(false);
+    useState<boolean>(false);
   const [showItemInCartModal, setShowItemInCartModal] =
-    useState(false);
+    useState<boolean>(false);
 
   const updateQuantity = (quantity: number) => {
     setQuantity(quantity);
+  };
+
+  const toggleSwitch = () => {
+    setItemExist(!isItemExist);
+  };
+
+  const updateStock = (isAvailable: boolean) => {
+    const tableName = 'item';
+    const targetAttrib = ['is_available'];
+    const targetValue = [isAvailable ? 1 : 0];
+    const refAttrib = 'id';
+    const refValue = item.id;
+    updateData(
+      tableName,
+      targetAttrib,
+      targetValue,
+      refAttrib,
+      refValue,
+    )
+      .then((_) => {
+        console.log('success');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const addToCart = () => {
@@ -64,19 +96,38 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         marginTop: 60,
       }}
     >
-      <Link
-        href={{
-          pathname: '/(tabs)/categoryView',
-          params: {
-            id: categoryID,
-          },
-        }}
-        asChild
-      >
-        <Pressable onPress={() => goBackAction()} className="ml-3">
-          <Ionicons name="chevron-back" size={30} color="green" />
-        </Pressable>
-      </Link>
+      <View className="flex flex-row">
+        <Link
+          href={{
+            pathname: '/(tabs)/categoryView',
+            params: {
+              id: categoryID,
+            },
+          }}
+          asChild
+        >
+          <Pressable onPress={() => goBackAction()} className="ml-3">
+            <Ionicons name="chevron-back" size={30} color="green" />
+          </Pressable>
+        </Link>
+
+        <View className="flex flex-row absolute right-5 -top-2 items-center justify-center">
+          <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 22 }}>
+            In Stock
+          </Text>
+          <Switch
+            className="ml-2"
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            thumbColor={isItemExist ? '#f5dd4b' : '#f4f3f4'}
+            onValueChange={toggleSwitch}
+            onChange={() => updateStock(!isItemExist)}
+            value={isItemExist}
+            style={{
+              transform: [{ scaleX: 1.15 }, { scaleY: 1.15 }],
+            }}
+          />
+        </View>
+      </View>
 
       <View className="h-96 px-3 mt-5">
         <Image
@@ -114,9 +165,13 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         <View className="w-6/12">
           <Pressable
             className="w-full h-10 rounded-lg
-                        items-center justify-center bg-green shadow-md 
+                        items-center justify-center shadow-md 
                         shadow-neutral-600"
+            style={{
+              backgroundColor: isItemExist ? '#18573a' : 'grey',
+            }}
             onPress={addToCart}
+            disabled={!isItemExist}
           >
             <Text
               className="text-center text-lg font-semibold 
