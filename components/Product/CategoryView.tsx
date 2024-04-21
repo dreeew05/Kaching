@@ -35,6 +35,8 @@ import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 import ItemCard from './ItemCard';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import ItemClickable from './ItemClickable';
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -78,6 +80,9 @@ export default function CategoryView() {
 
   // Product Data Setter
   const [products, setProducts] = useState<BaseItemProps[]>([]);
+  const [outOfStockProducts, setOutOfStockProducts] = useState<
+    BaseItemProps[]
+  >([]);
 
   // Todo: Interface database
   const getProductData = async () => {
@@ -88,11 +93,30 @@ export default function CategoryView() {
         category.name AS 'category'
         FROM item
         LEFT JOIN category ON item.category_id = category.id
-        WHERE category.id = ?
+        WHERE category.id = ? AND item.is_available = 1
         ORDER BY item.name ASC`,
         [categoryID],
       );
       setProducts(result.rows as BaseItemProps[]);
+      dispatch(setIsCategoryViewProductLoading(false));
+    }, readOnly);
+  };
+
+  // Todo: Interface database
+  // Out of Stock Product
+  const getOutOfStockProductData = async () => {
+    const readOnly = true;
+    await db.transactionAsync(async (tx) => {
+      const result = await tx.executeSqlAsync(
+        `SELECT item.id, item.name, item.price, item.image,
+        category.name AS 'category'
+        FROM item
+        LEFT JOIN category ON item.category_id = category.id
+        WHERE category.id = ? AND item.is_available = 0
+        ORDER BY item.name ASC`,
+        [categoryID],
+      );
+      setOutOfStockProducts(result.rows as BaseItemProps[]);
       dispatch(setIsCategoryViewProductLoading(false));
     }, readOnly);
   };
@@ -148,6 +172,7 @@ export default function CategoryView() {
   useEffect(() => {
     getCategoryName();
     getProductData();
+    getOutOfStockProductData();
   }, [param, productDataModifiedActions]);
 
   const showOverallComponent = () => {
@@ -196,6 +221,35 @@ export default function CategoryView() {
                 />
               );
             })}
+            {outOfStockProducts.length > 0 ? (
+              <>
+                <View className="items-center mb-3">
+                  <Text
+                    className="text-black ml-3 text-2xl p-2 font-bold"
+                    style={{ fontFamily: 'Poppins-Bold' }}
+                  >
+                    Out of Stock
+                  </Text>
+                </View>
+                <View className="ml-3 mr-3 mb-5 flex">
+                  {outOfStockProducts.map((product) => {
+                    return (
+                      <ItemClickable
+                        key={product.id}
+                        id={product.id}
+                        category_id={categoryID}
+                        image={product.image}
+                        name={product.name}
+                        price={product.price}
+                        isEditComponent={isEditButton}
+                        checkedItems={checkedItems}
+                        setCurrentCheckedItems={setCheckedItems}
+                      />
+                    );
+                  })}
+                </View>
+              </>
+            ) : null}
           </ScrollView>
         </View>
       );
