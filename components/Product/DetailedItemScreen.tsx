@@ -93,7 +93,7 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
     <View
       className="flex-1 h-full relative z-0"
       style={{
-        marginTop: 60,
+        marginTop: '7.5%',
       }}
     >
       <View className="flex flex-row">

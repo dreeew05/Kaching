@@ -204,7 +204,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
   return (
     <View>
-      <View style={{ marginTop: 60 }}>
+      <View style={{ marginTop: '7.5%' }}>
         <View
           style={{
             flexDirection: 'row',

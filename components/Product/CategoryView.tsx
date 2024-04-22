@@ -354,13 +354,12 @@ export default function CategoryView() {
   return (
     <>
       {/* Header [START] */}
-      <View style={{ marginTop: 60 }}>
+      <View style={{ marginTop: '7.5%' }}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 10,
           }}
         >
           {headerEventHandler()}

@@ -251,7 +251,7 @@ export default function ModifyCategory() {
   return (
     <>
       {/* Header [START] */}
-      <View style={{ marginTop: 60 }}>
+      <View style={{ marginTop: '7.5%' }}>
         <View
           style={{
             flexDirection: 'row',

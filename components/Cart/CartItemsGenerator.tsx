@@ -11,8 +11,6 @@ import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
 import CustomModal from '../Modals/CustomModal';
 import CartItemList from './CartItemList';
-import { Entypo } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import CartHelpTutorial from './CartHelpTutorial';
 
 export default function CartItemsGenerator() {
@@ -37,7 +35,7 @@ export default function CartItemsGenerator() {
       <View
         className="flex-1"
         style={{
-          marginTop: 60,
+          marginTop: '10%',
         }}
       >
         <View className="flex-1 justify-center items-center">
