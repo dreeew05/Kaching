@@ -56,7 +56,9 @@ export default function ItemScreenFetchData() {
       return (
         <View
           style={{
-            marginTop: 350,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <ActivityIndicator size={75} color="green" />

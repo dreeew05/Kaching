@@ -180,7 +180,9 @@ export default function CategoryView() {
       return (
         <View
           style={{
-            marginTop: 350,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <ActivityIndicator size={75} color="green" />
@@ -367,9 +369,7 @@ export default function CategoryView() {
       </View>
       {/* Header [END]*/}
 
-      <View className="flex-1 self-stretch">
-        <View>{showOverallComponent()}</View>
-      </View>
+      {showOverallComponent()}
 
       {/* MODALS */}
       <CustomModal
