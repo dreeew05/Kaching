@@ -29,7 +29,7 @@ export default function MenuHelpTutorial() {
         pointDirection="top-left"
         message="Tap to view the previous End of Day report."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={80}
         isVisible={isStartModalVisible}
         setVisible={setStartModalVisible}
         continueModal={() => setCurrenEODModalVisible(true)}
@@ -41,7 +41,7 @@ export default function MenuHelpTutorial() {
         pointDirection="bottom-left"
         message="Tap to view the current End of Day report."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={70}
         isVisible={currenEODModalVisible}
         setVisible={setCurrenEODModalVisible}
         continueModal={() => setPreviousEODModalVisible(true)}
@@ -53,7 +53,7 @@ export default function MenuHelpTutorial() {
         pointDirection="top-left"
         message="See a detailed breakdown of your sales for a specific day within the last 30 days."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={70}
         isVisible={previousEODModalVisible}
         setVisible={setPreviousEODModalVisible}
         continueModal={() => setTosModalVisible(true)}
@@ -65,7 +65,7 @@ export default function MenuHelpTutorial() {
         pointDirection="bottom-left"
         message="See the legal terms and conditions governing your use of the Kaching app."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={70}
         isVisible={tosModalVisible}
         setVisible={setTosModalVisible}
         continueModal={() => setPolicyModalVisible(true)}
@@ -77,7 +77,7 @@ export default function MenuHelpTutorial() {
         pointDirection="top-left"
         message="Display information on how the Kaching app collects, uses, and protects your user data."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={70}
         isVisible={policyModalVisible}
         setVisible={setPolicyModalVisible}
         continueModal={() => setFaqModalVisible(true)}
@@ -89,7 +89,7 @@ export default function MenuHelpTutorial() {
         pointDirection="bottom-left"
         message="Get answers to frequently asked questions."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={70}
         isVisible={faqModalVisible}
         setVisible={setFaqModalVisible}
         continueModal={() => setEndDayModalVisible(true)}
@@ -102,7 +102,7 @@ export default function MenuHelpTutorial() {
         pointDirection="bottom-left"
         message="End current business day, finalizing sales data and preparing the app for the next business day."
         closeMessage="Done"
-        boxWidth={200}
+        boxWidth={90}
         isVisible={endDayModalVisible}
         setVisible={setEndDayModalVisible}
         continueModal={null}

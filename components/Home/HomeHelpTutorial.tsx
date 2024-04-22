@@ -29,7 +29,7 @@ export default function HomeHelpTutorial() {
         pointDirection="top-left"
         message="Tap to edit your store name."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={40}
         isVisible={isStartModalVisible}
         setVisible={setStartModalVisible}
         continueModal={() => setStartDayModalVisible(true)}
@@ -41,7 +41,7 @@ export default function HomeHelpTutorial() {
         pointDirection="left"
         message="Tapping the 'Start Day' button signifies the beginning of your business day. This ensures all sales and transactions from this point forward will be accurately recorded."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={80}
         isVisible={startDayModalVisible}
         setVisible={setStartDayModalVisible}
         continueModal={() => setEditCategoryModalVisible(true)}
@@ -53,7 +53,7 @@ export default function HomeHelpTutorial() {
         pointDirection="top-left"
         message="Create, edit, or delete categories."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={80}
         isVisible={isEditCategoryModalVisible}
         setVisible={setEditCategoryModalVisible}
         continueModal={setClickCategoryModalVisible}
@@ -65,7 +65,7 @@ export default function HomeHelpTutorial() {
         pointDirection="left"
         message="Display all the items available in a specific category."
         closeMessage="Done"
-        boxWidth={200}
+        boxWidth={70}
         isVisible={isClickCategoryModalVisible}
         setVisible={setClickCategoryModalVisible}
         continueModal={null}
