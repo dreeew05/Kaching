@@ -1,7 +1,7 @@
-import { Pressable, Image, Text, View } from 'react-native';
-import React, { useState } from 'react';
-import { DefaultCategory } from '../../../constants/DefaultCategories';
 import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { Image, Pressable, Text, View } from 'react-native';
+import { DefaultCategory } from '../../../constants/DefaultCategories';
 
 // Unused import
 // import { CheckBox } from '@rneui/base';
@@ -60,32 +60,36 @@ export default function DefaultCategoryClickable(
       </View> */}
 
       {/* Click Version */}
-      {!isNotChecked ? (
+      <View className="w-20 sm:w-16 md:w-32 lg:w-1/4 xl:w-1/4 h-28 sm:h-24 md:h-40 lg:h-1/4 xl:h-1/4 rounded-lg">
+        {!isNotChecked && (
+          <View
+            className="absolute -top-1 -right-1 bg-transparent"
+            style={{ zIndex: 1 }}
+          >
+            <AntDesign name="checkcircle" size={30} color="green" />
+          </View>
+        )}
         <View
-          className="absolute -top-1 -right-1 bg-transparent"
-          style={{ zIndex: 1 }}
+          className="flex p-2 items-center justify-center bg-white rounded-lg w-20 sm:w-5 md:w-32 lg:w-1/4 xl:w-1/4 h-20 sm:h-5 md:h-32 lg:h-1/4 xl:h-1/4"
+          // style={{ padding: 10, flex: 1 }}
         >
-          <AntDesign name="checkcircle" size={24} color="green" />
+          <Image
+            source={defCategory.category.image}
+            resizeMode="cover"
+            className="w-full h-full rounded-t-md"
+          />
         </View>
-      ) : null}
-      <View
-        className="flex flex-row rounded-lg justify-center"
-        style={{
-          backgroundColor: 'white',
-          padding: 10,
-        }}
-      >
-        <Image
-          source={defCategory.category.image}
-          style={{ width: 60, height: 60 }}
-        />
+        <View>
+          <Text
+            adjustsFontSizeToFit
+            numberOfLines={1}
+            className="text-center mt-2 color-white"
+            style={{ fontFamily: 'Poppins-Medium' }}
+          >
+            {defCategory.category.name}
+          </Text>
+        </View>
       </View>
-      <Text
-        className="text-center mt-2 color-white"
-        style={{ fontFamily: 'Poppins-Medium' }}
-      >
-        {defCategory.category.name}
-      </Text>
     </Pressable>
   );
 }

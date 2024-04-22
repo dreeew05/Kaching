@@ -131,7 +131,7 @@ export default function ReceiptComponent() {
                 Total:{' '}
               </Text>
               <Text className="py-2 text-lg text-zinc-500 font-medium items-end">
-                P{totalPrice}
+                ₱{totalPrice}
               </Text>
             </View>
 
@@ -141,7 +141,7 @@ export default function ReceiptComponent() {
                 Payment:{' '}
               </Text>
               <Text className="py-2 text-lg text-zinc-500 font-medium items-end">
-                P{userPayment}
+                ₱{userPayment.toFixed(2)}
               </Text>
             </View>
 
@@ -151,7 +151,7 @@ export default function ReceiptComponent() {
                 Change:{' '}
               </Text>
               <Text className="py-2 text-lg text-zinc-500 font-medium items-end">
-                P{change.toFixed(2)}
+                ₱{change.toFixed(2)}
               </Text>
             </View>
           </View>

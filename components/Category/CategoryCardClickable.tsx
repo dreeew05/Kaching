@@ -29,7 +29,7 @@ export default function CategoryCardClickable({
     >
       <TouchableOpacity
         onPress={clickHandler}
-        className="bg-white dark:bg-black 
+        className="bg-white dark:bg-black
                 shadow-md rounded-md m-2 p-2"
       >
         <CategoryCard id={id} name={name} image={image} />
