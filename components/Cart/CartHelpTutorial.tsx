@@ -31,7 +31,7 @@ export default function CartHelpTutorial() {
         pointDirection="top-left"
         message="This section displays the items you've selected from the menu, along with their quantities and prices."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={50}
         isVisible={isStartModalVisible}
         setVisible={setStartModalVisible}
         continueModal={() => setRemoveAllModalVisible(true)}
@@ -43,7 +43,7 @@ export default function CartHelpTutorial() {
         pointDirection="right"
         message="Clear all items from the cart."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={60}
         isVisible={removeAllModalVisible}
         setVisible={setRemoveAllModalVisible}
         continueModal={() => setDeleteItemModalVisible(true)}
@@ -55,7 +55,7 @@ export default function CartHelpTutorial() {
         pointDirection="right"
         message="Remove a specific  item from the cart."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={50}
         isVisible={deleteItemModalVisible}
         setVisible={setDeleteItemModalVisible}
         continueModal={() => setQuantityModalVisible(true)}
@@ -67,7 +67,7 @@ export default function CartHelpTutorial() {
         pointDirection="top-right"
         message="Adjust item quantity in cart."
         closeMessage="Continue"
-        boxWidth={200}
+        boxWidth={76}
         isVisible={quantityModalVisible}
         setVisible={setQuantityModalVisible}
         continueModal={() => setCheckoutModalVisible(true)}
@@ -80,7 +80,7 @@ export default function CartHelpTutorial() {
         pointDirection="bottom-left"
         message="Proceed to checkout."
         closeMessage="Done"
-        boxWidth={200}
+        boxWidth={100}
         isVisible={checkoutModalVisible}
         setVisible={setCheckoutModalVisible}
         continueModal={null}

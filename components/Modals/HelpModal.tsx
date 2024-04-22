@@ -143,7 +143,10 @@ export default function HelpModal(item: HelpModalProps) {
           />
           <View
             className="flex-col rounded-md"
-            style={{ backgroundColor: 'white', width: item.boxWidth }}
+            style={{
+              backgroundColor: 'white',
+              width: `${item.boxWidth}%`,
+            }}
           >
             <View
               className="p-5 rounded-tl-md rounded-tr-md"
