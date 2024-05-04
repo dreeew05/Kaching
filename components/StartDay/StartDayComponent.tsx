@@ -69,6 +69,7 @@ export default function StartDayComponent() {
             value={contactNumber}
             onChangeText={setContactNumber}
             placeholder="09xxxxxxxxx"
+            maxLength={11}
             placeholderTextColor="gray"
             keyboardType="numeric"
           />

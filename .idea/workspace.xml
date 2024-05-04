@@ -9,13 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/modifyCategoryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/modifyCategoryView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Category/CategoryList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/CategoryList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Category/ModifyCategoryCardGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/ModifyCategoryCardGenerator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Product/CategoryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/CategoryView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Home/HomeHelpTutorial.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Home/HomeHelpTutorial.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Product/DetailedItemScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/DetailedItemScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Product/ModifyItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ModifyItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/StartDay/StartDayComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/StartDay/StartDayComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
