@@ -37,7 +37,7 @@ export default function DefaultCategoryClickable(
   };
 
   return (
-    <Pressable className="mx-5 my-3" onPress={() => toggleClicked()}>
+    <Pressable className=" my-3  p-3" onPress={() => toggleClicked()}>
       {/* Checkbox version */}
       {/* <View
         className="absolute -top-1 -right-1 bg-transparent"
@@ -60,13 +60,13 @@ export default function DefaultCategoryClickable(
       </View> */}
 
       {/* Click Version */}
-      <View className="w-20 sm:w-16 md:w-32 lg:w-1/4 xl:w-1/4 h-28 sm:h-24 md:h-40 lg:h-1/4 xl:h-1/4 rounded-lg">
+      <View className="w-20 sm:w-16 md:w-20 lg:w-1/4 xl:w-1/4 h-28 sm:h-24 md:h-40 lg:h-1/4 xl:h-1/4 rounded-lg">
         {!isNotChecked && (
           <View
             className="absolute -top-1 -right-1 bg-transparent"
             style={{ zIndex: 1 }}
           >
-            <AntDesign name="checkcircle" size={30} color="green" />
+            <AntDesign name="checkcircle" size={25} color="green" />
           </View>
         )}
         <View

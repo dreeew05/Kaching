@@ -1,23 +1,23 @@
+import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
+import { Image, Modal, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import {
+  insertData,
+  updateData,
+} from '../components/DatabaseUtils/CoreFunctions';
+import DefaultCategoryClickable from '../components/Onboarding/DefaultCategories/DefaultCategoryClickable';
 import { Text, View } from '../components/Themed';
 import {
   DefaultCategory,
   getDefaultCategories,
 } from '../constants/DefaultCategories';
-import { Modal, Pressable, Image } from 'react-native';
-import { getScreenHeight } from '../constants/ScreenDimensions';
-import { useState } from 'react';
-import DefaultCategoryClickable from '../components/Onboarding/DefaultCategories/DefaultCategoryClickable';
-import { Ionicons } from '@expo/vector-icons';
-import { OnboardingModalProps } from './_layout';
-import {
-  insertData,
-  updateData,
-} from '../components/DatabaseUtils/CoreFunctions';
 import {
   DefaultProduct,
   getDefaultProducts,
 } from '../constants/DefaultProducts';
+import { getScreenHeight } from '../constants/ScreenDimensions';
+import { OnboardingModalProps } from './_layout';
 
 interface SelectDefaultCategoriesProps {
   id: number | null;
@@ -125,13 +125,16 @@ export default function SelectDefaultCategories(
         </Pressable>
         <View className="items-center bg-transparent">
           <Text
-            className="mb-10 text-xl color-white"
+            className="my-5 text-xl color-white"
             style={{ fontFamily: 'Poppins-Medium' }}
           >
             Pick some categories to start
           </Text>
-          <ScrollView style={{ height: getScreenHeight() * 0.625 }}>
-            <View className="flex-row flex-wrap justify-center bg-transparent">
+          <ScrollView
+            className="mx-5"
+            style={{ height: getScreenHeight() * 0.625 }}
+          >
+            <View className="flex-row flex-wrap justify-center bg-transparent ">
               {categories &&
                 Object.values(categories).map(
                   (category: DefaultCategory) => {
@@ -151,7 +154,10 @@ export default function SelectDefaultCategories(
             className="bg-white mt-10 py-2 px-10 rounded-full"
             onPress={() => handleConfirm()}
           >
-            <Text style={{ fontFamily: 'Poppins-Bold' }}>
+            <Text
+              className="text-green"
+              style={{ fontFamily: 'Poppins-Bold' }}
+            >
               Confirm
             </Text>
           </Pressable>

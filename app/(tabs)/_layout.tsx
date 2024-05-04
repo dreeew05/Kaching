@@ -1,9 +1,28 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs, useSegments } from 'expo-router';
-import { Pressable, useColorScheme } from 'react-native';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import {
+  Link,
+  router,
+  Tabs,
+  useLocalSearchParams,
+  useSegments,
+} from 'expo-router';
+import { Pressable, useColorScheme } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsEditComponent } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { setIsEditButton } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+
+interface categoryParamProps {
+  category_id: number;
+  id: number;
+}
+
+interface categoryViewParamProps {
+  id: number;
+  isEditComponent: string;
+}
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -20,10 +39,57 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  // Params
+  const param = useLocalSearchParams();
+  const categoryParams =
+    param.params as unknown as categoryParamProps;
+  const categoryViewParams =
+    param.params as unknown as categoryViewParamProps;
+
   // To hide TabBar on certain pages
   const segment = useSegments();
   const page = segment[segment.length - 1];
   const pagesToHide = ['selectStoreType', 'selectDefaultCategories'];
+
+  // Redux
+  // const isEditButton = useSelector(selectIsEditComponent);
+  // const dispatch = useDispatch();
+
+  const headerEventHandler = () => {
+    if (categoryViewParams.isEditComponent == 'true') {
+      return (
+        <Link
+          href={{
+            pathname: '/',
+          }}
+          asChild
+        >
+          <Pressable className="ml-3">
+            <Ionicons name="chevron-back" size={30} color="green" />
+          </Pressable>
+        </Link>
+      );
+    } else {
+      {
+        return (
+          <Link
+            href={{
+              pathname: '/(tabs)/categoryView',
+              params: {
+                id: categoryViewParams.id,
+                isEditComponent: 'true',
+              },
+            }}
+            asChild
+          >
+            <Pressable className="ml-3">
+              <Ionicons name="chevron-back" size={30} color="green" />
+            </Pressable>
+          </Link>
+        );
+      }
+    }
+  };
 
   return (
     <Tabs
@@ -128,17 +194,7 @@ export default function TabLayout() {
           href: null, // Hide this tab from the tab bar
         }}
       />
-      <Tabs.Screen
-        name="editItemWrapper"
-        options={{
-          title: 'Back',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="code" color={color} />
-          ),
-          href: null, // Hide this tab from the tab bar
-          headerShown: false,
-        }}
-      />
+
       <Tabs.Screen
         name="receiptWrapper"
         options={{
@@ -152,12 +208,12 @@ export default function TabLayout() {
       <Tabs.Screen
         name="categoryView"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar,
-          headerShown: false,
+          headerLeft: () => headerEventHandler(),
         }}
       />
       <Tabs.Screen
@@ -195,18 +251,86 @@ export default function TabLayout() {
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
-          headerShown: false,
+          headerLeft: () => (
+            <Link
+              href={{
+                pathname: '/(tabs)/categoryView',
+                params: {
+                  id: categoryParams.category_id,
+                  isEditComponent: 'true',
+                },
+              }}
+              asChild
+            >
+              <Pressable className="ml-3">
+                <Ionicons
+                  name="chevron-back"
+                  size={30}
+                  color="green"
+                />
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen
         name="addItemWrapper"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
-          headerShown: false,
+          headerLeft: () => (
+            <Link
+              href={{
+                pathname: '/(tabs)/categoryView',
+                params: {
+                  id: categoryParams.category_id,
+                  isEditComponent: 'false',
+                },
+              }}
+              asChild
+            >
+              <Pressable className="ml-3">
+                <Ionicons
+                  name="chevron-back"
+                  size={30}
+                  color="green"
+                />
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="editItemWrapper"
+        options={{
+          title: '',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link
+              href={{
+                pathname: '/(tabs)/categoryView',
+                params: {
+                  id: categoryParams.category_id,
+                  isEditComponent: 'false',
+                },
+              }}
+              asChild
+            >
+              <Pressable className="ml-3">
+                <Ionicons
+                  name="chevron-back"
+                  size={30}
+                  color="green"
+                />
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen
@@ -223,12 +347,36 @@ export default function TabLayout() {
       <Tabs.Screen
         name="ItemScreen"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
-          headerShown: false,
+          headerLeft: () => (
+            <Link
+              href={{
+                pathname: '/(tabs)/categoryView',
+                params: {
+                  id: categoryParams.category_id,
+                  isEditComponent: 'true',
+                },
+              }}
+              asChild
+            >
+              <Pressable
+                className="ml-3"
+                onPress={() =>
+                  console.log(categoryParams.category_id)
+                }
+              >
+                <Ionicons
+                  name="chevron-back"
+                  size={30}
+                  color="green"
+                />
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen

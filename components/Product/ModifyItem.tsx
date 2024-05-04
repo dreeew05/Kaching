@@ -204,29 +204,15 @@ export default function ModifyItem({ type }: ModifyItemProps) {
 
   return (
     <View>
-      <View style={{ marginTop: '7.5%' }}>
+      <View>
         <View
+          className="mb-2"
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 10,
           }}
         >
-          <Link
-            href={{
-              pathname: '/(tabs)/categoryView',
-              params: {
-                id: categoryID,
-              },
-            }}
-            asChild
-          >
-            <Pressable className="ml-3">
-              <Ionicons name="chevron-back" size={30} color="green" />
-            </Pressable>
-          </Link>
-
           <View
             style={{
               flex: 1,
