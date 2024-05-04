@@ -1,4 +1,4 @@
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {
   Link,
@@ -44,10 +44,6 @@ export default function TabLayout() {
   const segment = useSegments();
   const page = segment[segment.length - 1];
   const pagesToHide = ['selectStoreType', 'selectDefaultCategories'];
-
-  // Redux
-  // const isEditButton = useSelector(selectIsEditComponent);
-  // const dispatch = useDispatch();
 
   const headerEventHandler = () => {
     if (categoryViewParams.isEditComponent == 'true') {

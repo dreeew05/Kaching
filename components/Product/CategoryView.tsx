@@ -37,7 +37,7 @@ export default function CategoryView() {
   const [categoryName, setCategoryName] = useState<string>('');
   const db = SQLite.openDatabase('kaching_db.db');
   const isLoading = useSelector(selectIsCategoryViewLoading);
-  const isEditButton = useSelector(selectIsEditComponent);
+
   const productDataModifiedActions = useSelector(
     selectProductModifiedActions,
   );
@@ -55,6 +55,9 @@ export default function CategoryView() {
   const [temporaryCart, setTemporaryCart] = useState<CartItemProps[]>(
     [],
   );
+
+  // Unused [When this shit gets fucked up used this redux shit!!!]
+  // const isEditButton = useSelector(selectIsEditComponent);
 
   const getCategoryName = () => {
     const tableName = 'category',
@@ -91,7 +94,8 @@ export default function CategoryView() {
         [categoryID],
       );
       setProducts(result.rows as BaseItemProps[]);
-      dispatch(setIsCategoryViewProductLoading(false));
+      // Uncomment if needed
+      // dispatch(setIsCategoryViewProductLoading(false));
     }, readOnly);
   };
 
