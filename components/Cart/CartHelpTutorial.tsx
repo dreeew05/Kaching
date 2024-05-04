@@ -76,7 +76,7 @@ export default function CartHelpTutorial() {
       <HelpModal
         marginTop={null}
         marginLeft={10}
-        marginBottom={75}
+        marginBottom={80}
         pointDirection="bottom-left"
         message="Proceed to checkout."
         closeMessage="Done"

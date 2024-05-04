@@ -260,19 +260,6 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               </View>
             )}
           </View>
-
-          {isAnyInputEmpty() ? (
-            <View className="flex flex-row justify-center mr-5 bg-white">
-              <FontAwesome5 name="file" size={22} color="gray" />
-            </View>
-          ) : (
-            <View className="flex flex-row justify-center mr-5 bg-white">
-              <Pressable onPress={() => setSaveModalVisible(true)}>
-                <FontAwesome5 name="file" size={22} color="orange" />
-              </Pressable>
-            </View>
-          )}
-
         </View>
 
         <View className="px-5 h-full bg-white">
