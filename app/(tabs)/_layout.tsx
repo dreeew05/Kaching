@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {
   Link,
@@ -55,7 +55,7 @@ export default function TabLayout() {
           asChild
         >
           <Pressable className="ml-3">
-            <FontAwesome5 name="arrow-left" size={20} color="white" />
+            <Ionicons name="chevron-back" size={30} color="white" />
           </Pressable>
         </Link>
       );
@@ -191,14 +191,10 @@ export default function TabLayout() {
             <Link href="/" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={20}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
                     color="white"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
                   />
                 )}
               </Pressable>
@@ -223,7 +219,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="categoryView"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -274,11 +270,7 @@ export default function TabLayout() {
           headerLeft: () => (
             <Link
               href={{
-                pathname: '/(tabs)/categoryView',
-                params: {
-                  id: categoryParams.category_id,
-                  isEditComponent: 'true',
-                },
+                pathname: '/(tabs)/modifyCategoryView',
               }}
               asChild
             >
@@ -356,7 +348,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="olderEODSbyDate"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -402,7 +394,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="currentEOD"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -411,12 +403,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-
                   <Ionicons
                     name="chevron-back"
                     size={30}
                     color="green"
-
                   />
                 )}
               </Pressable>
@@ -427,7 +417,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="previousEOD"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -436,12 +426,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-
                   <Ionicons
                     name="chevron-back"
                     size={30}
                     color="green"
-
                   />
                 )}
               </Pressable>
@@ -452,7 +440,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="termsOfService"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -461,12 +449,10 @@ export default function TabLayout() {
             <Link href="/(tabs)/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-
                   <Ionicons
                     name="chevron-back"
                     size={30}
                     color="green"
-
                   />
                 )}
               </Pressable>
@@ -477,7 +463,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="privacyPolicy"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -486,12 +472,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-
                   <Ionicons
                     name="chevron-back"
                     size={30}
                     color="green"
-
                   />
                 )}
               </Pressable>
@@ -502,7 +486,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="faqs"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -511,12 +495,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-
                   <Ionicons
                     name="chevron-back"
                     size={30}
                     color="green"
-
                   />
                 )}
               </Pressable>
@@ -527,7 +509,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="pahuwayBanner"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -536,11 +518,9 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-
                   <Ionicons
                     name="chevron-back"
                     size={30}
-
                     color="green"
                   />
                 )}
@@ -552,7 +532,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="editStoreName"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -561,12 +541,10 @@ export default function TabLayout() {
             <Link href="/" asChild>
               <Pressable>
                 {({ pressed }) => (
-
                   <Ionicons
                     name="chevron-back"
                     size={30}
                     color="green"
-
                   />
                 )}
               </Pressable>
