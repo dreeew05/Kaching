@@ -19,12 +19,12 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
+import { insertData } from '../components/DatabaseUtils/CoreFunctions';
 import { initializeDatabase } from '../components/DatabaseUtils/InitializeDatabase';
 import { getDatabase } from '../components/DatabaseUtils/OpenDatabase';
 import TermsAndConditionsScreen from './TermsAndConScreen';
-import { insertData } from '../components/DatabaseUtils/CoreFunctions';
-import SelectStoreType from './selectStoreType';
 import SelectDefaultCategories from './selectDefaultCategories';
+import SelectStoreType from './selectStoreType';
 
 export interface OnboardingModalProps {
   visible: boolean;
@@ -265,6 +265,8 @@ function OnboardingScreen(onboardingProps: OnboardingScreenProps) {
             <View className="border-b-gray border-b-2 opacity-50">
               <TextInput
                 className="text-lg text-black font-medium mb-1"
+                multiline={true}
+                numberOfLines={2}
                 value={onboardingProps.storeName}
                 onChangeText={onboardingProps.setStoreName}
                 placeholder="Enter Store Name"

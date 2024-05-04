@@ -31,12 +31,12 @@ export const getBusinessTypes = (): BusinessTypes => {
     },
     {
       id: 3,
-      name: 'School Supply Store',
+      name: 'School Supply',
       image: require('../assets/images/onboarding/business_types/school_supply.jpg'),
     },
     {
       id: 4,
-      name: 'E-loading (Mobile Top-up)',
+      name: 'E-loading',
       image: require('../assets/images/onboarding/business_types/e-loading.jpg'),
     },
     {
@@ -46,7 +46,7 @@ export const getBusinessTypes = (): BusinessTypes => {
     },
     {
       id: 6,
-      name: 'Bakeries & Pastry Shops',
+      name: 'Bakery & Pastry Shop',
       image: require('../assets/images/onboarding/business_types/bakery.jpg'),
     },
   ];

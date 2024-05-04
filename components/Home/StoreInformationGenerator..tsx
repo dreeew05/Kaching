@@ -1,9 +1,9 @@
-import { View, Text, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { getDatabase } from '../DatabaseUtils/OpenDatabase';
+import { Pressable, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import HomeHelpTutorial from './HomeHelpTutorial';
 
 export default function StoreInformationGenerator() {
@@ -54,7 +54,7 @@ export default function StoreInformationGenerator() {
           }}
           asChild
         >
-          <Pressable className="flex-1">
+          <Pressable className="flex-1 pt-2">
             <View className="flex-row">
               <Text className="text-5xl ml-5 font-semibold text-green">
                 {storeName}
@@ -66,7 +66,7 @@ export default function StoreInformationGenerator() {
         <HomeHelpTutorial />
       </View>
 
-      <Text className="text-sm ml-5">
+      <Text className="text-sm ml-5 pb-2">
         {monthInWords(date.getMonth()) +
           ' ' +
           date.getDate() +
