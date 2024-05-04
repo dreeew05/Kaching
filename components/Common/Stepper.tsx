@@ -10,34 +10,34 @@ interface StepperProps {
   updateQuantity: (newQuantity: number) => void;
 }
 
-export default function Stepper(parentMixIn: StepperProps) {
+export default function Stepper(stepperAttrib: StepperProps) {
   useEffect(() => {
     // If the item is added on cart, quantity should not be 0
     if (
-      parentMixIn.caseType === 'cart' &&
-      parentMixIn.quantity == 0
+      stepperAttrib.caseType === 'cart' &&
+      stepperAttrib.quantity == 0
     ) {
-      parentMixIn.updateQuantity(1);
+      stepperAttrib.updateQuantity(1);
     }
-  }, [parentMixIn.quantity]);
+  }, [stepperAttrib.quantity]);
 
   const incrementQuantity = () => {
-    parentMixIn.updateQuantity(parentMixIn.quantity + 1);
+    stepperAttrib.updateQuantity(stepperAttrib.quantity + 1);
   };
 
   const decrementQuantity = () => {
-    if (parentMixIn.quantity > 0) {
-      parentMixIn.updateQuantity(parentMixIn.quantity - 1);
+    if (stepperAttrib.quantity > 0) {
+      stepperAttrib.updateQuantity(stepperAttrib.quantity - 1);
     }
   };
 
   const handleTextChange = (val: string) => {
     let defaultValue: number =
-      parentMixIn.caseType === 'cart' ? 1 : 0;
+      stepperAttrib.caseType === 'cart' ? 1 : 0;
     if (!Number.isNaN(parseInt(val))) {
-      parentMixIn.updateQuantity(parseInt(val));
+      stepperAttrib.updateQuantity(parseInt(val));
     } else {
-      parentMixIn.updateQuantity(defaultValue);
+      stepperAttrib.updateQuantity(defaultValue);
     }
   };
 
@@ -68,7 +68,7 @@ export default function Stepper(parentMixIn: StepperProps) {
         keyboardType="numeric"
         onChangeText={(val) => handleTextChange(val)}
       >
-        {parentMixIn.quantity.toString()}
+        {stepperAttrib.quantity.toString()}
       </TextInput>
 
       <Pressable onPress={incrementQuantity}>

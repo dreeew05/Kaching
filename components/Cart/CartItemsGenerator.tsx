@@ -1,11 +1,17 @@
+import { useState } from 'react';
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCart } from '../../redux/CartRedux/CartSelectors';
-import CartItemList from './CartItemList';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
-import { useState } from 'react';
 import CustomModal from '../Modals/CustomModal';
+import CartItemList from './CartItemList';
+import CartHelpTutorial from './CartHelpTutorial';
 
 export default function CartItemsGenerator() {
   const cartState = useSelector(selectCart);
@@ -29,7 +35,7 @@ export default function CartItemsGenerator() {
       <View
         className="flex-1"
         style={{
-          marginTop: 60,
+          marginTop: '10%',
         }}
       >
         <View className="flex-1 justify-center items-center">
@@ -48,50 +54,46 @@ export default function CartItemsGenerator() {
     );
   } else {
     return (
-      <ScrollView
-        style={{
-          marginTop: 60,
-        }}
-      >
-        <View className="flex-1 flex-row items-start">
-          <Text
-            className="text-4xl ml-5 mt-1 text-green flex-1"
-            style={{ fontFamily: 'Poppins-Medium' }}
-          >
-            Cart
-          </Text>
-          <TouchableOpacity
-            onPress={() => setRemoveModalVisible(true)}
-          >
-            <View
-              className="flex-1 mr-5 bg-red-500 items-center 
-              justify-center pl-5 pr-5 rounded-full"
+      <View className="flex-1">
+        <View className="flex flex-row mt-20 mb-3">
+          <View className="flex-1 flex-row">
+            <Text
+              className="text-4xl ml-5 mt-1 text-green"
+              style={{ fontFamily: 'Poppins-Bold' }}
             >
-              <Text
-                style={{
-                  color: 'white',
-                  fontFamily: 'Poppins-Bold',
-                }}
-              >
-                Remove All
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <CartItemList cart={cartState.cart} />
+              Cart
+            </Text>
 
-        <CustomModal
-          visible={removeModalVisible}
-          message="Are you sure you want to remove all items in your cart?"
-          optionOneText="Yes"
-          optionTwoText="Cancel"
-          optionOnePressed={() => deleteAllItemsInCart()}
-          optionTwoPressed={() => setRemoveModalVisible(false)}
-          optionOneColor="blue"
-          optionTwoColor="red"
-          closeModal={() => setRemoveModalVisible(false)}
-        />
-      </ScrollView>
+            <CartHelpTutorial />
+          </View>
+
+          <TouchableHighlight
+            className={'mr-5 rounded-full p-2 bg-red-500'} // Use the disabled prop to conditionally apply styles
+            onPress={() => setRemoveModalVisible(true)} // Pass a function that sets the removeModalVisible state to true
+          >
+            <Text
+              className={`text-white text-base font-bold self-center pl-3 pr-3`}
+            >
+              Remove All
+            </Text>
+          </TouchableHighlight>
+        </View>
+        <ScrollView>
+          <CartItemList cart={cartState.cart} />
+
+          <CustomModal
+            visible={removeModalVisible}
+            message="Are you sure you want to remove all items in your cart?"
+            optionOneText="Yes"
+            optionTwoText="Cancel"
+            optionOnePressed={() => deleteAllItemsInCart()}
+            optionTwoPressed={() => setRemoveModalVisible(false)}
+            optionOneColor="blue"
+            optionTwoColor="red"
+            closeModal={() => setRemoveModalVisible(false)}
+          />
+        </ScrollView>
+      </View>
     );
   }
 }

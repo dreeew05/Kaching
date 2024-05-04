@@ -53,6 +53,9 @@ export const PopUpModal = (props: PopUpModalProps) => {
       case 'dispatchProduct':
         dispatch(setProductModifiedActions('delete'));
         break;
+      default:
+        // Do nothing
+        break;
     }
   };
 

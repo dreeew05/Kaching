@@ -26,6 +26,7 @@ export default function ItemScreenFetchData() {
       price: 0,
       description: '',
       category: '',
+      is_available: 0,
     },
   ]);
 
@@ -35,13 +36,14 @@ export default function ItemScreenFetchData() {
     db.transaction((tx) => {
       tx.executeSql(
         `SELECT item.id, item.name, item.description, item.image,
-                item.price,
+                item.price, item.is_available,
                 category.name AS 'category'
                 FROM item
                 LEFT JOIN category ON item.category_id = category.id
                 WHERE item.id = ?`,
         [id],
         (_, result) => {
+          console.log(result.rows._array);
           setProduct(result.rows._array);
           dispatch(setIsDetailedViewLoading(false));
         },
@@ -54,7 +56,9 @@ export default function ItemScreenFetchData() {
       return (
         <View
           style={{
-            marginTop: 350,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <ActivityIndicator size={75} color="green" />
@@ -70,6 +74,7 @@ export default function ItemScreenFetchData() {
           price={product[0].price}
           description={product[0].description}
           category={product[0].category}
+          is_available={product[0].is_available}
         />
       );
     }

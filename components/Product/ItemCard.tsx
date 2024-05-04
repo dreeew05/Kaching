@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Image,
-  View,
-  Text,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
 import { Link } from 'expo-router';
-import Stepper from '../Common/Stepper';
-import { useDispatch, useSelector } from 'react-redux';
-import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
+import React, { useEffect, useState } from 'react';
+import { Pressable, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import {
-  setIsDetailedViewLoading,
   setIsEditButton,
   setIsModifyProductLoading,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import Stepper from '../Common/Stepper';
+import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
-import { CheckBox } from '@rneui/base';
-import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
+import ItemClickable from './ItemClickable';
 
 // Unused imports
 // import { deleteData } from '../DatabaseUtils/CoreFunctions';
@@ -114,6 +107,15 @@ export default function ItemCard(item: itemCardProps) {
       showAddQuantityModal: setShowAddQuantityModal,
       showItemInCartModal: setShowItemInCartModal,
     });
+    removeFromTempCart();
+  };
+
+  const removeFromTempCart = () => {
+    item.setTempCart(
+      item.tempCart.filter(
+        (itemInCart) => itemInCart.id !== item.item.id,
+      ),
+    );
   };
 
   // Unused function
@@ -134,86 +136,22 @@ export default function ItemCard(item: itemCardProps) {
     dispatch(setIsModifyProductLoading(true));
   };
 
-  const toggleDetailedViewLoading = () => {
-    dispatch(setIsDetailedViewLoading(true));
-  };
-
-  const toggleCheckBox = () => {
-    setIsNotChecked(!isNotChecked);
-    if (!isNotChecked) {
-      item.setCurrentCheckedItems([
-        ...item.checkedItems,
-        item.item.id,
-      ]);
-    } else {
-      item.setCurrentCheckedItems(
-        item.checkedItems.filter((id) => id !== item.item.id),
-      );
-    }
-  };
-
   return (
-    <View className="ml-3 mr-3 mb-5">
-      <View className="flex flex-row mb-3">
-        <Link
-          href={{
-            pathname: '/(tabs)/ItemScreen',
-            params: {
-              id: item.item.id,
-              category_id: item.categoryID,
-            },
-          }}
-          asChild
-        >
-          <TouchableOpacity
-            onPress={() => toggleDetailedViewLoading()}
-          >
-            <Image
-              className="w-40 h-40 mr-1 rounded-md"
-              source={{ uri: item.item.image }}
-            />
-          </TouchableOpacity>
-        </Link>
-
-        <View className="flex flex-column ml-5">
-          <Text
-            className="text-lg font-semibold"
-            style={{ fontFamily: 'Poppins-Medium' }}
-          >
-            {item.item.name}
-          </Text>
-          <Text
-            className="text-gray-500"
-            style={{ fontFamily: 'Poppins-Regular' }}
-          >
-            P{item.item.price}
-          </Text>
-        </View>
-
-        {/* DELETE BUTTON */}
-        {!item.isEditComponent ? (
-          <View className="absolute -top-1 -right-1">
-            <CheckBox
-              checked={isNotChecked}
-              onPress={() => toggleCheckBox()}
-              size={35}
-              iconType="material-community"
-              checkedIcon="checkbox-marked"
-              uncheckedIcon="checkbox-blank-outline"
-              checkedColor="grey"
-              containerStyle={{
-                backgroundColor: 'transparent',
-                marginRight: -5,
-                marginTop: -5,
-              }}
-            />
-          </View>
-        ) : null}
-      </View>
+    <View className="ml-3 mr-3 mb-5 flex">
+      <ItemClickable
+        id={item.item.id}
+        category_id={item.categoryID}
+        image={item.item.image}
+        name={item.item.name}
+        price={item.item.price}
+        isEditComponent={item.isEditComponent}
+        checkedItems={item.checkedItems}
+        setCurrentCheckedItems={item.setCurrentCheckedItems}
+      />
 
       {item.isEditComponent ? (
-        <View className="flex flex-row items-center">
-          <View className="flex items-center mr-5">
+        <View className="flex flex-row items-center ">
+          <View className=" items-center">
             <Stepper
               id={item.item.id}
               quantity={quantity}
@@ -221,10 +159,10 @@ export default function ItemCard(item: itemCardProps) {
               updateQuantity={updateQuantity}
             />
           </View>
-          <View className="flex-1 justify-center">
+          <View className="justify-center">
             <Pressable
-              className="bg-green w-48 h-10 border-2 border-green 
-                          rounded-md self-center ml-5 mr-5 flex-1 items-center justify-center"
+              className="bg-green w-40 h-10
+                          rounded-full self-center ml-5 flex-1 items-center justify-center"
               onPress={addToCart}
             >
               <Text
@@ -250,8 +188,8 @@ export default function ItemCard(item: itemCardProps) {
               asChild
             >
               <Pressable
-                className="bg-green h-10 border-2 border-green
-                              rounded-md self-center flex-1 items-center justify-center w"
+                className="bg-green w-40 h-10 border-2 border-green
+                              rounded-full self-center items-center justify-center"
                 onPress={() => editProduct()}
               >
                 <Text

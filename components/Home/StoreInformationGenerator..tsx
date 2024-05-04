@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { useSelector } from 'react-redux';
 import { selectStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import HomeHelpTutorial from './HomeHelpTutorial';
 
 export default function StoreInformationGenerator() {
   const db = getDatabase();
@@ -11,15 +12,14 @@ export default function StoreInformationGenerator() {
   const actionState = useSelector(selectStoreNameAction);
 
   useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
+    const readOnly = true;
+    db.transactionAsync(async (tx) => {
+      const result = await tx.executeSqlAsync(
         `SELECT storename FROM store`,
-        [],
-        (_, result) => {
-          setStoreName(result.rows._array[0].storename);
-        },
       );
-    });
+      // console.log(result.rows[0]['storename']);
+      setStoreName(result.rows[0]['storename']);
+    }, readOnly);
   }, [actionState]);
 
   const date = new Date();
@@ -44,23 +44,27 @@ export default function StoreInformationGenerator() {
 
   return (
     <View>
-      <Link
-        href={{
-          pathname: '/(tabs)/editStoreName',
-          params: {
-            storeName: storeName,
-          },
-        }}
-        asChild
-      >
-        <View className="flex-row">
+      <View className="flex-row">
+        <Link
+          href={{
+            pathname: '/(tabs)/editStoreName',
+            params: {
+              storeName: storeName,
+            },
+          }}
+          asChild
+        >
           <Pressable className="flex-1">
-            <Text className="text-5xl ml-5 font-semibold text-green">
-              {storeName}
-            </Text>
+            <View className="flex-row">
+              <Text className="text-5xl ml-5 font-semibold text-green">
+                {storeName}
+              </Text>
+            </View>
           </Pressable>
-        </View>
-      </Link>
+        </Link>
+
+        <HomeHelpTutorial />
+      </View>
 
       <Text className="text-sm ml-5">
         {monthInWords(date.getMonth()) +

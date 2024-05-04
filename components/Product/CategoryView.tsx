@@ -1,40 +1,42 @@
+import {
+  AntDesign,
+  FontAwesome5,
+  Ionicons,
+} from '@expo/vector-icons';
+import { Link, useLocalSearchParams } from 'expo-router';
 import * as SQLite from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import {
-  deleteData,
-  selectData,
-} from '../DatabaseUtils/CoreFunctions';
-import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
-import { Link, useLocalSearchParams } from 'expo-router';
-import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/CartRedux/CartSlice';
 import {
   selectIsCategoryViewLoading,
   selectIsEditComponent,
   selectProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import {
-  View,
-  Text,
-  ScrollView,
-  ActivityIndicator,
-  Pressable,
-} from 'react-native';
-import ItemCard from './ItemCard';
-import {
-  AntDesign,
-  FontAwesome5,
-  Ionicons,
-} from '@expo/vector-icons';
-import {
   setIsCategoryViewProductLoading,
   setIsEditButton,
 } from '../../redux/GlobalStateRedux/GlobalStateSlice';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  deleteData,
+  selectData,
+} from '../DatabaseUtils/CoreFunctions';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
+import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
+import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
-import { addToCart } from '../../redux/CartRedux/CartSlice';
+import ItemCard from './ItemCard';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import ItemClickable from './ItemClickable';
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -78,6 +80,9 @@ export default function CategoryView() {
 
   // Product Data Setter
   const [products, setProducts] = useState<BaseItemProps[]>([]);
+  const [outOfStockProducts, setOutOfStockProducts] = useState<
+    BaseItemProps[]
+  >([]);
 
   // Todo: Interface database
   const getProductData = async () => {
@@ -88,11 +93,30 @@ export default function CategoryView() {
         category.name AS 'category'
         FROM item
         LEFT JOIN category ON item.category_id = category.id
-        WHERE category.id = ?
+        WHERE category.id = ? AND item.is_available = 1
         ORDER BY item.name ASC`,
         [categoryID],
       );
       setProducts(result.rows as BaseItemProps[]);
+      dispatch(setIsCategoryViewProductLoading(false));
+    }, readOnly);
+  };
+
+  // Todo: Interface database
+  // Out of Stock Product
+  const getOutOfStockProductData = async () => {
+    const readOnly = true;
+    await db.transactionAsync(async (tx) => {
+      const result = await tx.executeSqlAsync(
+        `SELECT item.id, item.name, item.price, item.image,
+        category.name AS 'category'
+        FROM item
+        LEFT JOIN category ON item.category_id = category.id
+        WHERE category.id = ? AND item.is_available = 0
+        ORDER BY item.name ASC`,
+        [categoryID],
+      );
+      setOutOfStockProducts(result.rows as BaseItemProps[]);
       dispatch(setIsCategoryViewProductLoading(false));
     }, readOnly);
   };
@@ -124,7 +148,6 @@ export default function CategoryView() {
   };
 
   const addAllProducts = () => {
-    // console.log(temporaryCart);
     temporaryCart.forEach((item) => {
       dispatch(
         addToCart({
@@ -137,13 +160,19 @@ export default function CategoryView() {
         }),
       );
     });
+    clearTemporaryCart();
     setAddModalVisible(true);
     setIsAddAllPressed(true);
+  };
+
+  const clearTemporaryCart = () => {
+    setTemporaryCart([]);
   };
 
   useEffect(() => {
     getCategoryName();
     getProductData();
+    getOutOfStockProductData();
   }, [param, productDataModifiedActions]);
 
   const showOverallComponent = () => {
@@ -151,7 +180,9 @@ export default function CategoryView() {
       return (
         <View
           style={{
-            marginTop: 350,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <ActivityIndicator size={75} color="green" />
@@ -161,18 +192,21 @@ export default function CategoryView() {
       return (
         <View>
           {/* {showModifyProductHeader()} */}
-          <View className="flex flex-row mt-2">
-            <View className="flex-row flex-1">
+          <View className="flex flex-row mb-3 mt-2 items-center">
+            <View className="flex-1 ">
               <Text
-                className="text-4xl text-green ml-5 mb-5"
+                numberOfLines={1}
+                // to fit the text in the container
+                adjustsFontSizeToFit
+                className="text-green ml-3 text-4xl p-2 font-bold"
                 style={{ fontFamily: 'Poppins-Bold' }}
               >
                 {categoryName}
               </Text>
-              {showModifyProductsComponent()}
             </View>
+            {showModifyProductsComponent()}
           </View>
-          <ScrollView className="p-2 mb-32">
+          <ScrollView className="p-2 mb-40">
             {products.map((product) => {
               return (
                 <ItemCard
@@ -189,6 +223,35 @@ export default function CategoryView() {
                 />
               );
             })}
+            {outOfStockProducts.length > 0 ? (
+              <>
+                <View className="items-center mb-3">
+                  <Text
+                    className="text-black ml-3 text-2xl p-2 font-bold"
+                    style={{ fontFamily: 'Poppins-Bold' }}
+                  >
+                    Out of Stock
+                  </Text>
+                </View>
+                <View className="ml-3 mr-3 mb-5 flex">
+                  {outOfStockProducts.map((product) => {
+                    return (
+                      <ItemClickable
+                        key={product.id}
+                        id={product.id}
+                        category_id={categoryID}
+                        image={product.image}
+                        name={product.name}
+                        price={product.price}
+                        isEditComponent={isEditButton}
+                        checkedItems={checkedItems}
+                        setCurrentCheckedItems={setCheckedItems}
+                      />
+                    );
+                  })}
+                </View>
+              </>
+            ) : null}
           </ScrollView>
         </View>
       );
@@ -200,20 +263,16 @@ export default function CategoryView() {
       return (
         <>
           <Pressable
-            className="ml-3 flex-1"
+            className="mr-3 "
             onPress={() => dispatch(setIsEditButton(false))}
           >
             <FontAwesome5 name="edit" size={25} color="darkgreen" />
           </Pressable>
           <View
-            className="mr-5 bg-green h-8 items-center 
+            className="mr-5 bg-green items-center
               justify-center rounded-full h-10"
-            style={{ marginTop: -8 }}
           >
-            <TouchableOpacity
-              // Todo: Add onPress event
-              onPress={() => checkAddedProducts()}
-            >
+            <TouchableOpacity onPress={() => checkAddedProducts()}>
               <Text
                 className="px-5"
                 style={{
@@ -241,7 +300,7 @@ export default function CategoryView() {
             asChild
           >
             <Pressable
-              className="ml-3 flex-1"
+              className="mr-10"
               onPress={() => dispatch(setIsEditButton(true))}
             >
               <AntDesign
@@ -297,13 +356,12 @@ export default function CategoryView() {
   return (
     <>
       {/* Header [START] */}
-      <View style={{ marginTop: 60 }}>
+      <View style={{ marginTop: '7.5%' }}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 10,
           }}
         >
           {headerEventHandler()}
@@ -311,9 +369,7 @@ export default function CategoryView() {
       </View>
       {/* Header [END]*/}
 
-      <View className="flex-1 self-stretch">
-        <View>{showOverallComponent()}</View>
-      </View>
+      {showOverallComponent()}
 
       {/* MODALS */}
       <CustomModal

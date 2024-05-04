@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Image, View, Text, Pressable } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/build/FontAwesome5';
-import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
-import Stepper from '../Common/Stepper';
+import React, { useState } from 'react';
+import { Image, Pressable, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import {
   removeFromCart,
   updateItemQuantity,
 } from '../../redux/CartRedux/CartSlice';
+import Stepper from '../Common/Stepper';
 import CustomModal from '../Modals/CustomModal';
+import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 
 export default function CartItemCard(item: CartItemProps) {
   const dispatch = useDispatch();
@@ -45,7 +45,8 @@ export default function CartItemCard(item: CartItemProps) {
         </View>
         <View className="flex-1 ml-5">
           <Text
-            className="text-lg text-darkgreen"
+            numberOfLines={1}
+            className="text-lg text-darkgreen overflow-hidden mr-3"
             style={{ fontFamily: 'Poppins-Medium' }}
           >
             {item.name}
@@ -57,7 +58,7 @@ export default function CartItemCard(item: CartItemProps) {
             {item.category}
           </Text>
           <Text className="text-md text-black mt-3">
-            P{(item.price * item.quantity).toFixed(2)}
+            ₱{(item.price * item.quantity).toFixed(2)}
           </Text>
           <View className="mt-6">
             <Stepper
@@ -70,7 +71,13 @@ export default function CartItemCard(item: CartItemProps) {
         </View>
 
         <Pressable onPress={() => setIsRemoveModalVisible(true)}>
-          <FontAwesome5 name="trash" size={20} color="gray" />
+          <FontAwesome5
+            name="trash"
+            size={20}
+            color="red"
+            // set color opacity
+            style={{ opacity: 0.7 }}
+          />
         </Pressable>
 
         <CustomModal
