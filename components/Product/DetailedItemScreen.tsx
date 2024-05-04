@@ -13,6 +13,7 @@ import { AddToCartModals } from './AddToCartModals';
 
 // import { useSelector } from 'react-redux';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { useSelector } from 'react-redux';
 
 // Unused imports
 // import { RootState } from '../../redux/Store';
