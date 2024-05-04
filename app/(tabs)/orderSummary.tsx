@@ -15,7 +15,7 @@ export default function TabOneScreen() {
     <Provider store={Store}>
       <View className="flex-1 self-stretch bg-white">
         <Text
-          className="text-4xl ml-5 text-green"
+          className="text-4xl ml-5 text-green pt-5"
           style={{ fontFamily: 'Poppins-Medium' }}
         >
           Order Summary

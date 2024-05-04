@@ -1,4 +1,4 @@
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {
   Link,
@@ -55,7 +55,7 @@ export default function TabLayout() {
           asChild
         >
           <Pressable className="ml-3">
-            <Ionicons name="chevron-back" size={30} color="white" />
+            <Ionicons name="chevron-back" size={25} color="white" />
           </Pressable>
         </Link>
       );
@@ -73,7 +73,7 @@ export default function TabLayout() {
             asChild
           >
             <Pressable className="ml-3">
-              <Ionicons name="chevron-back" size={30} color="green" />
+              <Ionicons name="chevron-back" size={25} color="white" />
             </Pressable>
           </Link>
         );
@@ -114,7 +114,10 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="shopping-cart" color={color} />
           ),
-          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#18573A',
+            height: 'auto',
+          },
         }}
       />
       <Tabs.Screen
@@ -146,13 +149,16 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
-                    color="green"
+                    size={25}
+                    color="white"
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
 
@@ -170,13 +176,16 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
+                    size={25}
                     color="white"
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -193,7 +202,7 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
+                    size={25}
                     color="white"
                   />
                 )}
@@ -214,6 +223,9 @@ export default function TabLayout() {
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -242,7 +254,6 @@ export default function TabLayout() {
 
           headerStyle: {
             backgroundColor: '#18573A',
-            height: 'auto',
           },
           headerLeft: () => (
             <Link href="/" asChild>
@@ -250,8 +261,8 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
-                    color="green"
+                    size={25}
+                    color="white"
                   />
                 )}
               </Pressable>
@@ -277,12 +288,15 @@ export default function TabLayout() {
               <Pressable className="ml-3">
                 <Ionicons
                   name="chevron-back"
-                  size={30}
-                  color="green"
+                  size={25}
+                  color="white"
                 />
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -307,12 +321,15 @@ export default function TabLayout() {
               <Pressable className="ml-3">
                 <Ionicons
                   name="chevron-back"
-                  size={30}
-                  color="green"
+                  size={25}
+                  color="white"
                 />
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -337,12 +354,15 @@ export default function TabLayout() {
               <Pressable className="ml-3">
                 <Ionicons
                   name="chevron-back"
-                  size={30}
-                  color="green"
+                  size={25}
+                  color="white"
                 />
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -383,12 +403,15 @@ export default function TabLayout() {
               >
                 <Ionicons
                   name="chevron-back"
-                  size={30}
-                  color="green"
+                  size={25}
+                  color="white"
                 />
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -405,13 +428,16 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
-                    color="green"
+                    size={25}
+                    color="white"
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -428,13 +454,16 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
-                    color="green"
+                    size={25}
+                    color="white"
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -451,13 +480,16 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
-                    color="green"
+                    size={25}
+                    color="white"
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -474,13 +506,16 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
-                    color="green"
+                    size={25}
+                    color="white"
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -497,13 +532,16 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
-                    color="green"
+                    size={25}
+                    color="white"
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
       <Tabs.Screen
@@ -514,19 +552,7 @@ export default function TabLayout() {
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
-          headerLeft: () => (
-            <Link href="/menu" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <Ionicons
-                    name="chevron-back"
-                    size={30}
-                    color="green"
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -543,8 +569,8 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <Ionicons
                     name="chevron-back"
-                    size={30}
-                    color="green"
+                    size={25}
+                    color="white"
                   />
                 )}
               </Pressable>

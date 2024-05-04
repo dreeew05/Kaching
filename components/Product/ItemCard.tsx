@@ -50,10 +50,9 @@ export default function ItemCard(item: itemCardProps) {
     useState(false);
   const [showItemInCartModal, setShowItemInCartModal] =
     useState(false);
-  const [isNotChecked, setIsNotChecked] = 
-		useState(false);
-	const [showNeedStartDayModal, setShowNeedStartDayModal] = 
-		useState(false);
+  const [isNotChecked, setIsNotChecked] = useState(false);
+  const [showNeedStartDayModal, setShowNeedStartDayModal] =
+    useState(false);
 
   // Unused
   // const [isDeleteModalVisible, setIsDeleteModalVisible] =
@@ -106,22 +105,22 @@ export default function ItemCard(item: itemCardProps) {
     // Reset quantity to 0
     setQuantity(0);
 
-		console.log(hasStartDay);
+    console.log(hasStartDay);
 
     if (hasStartDay.isStartDay) {
-			addToCartEvent({
-				quantity: quantity,
-				// itemState: itemState,
-				product: item.item,
-				dispatch: dispatch,
-				showAddModal: setShowAddModal,
-				showAddQuantityModal: setShowAddQuantityModal,
-				showItemInCartModal: setShowItemInCartModal,
-			});
-			removeFromTempCart();
-		} else {
-			setShowNeedStartDayModal(true);
-		}
+      addToCartEvent({
+        quantity: quantity,
+        // itemState: itemState,
+        product: item.item,
+        dispatch: dispatch,
+        showAddModal: setShowAddModal,
+        showAddQuantityModal: setShowAddQuantityModal,
+        showItemInCartModal: setShowItemInCartModal,
+      });
+      removeFromTempCart();
+    } else {
+      setShowNeedStartDayModal(true);
+    }
   };
 
   const removeFromTempCart = () => {
@@ -175,12 +174,14 @@ export default function ItemCard(item: itemCardProps) {
           </View>
           <View className="justify-center">
             <Pressable
-              className="bg-green w-40 h-10
+              className="bg-green h-10 w-32
                           rounded-full self-center ml-5 flex-1 items-center justify-center"
               onPress={addToCart}
             >
               <Text
-                className="text-white text-lg"
+                adjustsFontSizeToFit
+                numberOfLines={1}
+                className="text-white text-base"
                 style={{ fontFamily: 'Poppins-Bold' }}
               >
                 Add to Cart
@@ -222,11 +223,11 @@ export default function ItemCard(item: itemCardProps) {
         isAddModal={showAddModal}
         isAddQuantityModal={showAddQuantityModal}
         isItemInCartModal={showItemInCartModal}
-				isNeedStartDayModal={showNeedStartDayModal}
+        isNeedStartDayModal={showNeedStartDayModal}
         showAddModal={setShowAddModal}
         showAddQuantityModal={setShowAddQuantityModal}
         showItemInCartModal={setShowItemInCartModal}
-				showNeedStartDayModal={setShowNeedStartDayModal}
+        showNeedStartDayModal={setShowNeedStartDayModal}
       />
 
       {/* Unused Modal */}

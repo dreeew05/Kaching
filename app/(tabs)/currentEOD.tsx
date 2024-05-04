@@ -1,33 +1,35 @@
-import { Alert, StyleSheet } from 'react-native';
-import { Text, View } from '../../components/Themed';
+import { SQLResultSet } from 'expo-sqlite';
+import { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
+import CategoryTable from '../../components/Report/CategoryTable';
 import FinancialSummary from '../../components/Report/FinancialSummaryTable';
 import ShareCSV from '../../components/Report/ShareCSV';
-import CategoryTable from '../../components/Report/CategoryTable';
-import { ScrollView } from 'react-native-gesture-handler';
-import { insertData, selectData } from '../../components/DatabaseUtils/CoreFunctions';
-import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
-import { useEffect, useState } from 'react';
-import { SQLResultSet } from 'expo-sqlite';
+import { Text, View } from '../../components/Themed';
 
 interface TableData {
   header: string[];
   tableData: string[][];
 }
 
-
-
 export default function currentEOD() {
-
-  const [currentEOD, setCurrentEOD] = useState<SQLResultSet|null>(null);
-  const [storeInfo, setStoreInfo] = useState<SQLResultSet|null>(null);
-  const [storeInfo2, setStoreInfo2] = useState<SQLResultSet|null>(null);
-
+  const [currentEOD, setCurrentEOD] = useState<SQLResultSet | null>(
+    null,
+  );
+  const [storeInfo, setStoreInfo] = useState<SQLResultSet | null>(
+    null,
+  );
+  const [storeInfo2, setStoreInfo2] = useState<SQLResultSet | null>(
+    null,
+  );
 
   // TEST DATA
   const db = getDatabase();
   const fetchCurrentEODData = () => {
-  db.transaction(tx => {
-    tx.executeSql(`SELECT category.name AS category_name, item.name AS item_name,
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT category.name AS category_name, item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
     SUM(receipt_items.quantity * receipt_items.price) AS total_sales
   FROM receipt_items
@@ -36,37 +38,35 @@ export default function currentEOD() {
   GROUP BY category_name, item_name
   ORDER BY category_name, item_name;
   `,
-      [],
-      (tx, results) => {
-        setCurrentEOD(results);
-      },
-    )
-  })
-}
+        [],
+        (tx, results) => {
+          setCurrentEOD(results);
+        },
+      );
+    });
+  };
   const fetchStoreInfo = () => {
-    db.transaction(tx => {
-      tx.executeSql(`
+    db.transaction((tx) => {
+      tx.executeSql(
+        `
       SELECT * FROM eods e WHERE e.iscurrent = 1`,
         [],
         (tx, results) => {
           setStoreInfo(results);
         },
-      )
-    })
-  }
+      );
+    });
+  };
 
   const fetchStoreInfo2 = () => {
-    db.transaction(tx => {
-      tx.executeSql(`SELECT * FROM store`,
-        [],
-        (tx, results) => {
-          setStoreInfo2(results);
-        },
-      )
-    })
-  }
+    db.transaction((tx) => {
+      tx.executeSql(`SELECT * FROM store`, [], (tx, results) => {
+        setStoreInfo2(results);
+      });
+    });
+  };
 
-  useEffect(() => { 
+  useEffect(() => {
     fetchCurrentEODData();
     fetchStoreInfo();
     fetchStoreInfo2();
@@ -80,7 +80,6 @@ export default function currentEOD() {
     }
   });
 
-
   //assign each category as a header, and assign the items under each category as tableData
   let tables: TableData[] = [];
   categories.forEach((category) => {
@@ -88,7 +87,11 @@ export default function currentEOD() {
     currentEOD?.rows._array.forEach((item) => {
       if (item.category_name === category) {
         //include total sales in the tableData
-        tableData.push([item.item_name, 'x' + item.total_quantity, '₱' + item.total_sales]);
+        tableData.push([
+          item.item_name,
+          'x' + item.total_quantity,
+          '₱' + item.total_sales,
+        ]);
       }
     });
     tables.push({
@@ -101,40 +104,64 @@ export default function currentEOD() {
   const date = new Date();
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-      <View style={styles.container}>
-        <Text className="font-bold text-xl text-green">{storeInfo2?.rows._array[0].storename}</Text>
-        <Text className="text-m">Miagao, Iloilo</Text>
-        {/* <Text className="text-m">{storeInfo?.rows._array[0].cashiername}</Text> */}
-        <Text className="text-m">09133287645</Text>
+    <ScrollView
+      className="bg-white"
+      contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: 'center',
+      }}
+    >
+      <View className="bg-white" style={styles.container}>
+        <Text className="font-bold text-xl text-green">
+          {storeInfo2?.rows._array[0].storename}
+        </Text>
+        <Text className="text-m text-green">Miagao, Iloilo</Text>
+        <Text className="text-m text-green">
+          {storeInfo?.rows._array[0].cashiername}
+        </Text>
+        <Text className="text-m text-green">09133287645</Text>
 
-        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        <View
+          style={styles.separator}
+          lightColor="#eee"
+          darkColor="rgba(255,255,255,0.1)"
+        />
 
-        <Text className="text-l">CURRENT DAY REPORT</Text>
-        <Text className="text-l">{
-          date.toISOString().slice(0, 10)+" "
-          //add leading zero to hours, minutes, and seconds if less than 10
-          +("0"+date.getHours()).slice(-2)+":"+("0"+date.getMinutes()).slice(-2)+":"
-          +("0"+date.getSeconds()).slice(-2)
-          }</Text>
+        <Text className="text-l  text-green">CURRENT DAY REPORT</Text>
+        <Text className="text-l  text-green">
+          {date.toISOString().slice(0, 10) +
+            ' ' +
+            //add leading zero to hours, minutes, and seconds if less than 10
+            ('0' + date.getHours()).slice(-2) +
+            ':' +
+            ('0' + date.getMinutes()).slice(-2) +
+            ':' +
+            ('0' + date.getSeconds()).slice(-2)}
+        </Text>
 
-        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        <View
+          style={styles.separator}
+          lightColor="#eee"
+          darkColor="rgba(255,255,255,0.1)"
+        />
 
         {/* START FINANCIAL SUMMARY */}
-        <View>
-          <Text className="font-bold text-l content-center">Financial Summary</Text>
+        <View className="bg-white">
+          <Text className="font-bold text-l content-center">
+            Financial Summary
+          </Text>
           <FinancialSummary />
         </View>
         {/* END FINANCIAL SUMMARY */}
 
         {/* START ORDER SUMMARY */}
-        <View>
-          <Text className="font-bold text-l content-center mt-2">Order Summary</Text>
-            {tables.map
-              ((table) => { return (
-                  <CategoryTable table={table} />
-                );})
-              }
+        <View className="bg-white">
+          <Text className="font-bold text-l content-center mt-2">
+            Order Summary
+          </Text>
+          {tables.map((table) => {
+            return <CategoryTable table={table} />;
+          })}
         </View>
         {/* END ORDER SUMMARY */}
 

@@ -8,9 +8,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/currentEOD.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/currentEOD.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/faqs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/faqs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/orderSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/orderSummary.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/previousEOD.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/previousEOD.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/privacyPolicy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/privacyPolicy.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/termsOfService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/termsOfService.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Cart/CartHelpTutorial.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Cart/CartHelpTutorial.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Modals/HelpModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Modals/HelpModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Product/ItemScreenFetchData.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ItemScreenFetchData.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Cart/CartItemsGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Cart/CartItemsGenerator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/ModifyCategory.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Common/Total.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Common/Total.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Menu/MenuComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Menu/MenuComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Payment/PaymentComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Payment/PaymentComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Product/ItemCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ItemCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Product/ModifyItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/ModifyItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Receipt/ReceiptComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Receipt/ReceiptComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Report/PreviousDatesGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Report/PreviousDatesGenerator.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +37,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/AppData/Local/Google/AndroidStudio2023.3/device-explorer/Pixel 6a Data API 33/_/data/data/host.exp.exponent/files/SQLite/kaching_db.db" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

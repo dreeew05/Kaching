@@ -223,13 +223,14 @@ export default function ModifyItem({ type }: ModifyItemProps) {
           >
             {type === 'add' ? (
               <Text
-                className="text-center text-xl w-4/5 text-green"
-                style={{ fontFamily: 'Poppins-Bold' }}
+                className="text-center text-xl w-4/5 text-green mt-3"
+                style={{ fontFamily: 'Poppins-Bold', fontSize: 22 }}
               >
                 Add Item
               </Text>
             ) : (
               <Text
+                className="text-center text-xl w-4/5 text-green mt-3"
                 style={{
                   fontFamily: 'Poppins-Bold',
                   fontSize: 22,
@@ -240,14 +241,14 @@ export default function ModifyItem({ type }: ModifyItemProps) {
             )}
             {isAnyInputEmpty() ? (
               <View
-                className="mr-5 mt-0.5"
+                className="mr-5 mt-3 bg-white"
                 style={{ position: 'absolute', right: 0, top: 0 }}
               >
                 <FontAwesome5 name="file" size={22} color="gray" />
               </View>
             ) : (
               <View
-                className="mr-5 mt-0.5"
+                className="mr-5 mt-3 bg-white"
                 style={{ position: 'absolute', right: 0, top: 0 }}
               >
                 <Pressable onPress={() => setSaveModalVisible(true)}>

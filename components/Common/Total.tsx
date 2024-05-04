@@ -55,10 +55,7 @@ export default function Total({ page }: TotalProps) {
           />
         )}
         {page === 'summary' && (
-          <CustomPressable
-            text="Proceed to Payment"
-            onPress={viewPayment}
-          />
+          <CustomPressable text="Proceed" onPress={viewPayment} />
         )}
       </View>
     </View>
