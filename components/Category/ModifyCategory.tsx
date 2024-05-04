@@ -1,8 +1,8 @@
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Skeleton } from '@rneui/themed';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -82,7 +82,7 @@ export default function ModifyCategory() {
 
   const showImageComponent = () => {
     return (
-      <View className="h-60 w-60 justify-center items-center">
+      <View className="h-60 w-60 justify-center items-center shadow-md shadow-slate-400">
         {isLoading ? loadingImageComponent() : loadedImageComponent()}
       </View>
     );
@@ -251,7 +251,7 @@ export default function ModifyCategory() {
   return (
     <>
       {/* Header [START] */}
-      <View className="bg-white">
+      <View className="bg-white pt-8">
         <View
           style={{
             flexDirection: 'row',
@@ -263,8 +263,6 @@ export default function ModifyCategory() {
         >
           <View
             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
               flex: 1,
             }}
           >

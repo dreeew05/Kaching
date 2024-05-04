@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { View } from '../Themed';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
+import { useState } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import HelpModal from '../Modals/HelpModal';
+import { View } from '../Themed';
 
 export default function CartHelpTutorial() {
   const [isStartModalVisible, setStartModalVisible] = useState(false);
@@ -16,9 +16,9 @@ export default function CartHelpTutorial() {
     useState(false);
 
   return (
-    <View>
+    <View className="bg-white">
       <TouchableOpacity
-        className="ml-5"
+        className="ml-5 bg-white"
         onPress={() => setStartModalVisible(true)}
       >
         <Entypo name="help-with-circle" size={35} color="#18573a" />

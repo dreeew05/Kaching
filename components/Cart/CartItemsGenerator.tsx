@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
 import CustomModal from '../Modals/CustomModal';
-import CartItemList from './CartItemList';
 import CartHelpTutorial from './CartHelpTutorial';
+import CartItemList from './CartItemList';
 
 export default function CartItemsGenerator() {
   const cartState = useSelector(selectCart);
@@ -54,8 +54,8 @@ export default function CartItemsGenerator() {
     );
   } else {
     return (
-      <View className="flex-1">
-        <View className="flex flex-row mt-20 mb-3">
+      <View className="flex-1 bg-white">
+        <View className="flex flex-row mt-10 mb-3 bg-white">
           <View className="flex-1 flex-row">
             <Text
               className="text-4xl ml-5 mt-1 text-green"
