@@ -1,41 +1,44 @@
-import { View, Text } from 'react-native';
-import { getDatabase } from '../DatabaseUtils/OpenDatabase';
-import { useEffect, useState } from 'react';
 import { SQLResultSet } from 'expo-sqlite';
+import { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 
 export default function SaleDashboard() {
-  const [currentSales, setCurrentSales] = useState<SQLResultSet|null>(null);
-  const [currentOrders, setCurrentOrders] = useState<SQLResultSet|null>(null);
+  const [currentSales, setCurrentSales] =
+    useState<SQLResultSet | null>(null);
+  const [currentOrders, setCurrentOrders] =
+    useState<SQLResultSet | null>(null);
 
   const db = getDatabase();
 
   const fetchCurrentEODData = () => {
-  db.transaction(tx => {
-    tx.executeSql(`SELECT SUM(receipt_items.quantity * receipt_items.price) AS total_sales
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT SUM(receipt_items.quantity * receipt_items.price) AS total_sales
       FROM receipt_items
       JOIN item ON receipt_items.item_id = item.id
-      JOIN category ON item.category_id = category.id`, 
-      [],
-      (tx, results) => {
-        setCurrentSales(results);        
-      },
-    )
-  })
+      JOIN category ON item.category_id = category.id`,
+        [],
+        (tx, results) => {
+          setCurrentSales(results);
+        },
+      );
+    });
 
-  db.transaction(tx => {
-    tx.executeSql(`SELECT count(receipt_id) AS total_orders FROM receipts`, 
-      [],
-      (tx, results) => {
-        setCurrentOrders(results);
-      },
-    )
-  })
-}
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT count(receipt_id) AS total_orders FROM receipts`,
+        [],
+        (tx, results) => {
+          setCurrentOrders(results);
+        },
+      );
+    });
+  };
 
   useEffect(() => {
     fetchCurrentEODData();
-  }
-  , [currentSales]);
+  }, [currentSales]);
 
   return (
     <View
@@ -47,7 +50,7 @@ export default function SaleDashboard() {
           className=" px-7 self-center text-center 
                     text-green text-3xl font-bold"
         >
-          ₱{currentSales?.rows.item(0).total_sales}
+          ₱{(currentSales?.rows.item(0).total_sales || 0).toFixed(2)}
         </Text>
         <Text
           className=" px-7 self-center text-center text-black
