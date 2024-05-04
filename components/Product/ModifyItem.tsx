@@ -237,19 +237,28 @@ export default function ModifyItem({ type }: ModifyItemProps) {
                 Edit Item
               </Text>
             )}
+            {isAnyInputEmpty() ? (
+              <View
+                className="mr-5 mt-0.5"
+                style={{ position: 'absolute', right: 0, top: 0 }}
+              >
+                <FontAwesome5 name="file" size={22} color="gray" />
+              </View>
+            ) : (
+              <View
+                className="mr-5 mt-0.5"
+                style={{ position: 'absolute', right: 0, top: 0 }}
+              >
+                <Pressable onPress={() => setSaveModalVisible(true)}>
+                  <FontAwesome5
+                    name="file"
+                    size={22}
+                    color="orange"
+                  />
+                </Pressable>
+              </View>
+            )}
           </View>
-
-          {isAnyInputEmpty() ? (
-            <View className="flex flex-row justify-center mr-5">
-              <FontAwesome5 name="file" size={22} color="gray" />
-            </View>
-          ) : (
-            <View className="flex flex-row justify-center mr-5">
-              <Pressable onPress={() => setSaveModalVisible(true)}>
-                <FontAwesome5 name="file" size={22} color="orange" />
-              </Pressable>
-            </View>
-          )}
         </View>
 
         <View className="px-5 h-full">
