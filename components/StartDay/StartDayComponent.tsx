@@ -43,42 +43,43 @@ export default function StartDayComponent() {
   };
 
   return (
-    <View className="flex-1 justify-center">
-      <View className="ml-8 mr-8">
+    <View className="flex-1 justify-center bg-white">
+      <View className="ml-8 mr-8 bg-white">
         <Text className="text-lg text-green font-semibold mb-1">
           Cashier's Name:{' '}
         </Text>
-        <View className="border-b-gray border-b-2 opacity-50">
+        <View className="border-b-gray border-b-2 opacity-50 bg-transparent">
           <TextInput
             className="text-lg text-black font-medium mb-1"
             value={cashierName}
             onChangeText={setCashierName}
             placeholder="Enter cashier's name"
+            placeholderTextColor="gray"
           />
         </View>
       </View>
 
-      <View className="ml-8 mr-8 mt-5">
+      <View className="ml-8 mr-8 mt-5 bg-transparent">
         <Text className="text-lg text-green font-semibold mb-1">
           Contact Number:{' '}
         </Text>
-        <View className="border-b-gray border-b-2 opacity-50">
+        <View className="border-b-gray border-b-2 opacity-50 bg-transparent">
           <TextInput
             className="text-lg text-black font-medium mb-1"
             value={contactNumber}
             onChangeText={setContactNumber}
-            placeholder="Enter contact number"
+            placeholder="09xxxxxxxxx"
             placeholderTextColor="gray"
             keyboardType="numeric"
           />
         </View>
       </View>
 
-      <View className="ml-8 mr-8 mt-5">
+      <View className="ml-8 mr-8 mt-5 bg-transparent">
         <Text className="text-lg text-green font-semibold mb-1">
           Petty Cash Amount:{' '}
         </Text>
-        <View className="border-b-gray border-b-2 opacity-50">
+        <View className="border-b-gray border-b-2 opacity-50 bg-transparent">
           <TextInput
             className="text-lg text-black font-medium mb-1"
             value={pettyCashAmount}
@@ -90,7 +91,7 @@ export default function StartDayComponent() {
         </View>
       </View>
 
-      <View className="mt-8">
+      <View className="mt-8 bg-transparent">
         <CustomPressable
           text="Start Day"
           onPress={handleStartDay}
