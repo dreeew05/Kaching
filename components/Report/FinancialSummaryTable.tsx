@@ -38,19 +38,26 @@ const FinancialSummary = () => {
   const tableData = [
     [
       'Cash Total',
-      '₱ ' + currentEODData?.rows._array[0].total_cash.toFixed(2),
+      '₱ ' +
+        `${
+          currentEODData?.rows?._array[0]?.total_cash?.toFixed(2) ?? 0
+        }`,
     ],
     [
       'Online Total',
-      '₱ ' + currentEODData?.rows._array[0].total_online.toFixed(2),
+      '₱ ' +
+        `${
+          currentEODData?.rows?._array[0]?.total_online?.toFixed(2) ??
+          0
+        }`,
     ],
     [
       'Grand Total',
       '₱ ' +
         (
-          currentEODData?.rows._array[0].total_cash +
-          currentEODData?.rows._array[0].total_online
-        ).toFixed(2),
+          currentEODData?.rows?._array[0]?.total_cash +
+          currentEODData?.rows?._array[0]?.total_online
+        )?.toFixed(2) ?? 0,
     ],
   ];
 
