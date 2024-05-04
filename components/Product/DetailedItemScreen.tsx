@@ -85,33 +85,10 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
     });
   };
 
-  const goBackAction = () => {
-    router.push('//');
-  };
-
   return (
-    <View
-      className="flex-1 h-full relative z-0"
-      style={{
-        marginTop: '7.5%',
-      }}
-    >
-      <View className="flex flex-row">
-        <Link
-          href={{
-            pathname: '/(tabs)/categoryView',
-            params: {
-              id: categoryID,
-            },
-          }}
-          asChild
-        >
-          <Pressable onPress={() => goBackAction()} className="ml-3">
-            <Ionicons name="chevron-back" size={30} color="green" />
-          </Pressable>
-        </Link>
-
-        <View className="flex flex-row absolute right-5 -top-2 items-center justify-center">
+    <View className="flex-1 h-full relative z-03">
+      <View className="flex flex-row mb-10">
+        <View className="flex flex-row absolute mt-3 right-5 -top-2 items-center justify-center">
           <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 22 }}>
             In Stock
           </Text>

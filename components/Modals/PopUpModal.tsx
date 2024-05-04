@@ -18,6 +18,7 @@ export const PopUpModal = (props: PopUpModalProps) => {
               pathname: '/(tabs)/categoryView',
               params: {
                 id: props.id,
+                isEditComponent: 'true',
               },
             }}
             asChild
