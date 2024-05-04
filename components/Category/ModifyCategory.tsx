@@ -251,67 +251,61 @@ export default function ModifyCategory() {
   return (
     <>
       {/* Header [START] */}
-      <View style={{ marginTop: '7.5%' }}>
+      <View className="bg-white">
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             marginBottom: 10,
+            width: '100%',
           }}
         >
-          <Link
-            href={{
-              pathname: '/(tabs)/modifyCategoryView',
-            }}
-            asChild
-          >
-            <Pressable className="ml-3" onPress={clearFields}>
-              <Ionicons name="chevron-back" size={30} color="green" />
-            </Pressable>
-          </Link>
-
           <View
             style={{
-              flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
+              flex: 1,
             }}
           >
             {param.operation === 'editCategory' ? (
               <Text
-                className="text-center text-xl w-4/5 text-green"
+                className="text-center text-xl text-green"
                 style={{ fontFamily: 'Poppins-Bold' }}
               >
                 Edit Category
               </Text>
             ) : (
               <Text
-                className="text-center text-xl w-4/5 text-green"
+                className="text-center text-xl text-green"
                 style={{ fontFamily: 'Poppins-Bold' }}
               >
                 Add Category
               </Text>
             )}
-          </View>
 
-          {areFieldsValid() ? (
-            <View className="mr-5">
-              <FontAwesome5 name="file" size={22} color="gray" />
-            </View>
-          ) : (
-            <Pressable
-              className="mr-5"
-              onPress={() => setSaveModalVisible(true)}
-            >
-              <FontAwesome5 name="file" size={22} color="orange" />
-            </Pressable>
-          )}
+            {areFieldsValid() ? (
+              <View
+                className="mr-5 mt-0.5"
+                style={{ position: 'absolute', right: 0, top: 0 }}
+              >
+                <FontAwesome5 name="file" size={22} color="gray" />
+              </View>
+            ) : (
+              <Pressable
+                className="mr-5 mt-0.5"
+                style={{ position: 'absolute', right: 0, top: 0 }}
+                onPress={() => setSaveModalVisible(true)}
+              >
+                <FontAwesome5 name="file" size={22} color="orange" />
+              </Pressable>
+            )}
+          </View>
         </View>
       </View>
       {/* Header [END] */}
 
-      <View className="flex-1 justify-center items-center">
+      <View className="flex-1 justify-center items-center bg-white">
         {showImageComponent()}
         {showTextComponent()}
 

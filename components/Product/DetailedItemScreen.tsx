@@ -1,16 +1,15 @@
+import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { Text, View, Image, Alert } from 'react-native';
-import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
-import { useDispatch, useSelector } from 'react-redux';
-import { Pressable } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
+import { Switch } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
 import Stepper from '../Common/Stepper';
-import { Link, router, useLocalSearchParams } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { updateData } from '../DatabaseUtils/CoreFunctions';
+import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
+import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
-import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
-import { Switch } from 'react-native-gesture-handler';
-import { updateData } from '../DatabaseUtils/CoreFunctions';
+1;
 
 // import { useSelector } from 'react-redux';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
@@ -98,7 +97,7 @@ const [showNeedStartDayModal, setShowNeedStartDayModal] =
   };
 
   return (
-    <View className="flex-1 h-full relative z-03">
+    <View className="flex-1 h-full relative z-03 bg-white">
       <View className="flex flex-row mb-10">
         <View className="flex flex-row absolute mt-3 right-5 -top-2 items-center justify-center">
           <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 22 }}>

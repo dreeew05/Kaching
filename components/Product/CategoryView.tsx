@@ -37,7 +37,7 @@ export default function CategoryView() {
   const [categoryName, setCategoryName] = useState<string>('');
   const db = SQLite.openDatabase('kaching_db.db');
   const isLoading = useSelector(selectIsCategoryViewLoading);
-  const isEditButton = useSelector(selectIsEditComponent);
+
   const productDataModifiedActions = useSelector(
     selectProductModifiedActions,
   );
@@ -55,6 +55,9 @@ export default function CategoryView() {
   const [temporaryCart, setTemporaryCart] = useState<CartItemProps[]>(
     [],
   );
+
+  // Unused [When this shit gets fucked up used this redux shit!!!]
+  // const isEditButton = useSelector(selectIsEditComponent);
 
   const getCategoryName = () => {
     const tableName = 'category',
@@ -91,7 +94,8 @@ export default function CategoryView() {
         [categoryID],
       );
       setProducts(result.rows as BaseItemProps[]);
-      dispatch(setIsCategoryViewProductLoading(false));
+      // Uncomment if needed
+      // dispatch(setIsCategoryViewProductLoading(false));
     }, readOnly);
   };
 
@@ -183,7 +187,7 @@ export default function CategoryView() {
       );
     } else {
       return (
-        <View className="bg-white">
+        <View className="bg-white flex flex-1">
           {/* {showModifyProductHeader()} */}
           <View className="flex flex-row mb-3 mt-2 items-center">
             <View className="flex-1 ">
@@ -199,7 +203,7 @@ export default function CategoryView() {
             </View>
             {showModifyProductsComponent()}
           </View>
-          <ScrollView className="p-2 mb-40">
+          <ScrollView className="p-2">
             {products.map((product) => {
               return (
                 <ItemCard

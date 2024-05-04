@@ -45,10 +45,6 @@ export default function TabLayout() {
   const page = segment[segment.length - 1];
   const pagesToHide = ['selectStoreType', 'selectDefaultCategories'];
 
-  // Redux
-  // const isEditButton = useSelector(selectIsEditComponent);
-  // const dispatch = useDispatch();
-
   const headerEventHandler = () => {
     if (categoryViewParams.isEditComponent == 'true') {
       return (
@@ -128,6 +124,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="bars" color={color} />
           ),
+
           headerStyle: {
             backgroundColor: '#18573A',
             height: 'auto',
@@ -148,7 +145,7 @@ export default function TabLayout() {
               <Pressable className="ml-3">
                 {({ pressed }) => (
                   <Ionicons
-                    name="arrow-back-outline"
+                    name="chevron-back"
                     size={30}
                     color="green"
                   />
@@ -172,7 +169,7 @@ export default function TabLayout() {
               <Pressable className="ml-3">
                 {({ pressed }) => (
                   <Ionicons
-                    name="arrow-back-outline"
+                    name="chevron-back"
                     size={30}
                     color="white"
                   />
@@ -190,6 +187,22 @@ export default function TabLayout() {
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="white"
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
 
@@ -226,18 +239,19 @@ export default function TabLayout() {
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar,
+
+          headerStyle: {
+            backgroundColor: '#18573A',
+            height: 'auto',
+          },
           headerLeft: () => (
             <Link href="/" asChild>
               <Pressable className="ml-2">
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
                     color="green"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
                   />
                 )}
               </Pressable>
@@ -256,11 +270,7 @@ export default function TabLayout() {
           headerLeft: () => (
             <Link
               href={{
-                pathname: '/(tabs)/categoryView',
-                params: {
-                  id: categoryParams.category_id,
-                  isEditComponent: 'true',
-                },
+                pathname: '/(tabs)/modifyCategoryView',
               }}
               asChild
             >
@@ -338,7 +348,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="olderEODSbyDate"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -384,7 +394,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="currentEOD"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -393,14 +403,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -411,7 +417,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="previousEOD"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -420,14 +426,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -438,7 +440,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="termsOfService"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -447,14 +449,10 @@ export default function TabLayout() {
             <Link href="/(tabs)/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -465,7 +463,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="privacyPolicy"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -474,14 +472,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -492,7 +486,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="faqs"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -501,14 +495,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -519,7 +509,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="pahuwayBanner"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -528,14 +518,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
                     color="green"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
                   />
                 )}
               </Pressable>
@@ -546,7 +532,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="editStoreName"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -555,19 +541,18 @@ export default function TabLayout() {
             <Link href="/" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
                     color="green"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
     </Tabs>
