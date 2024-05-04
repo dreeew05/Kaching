@@ -89,7 +89,7 @@ export default function ReceiptComponent() {
   }, []);
 
   return (
-    <View className="flex-1 bg-white dark:bg-black">
+    <View className="flex-1 bg-white">
       <ScrollView className=" w-11/12 self-center mt-5 mb-5  rounded-3xl bg-slate-100">
         <View className="flex flex-col flex-1 items-center">
           <Text className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-7 font-semibold text-yellow self-center">
@@ -116,7 +116,7 @@ export default function ReceiptComponent() {
           </Text>
         </View>
 
-        <View className="flex-1 w-10/12 self-center bg-white dark:bg-black p-3 m-5 mb-11  border-zinc-300 rounded-xl">
+        <View className="flex-1 w-10/12 self-center bg-white p-3 m-5 mb-11  border-zinc-300 rounded-xl">
           {/* Container for Receipt Summary Table and Receipt Item */}
           <View className="mb-5 mt-3">
             <ReceiptSummaryTable />
@@ -124,7 +124,7 @@ export default function ReceiptComponent() {
           </View>
 
           {/* Container for Total Price, Payment, and Change */}
-          <View className="dark:bg-black p-3 flex-1 self-center justify-end w-11/12 border-t">
+          <View className="p-3 flex-1 self-center justify-end w-11/12 border-t">
             {/* Container for Total Price */}
             <View className="flex-row overflow-hidden pt-3">
               <Text className="py-2 text-lg mr-auto text-zinc-500 font-medium">
