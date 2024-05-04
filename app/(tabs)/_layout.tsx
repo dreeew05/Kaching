@@ -105,7 +105,7 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="map" color={color} />
+            <TabBarIcon name="home" color={color} />
           ),
           headerLeft: () => (
             <FontAwesome5
@@ -194,17 +194,7 @@ export default function TabLayout() {
           href: null, // Hide this tab from the tab bar
         }}
       />
-      <Tabs.Screen
-        name="editItemWrapper"
-        options={{
-          title: 'Back',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="code" color={color} />
-          ),
-          href: null, // Hide this tab from the tab bar
-          headerShown: false,
-        }}
-      />
+
       <Tabs.Screen
         name="receiptWrapper"
         options={{
@@ -261,18 +251,86 @@ export default function TabLayout() {
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
-          headerShown: false,
+          headerLeft: () => (
+            <Link
+              href={{
+                pathname: '/(tabs)/categoryView',
+                params: {
+                  id: categoryParams.category_id,
+                  isEditComponent: 'true',
+                },
+              }}
+              asChild
+            >
+              <Pressable className="ml-3">
+                <Ionicons
+                  name="chevron-back"
+                  size={30}
+                  color="green"
+                />
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen
         name="addItemWrapper"
         options={{
-          title: 'Back',
+          title: '',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
-          headerShown: false,
+          headerLeft: () => (
+            <Link
+              href={{
+                pathname: '/(tabs)/categoryView',
+                params: {
+                  id: categoryParams.category_id,
+                  isEditComponent: 'false',
+                },
+              }}
+              asChild
+            >
+              <Pressable className="ml-3">
+                <Ionicons
+                  name="chevron-back"
+                  size={30}
+                  color="green"
+                />
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="editItemWrapper"
+        options={{
+          title: '',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="code" color={color} />
+          ),
+          href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link
+              href={{
+                pathname: '/(tabs)/categoryView',
+                params: {
+                  id: categoryParams.category_id,
+                  isEditComponent: 'false',
+                },
+              }}
+              asChild
+            >
+              <Pressable className="ml-3">
+                <Ionicons
+                  name="chevron-back"
+                  size={30}
+                  color="green"
+                />
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen
