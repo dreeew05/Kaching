@@ -5,17 +5,21 @@ import { useEffect, useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import CustomPressable from '../Common/CustomPressable';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomAlert from '../Modals/CustomAlert';
 import MenuHelpTutorial from './MenuHelpTutorial';
+import { useSelector } from 'react-redux';
 
 export default function MenuComponent() {
   const [alertVisible, setAlertVisible] = useState(false);
   const [currentEOD, setCurrentEOD] = useState<SQLResultSet | null>(
     null,
   );
+  const [disableCurrentEOD, setDisableCurrentEOD] = useState(false);
 
+  const hasStartDay = useSelector(selectHasStartDay);
   const db = getDatabase();
 
   const dispatch = useDispatch();
@@ -41,6 +45,7 @@ export default function MenuComponent() {
 
   const router = useRouter();
   const goToPahuwayBanner = () => {
+    setDisableCurrentEOD(true);
     router.push('/(tabs)/pahuwayBanner');
   };
 
@@ -159,19 +164,21 @@ export default function MenuComponent() {
       </View>
 
       <View className=" flex-1 flex-col justify-evenly items-center">
-        <Link href="/(tabs)/currentEOD" asChild>
-          <Pressable className="bg-transparent w-5/6 self-center py-2 px-4 mt-2 mb-5 ml-2 flex-row justify-between items-center">
-            <Text className="text-green text-xl font-bold">
-              View Current EOD
-            </Text>
-            <FontAwesome5
-              name="angle-right"
-              size={24}
-              color="black"
-              style={{ opacity: 0.5 }}
-            />
-          </Pressable>
-        </Link>
+        {hasStartDay.isStartDay ? (
+          <Link href="/(tabs)/currentEOD" asChild>
+            <Pressable className="bg-transparent w-5/6 self-center py-2 px-4 mt-2 mb-5 ml-2 flex-row justify-between items-center">
+              <Text className="text-green text-xl font-bold">
+                View Current EOD
+              </Text>
+              <FontAwesome5
+                name="angle-right"
+                size={24}
+                color="black"
+                style={{ opacity: 0.5 }}
+              />
+            </Pressable>
+          </Link>
+        ) : null}
 
         <Link href="/(tabs)/previousEOD" asChild>
           <Pressable className="bg-transparent w-5/6 self-center py-2 px-4 mt-2 mb-5 ml-2 flex-row justify-between items-center">
