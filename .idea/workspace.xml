@@ -10,20 +10,6 @@
     <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/cart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/cart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/modifyCategoryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/modifyCategoryView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/orderSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/orderSummary.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/selectStoreType.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/selectStoreType.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Category/CategoryCardClickable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/CategoryCardClickable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Category/CategoryCardEditable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Category/CategoryCardEditable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Common/CustomPressable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Common/CustomPressable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Common/Total.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Common/Total.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Home/HomeHelpTutorial.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Home/HomeHelpTutorial.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Home/StoreInformationGenerator..tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Home/StoreInformationGenerator..tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Menu/MenuComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Menu/MenuComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Product/CategoryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Product/CategoryView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Receipt/ReceiptComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Receipt/ReceiptComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
