@@ -1,8 +1,4 @@
-import {
-  AntDesign,
-  FontAwesome5,
-  Ionicons,
-} from '@expo/vector-icons';
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { Link, useLocalSearchParams } from 'expo-router';
 import * as SQLite from 'expo-sqlite';
 import { useEffect, useState } from 'react';
@@ -21,10 +17,7 @@ import {
   selectIsEditComponent,
   selectProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import {
-  setIsCategoryViewProductLoading,
-  setIsEditButton,
-} from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { setIsCategoryViewProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import {
   deleteData,
   selectData,
@@ -190,7 +183,7 @@ export default function CategoryView() {
       );
     } else {
       return (
-        <View>
+        <View className="bg-white">
           {/* {showModifyProductHeader()} */}
           <View className="flex flex-row mb-3 mt-2 items-center">
             <View className="flex-1 ">

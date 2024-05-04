@@ -14,7 +14,7 @@ export default function CustomPressable({
 }: CustomPressableProps) {
   return (
     <TouchableHighlight
-      className={`w-1/3 sm:w-1/3 md:w-3/5 lg:w-5/12 self-center rounded-full p-3 mt-3 ${
+      className={`w-2/5 sm:w-1/3 md:w-3/5 lg:w-5/12 self-center rounded-full p-3 ${
         disabled ? 'bg-gray' : 'bg-green'
       }`} // Use the disabled prop to conditionally apply styles
       onPress={disabled ? undefined : onPress} // Prevent onPress if disabled
@@ -22,6 +22,8 @@ export default function CustomPressable({
       underlayColor={disabled ? 'transparent' : '#789c8c'} // Change the underlay color depending on disabled
     >
       <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
         className={`text-white text-xl font-bold self-center ${
           disabled ? 'text-white' : ''
         }`}

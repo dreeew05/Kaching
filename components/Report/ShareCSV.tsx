@@ -9,6 +9,9 @@ interface TableData {
   tableData: string[][];
 }
 
+function generateRandomSixDigitNumber() {
+  return Math.floor(100000 + Math.random() * 900000);
+}
 
 const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
   const [csvData, setCSVData] = useState('');
@@ -21,7 +24,9 @@ const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
     try {
       // Create a temporary directory
       const tempDir = FileSystem.cacheDirectory + 'csv_temp/';
-      await FileSystem.makeDirectoryAsync(tempDir, { intermediates: true });
+      await FileSystem.makeDirectoryAsync(tempDir, {
+        intermediates: true,
+      });
 
       // Create a CSV file
       let csvData = '';
@@ -32,7 +37,6 @@ const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
         });
         csvData += '\n';
       });
-      console.log(csvData);
       const csvFileName = `eod_${date.getFullYear()}-${date.getMonth()}-${date.getDate()}.csv`;
       const csvFilePath = tempDir + csvFileName;
 
@@ -57,7 +61,8 @@ const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
   };
 
   const saveToFiles = async () => {
-    const permissions = await StorageAccessFramework.requestDirectoryPermissionsAsync();
+    const permissions =
+      await StorageAccessFramework.requestDirectoryPermissionsAsync();
     if (!permissions.granted) {
       console.warn('Directory access permission is not granted.');
       return;
@@ -72,8 +77,8 @@ const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
   };
 
   useEffect(() => {
-    generateCSV(); // Call generateCSV when the component mounts
-  }, []);
+    generateCSV();
+  }, [data]);
 
   return (
     <View className="flex-row">
@@ -81,13 +86,17 @@ const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
         onPress={shareCSV}
         className="bg-green w-40 h-10 justify-center rounded-full mr-2"
       >
-        <Text className="text-white text-center">Share CSV to Apps</Text>
+        <Text className="text-white text-center">
+          Share CSV to Apps
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={saveToFiles}
         className="bg-green w-40 h-10 justify-center rounded-full ml-2"
       >
-        <Text className="text-white text-center">Save CSV to Files</Text>
+        <Text className="text-white text-center">
+          Save CSV to Files
+        </Text>
       </TouchableOpacity>
     </View>
   );
