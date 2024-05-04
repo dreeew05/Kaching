@@ -1,7 +1,7 @@
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs, useSegments } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 import Colors from '../../constants/Colors';
 
@@ -39,7 +39,7 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="home" color={color} />
+            <TabBarIcon name="map" color={color} />
           ),
           headerLeft: () => (
             <FontAwesome5

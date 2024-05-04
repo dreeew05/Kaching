@@ -1,12 +1,12 @@
+import { useRouter } from 'expo-router';
 import React, { FC } from 'react';
 import {
-  View,
-  Pressable,
   Modal,
+  Pressable,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import { Text } from '../Themed';
-import { useRouter } from 'expo-router';
 import { CustomModalProps } from '../__utils__/interfaces/CustomModalProps';
 
 const CustomModal: FC<CustomModalProps> = ({
@@ -45,7 +45,9 @@ const CustomModal: FC<CustomModalProps> = ({
         <View className="flex-1 justify-center items-center">
           <View className="flex-col rounded-3xl items-center bg-white">
             <Text
-              className="text-center text-lg font-medium py-7 px-3 w-52"
+              adjustsFontSizeToFit
+              numberOfLines={2}
+              className="text-center text-lg font-medium py-7 px-3 w-52 text-black"
               style={{ fontFamily: 'Poppins-Medium' }}
             >
               {message}
@@ -66,11 +68,11 @@ const CustomModal: FC<CustomModalProps> = ({
                 >
                   <Pressable onPress={optionOnePressed}>
                     {optionOneColor === 'red' ? (
-                      <Text className="text-xl text-red-500 text-center py-4">
+                      <Text className="text-lg text-red-500 text-center py-4">
                         {optionOneText}
                       </Text>
                     ) : (
-                      <Text className="text-xl text-blue-500 text-center py-4">
+                      <Text className="text-lg text-blue-500 text-center py-4">
                         {optionOneText}
                       </Text>
                     )}
@@ -85,11 +87,11 @@ const CustomModal: FC<CustomModalProps> = ({
                 >
                   <Pressable onPress={optionTwoPressed}>
                     {optionTwoColor === 'red' ? (
-                      <Text className="text-xl text-red-500 text-center py-4">
+                      <Text className="text-lg text-red-500 text-center py-4">
                         {optionTwoText}
                       </Text>
                     ) : (
-                      <Text className="text-xl text-blue-500 text-center py-4">
+                      <Text className="text-lg text-blue-500 text-center py-4">
                         {optionTwoText}
                       </Text>
                     )}

@@ -49,25 +49,25 @@ export default function SelectStoreType(
       visible={modalProps.storeModalProps.visible}
       onRequestClose={modalProps.storeModalProps.onClose}
     >
-      <View className="flex-1 bg-[#18573a] justify-center">
+      <View className="flex-1 bg-green justify-center">
         <View className="items-center bg-transparent">
           <Text
-            className="text-xl color-white mb-10"
+            className="color-white mb-5 text-2xl"
             style={{ fontFamily: 'Poppins-Medium' }}
           >
             Select Business Type
           </Text>
           <ScrollView
-            className="bg-white mx-10  rounded-lg"
+            className=" mx-10 rounded-lg bg-white "
             style={{ height: getScreenHeight() * 0.6 }}
           >
-            <View className="flex flex-row flex-wrap justify-center mt-3 ">
+            <View className="flex flex-row flex-wrap justify-center mt-3 p-2 pt-5 bg-white">
               {Object.values(getBusinessTypes()).map(
                 (businessType: BusinessType) => {
                   const isSelected = businessType.id === selectedId;
                   return (
                     <Pressable
-                      className="p-2 mx-1 "
+                      className="mx-3 bg-white"
                       onPress={() =>
                         highlightSelection(businessType.id)
                       }
@@ -78,23 +78,23 @@ export default function SelectStoreType(
                           : isSelected
                             ? 1
                             : 0.5,
-                        width: 150, // Two items per row
-                        height: 200, // Fixed height for each container
+                        width: 100, // Two items per row
+                        height: 150, // Fixed height for each container
                       }}
                     >
-                      <View className=" rounded-lg flex flex-1">
-                        <View className="h-2/3">
+                      <View className=" rounded-lg flex flex-1 bg-white">
+                        <View className="h-2/3 bg-white">
                           <Image
                             source={businessType.image}
                             resizeMode="cover"
                             className="w-full h-full rounded-lg"
                           />
                         </View>
-                        <View className="h-1/3 p-2">
+                        <View className="h-1/3 pt-1 bg-white ">
                           <Text
                             adjustsFontSizeToFit
                             numberOfLines={1}
-                            className="text-center"
+                            className="text-center text-black"
                             style={{ fontFamily: 'Poppins-Medium' }}
                           >
                             {businessType.name}
@@ -112,7 +112,10 @@ export default function SelectStoreType(
             className="mt-10 bg-white py-2 px-10 rounded-full"
             onPress={() => setModalVisible(true)}
           >
-            <Text style={{ fontFamily: 'Poppins-Bold' }}>
+            <Text
+              className="text-green"
+              style={{ fontFamily: 'Poppins-Bold' }}
+            >
               Confirm
             </Text>
           </Pressable>

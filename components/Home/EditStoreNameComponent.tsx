@@ -34,6 +34,7 @@ export default function EditStoreName() {
     )
       .then((result) => {
         console.log(result);
+        setStoreName(''); // Clear the input field after confirmation
         dispatch(addStoreNameAction('change'));
       })
       .catch((error) => {
@@ -43,10 +44,12 @@ export default function EditStoreName() {
   };
 
   return (
-    <View>
-      <View className="border-b-gray border-b-2 mb-5 opacity-50 px-10 mt-32 self-center">
+    <View className="flex-1 items-center justify-center bg-white">
+      <View className="border-b-gray border-b-2 mb-5 opacity-50 self-center mx-10">
         <TextInput
-          className="text-lg text-black font-medium mb-1"
+          className="text-lg text-black font-medium mb-1 "
+          multiline={true}
+          numberOfLines={2}
           value={storeName}
           onChangeText={setStoreName}
           placeholder="Enter New Store Name"

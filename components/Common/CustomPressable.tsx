@@ -14,7 +14,7 @@ export default function CustomPressable({
 }: CustomPressableProps) {
   return (
     <TouchableHighlight
-      className={`w-3/5 sm:w-1/3 md:w-4/12 lg:w-5/12 self-center rounded-full p-3 mb-5 ${
+      className={`w-1/3 sm:w-1/3 md:w-3/5 lg:w-5/12 self-center rounded-full p-3 mt-3 ${
         disabled ? 'bg-gray' : 'bg-green'
       }`} // Use the disabled prop to conditionally apply styles
       onPress={disabled ? undefined : onPress} // Prevent onPress if disabled
