@@ -35,12 +35,12 @@ import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
 import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 import ItemCard from './ItemCard';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import ItemClickable from './ItemClickable';
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
   const categoryID: number = ParamsToInteger(param.id);
+  const isEditComponent = param.isEditComponent;
   const [categoryName, setCategoryName] = useState<string>('');
   const db = SQLite.openDatabase('kaching_db.db');
   const isLoading = useSelector(selectIsCategoryViewLoading);
@@ -212,7 +212,9 @@ export default function CategoryView() {
                 <ItemCard
                   key={product.id}
                   item={product}
-                  isEditComponent={isEditButton}
+                  isEditComponent={
+                    isEditComponent == 'true' ? true : false
+                  }
                   categoryID={categoryID}
                   checkedItems={checkedItems}
                   setCurrentCheckedItems={setCheckedItems}
@@ -243,7 +245,9 @@ export default function CategoryView() {
                         image={product.image}
                         name={product.name}
                         price={product.price}
-                        isEditComponent={isEditButton}
+                        isEditComponent={
+                          isEditComponent == 'true' ? true : false
+                        }
                         checkedItems={checkedItems}
                         setCurrentCheckedItems={setCheckedItems}
                       />
@@ -259,15 +263,29 @@ export default function CategoryView() {
   };
 
   const showModifyProductsComponent = () => {
-    if (isEditButton && products.length > 0) {
+    if (isEditComponent == 'true' && products.length > 0) {
       return (
         <>
-          <Pressable
+          {/* <Pressable
             className="mr-3 "
             onPress={() => dispatch(setIsEditButton(false))}
           >
             <FontAwesome5 name="edit" size={25} color="darkgreen" />
-          </Pressable>
+          </Pressable> */}
+          <Link
+            href={{
+              pathname: '/(tabs)/categoryView',
+              params: {
+                id: categoryID,
+                isEditComponent: 'false',
+              },
+            }}
+            asChild
+          >
+            <Pressable className="mr-3">
+              <FontAwesome5 name="edit" size={25} color="darkgreen" />
+            </Pressable>
+          </Link>
           <View
             className="mr-5 bg-green items-center
               justify-center rounded-full h-10"
@@ -301,7 +319,7 @@ export default function CategoryView() {
           >
             <Pressable
               className="mr-10"
-              onPress={() => dispatch(setIsEditButton(true))}
+              // onPress={() => dispatch(setIsEditButton(true))}
             >
               <AntDesign
                 name="pluscircle"
@@ -325,38 +343,53 @@ export default function CategoryView() {
     }
   };
 
-  const headerEventHandler = () => {
-    if (isEditButton) {
-      return (
-        <Link
-          href={{
-            pathname: '/',
-          }}
-          asChild
-        >
-          <Pressable className="ml-3">
-            <Ionicons name="chevron-back" size={30} color="green" />
-          </Pressable>
-        </Link>
-      );
-    } else {
-      {
-        return (
-          <Pressable
-            className="ml-3"
-            onPress={() => dispatch(setIsEditButton(true))}
-          >
-            <Ionicons name="chevron-back" size={30} color="green" />
-          </Pressable>
-        );
-      }
-    }
-  };
+  // Unused
+  // const headerEventHandler = () => {
+  //   if (isEditComponent == 'true') {
+  //     return (
+  //       <Link
+  //         href={{
+  //           pathname: '/',
+  //         }}
+  //         asChild
+  //       >
+  //         <Pressable className="ml-3">
+  //           <Ionicons name="chevron-back" size={30} color="green" />
+  //         </Pressable>
+  //       </Link>
+  //     );
+  //   } else {
+  //     {
+  //       return (
+  //         // <Pressable
+  //         //   className="ml-3"
+  //         //   onPress={() => dispatch(setIsEditButton(true))}
+  //         // >
+  //         //   <Ionicons name="chevron-back" size={30} color="green" />
+  //         // </Pressable>
+  //         <Link
+  //           href={{
+  //             pathname: '/(tabs)/categoryView',
+  //             params: {
+  //               id: categoryID,
+  //               isEditComponent: 'true',
+  //             },
+  //           }}
+  //           asChild
+  //         >
+  //           <Pressable className="ml-3">
+  //             <Ionicons name="chevron-back" size={30} color="green" />
+  //           </Pressable>
+  //         </Link>
+  //       );
+  //     }
+  //   }
+  // };
 
   return (
     <>
       {/* Header [START] */}
-      <View style={{ marginTop: '7.5%' }}>
+      {/* <View style={{ marginTop: '7.5%' }}>
         <View
           style={{
             flexDirection: 'row',
@@ -366,7 +399,7 @@ export default function CategoryView() {
         >
           {headerEventHandler()}
         </View>
-      </View>
+      </View> */}
       {/* Header [END]*/}
 
       {showOverallComponent()}

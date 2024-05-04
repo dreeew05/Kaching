@@ -218,6 +218,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               pathname: '/(tabs)/categoryView',
               params: {
                 id: categoryID,
+                isEditComponent: 'true',
               },
             }}
             asChild

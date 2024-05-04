@@ -23,7 +23,7 @@ export default function CategoryCardClickable({
     <Link
       href={{
         pathname: '/(tabs)/categoryView',
-        params: { id: id },
+        params: { id: id, isEditComponent: 'true' },
       }}
       asChild
     >
