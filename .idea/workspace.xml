@@ -7,7 +7,20 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="" />
+    <list default="true" id="05716af9-de03-4f48-8399-ada007ef1882" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/selectDefaultCategories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/selectDefaultCategories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/selectStoreType.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/selectStoreType.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Common/CustomPressable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Common/CustomPressable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Home/EditStoreNameComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Home/EditStoreNameComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Home/StoreInformationGenerator..tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Home/StoreInformationGenerator..tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Modals/CustomModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Modals/CustomModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Onboarding/DefaultCategories/DefaultCategoryClickable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Onboarding/DefaultCategories/DefaultCategoryClickable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/BusinessTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/BusinessTypes.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +48,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;ScreenRecorder.SavePath&quot;: &quot;C:\\Users\\Acer\\Videos\\9.mp4&quot;,
+    &quot;ScreenshotViewer.SavePath&quot;: &quot;C:/Users/Acer/Documents/My Pictures&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.android.tools.idea.devicemanager.tab&quot;: &quot;Physical&quot;,
@@ -42,7 +57,7 @@
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Onboarding-select&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/glena/Desktop&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Acer/Videos&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
   }

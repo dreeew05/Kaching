@@ -162,7 +162,7 @@ export default function ItemCard(item: itemCardProps) {
           <View className="justify-center">
             <Pressable
               className="bg-green w-40 h-10
-                          rounded-full self-center ml-5 mr-5 flex-1 items-center justify-center"
+                          rounded-full self-center ml-5 flex-1 items-center justify-center"
               onPress={addToCart}
             >
               <Text
