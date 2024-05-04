@@ -13,6 +13,9 @@ import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
 import ItemClickable from './ItemClickable';
 
+import { useSelector } from 'react-redux';
+import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+
 // Unused imports
 // import { deleteData } from '../DatabaseUtils/CoreFunctions';
 // import CustomModal from '../Modals/CustomModal';
@@ -34,6 +37,8 @@ type itemCardProps = {
 export default function ItemCard(item: itemCardProps) {
   const dispatch = useDispatch();
 
+  const hasStartDay = useSelector(selectHasStartDay);
+
   // Unused [For searching the item in the cart]
   // const itemState = useSelector((state: RootState) =>
   //   selectCartItem(state, item.item.id),
@@ -45,7 +50,10 @@ export default function ItemCard(item: itemCardProps) {
     useState(false);
   const [showItemInCartModal, setShowItemInCartModal] =
     useState(false);
-  const [isNotChecked, setIsNotChecked] = useState(false);
+  const [isNotChecked, setIsNotChecked] = 
+		useState(false);
+	const [showNeedStartDayModal, setShowNeedStartDayModal] = 
+		useState(false);
 
   // Unused
   // const [isDeleteModalVisible, setIsDeleteModalVisible] =
@@ -98,16 +106,22 @@ export default function ItemCard(item: itemCardProps) {
     // Reset quantity to 0
     setQuantity(0);
 
-    addToCartEvent({
-      quantity: quantity,
-      // itemState: itemState,
-      product: item.item,
-      dispatch: dispatch,
-      showAddModal: setShowAddModal,
-      showAddQuantityModal: setShowAddQuantityModal,
-      showItemInCartModal: setShowItemInCartModal,
-    });
-    removeFromTempCart();
+		console.log(hasStartDay);
+
+    if (hasStartDay.isStartDay) {
+			addToCartEvent({
+				quantity: quantity,
+				// itemState: itemState,
+				product: item.item,
+				dispatch: dispatch,
+				showAddModal: setShowAddModal,
+				showAddQuantityModal: setShowAddQuantityModal,
+				showItemInCartModal: setShowItemInCartModal,
+			});
+			removeFromTempCart();
+		} else {
+			setShowNeedStartDayModal(true);
+		}
   };
 
   const removeFromTempCart = () => {
@@ -208,9 +222,11 @@ export default function ItemCard(item: itemCardProps) {
         isAddModal={showAddModal}
         isAddQuantityModal={showAddQuantityModal}
         isItemInCartModal={showItemInCartModal}
+				isNeedStartDayModal={showNeedStartDayModal}
         showAddModal={setShowAddModal}
         showAddQuantityModal={setShowAddQuantityModal}
         showItemInCartModal={setShowItemInCartModal}
+				showNeedStartDayModal={setShowNeedStartDayModal}
       />
 
       {/* Unused Modal */}

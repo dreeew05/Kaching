@@ -24,6 +24,16 @@ export const AddToCartModals = (item: AddToCartModalsProps) => {
         closeModal={() => item.showAddQuantityModal(false)}
       />
 
+      <PopUpModal
+        visible={item.isNeedStartDayModal}
+        message="Please tap on Start Day in home page."
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => item.showNeedStartDayModal(false)}
+      />
+
       {/* UNUSED MODAL */}
       {/* <PopUpModal
         visible={item.isItemInCartModal}
