@@ -1,31 +1,31 @@
+import { AntDesign } from '@expo/vector-icons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import { Skeleton } from '@rneui/base';
+import * as ImagePicker from 'expo-image-picker';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Text, View } from '../Themed';
 import {
   Image,
   Pressable,
   StyleSheet,
   TextInput,
 } from 'react-native';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import * as ImagePicker from 'expo-image-picker';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
-import CustomModal from '../Modals/CustomModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsModifyProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import {
+  setIsModifyProductLoading,
+  setProductModifiedActions,
+} from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import {
   insertData,
   selectData,
   updateData,
 } from '../DatabaseUtils/CoreFunctions';
-import { Link, useLocalSearchParams, useRouter } from 'expo-router';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setIsModifyProductLoading,
-  setProductModifiedActions,
-} from '../../redux/GlobalStateRedux/GlobalStateSlice';
-import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
+import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
-import { selectIsModifyProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import { Skeleton } from '@rneui/base';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Text, View } from '../Themed';
+import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
 
 type ModifyItemProps = {
   type: string;
@@ -203,10 +203,10 @@ export default function ModifyItem({ type }: ModifyItemProps) {
   });
 
   return (
-    <View>
-      <View>
+    <View className=" bg-white">
+      <View className=" bg-white">
         <View
-          className="mb-2"
+          className="mb-2 bg-white"
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -214,6 +214,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
           }}
         >
           <View
+            className=" bg-white"
             style={{
               flex: 1,
               justifyContent: 'center',
@@ -259,10 +260,23 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               </View>
             )}
           </View>
+
+          {isAnyInputEmpty() ? (
+            <View className="flex flex-row justify-center mr-5 bg-white">
+              <FontAwesome5 name="file" size={22} color="gray" />
+            </View>
+          ) : (
+            <View className="flex flex-row justify-center mr-5 bg-white">
+              <Pressable onPress={() => setSaveModalVisible(true)}>
+                <FontAwesome5 name="file" size={22} color="orange" />
+              </Pressable>
+            </View>
+          )}
+
         </View>
 
-        <View className="px-5 h-full">
-          <View className="mb-6 mt-7">
+        <View className="px-5 h-full bg-white">
+          <View className="mb-6 mt-7 bg-white">
             {isLoading ? (
               <>
                 <Skeleton
@@ -293,7 +307,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               </>
             )}
           </View>
-          <View className="mb-6">
+          <View className="mb-6 bg-white">
             {isLoading ? (
               <>
                 <Skeleton
@@ -325,7 +339,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               </>
             )}
           </View>
-          <View className="mb-6">
+          <View className="mb-6 bg-white">
             {isLoading ? (
               <>
                 <Skeleton
@@ -358,7 +372,7 @@ export default function ModifyItem({ type }: ModifyItemProps) {
               </>
             )}
           </View>
-          <View className="w-26">
+          <View className="w-26 bg-white">
             {isLoading ? (
               <>
                 <Skeleton
