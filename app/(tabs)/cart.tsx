@@ -9,7 +9,7 @@ import { Store } from '../../redux/Store';
 export default function CartScreen() {
   return (
     <Provider store={Store}>
-      <View className="flex-1 bg-white dark:bg-black">
+      <View className="flex-1 bg-white ">
         <View className="flex-1">
           <CartItemsGenerator />
         </View>

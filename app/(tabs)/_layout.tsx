@@ -2,17 +2,11 @@ import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {
   Link,
-  router,
   Tabs,
   useLocalSearchParams,
   useSegments,
 } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
-
-import Colors from '../../constants/Colors';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectIsEditComponent } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import { setIsEditButton } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
 interface categoryParamProps {
   category_id: number;
@@ -94,9 +88,13 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: 'green',
         tabBarStyle: {
           display: pagesToHide.includes(page) ? 'none' : 'flex',
+          backgroundColor: 'white',
+          justifyContent: 'center', // Center horizontally
+          alignItems: 'center', // Center vertically
+          paddingTop: 10,
         },
       }}
     >
@@ -107,14 +105,10 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="home" color={color} />
           ),
-          headerLeft: () => (
-            <FontAwesome5
-              name="store"
-              size={24}
-              color="green"
-              style={{ marginLeft: 20 }}
-            />
-          ),
+          headerStyle: {
+            backgroundColor: 'transparent',
+            height: 'auto',
+          },
         }}
       />
       <Tabs.Screen
@@ -134,6 +128,10 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="bars" color={color} />
           ),
+          headerStyle: {
+            backgroundColor: 'transparent',
+            height: 'auto',
+          },
         }}
       />
 
@@ -214,6 +212,9 @@ export default function TabLayout() {
           ),
           href: null, // Hide this tab from the tab bar,
           headerLeft: () => headerEventHandler(),
+          headerStyle: {
+            backgroundColor: 'white',
+          },
         }}
       />
       <Tabs.Screen

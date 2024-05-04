@@ -5,13 +5,14 @@ import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { SQLResultSet, SQLiteCallback } from 'expo-sqlite';
 
 const FinancialSummary = () => {
-
   const db = getDatabase();
-  const [currentEODData, setCurrentEODData] = React.useState<SQLResultSet | null>(null);
+  const [currentEODData, setCurrentEODData] =
+    React.useState<SQLResultSet | null>(null);
 
   const fetchCurrentEODData = () => {
-    db.transaction(tx => {
-      tx.executeSql(`
+    db.transaction((tx) => {
+      tx.executeSql(
+        `
       SELECT
       SUM(CASE WHEN r.mode_of_payment = 'cash' THEN r.total ELSE 0 END) AS total_cash,
       SUM(CASE WHEN r.mode_of_payment = 'online' THEN r.total ELSE 0 END) AS total_online
@@ -24,29 +25,43 @@ const FinancialSummary = () => {
         (tx, results) => {
           setCurrentEODData(results);
         },
-      )
-      }
-    );
-
-  }
+      );
+    });
+  };
 
   useEffect(() => {
     // Code to run after component renders
-      //get total cash from receipts table in db
-      fetchCurrentEODData();
-  
+    //get total cash from receipts table in db
+    fetchCurrentEODData();
   }, [currentEODData]);
 
   const tableData = [
-    ['Cash Total', '₱ '+currentEODData?.rows._array[0].total_cash],
-    ['Online Total', '₱ '+currentEODData?.rows._array[0].total_online],
-    ['Grand Total', '₱ '+(currentEODData?.rows._array[0].total_cash + currentEODData?.rows._array[0].total_online)]
+    [
+      'Cash Total',
+      '₱ ' + currentEODData?.rows._array[0].total_cash.toFixed(2),
+    ],
+    [
+      'Online Total',
+      '₱ ' + currentEODData?.rows._array[0].total_online.toFixed(2),
+    ],
+    [
+      'Grand Total',
+      '₱ ' +
+        (
+          currentEODData?.rows._array[0].total_cash +
+          currentEODData?.rows._array[0].total_online
+        ).toFixed(2),
+    ],
   ];
 
   return (
     <View style={styles.container}>
       <Table>
-        <Rows data={tableData} textStyle={styles.text} flexArr={[2, 1]} />
+        <Rows
+          data={tableData}
+          textStyle={styles.text}
+          flexArr={[2, 1]}
+        />
       </Table>
     </View>
   );
