@@ -251,7 +251,7 @@ export default function ModifyCategory() {
   return (
     <>
       {/* Header [START] */}
-      <View style={{ marginTop: '7.5%' }}>
+      <View className="bg-white" style={{ marginTop: '7.5%' }}>
         <View
           style={{
             flexDirection: 'row',
@@ -311,7 +311,7 @@ export default function ModifyCategory() {
       </View>
       {/* Header [END] */}
 
-      <View className="flex-1 justify-center items-center">
+      <View className="flex-1 justify-center items-center bg-white">
         {showImageComponent()}
         {showTextComponent()}
 
