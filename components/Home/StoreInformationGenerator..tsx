@@ -44,7 +44,7 @@ export default function StoreInformationGenerator() {
 
   return (
     <View>
-      <View className="flex-row">
+      <View className="flex-row mt-5">
         <Link
           href={{
             pathname: '/(tabs)/editStoreName',

@@ -50,10 +50,7 @@ export default function CategoryCardEditable({
   };
 
   return (
-    <View
-      className="bg-white dark:bg-black 
-            shadow-md rounded-md m-2 p-2"
-    >
+    <View className="bg-white shadow-md rounded-md m-2 p-2">
       <CategoryCard id={id} name={name} image={image} />
 
       <Link

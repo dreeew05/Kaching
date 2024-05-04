@@ -131,7 +131,7 @@ export default function MenuComponent() {
   }, [currentEOD]);
 
   return (
-    <View className="flex flex-1 bg-white dark:bg-black">
+    <View className="flex flex-1 bg-white pt-5">
       <MenuHelpTutorial />
       <View className=" self-center w-7/12 sm:w-7/12 md:w-8/12 lg:w-10/12 ">
         <View className="flex flex-row item-center justify-between mt-5">

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { View } from '../Themed';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
+import { useState } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import HelpModal from '../Modals/HelpModal';
+import { View } from '../Themed';
 
 export default function HomeHelpTutorial() {
   const [isStartModalVisible, setStartModalVisible] = useState(false);
@@ -14,7 +14,7 @@ export default function HomeHelpTutorial() {
     useState(false);
 
   return (
-    <View>
+    <View className="bg-white">
       <TouchableOpacity
         className="mr-5"
         onPress={() => setStartModalVisible(true)}

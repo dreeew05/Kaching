@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
+import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectCartTotalPrice } from '../../redux/CartRedux/CartSelectors';
-import { View, Text } from 'react-native';
 import CustomPressable from './CustomPressable';
 
 interface TotalProps {
@@ -24,22 +24,29 @@ export default function Total({ page }: TotalProps) {
   const isCheckoutDisabled = cartState === 0;
 
   return (
-    <View>
+    <View className="bg-white">
       <View
-        className="flex-row justify-between 
-          p-4 border-spacing-3 border-2 border-white
+        className="flex-row justify-between px-5 pt-3 border-spacing-3  border-4 border-white
           border-t-neutral-300"
       >
-        <Text className="text-xl text-zinc-500" style={{ fontFamily: 'Poppins-Regular' }}>
+        <Text
+          className="text-xl text-zinc-500"
+          style={{ fontFamily: 'Poppins-Regular' }}
+        >
           Total price:
         </Text>
-        <Text className="text-3xl text-zinc-500" style={{ fontFamily: 'Poppins-Regular' }}>
-          P{cartState.toFixed(2)}
+        <Text
+          className="text-3xl text-zinc-500 "
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          style={{ fontFamily: 'Poppins-Regular' }}
+        >
+          ₱{cartState.toFixed(2)}
         </Text>
       </View>
 
       {/* BUTTON */}
-      <View>
+      <View className="py-5">
         {page === 'cart' && (
           <CustomPressable
             text="Checkout"
@@ -47,11 +54,12 @@ export default function Total({ page }: TotalProps) {
             disabled={isCheckoutDisabled}
           />
         )}
-        {page === 'summary' && 
-          <CustomPressable text="Proceed to Payment" 
-            onPress={viewPayment} 
+        {page === 'summary' && (
+          <CustomPressable
+            text="Proceed to Payment"
+            onPress={viewPayment}
           />
-        }
+        )}
       </View>
     </View>
   );

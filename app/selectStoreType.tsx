@@ -58,7 +58,7 @@ export default function SelectStoreType(
             Select Business Type
           </Text>
           <ScrollView
-            className=" mx-10 rounded-lg bg-white "
+            className=" mx-10 bg-white "
             style={{ height: getScreenHeight() * 0.6 }}
           >
             <View className="flex flex-row flex-wrap justify-center mt-3 p-2 pt-5 bg-white">
