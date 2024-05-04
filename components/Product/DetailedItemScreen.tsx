@@ -11,12 +11,17 @@ import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
 1;
 
+// import { useSelector } from 'react-redux';
+import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { useSelector } from 'react-redux';
+
 // Unused imports
 // import { RootState } from '../../redux/Store';
 // import { selectCartItem } from '../../redux/CartRedux/CartSelectors';
 
 export default function DetailedItemScreen(item: DetailedItemProps) {
   const dispatch = useDispatch();
+  const hasStartDay = useSelector(selectHasStartDay);
 
   // Unused [For searching the item in the cart]
   // const itemState = useSelector((state: RootState) =>
@@ -38,6 +43,8 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
   const [showAddQuantityModal, setShowAddQuantityModal] =
     useState<boolean>(false);
   const [showItemInCartModal, setShowItemInCartModal] =
+    useState<boolean>(false);
+const [showNeedStartDayModal, setShowNeedStartDayModal] =
     useState<boolean>(false);
 
   const updateQuantity = (quantity: number) => {
@@ -71,17 +78,23 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
 
   const addToCart = () => {
     // Reset quantity to 0
-    updateQuantity(0);
+    setQuantity(0);
 
-    addToCartEvent({
-      quantity: quantity,
-      // itemState: itemState,
-      product: item,
-      dispatch: dispatch,
-      showAddModal: setShowAddModal,
-      showAddQuantityModal: setShowAddQuantityModal,
-      showItemInCartModal: setShowItemInCartModal,
-    });
+		console.log(hasStartDay);
+
+    if (hasStartDay.isStartDay) {
+			addToCartEvent({
+                quantity: quantity,
+                // itemState: itemState,
+                product: item,
+                dispatch: dispatch,
+                showAddModal: setShowAddModal,
+                showAddQuantityModal: setShowAddQuantityModal,
+                showItemInCartModal: setShowItemInCartModal,
+			});
+		} else {
+			setShowNeedStartDayModal(true);
+		}
   };
 
   return (
@@ -163,14 +176,11 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         isAddModal={showAddModal}
         isAddQuantityModal={showAddQuantityModal}
         isItemInCartModal={showItemInCartModal}
+        isNeedStartDayModal={showNeedStartDayModal}
         showAddModal={setShowAddModal}
         showAddQuantityModal={setShowAddQuantityModal}
         showItemInCartModal={setShowItemInCartModal}
-        // Unused
-        isNeedStartDayModal={false}
-        showNeedStartDayModal={function (isClose: boolean): void {
-          throw new Error('Function not implemented.');
-        }}
+        showNeedStartDayModal={setShowNeedStartDayModal}
       />
     </View>
   );
