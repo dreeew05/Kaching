@@ -131,7 +131,7 @@ export default function ReceiptComponent() {
                 Total:{' '}
               </Text>
               <Text className="py-2 text-lg text-zinc-500 font-medium items-end">
-                ₱{totalPrice}
+                ₱{totalPrice.toFixed(2)}
               </Text>
             </View>
 
