@@ -166,6 +166,11 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         showAddModal={setShowAddModal}
         showAddQuantityModal={setShowAddQuantityModal}
         showItemInCartModal={setShowItemInCartModal}
+        // Unused
+        isNeedStartDayModal={false}
+        showNeedStartDayModal={function (isClose: boolean): void {
+          throw new Error('Function not implemented.');
+        }}
       />
     </View>
   );
