@@ -24,56 +24,44 @@ export default function MenuHelpTutorial() {
 
       {/* HELP MODALS */}
       <HelpModal
-        marginTop={210}
-        marginLeft={130}
-        pointDirection="top-left"
-        message="Tap to view the previous End of Day report."
-        closeMessage="Continue"
-        boxWidth={80}
-        isVisible={isStartModalVisible}
-        setVisible={setStartModalVisible}
-        continueModal={() => setCurrenEODModalVisible(true)}
-      />
-
-      <HelpModal
-        marginTop={150}
-        marginLeft={120}
+        marginTop={30}
+        marginLeft={20}
         pointDirection="bottom-left"
         message="Tap to view the current End of Day report."
         closeMessage="Continue"
-        boxWidth={70}
-        isVisible={currenEODModalVisible}
-        setVisible={setCurrenEODModalVisible}
+        boxWidth={50}
+        isVisible={isStartModalVisible}
+        setVisible={setStartModalVisible}
         continueModal={() => setPreviousEODModalVisible(true)}
       />
 
       <HelpModal
-        marginTop={400}
-        marginLeft={120}
+        marginTop={95}
+        marginLeft={20}
         pointDirection="top-left"
         message="See a detailed breakdown of your sales for a specific day within the last 30 days."
         closeMessage="Continue"
-        boxWidth={70}
+        boxWidth={50}
         isVisible={previousEODModalVisible}
         setVisible={setPreviousEODModalVisible}
         continueModal={() => setTosModalVisible(true)}
       />
 
       <HelpModal
-        marginTop={260}
-        marginLeft={120}
+        marginTop={72}
+        marginLeft={20}
         pointDirection="bottom-left"
         message="See the legal terms and conditions governing your use of the Kaching app."
         closeMessage="Continue"
-        boxWidth={70}
+        boxWidth={50}
         isVisible={tosModalVisible}
         setVisible={setTosModalVisible}
         continueModal={() => setPolicyModalVisible(true)}
       />
 
       <HelpModal
-        marginTop={550}
-        marginLeft={120}
+        marginTop={140}
+        marginLeft={20}
         pointDirection="top-left"
         message="Display information on how the Kaching app collects, uses, and protects your user data."
         closeMessage="Continue"
@@ -84,12 +72,12 @@ export default function MenuHelpTutorial() {
       />
 
       <HelpModal
-        marginTop={420}
-        marginLeft={50}
+        marginTop={120}
+        marginLeft={10}
         pointDirection="bottom-left"
         message="Get answers to frequently asked questions."
         closeMessage="Continue"
-        boxWidth={70}
+        boxWidth={40}
         isVisible={faqModalVisible}
         setVisible={setFaqModalVisible}
         continueModal={() => setEndDayModalVisible(true)}
@@ -98,11 +86,11 @@ export default function MenuHelpTutorial() {
       <HelpModal
         marginTop={null}
         marginLeft={120}
-        marginBottom={160}
+        marginBottom={70}
         pointDirection="bottom-left"
         message="End current business day, finalizing sales data and preparing the app for the next business day."
         closeMessage="Done"
-        boxWidth={90}
+        boxWidth={60}
         isVisible={endDayModalVisible}
         setVisible={setEndDayModalVisible}
         continueModal={null}

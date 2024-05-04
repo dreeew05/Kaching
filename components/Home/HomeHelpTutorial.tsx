@@ -24,8 +24,8 @@ export default function HomeHelpTutorial() {
 
       {/* HELP MODALS */}
       <HelpModal
-        marginTop={90}
-        marginLeft={20}
+        marginTop={12.5}
+        marginLeft={5}
         pointDirection="top-left"
         message="Tap to edit your store name."
         closeMessage="Continue"
@@ -36,20 +36,20 @@ export default function HomeHelpTutorial() {
       />
 
       <HelpModal
-        marginTop={130}
-        marginLeft={160}
+        marginTop={23}
+        marginLeft={35}
         pointDirection="left"
         message="Tapping the 'Start Day' button signifies the beginning of your business day. This ensures all sales and transactions from this point forward will be accurately recorded."
         closeMessage="Continue"
-        boxWidth={80}
+        boxWidth={60}
         isVisible={startDayModalVisible}
         setVisible={setStartDayModalVisible}
         continueModal={() => setEditCategoryModalVisible(true)}
       />
 
       <HelpModal
-        marginTop={220}
-        marginLeft={200}
+        marginTop={45}
+        marginLeft={40}
         pointDirection="top-left"
         message="Create, edit, or delete categories."
         closeMessage="Continue"
@@ -60,8 +60,8 @@ export default function HomeHelpTutorial() {
       />
 
       <HelpModal
-        marginTop={380}
-        marginLeft={130}
+        marginTop={60}
+        marginLeft={40}
         pointDirection="left"
         message="Display all the items available in a specific category."
         closeMessage="Done"
