@@ -59,7 +59,7 @@ export default function TabLayout() {
           asChild
         >
           <Pressable className="ml-3">
-            <Ionicons name="chevron-back" size={30} color="white" />
+            <FontAwesome5 name="arrow-left" size={20} color="white" />
           </Pressable>
         </Link>
       );
@@ -128,6 +128,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="bars" color={color} />
           ),
+
           headerStyle: {
             backgroundColor: '#18573A',
             height: 'auto',
@@ -190,6 +191,26 @@ export default function TabLayout() {
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar
+          headerLeft: () => (
+            <Link href="/" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome5
+                    name="arrow-left"
+                    size={20}
+                    color="white"
+                    style={{
+                      marginLeft: 10,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
 
@@ -206,7 +227,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="categoryView"
         options={{
-          title: '',
+          title: 'Back',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="code" color={color} />
           ),
@@ -226,23 +247,10 @@ export default function TabLayout() {
             <TabBarIcon name="code" color={color} />
           ),
           href: null, // Hide this tab from the tab bar,
-          headerLeft: () => (
-            <Link href="/" asChild>
-              <Pressable className="ml-2">
-                {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="green"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+            height: 'auto',
+          },
         }}
       />
       <Tabs.Screen
@@ -395,7 +403,7 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome5
                     name="arrow-left"
-                    size={24}
+                    size={20}
                     color="darkgreen"
                     style={{
                       marginLeft: 10,
@@ -422,7 +430,7 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome5
                     name="arrow-left"
-                    size={24}
+                    size={20}
                     color="darkgreen"
                     style={{
                       marginLeft: 10,
@@ -449,7 +457,7 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome5
                     name="arrow-left"
-                    size={24}
+                    size={20}
                     color="darkgreen"
                     style={{
                       marginLeft: 10,
@@ -476,7 +484,7 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome5
                     name="arrow-left"
-                    size={24}
+                    size={20}
                     color="darkgreen"
                     style={{
                       marginLeft: 10,
@@ -503,7 +511,7 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome5
                     name="arrow-left"
-                    size={24}
+                    size={20}
                     color="darkgreen"
                     style={{
                       marginLeft: 10,
@@ -530,7 +538,7 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome5
                     name="arrow-left"
-                    size={24}
+                    size={20}
                     color="green"
                     style={{
                       marginLeft: 10,
@@ -557,8 +565,8 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome5
                     name="arrow-left"
-                    size={24}
-                    color="green"
+                    size={20}
+                    color="white"
                     style={{
                       marginLeft: 10,
                       opacity: pressed ? 0.5 : 1,
@@ -568,6 +576,9 @@ export default function TabLayout() {
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#18573A',
+          },
         }}
       />
     </Tabs>

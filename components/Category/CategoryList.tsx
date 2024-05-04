@@ -20,7 +20,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
 }) => {
   return (
     <ScrollView>
-      <View className="flex flex-row flex-wrap my-5 mx-auto ">
+      <View className="flex flex-row flex-wrap  mx-auto bg-white ">
         {categories.map((category) => {
           switch (cardType) {
             case 'regular':
