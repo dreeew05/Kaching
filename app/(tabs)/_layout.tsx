@@ -59,7 +59,7 @@ export default function TabLayout() {
           asChild
         >
           <Pressable className="ml-3">
-            <Ionicons name="chevron-back" size={30} color="green" />
+            <Ionicons name="chevron-back" size={30} color="white" />
           </Pressable>
         </Link>
       );
@@ -88,7 +88,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: 'green',
+        tabBarActiveTintColor: '#18573A',
         tabBarStyle: {
           display: pagesToHide.includes(page) ? 'none' : 'flex',
           backgroundColor: 'white',
@@ -106,7 +106,7 @@ export default function TabLayout() {
             <TabBarIcon name="home" color={color} />
           ),
           headerStyle: {
-            backgroundColor: 'transparent',
+            backgroundColor: '#18573A',
             height: 'auto',
           },
         }}
@@ -129,7 +129,7 @@ export default function TabLayout() {
             <TabBarIcon name="bars" color={color} />
           ),
           headerStyle: {
-            backgroundColor: 'transparent',
+            backgroundColor: '#18573A',
             height: 'auto',
           },
         }}
@@ -174,7 +174,7 @@ export default function TabLayout() {
                   <Ionicons
                     name="arrow-back-outline"
                     size={30}
-                    color="green"
+                    color="white"
                   />
                 )}
               </Pressable>
@@ -212,8 +212,9 @@ export default function TabLayout() {
           ),
           href: null, // Hide this tab from the tab bar,
           headerLeft: () => headerEventHandler(),
+
           headerStyle: {
-            backgroundColor: 'white',
+            backgroundColor: '#18573A',
           },
         }}
       />
