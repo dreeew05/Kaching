@@ -26,8 +26,8 @@ export default function CartHelpTutorial() {
 
       {/* HELP MODALS */}
       <HelpModal
-        marginTop={70}
-        marginLeft={20}
+        marginTop={20}
+        marginLeft={10}
         pointDirection="top-left"
         message="This section displays the items you've selected from the menu, along with their quantities and prices."
         closeMessage="Continue"
@@ -38,8 +38,8 @@ export default function CartHelpTutorial() {
       />
 
       <HelpModal
-        marginTop={30}
-        marginLeft={140}
+        marginTop={12}
+        marginLeft={30}
         pointDirection="right"
         message="Clear all items from the cart."
         closeMessage="Continue"
@@ -50,8 +50,8 @@ export default function CartHelpTutorial() {
       />
 
       <HelpModal
-        marginTop={95}
-        marginLeft={40}
+        marginTop={25}
+        marginLeft={10}
         pointDirection="right"
         message="Remove a specific  item from the cart."
         closeMessage="Continue"
@@ -62,12 +62,12 @@ export default function CartHelpTutorial() {
       />
 
       <HelpModal
-        marginTop={250}
-        marginLeft={95}
+        marginTop={60}
+        marginLeft={20}
         pointDirection="top-right"
         message="Adjust item quantity in cart."
         closeMessage="Continue"
-        boxWidth={76}
+        boxWidth={50}
         isVisible={quantityModalVisible}
         setVisible={setQuantityModalVisible}
         continueModal={() => setCheckoutModalVisible(true)}
@@ -75,12 +75,12 @@ export default function CartHelpTutorial() {
 
       <HelpModal
         marginTop={null}
-        marginLeft={100}
-        marginBottom={120}
+        marginLeft={10}
+        marginBottom={75}
         pointDirection="bottom-left"
         message="Proceed to checkout."
         closeMessage="Done"
-        boxWidth={100}
+        boxWidth={45}
         isVisible={checkoutModalVisible}
         setVisible={setCheckoutModalVisible}
         continueModal={null}

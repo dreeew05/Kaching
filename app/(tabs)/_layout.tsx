@@ -148,7 +148,7 @@ export default function TabLayout() {
               <Pressable className="ml-3">
                 {({ pressed }) => (
                   <Ionicons
-                    name="arrow-back-outline"
+                    name="chevron-back"
                     size={30}
                     color="green"
                   />
@@ -172,7 +172,7 @@ export default function TabLayout() {
               <Pressable className="ml-3">
                 {({ pressed }) => (
                   <Ionicons
-                    name="arrow-back-outline"
+                    name="chevron-back"
                     size={30}
                     color="white"
                   />
@@ -230,14 +230,10 @@ export default function TabLayout() {
             <Link href="/" asChild>
               <Pressable className="ml-2">
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
                     color="green"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
                   />
                 )}
               </Pressable>
@@ -393,14 +389,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -420,14 +412,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -447,14 +435,10 @@ export default function TabLayout() {
             <Link href="/(tabs)/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -474,14 +458,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -501,14 +481,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
-                    color="darkgreen"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
+                    color="green"
                   />
                 )}
               </Pressable>
@@ -528,14 +504,10 @@ export default function TabLayout() {
             <Link href="/menu" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
                     color="green"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
                   />
                 )}
               </Pressable>
@@ -555,14 +527,10 @@ export default function TabLayout() {
             <Link href="/" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome5
-                    name="arrow-left"
-                    size={24}
+                  <Ionicons
+                    name="chevron-back"
+                    size={30}
                     color="green"
-                    style={{
-                      marginLeft: 10,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
                   />
                 )}
               </Pressable>

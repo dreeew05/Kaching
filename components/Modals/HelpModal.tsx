@@ -103,14 +103,13 @@ export default function HelpModal(item: HelpModalProps) {
   const getViewStyle = (): StyleProp<ViewStyle> => {
     if (item.marginTop != null) {
       return {
-        marginTop: item.marginTop,
-        marginLeft: item.marginLeft,
+        marginTop: `${item.marginTop}%`,
+        marginLeft: `${item.marginLeft}%`,
       };
     } else {
       return {
-        position: 'absolute',
-        bottom: item.marginBottom,
-        marginLeft: item.marginLeft,
+        bottom: `${item.marginBottom}%` || 0,
+        alignItems: 'center',
       };
     }
   };
