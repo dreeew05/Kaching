@@ -4,11 +4,10 @@ import { Text, View } from '../../components/Themed';
 import PreviousDatesScrollView from '../../components/Report/PreviousDatesGenerator';
 import CalendarPicker from '../../components/Report/CalendarPicker';
 import currentEOD from './olderEODSbyDate';
-import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase'; 
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import { useRouter } from 'expo-router';
 
 import { Ionicons } from '@expo/vector-icons';
-
 
 // TEST DATA
 
@@ -20,15 +19,17 @@ export default function TabTwoScreen() {
   let date = new Date();
 
   const handleDateFromPicker = (dateSelected: Date) => {
-    date = dateSelected;
     const db = getDatabase();
-    db.transaction(tx => {
-      tx.executeSql(`INSERT INTO date_picked (date) VALUES (?)`,
-        [date.toISOString().slice(0, 10)],
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT INTO date_picked (date) VALUES (?)`,
+        [dateSelected.toISOString().slice(0, 10)],
         (tx, results) => {
+          console.log(dateSelected.toISOString().slice(0, 10));
+          console.log(results.rowsAffected);
         },
-      )
-    })
+      );
+    });
     goToEOD();
   };
 
@@ -39,41 +40,15 @@ export default function TabTwoScreen() {
 
   return (
     <>
-      {
-        showCalendar ? 
-        (
-        <View className='flex-1'> 
-        <View className='flex items-end pr-4'>
-          <Pressable
-            onPress={() => setShowCalendar(false)}>
-            <Ionicons name="ios-close" size={30} color="black" />
-          </Pressable>
+      <View className="flex-1 items-center justify-center">
+        <View className="w-full flex-row justify-between px-6">
+          <Text className="text-2xl">Recent EOD's</Text>
         </View>
-        <View className='flex items-center py-6'>
-          <Text className='text-2xl font-bold pb-6 text-green'>
-            Choose a date
-          </Text>
-          <CalendarPicker onDateFromPicker={handleDateFromPicker}/>
-        </View>
-        </View>
-        ) 
-          : 
-        (
-        <View className='flex-1 items-center justify-center'>
-          <View className='w-full flex-row justify-between px-6'>
-            <Text className='text-2xl'>
-              Recent EOD's
-            </Text>
-            <Pressable
-              onPress={() => setShowCalendar(true)}>
-              <Ionicons name="calendar-sharp" size={30} color="#FFAD42" />
-            </Pressable>
-            </View>
-          <PreviousDatesScrollView numDates={31} getDate={handleDateFromPicker} />
-        </View>
-        )
-      }
+        <PreviousDatesScrollView
+          numDates={31}
+          getDate={handleDateFromPicker}
+        />
+      </View>
     </>
   );
 }
-;
