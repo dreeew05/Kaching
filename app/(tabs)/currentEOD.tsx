@@ -2,7 +2,6 @@ import { SQLResultSet } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-} from '../../components/DatabaseUtils/CoreFunctions';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import CategoryTable from '../../components/Report/CategoryTable';
 import FinancialSummary from '../../components/Report/FinancialSummaryTable';
@@ -158,7 +157,7 @@ export default function currentEOD() {
           <Text className="font-bold text-l content-center">
             Financial Summary
           </Text>
-          <FinancialSummary />
+          <FinancialSummary query={query} time={undefined} />
         </View>
         {/* END FINANCIAL SUMMARY */}
 
