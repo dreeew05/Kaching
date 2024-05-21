@@ -2,7 +2,6 @@ import { SQLResultSet } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-} from '../../components/DatabaseUtils/CoreFunctions';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import CategoryTable from '../../components/Report/CategoryTable';
 import FinancialSummary from '../../components/Report/FinancialSummaryTable';
@@ -15,12 +14,20 @@ interface TableData {
 }
 
 const query: string = `
-    SELECT category.name AS category_name, item.name AS item_name,
+    SELECT 
+    category.name AS category_name, 
+    item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
-    SUM(receipt_items.quantity * receipt_items.price) AS total_sales
+    SUM(receipt_items.quantity * receipt_items.price) AS total_sales,
+    SUM(CASE WHEN receipts.mode_of_payment = 'cash' THEN receipt_items.quantity * receipt_items.price ELSE 0 END) AS total_cash,
+    SUM(CASE WHEN receipts.mode_of_payment = 'online' THEN receipt_items.quantity * receipt_items.price ELSE 0 END) AS total_online
     FROM receipt_items
     JOIN item ON receipt_items.item_id = item.id
     JOIN category ON item.category_id = category.id
+    JOIN receipts ON receipt_items.receipt_id = receipts.receipt_id
+    JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
+    JOIN eods ON eod_receipts.eod_id = eods.eod_id
+    WHERE eods.iscurrent = 1
     GROUP BY category_name, item_name
     ORDER BY category_name, item_name;
   `;
@@ -49,7 +56,7 @@ export default function currentEOD() {
     db.transaction((tx) => {
       tx.executeSql(
         `
-      SELECT * FROM eods e WHERE e.iscurrent = 1`,
+      SELECT * FROM eods e WHERE e.iscurrent = 1;`,
         [],
         (tx, results) => {
           setStoreInfo(results);
@@ -150,7 +157,7 @@ export default function currentEOD() {
           <Text className="font-bold text-l content-center">
             Financial Summary
           </Text>
-          <FinancialSummary />
+          <FinancialSummary query={query} time={undefined} />
         </View>
         {/* END FINANCIAL SUMMARY */}
 

@@ -73,7 +73,7 @@ export default function ReceiptComponent() {
       tx.executeSql(
         `SELECT cashiername, contactnum
                 FROM eods
-                WHERE iscurrent = 1`,
+                WHERE iscurrent = 1;`,
         [],
         (_, result) => {
           if (result.rows.length > 0) {

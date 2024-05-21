@@ -113,7 +113,7 @@ export default function PaymentComponent() {
             (SELECT receipt_id FROM receipts ORDER BY receipt_id
               DESC LIMIT 1
             )
-          )`,
+          );`,
         [],
         (tx, results) => {
           console.log(results.rowsAffected);

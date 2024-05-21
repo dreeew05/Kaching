@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import DatePicker, { getFormatedDate } from 'react-native-modern-datepicker';
+import React, { useEffect, useState } from 'react';
+import DatePicker, {
+  getFormatedDate,
+} from 'react-native-modern-datepicker';
 
 interface CalendarPickerProps {
   onDateFromPicker: (date: Date) => void;
 }
 
-const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDateFromPicker }) => {
+const CalendarPicker: React.FC<CalendarPickerProps> = ({
+  onDateFromPicker,
+}) => {
   const [selectedDate, setSelectedDate] = useState('');
 
   const intoDateObject = (date: string): Date => {
@@ -29,7 +33,10 @@ const CalendarPicker: React.FC<CalendarPickerProps> = ({ onDateFromPicker }) => 
     // Function to send data to the parent
     onDateFromPicker(intoDateObject(selectedDate));
   };
-  sendDataToParent();
+  useEffect(() => {
+    //check();
+    sendDataToParent();
+  }, [selectedDate]);
 
   return (
     <DatePicker
