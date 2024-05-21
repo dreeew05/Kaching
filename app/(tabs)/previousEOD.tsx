@@ -1,7 +1,7 @@
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import PreviousDatesScrollView from '../../components/Report/PreviousDatesGenerator';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import CalendarPicker from '../../components/Report/CalendarPicker';
 import currentEOD from './olderEODSbyDate';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';

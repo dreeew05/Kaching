@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
 import * as FileSystem from 'expo-file-system';
-import * as Sharing from 'expo-sharing';
 import { StorageAccessFramework } from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+import React, { useEffect, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 interface TableData {
   header: string[];
@@ -81,7 +81,7 @@ const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
   }, [data]);
 
   return (
-    <View className="flex-row">
+    <View className="flex-row bg-white">
       <TouchableOpacity
         onPress={shareCSV}
         className="bg-green w-40 h-10 justify-center rounded-full mr-2"

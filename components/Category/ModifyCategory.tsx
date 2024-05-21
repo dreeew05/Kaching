@@ -1,8 +1,8 @@
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Skeleton } from '@rneui/themed';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -82,7 +82,7 @@ export default function ModifyCategory() {
 
   const showImageComponent = () => {
     return (
-      <View className="h-60 w-60 justify-center items-center">
+      <View className="h-60 w-60 justify-center items-center shadow-md shadow-slate-400">
         {isLoading ? loadingImageComponent() : loadedImageComponent()}
       </View>
     );
@@ -251,62 +251,54 @@ export default function ModifyCategory() {
   return (
     <>
       {/* Header [START] */}
-      <View className="bg-white" style={{ marginTop: '7.5%' }}>
+      <View className="bg-white pt-8">
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             marginBottom: 10,
+            width: '100%',
           }}
         >
-          <Link
-            href={{
-              pathname: '/(tabs)/modifyCategoryView',
-            }}
-            asChild
-          >
-            <Pressable className="ml-3" onPress={clearFields}>
-              <Ionicons name="chevron-back" size={30} color="green" />
-            </Pressable>
-          </Link>
-
           <View
             style={{
               flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
             }}
           >
             {param.operation === 'editCategory' ? (
               <Text
-                className="text-center text-xl w-4/5 text-green"
+                className="text-center text-xl text-green"
                 style={{ fontFamily: 'Poppins-Bold' }}
               >
                 Edit Category
               </Text>
             ) : (
               <Text
-                className="text-center text-xl w-4/5 text-green"
+                className="text-center text-xl text-green"
                 style={{ fontFamily: 'Poppins-Bold' }}
               >
                 Add Category
               </Text>
             )}
-          </View>
 
-          {areFieldsValid() ? (
-            <View className="mr-5">
-              <FontAwesome5 name="file" size={22} color="gray" />
-            </View>
-          ) : (
-            <Pressable
-              className="mr-5"
-              onPress={() => setSaveModalVisible(true)}
-            >
-              <FontAwesome5 name="file" size={22} color="orange" />
-            </Pressable>
-          )}
+            {areFieldsValid() ? (
+              <View
+                className="mr-5 mt-0.5"
+                style={{ position: 'absolute', right: 0, top: 0 }}
+              >
+                <FontAwesome5 name="file" size={22} color="gray" />
+              </View>
+            ) : (
+              <Pressable
+                className="mr-5 mt-0.5"
+                style={{ position: 'absolute', right: 0, top: 0 }}
+                onPress={() => setSaveModalVisible(true)}
+              >
+                <FontAwesome5 name="file" size={22} color="orange" />
+              </Pressable>
+            )}
+          </View>
         </View>
       </View>
       {/* Header [END] */}
