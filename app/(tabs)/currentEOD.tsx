@@ -2,6 +2,7 @@ import { SQLResultSet } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+} from '../../components/DatabaseUtils/CoreFunctions';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import CategoryTable from '../../components/Report/CategoryTable';
 import FinancialSummary from '../../components/Report/FinancialSummaryTable';
@@ -12,6 +13,17 @@ interface TableData {
   header: string[];
   tableData: string[][];
 }
+
+const query: string = `
+    SELECT category.name AS category_name, item.name AS item_name,
+    SUM(receipt_items.quantity) AS total_quantity,
+    SUM(receipt_items.quantity * receipt_items.price) AS total_sales
+    FROM receipt_items
+    JOIN item ON receipt_items.item_id = item.id
+    JOIN category ON item.category_id = category.id
+    GROUP BY category_name, item_name
+    ORDER BY category_name, item_name;
+  `;
 
 export default function currentEOD() {
   const [currentEOD, setCurrentEOD] = useState<SQLResultSet | null>(
@@ -28,21 +40,9 @@ export default function currentEOD() {
   const db = getDatabase();
   const fetchCurrentEODData = () => {
     db.transaction((tx) => {
-      tx.executeSql(
-        `SELECT category.name AS category_name, item.name AS item_name,
-    SUM(receipt_items.quantity) AS total_quantity,
-    SUM(receipt_items.quantity * receipt_items.price) AS total_sales
-  FROM receipt_items
-  JOIN item ON receipt_items.item_id = item.id
-  JOIN category ON item.category_id = category.id
-  GROUP BY category_name, item_name
-  ORDER BY category_name, item_name;
-  `,
-        [],
-        (tx, results) => {
-          setCurrentEOD(results);
-        },
-      );
+      tx.executeSql(query, [], (tx, results) => {
+        setCurrentEOD(results);
+      });
     });
   };
   const fetchStoreInfo = () => {
@@ -127,8 +127,8 @@ export default function currentEOD() {
           darkColor="rgba(255,255,255,0.1)"
         />
 
-        <Text className="text-l  text-green">CURRENT DAY REPORT</Text>
-        <Text className="text-l  text-green">
+        <Text className="text-l">CURRENT DAY REPORT</Text>
+        <Text className="text-l">
           {date.toISOString().slice(0, 10) +
             ' ' +
             //add leading zero to hours, minutes, and seconds if less than 10

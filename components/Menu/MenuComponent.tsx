@@ -54,7 +54,7 @@ export default function MenuComponent() {
     // Update the iscurrent column of the eods table to 0
     db.transaction((tx) => {
       tx.executeSql(
-        `UPDATE eods SET iscurrent = 0 WHERE iscurrent = 1`,
+        `UPDATE eods SET iscurrent = 0 WHERE iscurrent = 1;`,
         [],
         (txObj, resultSet) => {
           // console.log('iscurrent column updated to 0.');
@@ -246,7 +246,9 @@ export default function MenuComponent() {
       </View> */}
 
       <View className="p-10 justify-evenly">
-        <CustomPressable text="End Day" onPress={showAlert} />
+        {hasStartDay.isStartDay ? (
+          <CustomPressable text="End Day" onPress={showAlert} />
+        ) : null}
       </View>
     </View>
   );

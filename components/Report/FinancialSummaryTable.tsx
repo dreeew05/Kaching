@@ -4,28 +4,24 @@ import { Table, Rows } from 'react-native-table-component';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { SQLResultSet, SQLiteCallback } from 'expo-sqlite';
 
-const FinancialSummary = () => {
+interface FinancialSummaryProps {
+  query: string;
+  time: any;
+}
+
+const FinancialSummary: React.FC<FinancialSummaryProps> = ({
+  query,
+  time,
+}) => {
   const db = getDatabase();
   const [currentEODData, setCurrentEODData] =
     React.useState<SQLResultSet | null>(null);
 
   const fetchCurrentEODData = () => {
     db.transaction((tx) => {
-      tx.executeSql(
-        `
-      SELECT
-      SUM(CASE WHEN r.mode_of_payment = 'cash' THEN r.total ELSE 0 END) AS total_cash,
-      SUM(CASE WHEN r.mode_of_payment = 'online' THEN r.total ELSE 0 END) AS total_online
-      FROM eod_receipts er
-      JOIN receipts r ON er.receipt_id = r.receipt_id
-      JOIN eods e ON er.eod_id = e.eod_id
-      WHERE e.iscurrent = 1;
-      `,
-        [],
-        (tx, results) => {
-          setCurrentEODData(results);
-        },
-      );
+      tx.executeSql(query, [time], (tx, results) => {
+        setCurrentEODData(results);
+      });
     });
   };
 
@@ -40,24 +36,34 @@ const FinancialSummary = () => {
       'Cash Total',
       '₱ ' +
         `${
-          currentEODData?.rows?._array[0]?.total_cash?.toFixed(2) ?? 0
+          currentEODData?.rows?._array[0]?.total_cash
+            ? currentEODData.rows._array[0].total_cash.toFixed(2)
+            : 0
         }`,
+      ,
     ],
     [
-      'Online Total',
+      'Cash Total',
       '₱ ' +
         `${
-          currentEODData?.rows?._array[0]?.total_online?.toFixed(2) ??
-          0
+          currentEODData?.rows?._array[0]?.total_online
+            ? currentEODData.rows._array[0].total_online.toFixed(2)
+            : 0
         }`,
+      ,
     ],
     [
       'Grand Total',
       '₱ ' +
-        (
-          currentEODData?.rows?._array[0]?.total_cash +
+        `${
+          currentEODData?.rows?._array[0]?.total_cash &&
           currentEODData?.rows?._array[0]?.total_online
-        )?.toFixed(2) ?? 0,
+            ? (
+                currentEODData?.rows?._array[0]?.total_cash +
+                currentEODData?.rows?._array[0]?.total_online
+              ).toFixed(2)
+            : 0
+        }`,
     ],
   ];
 
