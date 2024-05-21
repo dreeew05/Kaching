@@ -50,7 +50,7 @@ const initializeCategoryItemTable = () => {
                 item_id INTEGER NOT NULL,
                 FOREIGN KEY(category_id) REFERENCES category(id),
                 FOREIGN KEY(item_id) REFERENCES item(id)
-            )`,
+            );`,
     );
   });
 };

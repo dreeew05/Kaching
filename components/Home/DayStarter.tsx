@@ -19,7 +19,7 @@ export default function DayStarter() {
   // check if there iscurrent = 1 in eods table and if there is, set hasStartDayData to true
   db.transaction((tx) => {
     tx.executeSql(
-      'SELECT * FROM eods WHERE iscurrent = 1',
+      'SELECT * FROM eods WHERE iscurrent = 1;',
       [],
       (txObj, resultSet) => {
         if (resultSet.rows.length > 0) {
