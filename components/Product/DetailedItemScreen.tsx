@@ -1,16 +1,19 @@
+import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { Text, View, Image, Alert } from 'react-native';
-import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
-import { useDispatch, useSelector } from 'react-redux';
-import { Pressable } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
+import { Switch } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
 import Stepper from '../Common/Stepper';
-import { Link, router, useLocalSearchParams } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { updateData } from '../DatabaseUtils/CoreFunctions';
+import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
+import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { addToCartEvent } from './AddToCartEvent';
 import { AddToCartModals } from './AddToCartModals';
-import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
-import { Switch } from 'react-native-gesture-handler';
-import { updateData } from '../DatabaseUtils/CoreFunctions';
+1;
+
+// import { useSelector } from 'react-redux';
+import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { useSelector } from 'react-redux';
 
 // Unused imports
 // import { RootState } from '../../redux/Store';
@@ -18,6 +21,7 @@ import { updateData } from '../DatabaseUtils/CoreFunctions';
 
 export default function DetailedItemScreen(item: DetailedItemProps) {
   const dispatch = useDispatch();
+  const hasStartDay = useSelector(selectHasStartDay);
 
   // Unused [For searching the item in the cart]
   // const itemState = useSelector((state: RootState) =>
@@ -39,6 +43,8 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
   const [showAddQuantityModal, setShowAddQuantityModal] =
     useState<boolean>(false);
   const [showItemInCartModal, setShowItemInCartModal] =
+    useState<boolean>(false);
+const [showNeedStartDayModal, setShowNeedStartDayModal] =
     useState<boolean>(false);
 
   const updateQuantity = (quantity: number) => {
@@ -72,21 +78,27 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
 
   const addToCart = () => {
     // Reset quantity to 0
-    updateQuantity(0);
+    setQuantity(0);
 
-    addToCartEvent({
-      quantity: quantity,
-      // itemState: itemState,
-      product: item,
-      dispatch: dispatch,
-      showAddModal: setShowAddModal,
-      showAddQuantityModal: setShowAddQuantityModal,
-      showItemInCartModal: setShowItemInCartModal,
-    });
+		console.log(hasStartDay);
+
+    if (hasStartDay.isStartDay) {
+			addToCartEvent({
+                quantity: quantity,
+                // itemState: itemState,
+                product: item,
+                dispatch: dispatch,
+                showAddModal: setShowAddModal,
+                showAddQuantityModal: setShowAddQuantityModal,
+                showItemInCartModal: setShowItemInCartModal,
+			});
+		} else {
+			setShowNeedStartDayModal(true);
+		}
   };
 
   return (
-    <View className="flex-1 h-full relative z-03">
+    <View className="flex-1 h-full relative z-03 bg-white">
       <View className="flex flex-row mb-10">
         <View className="flex flex-row absolute mt-3 right-5 -top-2 items-center justify-center">
           <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 22 }}>
@@ -164,9 +176,11 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
         isAddModal={showAddModal}
         isAddQuantityModal={showAddQuantityModal}
         isItemInCartModal={showItemInCartModal}
+        isNeedStartDayModal={showNeedStartDayModal}
         showAddModal={setShowAddModal}
         showAddQuantityModal={setShowAddQuantityModal}
         showItemInCartModal={setShowItemInCartModal}
+        showNeedStartDayModal={setShowNeedStartDayModal}
       />
     </View>
   );

@@ -3,13 +3,13 @@ import { ScrollView, Text, View } from 'react-native';
 
 export default function privacyPolicy() {
   return (
-    <View className="flex-1 self-stretch bg-white ">
-      <Text className="text-2xl ml-5 font-semibold text-green">
+    <View className="flex-1 self-stretch bg-white">
+      <Text className="text-2xl ml-5 font-semibold text-green py-3">
         Privacy Policy
       </Text>
 
-      <ScrollView className="p-5">
-        <Text className=" text-lg font-normal text-justify text-darkgreen">
+      <ScrollView className="px-5">
+        <Text className=" text-base font-normal text-justify text-darkgreen">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
           do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Adipiscing tristique risus nec feugiat. Dignissim

@@ -1,16 +1,13 @@
-import { Alert, StyleSheet } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import FinancialSummary from '../../components/Report/FinancialSummaryTable';
-import ShareCSV from '../../components/Report/ShareCSV';
-import CategoryTable from '../../components/Report/CategoryTable';
+import { SQLResultSet } from 'expo-sqlite';
+import { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  insertData,
-  selectData,
 } from '../../components/DatabaseUtils/CoreFunctions';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
-import { useEffect, useState } from 'react';
-import { SQLResultSet } from 'expo-sqlite';
+import CategoryTable from '../../components/Report/CategoryTable';
+import FinancialSummary from '../../components/Report/FinancialSummaryTable';
+import ShareCSV from '../../components/Report/ShareCSV';
+import { Text, View } from '../../components/Themed';
 
 interface TableData {
   header: string[];
@@ -116,18 +113,21 @@ export default function currentEOD() {
 
   return (
     <ScrollView
+      className="bg-white"
       contentContainerStyle={{
         flexGrow: 1,
         justifyContent: 'center',
       }}
     >
-      <View style={styles.container}>
+      <View className="bg-white" style={styles.container}>
         <Text className="font-bold text-xl text-green">
           {storeInfo2?.rows._array[0].storename}
         </Text>
-        <Text className="text-m">Miagao, Iloilo</Text>
-        {/* <Text className="text-m">{storeInfo?.rows._array[0].cashiername}</Text> */}
-        <Text className="text-m">09133287645</Text>
+        <Text className="text-m text-green">Miagao, Iloilo</Text>
+        <Text className="text-m text-green">
+          {storeInfo?.rows._array[0].cashiername}
+        </Text>
+        <Text className="text-m text-green">09133287645</Text>
 
         <View
           style={styles.separator}
@@ -154,16 +154,16 @@ export default function currentEOD() {
         />
 
         {/* START FINANCIAL SUMMARY */}
-        <View>
+        <View className="bg-white">
           <Text className="font-bold text-l content-center">
             Financial Summary
           </Text>
-          <FinancialSummary query={query} time={undefined} />
+          <FinancialSummary />
         </View>
         {/* END FINANCIAL SUMMARY */}
 
         {/* START ORDER SUMMARY */}
-        <View>
+        <View className="bg-white">
           <Text className="font-bold text-l content-center mt-2">
             Order Summary
           </Text>

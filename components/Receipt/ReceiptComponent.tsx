@@ -95,7 +95,7 @@ export default function ReceiptComponent() {
           <Text className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-7 font-semibold text-yellow self-center">
             Transaction Recorded!
           </Text>
-          <Text className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-3xl mt-5 font-semibold text-green">
+          <Text className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mt-5 font-semibold text-green">
             Store Name
           </Text>
         </View>
@@ -158,8 +158,9 @@ export default function ReceiptComponent() {
         </View>
       </ScrollView>
 
-      <View className="flex-row justify-between p-4 border-spacing-3 border border-white border-t-gray"></View>
-      <CustomPressable text="Done" onPress={viewIndex} />
+      <View className="py-3">
+        <CustomPressable text="Done" onPress={viewIndex} />
+      </View>
     </View>
   );
 }

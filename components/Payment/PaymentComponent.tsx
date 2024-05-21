@@ -240,7 +240,7 @@ export default function PaymentComponent() {
             />
           </View>
         </View>
-        <View className="flex-1 justify-end">
+        <View className="flex-1 justify-end py-5">
           <CustomPressable
             text="Confirm Payment"
             onPress={showModal}
@@ -272,7 +272,7 @@ export default function PaymentComponent() {
 
       <PopUpModal
         visible={invalidPopup}
-        message="Invalid Action"
+        message="Enter a valid amount."
         text="Done"
         link={null}
         id={0}

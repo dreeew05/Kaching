@@ -3,14 +3,13 @@ import { Link, useRouter } from 'expo-router';
 import { SQLResultSet } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import CustomPressable from '../Common/CustomPressable';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomAlert from '../Modals/CustomAlert';
 import MenuHelpTutorial from './MenuHelpTutorial';
-import { useSelector } from 'react-redux';
 
 export default function MenuComponent() {
   const [alertVisible, setAlertVisible] = useState(false);
