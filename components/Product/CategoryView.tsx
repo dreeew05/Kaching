@@ -88,8 +88,8 @@ export default function CategoryView() {
         `SELECT item.id, item.name, item.price, item.image,
         category.name AS 'category'
         FROM item
-        LEFT JOIN category ON item.category_id = category.id
-        WHERE category.id = ? AND item.is_available = 1
+        INNER JOIN category ON item.category_id = category.id
+        WHERE category.id = ? AND item.is_available = 1 AND item.deleted = 0
         ORDER BY item.name ASC`,
         [categoryID],
       );
@@ -108,8 +108,8 @@ export default function CategoryView() {
         `SELECT item.id, item.name, item.price, item.image,
         category.name AS 'category'
         FROM item
-        LEFT JOIN category ON item.category_id = category.id
-        WHERE category.id = ? AND item.is_available = 0
+        INNER JOIN category ON item.category_id = category.id
+        WHERE category.id = ? AND item.is_available = 0 AND item.deleted = 0
         ORDER BY item.name ASC`,
         [categoryID],
       );

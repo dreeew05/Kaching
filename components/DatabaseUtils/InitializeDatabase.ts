@@ -21,6 +21,7 @@ const initializeCategoryTable = () => {
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 image TEXT
+                deleted INTEGER NOT NULL DEFAULT 0
             )`,
     );
   });
@@ -37,6 +38,7 @@ const initializeItemTable = () => {
                 category_id INTEGER NOT NULL,
                 description TEXT,
                 is_available INTEGER NOT NULL DEFAULT 1
+                deleted INTEGER NOT NULL DEFAULT 0
             )`,
     );
   });
