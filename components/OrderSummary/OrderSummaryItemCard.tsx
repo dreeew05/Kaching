@@ -28,6 +28,7 @@ export default function OrderSummaryItemCard(
 
       <View className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 ">
         <Text
+          adjustsFontSizeToFit
           className="text-base text-gray text-center"
           numberOfLines={1} // limit the number of lines to 1
           ellipsizeMode="tail" // add ellipsis at the end of the truncated text
@@ -37,13 +38,17 @@ export default function OrderSummaryItemCard(
       </View>
 
       <View className="w-1/12 sm:w-1/12 md:w-1/6 lg:w-1/6">
-        <Text className="text-base text-gray text-center">
+        <Text
+          adjustsFontSizeToFit
+          className="text-base text-gray text-center"
+        >
           {item.quantity}
         </Text>
       </View>
 
       <View className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 mr-3">
         <Text
+          adjustsFontSizeToFit
           className="text-base font-medium text-gray text-center"
           numberOfLines={1} // limit the number of lines to 1
           ellipsizeMode="tail" // add ellipsis at the end of the truncated text
