@@ -23,6 +23,9 @@ import {
   selectData,
   softDeleteData,
 } from '../DatabaseUtils/CoreFunctions';
+import {
+  removeFromCart,
+} from '../../redux/CartRedux/CartSlice';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
 import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
@@ -120,15 +123,18 @@ export default function CategoryView() {
   };
 
   const deleteAllProducts = () => {
-    // Delete Items from database
+    // soft delete Items from database
     // Reset checkedItems
+
     setDeleteModalVisible(false);
+    
     if (checkedItems.length > 0) {
       const tableName: string = 'item';
       const refAttribute: string = 'id';
 
       checkedItems.forEach((id) => {
         softDeleteData(tableName, refAttribute, id).then((_) => {});
+        dispatch(removeFromCart(id));
       });
 
       setCheckedItems([]);
