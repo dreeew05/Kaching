@@ -54,9 +54,11 @@ export default function ItemClickable(item: ItemClickableProps) {
         </TouchableOpacity>
       </Link>
 
-      <View className="flex flex-column ml-5">
+      <View className="flex-1 flex-column ml-5 ">
         <Text
-          className="text-lg font-semibold"
+          // adjustsFontSizeToFit
+          numberOfLines={2}
+          className="text-lg font-semibold overflow-ellipsis"
           style={{ fontFamily: 'Poppins-Medium' }}
         >
           {item.name}
@@ -70,7 +72,7 @@ export default function ItemClickable(item: ItemClickableProps) {
       </View>
 
       {!item.isEditComponent ? (
-        <View className="absolute -top-1 -right-1">
+        <View className="">
           <CheckBox
             checked={isNotChecked}
             onPress={() => toggleCheckBox()}
@@ -81,6 +83,7 @@ export default function ItemClickable(item: ItemClickableProps) {
             checkedColor="grey"
             containerStyle={{
               backgroundColor: 'transparent',
+              padding: 0,
               marginRight: -5,
               marginTop: -5,
             }}
