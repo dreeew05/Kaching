@@ -9,7 +9,10 @@ import {
   Image,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import { selectStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import {
+  selectHasStartDay,
+  selectStoreNameAction,
+} from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 
@@ -67,6 +70,8 @@ export default function StoreInformationGenerator() {
     ];
     return monthNames[month];
   };
+
+  const hasStartDay = useSelector(selectHasStartDay);
 
   return (
     <View>
@@ -173,7 +178,10 @@ export default function StoreInformationGenerator() {
                   onPress={() =>
                     goToNextModal(
                       setEditNameModalVisible,
-                      setStartDayModalVisible,
+                      // setStartDayModalVisible,
+                      hasStartDay.isStartDay
+                        ? setEditCategoryModalVisible
+                        : setStartDayModalVisible,
                     )
                   }
                 >
@@ -210,7 +218,7 @@ export default function StoreInformationGenerator() {
           }}
           onPress={() => setStartDayModalVisible(false)}
         >
-          <View className="top-[100]">
+          <View className="top-[90]">
             <View className="bg-white ml-3 rounded-md w-[160] pl-2 py-3">
               <View className="flex-row">
                 <View
@@ -294,7 +302,11 @@ export default function StoreInformationGenerator() {
           }}
           onPress={() => setEditCategoryModalVisible(false)}
         >
-          <View className="top-[170]">
+          <View
+            className={
+              hasStartDay.isStartDay ? 'top-[215]' : 'top-[155]'
+            }
+          >
             <View className="bg-white ml-3 rounded-md w-[250] pl-[7] py-2">
               <View className="flex flex-row">
                 <Text
@@ -375,7 +387,11 @@ export default function StoreInformationGenerator() {
           }}
           onPress={() => setClickCategoryModalVisible(false)}
         >
-          <View className="top-[205]">
+          <View
+            className={
+              hasStartDay.isStartDay ? 'top-[247]' : 'top-[187]'
+            }
+          >
             <View className="bg-white ml-2 rounded-md w-[200] pl-[7] py-2">
               <View className="bg-white shadow-md shadow-slate-600 m-2 p-2">
                 <View className="h-40">
@@ -428,7 +444,7 @@ export default function StoreInformationGenerator() {
                       color: 'white',
                     }}
                   >
-                    Continue
+                    Okay
                   </Text>
                 </Pressable>
               </View>

@@ -1,4 +1,5 @@
 import { Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { useMemo } from 'react';
 import {
   Modal,
   TouchableOpacity,
@@ -14,7 +15,7 @@ export interface MenuTutorialModalProps {
   title: string;
   content: string;
   onNextMessage: string;
-  position: number;
+  hasStartDay: boolean;
 }
 
 const MenuTutorialModalTop: React.FC<MenuTutorialModalProps> = ({
@@ -24,7 +25,7 @@ const MenuTutorialModalTop: React.FC<MenuTutorialModalProps> = ({
   title,
   content,
   onNextMessage,
-  position,
+  hasStartDay,
 }) => {
   const goToNextModal = () => {
     onRequestClose(false);
@@ -33,9 +34,25 @@ const MenuTutorialModalTop: React.FC<MenuTutorialModalProps> = ({
     }
   };
 
-  const getTopPosition = () => {
-    return `top-[${position}]`;
-  };
+  const getTopPosition = useMemo(() => {
+    console.log(hasStartDay);
+    // Tanginang bobo ng React Native, hindi gumagana yung dynamic class name
+    // Depota i brute forece ko na lang
+    switch (title) {
+      case 'View Current EOD':
+        return { top: 'top-[264]' };
+      case 'View Previous EOD':
+        return hasStartDay
+          ? { top: 'top-[346]' }
+          : { top: 'top-[290]' };
+      case 'Terms of Service':
+        return hasStartDay
+          ? { top: 'top-[425]' }
+          : { top: 'top-[396]' };
+      default:
+        return { top: 'top-[50]' };
+    }
+  }, [title, hasStartDay]);
 
   return (
     <Modal
@@ -54,8 +71,8 @@ const MenuTutorialModalTop: React.FC<MenuTutorialModalProps> = ({
         }}
         onPress={() => onRequestClose(false)}
       >
-        <View className={getTopPosition()}>
-          <View className="bg-white ml-3 mr-3 rounded-md pl-3 py-3">
+        <View className={getTopPosition.top}>
+          <View className="bg-white ml-3 mr-3 rounded-md pl-[10] py-3">
             <View className="bg-transparent w-5/6 self-center flex-row justify-between items-center">
               <Text className="text-green text-xl font-bold">
                 {title}

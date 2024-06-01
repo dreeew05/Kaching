@@ -4,6 +4,7 @@ import { SQLResultSet } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import {
   Alert,
+  Modal,
   Pressable,
   Text,
   TouchableOpacity,
@@ -31,18 +32,26 @@ export default function MenuComponent() {
   const dispatch = useDispatch();
 
   const fetchCurrentEODData = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        `SELECT SUM(receipt_items.quantity * receipt_items.price) AS total_sales
+    db.transaction(
+      (tx: {
+        executeSql: (
+          arg0: string,
+          arg1: never[],
+          arg2: (tx: any, results: any) => void,
+        ) => void;
+      }) => {
+        tx.executeSql(
+          `SELECT SUM(receipt_items.quantity * receipt_items.price) AS total_sales
         FROM receipt_items
         JOIN item ON receipt_items.item_id = item.id
         JOIN category ON item.category_id = category.id`,
-        [],
-        (tx, results) => {
-          setCurrentEOD(results);
-        },
-      );
-    });
+          [],
+          (tx: any, results: any) => {
+            setCurrentEOD(results);
+          },
+        );
+      },
+    );
   };
 
   const handleShowAlert = () => {
@@ -59,26 +68,34 @@ export default function MenuComponent() {
     // Handle the confirmation logic here
     setAlertVisible(false);
     // Update the iscurrent column of the eods table to 0
-    db.transaction((tx) => {
-      tx.executeSql(
-        `UPDATE eods SET iscurrent = 0 WHERE iscurrent = 1;`,
-        [],
-        (txObj, resultSet) => {
-          // console.log('iscurrent column updated to 0.');
-          dispatch(
-            setHasStartDay({
-              isStartDay: false,
-              isDisable: true,
-            }),
-          );
-          console.log(resultSet);
-        },
-        // (txObj, error) => {
-        // console.log('Error updating iscurrent column.');
-        // console.log(error);
-        // }
-      );
-    });
+    db.transaction(
+      (tx: {
+        executeSql: (
+          arg0: string,
+          arg1: never[],
+          arg2: (txObj: any, resultSet: any) => void,
+        ) => void;
+      }) => {
+        tx.executeSql(
+          `UPDATE eods SET iscurrent = 0 WHERE iscurrent = 1;`,
+          [],
+          (txObj: any, resultSet: any) => {
+            // console.log('iscurrent column updated to 0.');
+            dispatch(
+              setHasStartDay({
+                isStartDay: false,
+                isDisable: true,
+              }),
+            );
+            console.log(resultSet);
+          },
+          // (txObj, error) => {
+          // console.log('Error updating iscurrent column.');
+          // console.log(error);
+          // }
+        );
+      },
+    );
     goToPahuwayBanner();
   };
 
@@ -300,7 +317,8 @@ export default function MenuComponent() {
         title="View Current EOD"
         content={'Tap to view the current End of Day report.'}
         onNextMessage={'Continue'}
-        position={275}
+        hasStartDay={hasStartDay.isStartDay}
+        // position={300}
       />
 
       <MenuTutorialModalTop
@@ -312,7 +330,7 @@ export default function MenuComponent() {
           'See a detailed breakdown of your sales for a specific day within the last 30 days.'
         }
         onNextMessage={'Continue'}
-        position={getTopPositions().previousEOD}
+        hasStartDay={hasStartDay.isStartDay}
       />
 
       <MenuTutorialModalTop
@@ -324,20 +342,90 @@ export default function MenuComponent() {
           'See the legal terms and conditions governing your use of the Kaching app.'
         }
         onNextMessage={'Continue'}
-        position={getTopPositions().tos}
+        hasStartDay={hasStartDay.isStartDay}
       />
 
       <MenuTutorialModalBottom
         isVisible={policyModalVisible}
         onRequestClose={setPolicyModalVisible}
         onNext={setFaqModalVisible}
-        title="Terms of Service"
+        title="Privacy Policy"
         content={
-          'See the legal terms and conditions governing your use of the Kaching app.'
+          'Display information on how the Kaching app collects, uses, and protects your user data.'
         }
         onNextMessage={'Continue'}
-        position={200}
+        hasStartDay={hasStartDay.isStartDay}
       />
+
+      <MenuTutorialModalBottom
+        isVisible={faqModalVisible}
+        onRequestClose={setFaqModalVisible}
+        onNext={hasStartDay.isStartDay ? setEndDayModalVisible : null}
+        title="FAQs"
+        content={'Get answers to frequently asked questions.'}
+        onNextMessage={hasStartDay.isStartDay ? 'Continue' : 'Okay'}
+        hasStartDay={hasStartDay.isStartDay}
+      />
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={endDayModalVisible}
+        onRequestClose={() => {
+          setEndDayModalVisible(false);
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            height: '100%',
+            width: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.32)',
+          }}
+          onPress={() => setEndDayModalVisible(false)}
+        >
+          <View className="bottom-[77] flex-1 justify-end">
+            <View className="ml-3 mr-3">
+              <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 ">
+                <Text
+                  className="text-black"
+                  style={{
+                    fontFamily: 'Poppins-Regular',
+                  }}
+                >
+                  End current business day, finalizing sales data and
+                  preparing the app for the next business day.
+                </Text>
+              </View>
+              <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
+                <Pressable
+                  onPress={() => setEndDayModalVisible(false)}
+                >
+                  <Text
+                    className="text-black"
+                    style={{
+                      fontFamily: 'Poppins-Regular',
+                      color: 'white',
+                    }}
+                  >
+                    Okay
+                  </Text>
+                </Pressable>
+              </View>
+              <View className="align-center items-center mt-[-13]">
+                <Entypo
+                  name={'triangle-down'}
+                  size={40}
+                  color="white"
+                />
+              </View>
+            </View>
+
+            <View className="bg-white ml-3 mr-3 rounded-md py-3">
+              <CustomPressable text="End Day" onPress={showAlert} />
+            </View>
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </View>
   );
 }

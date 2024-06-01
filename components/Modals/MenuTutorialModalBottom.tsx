@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { MenuTutorialModalProps } from './MenuTutorialModalTop';
 import { Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { useMemo } from 'react';
 
 const MenuTutorialModalBottom: React.FC<MenuTutorialModalProps> = ({
   isVisible,
@@ -15,7 +16,7 @@ const MenuTutorialModalBottom: React.FC<MenuTutorialModalProps> = ({
   title,
   content,
   onNextMessage,
-  position,
+  hasStartDay,
 }) => {
   const goToNextModal = () => {
     onRequestClose(false);
@@ -24,10 +25,21 @@ const MenuTutorialModalBottom: React.FC<MenuTutorialModalProps> = ({
     }
   };
 
-  const getBottomPosition = () => {
-    // return `flex-1 justify-end bottom-[${position}]`;
-    return 'flex-1 justify-end';
-  };
+  const getBottomPosition = useMemo(() => {
+    // Brute forced bobo kasi ng React Native
+    switch (title) {
+      case 'Privacy Policy':
+        return hasStartDay
+          ? { bottom: 'bottom-[285]' }
+          : { bottom: 'bottom-[288]' };
+      case 'FAQs':
+        return hasStartDay
+          ? { bottom: 'bottom-[202]' }
+          : { bottom: 'bottom-[183]' };
+      default:
+        return { bottom: 'bottom-[20]' };
+    }
+  }, [title, hasStartDay]);
   return (
     <Modal
       animationType="fade"
@@ -45,7 +57,9 @@ const MenuTutorialModalBottom: React.FC<MenuTutorialModalProps> = ({
         }}
         onPress={() => onRequestClose(false)}
       >
-        <View className={getBottomPosition()}>
+        <View
+          className={getBottomPosition.bottom + ' flex-1 justify-end'}
+        >
           <View className="ml-3 mr-3">
             <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 ">
               <Text
