@@ -11,21 +11,19 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../redux/CartRedux/CartSlice';
+import {
+  addToCart,
+  removeFromCart,
+} from '../../redux/CartRedux/CartSlice';
 import {
   selectIsCategoryViewLoading,
-  selectIsEditComponent,
   selectProductModifiedActions,
 } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import { setIsCategoryViewProductLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import {
-  deleteData,
   selectData,
   softDeleteData,
 } from '../DatabaseUtils/CoreFunctions';
-import {
-  removeFromCart,
-} from '../../redux/CartRedux/CartSlice';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
 import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
@@ -127,7 +125,7 @@ export default function CategoryView() {
     // Reset checkedItems
 
     setDeleteModalVisible(false);
-    
+
     if (checkedItems.length > 0) {
       const tableName: string = 'item';
       const refAttribute: string = 'id';
@@ -229,6 +227,16 @@ export default function CategoryView() {
                 />
               );
             })}
+            {/* Divider */}
+            {outOfStockProducts.length > 0 && products.length > 0 && (
+              <View
+                style={{
+                  borderTopWidth: 4,
+                  borderTopColor: 'lightgray',
+                  marginVertical: 10,
+                }}
+              />
+            )}
             {outOfStockProducts.length > 0 ? (
               <>
                 <View className="items-center mb-3">
