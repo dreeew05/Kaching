@@ -20,8 +20,8 @@ const initializeCategoryTable = () => {
       `CREATE TABLE IF NOT EXISTS category(
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
-                image TEXT
-                deleted INTEGER NOT NULL DEFAULT 0
+                image TEXT,
+                is_deleted INTEGER NOT NULL DEFAULT 0
             )`,
     );
   });
@@ -37,8 +37,8 @@ const initializeItemTable = () => {
                 image TEXT NOT NULL,
                 category_id INTEGER NOT NULL,
                 description TEXT,
-                is_available INTEGER NOT NULL DEFAULT 1
-                deleted INTEGER NOT NULL DEFAULT 0
+                is_available INTEGER NOT NULL DEFAULT 1,
+                is_deleted INTEGER NOT NULL DEFAULT 0
             )`,
     );
   });
