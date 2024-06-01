@@ -1,10 +1,10 @@
 import { CheckBox } from '@rneui/base';
 import { Link } from 'expo-router';
 import { useState } from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { setIsDetailedViewLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import { useDispatch } from 'react-redux';
+import { setIsDetailedViewLoading } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 
 interface ItemClickableProps {
   id: number;
@@ -65,7 +65,7 @@ export default function ItemClickable(item: ItemClickableProps) {
           className="text-gray-500"
           style={{ fontFamily: 'Poppins-Regular' }}
         >
-          P{item.price}
+          ₱{item.price}
         </Text>
       </View>
 
