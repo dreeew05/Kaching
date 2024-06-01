@@ -18,7 +18,10 @@ export const selectAllCategories = () => {
     const readOnly = true;
     await db.transactionAsync(async (tx) => {
       const result = await tx.executeSqlAsync(
-        `SELECT * FROM category ORDER BY name`,
+            `SELECT * 
+            FROM category 
+            WHERE is_deleted = 0
+            ORDER BY name`,
       );
       setCategoryData(result.rows as CategoryProps[]);
     }, readOnly);
