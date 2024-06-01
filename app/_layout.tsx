@@ -88,11 +88,11 @@ export default function RootLayout() {
       () => {
         setKeyboardVisible(true);
         // Set padding to accommodate keyboard
-        setContainerPaddingBottom(100);
+        setContainerPaddingBottom(250);
         // Hide image with transition when keyboard shows
         Animated.timing(opacity, {
           toValue: 0,
-          duration: 200,
+          duration: 300,
           useNativeDriver: true,
         }).start();
       },
@@ -254,72 +254,81 @@ interface OnboardingScreenProps {
 
 function OnboardingScreen(onboardingProps: OnboardingScreenProps) {
   return (
-    <View className="flex-1 justify-center flex-start items-center bg-white">
-      <Animated.Image
-        source={onboardingProps.image}
+    <View className="flex-1 ">
+      <View
         style={{
-          resizeMode: 'contain',
-          opacity: onboardingProps.opacity, // Set opacity based on Animated value
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingBottom: onboardingProps.containerPaddingBottom,
         }}
-        className="center w-96 h-96"
-      />
+      >
+        <Animated.Image
+          source={onboardingProps.image}
+          style={{
+            resizeMode: 'contain',
+            opacity: onboardingProps.opacity, // Set opacity based on Animated value
+          }}
+          className="center w-96 h-96"
+        />
 
-      {onboardingProps.isLastPage ? (
-        <View className="items-center">
-          <View className="ml-8 mr-8">
-            <Text className="text-lg text-gray font-semibold mb-1 mt-3">
-              Store Name:{' '}
-            </Text>
-            <View className="border-b-gray border-b-2 opacity-50">
-              <TextInput
-                className="text-lg text-black font-medium mb-1"
-                multiline={true}
-                numberOfLines={2}
-                value={onboardingProps.storeName}
-                onChangeText={onboardingProps.setStoreName}
-                placeholder="Enter Store Name"
-              />
-            </View>
+        {onboardingProps.isLastPage ? (
+          <View className="items-center">
+            <View className="ml-8 mr-8">
+              <Text className="text-lg text-gray font-semibold mb-1 mt-3">
+                Store Name:{' '}
+              </Text>
+              <View className="border-b-gray border-b-2 opacity-50">
+                <TextInput
+                  className="text-lg text-black font-medium mb-1"
+                  multiline={true}
+                  numberOfLines={2}
+                  value={onboardingProps.storeName}
+                  onChangeText={onboardingProps.setStoreName}
+                  placeholder="Enter Store Name"
+                />
+              </View>
 
-            <TouchableHighlight
-              className={`w-64 self-center rounded-full p-3 mb-5 ${
-                onboardingProps.storeName.trim() === ''
-                  ? 'bg-gray'
-                  : 'bg-green'
-              } mt-6`}
-              onPress={onboardingProps.onConfirm}
-              disabled={onboardingProps.storeName.trim() === ''} // Disable button if store name is empty
-              underlayColor={'#789c8c'} // Change the underlay color when clicked
-            >
-              <Text
-                className={`text-white text-xl font-bold self-center`}
+              <TouchableHighlight
+                className={`w-64 self-center rounded-full p-3 mb-5 ${
+                  onboardingProps.storeName.trim() === ''
+                    ? 'bg-gray'
+                    : 'bg-green'
+                } mt-6`}
+                onPress={onboardingProps.onConfirm}
+                disabled={onboardingProps.storeName.trim() === ''} // Disable button if store name is empty
+                underlayColor={'#789c8c'} // Change the underlay color when clicked
               >
-                Confirm
+                <Text
+                  className={`text-white text-xl font-bold self-center`}
+                >
+                  Confirm
+                </Text>
+              </TouchableHighlight>
+              <Text className={`text-gray mt-5 mb-1 self-center`}>
+                By clicking confirm, you agree to our
               </Text>
-            </TouchableHighlight>
-            <Text className={`text-gray mt-5 mb-1 self-center`}>
-              By clicking confirm, you agree to our
-            </Text>
-            <Pressable onPress={onboardingProps.onTermsPress}>
-              <Text className={`text-yellow self-center`}>
-                Show Terms and Conditions
-              </Text>
-            </Pressable>
+              <Pressable onPress={onboardingProps.onTermsPress}>
+                <Text className={`text-yellow self-center`}>
+                  Show Terms and Conditions
+                </Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
-      ) : (
-        <TouchableHighlight
-          className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green mt-10`}
-          onPress={onboardingProps.onComplete}
-          underlayColor={'#789c8c'} // Change the underlay color when clicked
-        >
-          <Text
-            className={`text-white text-xl font-bold self-center `}
+        ) : (
+          <TouchableHighlight
+            className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green mt-10`}
+            onPress={onboardingProps.onComplete}
+            underlayColor={'#789c8c'} // Change the underlay color when clicked
           >
-            Next
-          </Text>
-        </TouchableHighlight>
-      )}
+            <Text
+              className={`text-white text-xl font-bold self-center `}
+            >
+              Next
+            </Text>
+          </TouchableHighlight>
+        )}
+      </View>
     </View>
   );
 }
