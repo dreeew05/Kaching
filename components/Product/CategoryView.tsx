@@ -21,6 +21,7 @@ import { setIsCategoryViewProductLoading } from '../../redux/GlobalStateRedux/Gl
 import {
   deleteData,
   selectData,
+  softDeleteData,
 } from '../DatabaseUtils/CoreFunctions';
 import CustomModal from '../Modals/CustomModal';
 import { PopUpModal } from '../Modals/PopUpModal';
@@ -127,7 +128,7 @@ export default function CategoryView() {
       const refAttribute: string = 'id';
 
       checkedItems.forEach((id) => {
-        deleteData(tableName, refAttribute, id).then((_) => {});
+        softDeleteData(tableName, refAttribute, id).then((_) => {});
       });
 
       setCheckedItems([]);
