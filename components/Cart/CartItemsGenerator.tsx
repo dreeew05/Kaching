@@ -15,7 +15,7 @@ import CartItemList from './CartItemList';
 
 export default function CartItemsGenerator() {
   const cartState = useSelector(selectCart);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   const [removeModalVisible, setRemoveModalVisible] = useState(false);
 
