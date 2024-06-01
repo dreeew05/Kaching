@@ -119,7 +119,7 @@ export default function HelpModal(item: HelpModalProps) {
       animationType="fade"
       transparent={true}
       visible={item.isVisible}
-      onRequestClose={() => item.setVisible(false)}
+      // onRequestClose={() => item.setVisible(false)}
     >
       <TouchableOpacity
         style={{

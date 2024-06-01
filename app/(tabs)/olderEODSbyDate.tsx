@@ -115,6 +115,7 @@ export default function currentEOD() {
 
   useEffect(() => {
     //check();
+    console.log(currentEOD);
     fetchCurrentEODData();
   }, [datePicked]);
 

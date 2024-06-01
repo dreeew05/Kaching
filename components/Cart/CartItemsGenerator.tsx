@@ -1,23 +1,44 @@
 import { useState } from 'react';
 import {
   Image,
+  Modal,
+  Pressable,
   ScrollView,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
 import CustomModal from '../Modals/CustomModal';
-import CartHelpTutorial from './CartHelpTutorial';
 import CartItemList from './CartItemList';
+import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 
 export default function CartItemsGenerator() {
   const cartState = useSelector(selectCart);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const [removeModalVisible, setRemoveModalVisible] = useState(false);
+  const [removeAllModalVisible, setRemoveAllModalVisible] =
+    useState(false);
+  const [deleteItemModalVisible, setDeleteItemModalVisible] =
+    useState(false);
+  const [quantityModalVisible, setQuantityModalVisible] =
+    useState(false);
+  const [checkoutModalVisible, setCheckoutModalVisible] =
+    useState(false);
+
+  const goToNextModal = (
+    currentModalState: (isVisible: boolean) => void,
+    nextModalState: ((isVisible: boolean) => void) | null,
+  ) => {
+    currentModalState(false);
+    if (nextModalState) {
+      nextModalState(true);
+    }
+  };
 
   const isCartEmpty = () => {
     if (cartState.cart.length == 0) {
@@ -64,7 +85,16 @@ export default function CartItemsGenerator() {
               Cart
             </Text>
 
-            <CartHelpTutorial />
+            <TouchableOpacity
+              className="ml-5 bg-white"
+              onPress={() => setRemoveAllModalVisible(true)}
+            >
+              <Entypo
+                name="help-with-circle"
+                size={35}
+                color="#18573a"
+              />
+            </TouchableOpacity>
           </View>
 
           <TouchableHighlight
@@ -93,6 +123,300 @@ export default function CartItemsGenerator() {
             closeModal={() => setRemoveModalVisible(false)}
           />
         </ScrollView>
+
+        {/* Brute-force [Shit Approach] WAG TULARAN!!! */}
+        {/* MODALS */}
+        {/* Change Name */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={removeAllModalVisible}
+          onRequestClose={() => {
+            setRemoveAllModalVisible(false);
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              height: '100%',
+              width: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.32)',
+            }}
+            onPress={() => setRemoveAllModalVisible(false)}
+          >
+            <View className="top-[30] flex-row justify-end">
+              <View>
+                <View className="bg-white ml-3 rounded-md w-[145]">
+                  <View className="flex-row justify-end mr-3 py-2">
+                    <View className="rounded-full bg-red-500 py-3 px-5">
+                      <Text className="text-white text-base font-bold self-center ">
+                        Remove All
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+
+                <View className="ml-3 mr-3 w-[145]">
+                  <View className="flex-row justify-end">
+                    <Entypo
+                      name={'triangle-up'}
+                      size={40}
+                      color="white"
+                    />
+                  </View>
+                  <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 mt-[-15]">
+                    <Text
+                      className="text-black"
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                      }}
+                    >
+                      Clear all items from the cart.
+                    </Text>
+                  </View>
+                  <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
+                    <Pressable
+                      onPress={() =>
+                        goToNextModal(
+                          setRemoveAllModalVisible,
+                          setDeleteItemModalVisible,
+                        )
+                      }
+                    >
+                      <Text
+                        className="text-black"
+                        style={{
+                          fontFamily: 'Poppins-Regular',
+                          color: 'white',
+                        }}
+                      >
+                        Continue
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+
+        {/* Remove Item */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={deleteItemModalVisible}
+          onRequestClose={() => {
+            setDeleteItemModalVisible(false);
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              height: '100%',
+              width: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.32)',
+            }}
+            onPress={() => setDeleteItemModalVisible(false)}
+          >
+            <View className="flex-row justify-end ml-5 mr-3 top-[105]">
+              <View>
+                <View className="flex-row justify-end">
+                  <View className="flex-col">
+                    <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 mt-[-15]">
+                      <Text
+                        className="text-black"
+                        style={{
+                          fontFamily: 'Poppins-Regular',
+                        }}
+                      >
+                        Clear all items from the cart.
+                      </Text>
+                    </View>
+                    <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
+                      <Pressable
+                        onPress={() =>
+                          goToNextModal(
+                            setDeleteItemModalVisible,
+                            setQuantityModalVisible,
+                          )
+                        }
+                      >
+                        <Text
+                          className="text-black"
+                          style={{
+                            fontFamily: 'Poppins-Regular',
+                            color: 'white',
+                          }}
+                        >
+                          Continue
+                        </Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                  <View className="ml-[-15]">
+                    <Entypo
+                      name={'triangle-right'}
+                      size={40}
+                      color="white"
+                    />
+                  </View>
+                </View>
+              </View>
+              <View className="bg-white ml-1 rounded-md flex-row justify-end pr-3 pl-3 py-3 h-[50]">
+                <FontAwesome5
+                  name="trash"
+                  size={20}
+                  color="red"
+                  // set color opacity
+                  style={{ opacity: 0.7 }}
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+
+        {/* Quantity */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={quantityModalVisible}
+          onRequestClose={() => {
+            setQuantityModalVisible(false);
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              height: '100%',
+              width: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.32)',
+            }}
+            onPress={() => setQuantityModalVisible(false)}
+          >
+            <View className="top-[200] right-[50] flex-row justify-end">
+              <View className="w-[200]">
+                <View className="flex-row justify-center bg-white ml-3 mr-3 rounded-md px-2 h-[80]">
+                  <Image
+                    source={require('../../assets/icons/Stepper.png')}
+                    resizeMode="contain"
+                    className="w-full h-full rounded-t-md"
+                  />
+                </View>
+
+                <View className="ml-3 mr-3">
+                  <View>
+                    <Entypo
+                      name={'triangle-up'}
+                      size={40}
+                      color="white"
+                    />
+                  </View>
+                  <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 mt-[-15]">
+                    <Text
+                      className="text-black"
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                      }}
+                    >
+                      Adjust item quantity in cart.
+                    </Text>
+                  </View>
+                  <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
+                    <Pressable
+                      onPress={() =>
+                        goToNextModal(
+                          setQuantityModalVisible,
+                          setCheckoutModalVisible,
+                        )
+                      }
+                    >
+                      <Text
+                        className="text-black"
+                        style={{
+                          fontFamily: 'Poppins-Regular',
+                          color: 'white',
+                        }}
+                      >
+                        Continue
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+
+        {/* Checkout */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={checkoutModalVisible}
+          onRequestClose={() => {
+            setCheckoutModalVisible(false);
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              height: '100%',
+              width: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.32)',
+            }}
+            onPress={() => setCheckoutModalVisible(false)}
+          >
+            <View className="flex-1 items-center">
+              <View className="flex-1 justify-end bottom-[60] w-[300]">
+                <View className="ml-3 mr-3">
+                  <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 ">
+                    <Text
+                      className="text-black"
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                      }}
+                    >
+                      Proceed to checkout.
+                    </Text>
+                  </View>
+                  <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
+                    <Pressable
+                      onPress={() =>
+                        goToNextModal(setCheckoutModalVisible, null)
+                      }
+                    >
+                      <Text
+                        className="text-black"
+                        style={{
+                          fontFamily: 'Poppins-Regular',
+                          color: 'white',
+                        }}
+                      >
+                        Okay
+                      </Text>
+                    </Pressable>
+                  </View>
+                  <View className="flex flex-row justify-center mt-[-13]">
+                    <Entypo
+                      name={'triangle-down'}
+                      size={40}
+                      color="white"
+                    />
+                  </View>
+                </View>
+
+                <View className="bg-white ml-3 mr-3 rounded-md py-3 items-center">
+                  <View className="py-3 px-7 bg-green rounded-full w-[150] items-center">
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                      }}
+                    >
+                      Checkout
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Modal>
       </View>
     );
   }
