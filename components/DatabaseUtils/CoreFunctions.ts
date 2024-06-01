@@ -87,6 +87,19 @@ export const deleteData = (
   return executeTransaction(query, value, 'delete');
 };
 
+export const softDeleteData = (
+  tableName: string,
+  refAttrib: string,
+  refValue: any,
+) => {
+  const query = `UPDATE ${tableName} SET is_deleted = 1 WHERE ${refAttrib} = ?`;
+
+  const value = [];
+  value.push(refValue);
+
+  return executeTransaction(query, value, 'delete');
+};
+
 export const executeTransaction = (
   query: string,
   values: any[],
