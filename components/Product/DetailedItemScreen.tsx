@@ -1,19 +1,19 @@
 import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
-import { Switch } from 'react-native-gesture-handler';
+import { ScrollView, Switch } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
-import Stepper from '../Common/Stepper';
 import { updateData } from '../DatabaseUtils/CoreFunctions';
 import ParamsToInteger from '../__utils__/helper/ParamsToInteger';
 import { DetailedItemProps } from '../__utils__/interfaces/DetailedItemProps';
 import { addToCartEvent } from './AddToCartEvent';
-import { AddToCartModals } from './AddToCartModals';
 1;
 
 // import { useSelector } from 'react-redux';
-import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import { useSelector } from 'react-redux';
+import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import Stepper from '../Common/Stepper';
+import { AddToCartModals } from './AddToCartModals';
 
 // Unused imports
 // import { RootState } from '../../redux/Store';
@@ -44,7 +44,7 @@ export default function DetailedItemScreen(item: DetailedItemProps) {
     useState<boolean>(false);
   const [showItemInCartModal, setShowItemInCartModal] =
     useState<boolean>(false);
-const [showNeedStartDayModal, setShowNeedStartDayModal] =
+  const [showNeedStartDayModal, setShowNeedStartDayModal] =
     useState<boolean>(false);
 
   const updateQuantity = (quantity: number) => {
@@ -80,25 +80,25 @@ const [showNeedStartDayModal, setShowNeedStartDayModal] =
     // Reset quantity to 0
     setQuantity(0);
 
-		console.log(hasStartDay);
+    console.log(hasStartDay);
 
     if (hasStartDay.isStartDay) {
-			addToCartEvent({
-                quantity: quantity,
-                // itemState: itemState,
-                product: item,
-                dispatch: dispatch,
-                showAddModal: setShowAddModal,
-                showAddQuantityModal: setShowAddQuantityModal,
-                showItemInCartModal: setShowItemInCartModal,
-			});
-		} else {
-			setShowNeedStartDayModal(true);
-		}
+      addToCartEvent({
+        quantity: quantity,
+        // itemState: itemState,
+        product: item,
+        dispatch: dispatch,
+        showAddModal: setShowAddModal,
+        showAddQuantityModal: setShowAddQuantityModal,
+        showItemInCartModal: setShowItemInCartModal,
+      });
+    } else {
+      setShowNeedStartDayModal(true);
+    }
   };
 
   return (
-    <View className="flex-1 h-full relative z-03 bg-white">
+    <View className="flex-1 h-full relative z-0 bg-white">
       <View className="flex flex-row mb-10">
         <View className="flex flex-row absolute mt-3 right-5 -top-2 items-center justify-center">
           <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 22 }}>
@@ -106,7 +106,7 @@ const [showNeedStartDayModal, setShowNeedStartDayModal] =
           </Text>
           <Switch
             className="ml-2"
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            trackColor={{ false: '#767577', true: '#18573a' }}
             thumbColor={isItemExist ? '#f5dd4b' : '#f4f3f4'}
             onValueChange={toggleSwitch}
             onChange={() => updateStock(!isItemExist)}
@@ -118,29 +118,29 @@ const [showNeedStartDayModal, setShowNeedStartDayModal] =
         </View>
       </View>
 
-      <View className="h-96 px-3 mt-5">
-        <Image
-          source={{ uri: item.image }}
-          className="w-full h-full rounded-3xl"
-        />
-        <Text className="text-center text-3xl pt-3 text-green">
-          {item.price} PHP
-        </Text>
+      <ScrollView className="flex-1 px-3 mt-5">
+        <View className="items-center">
+          <Image
+            source={{ uri: item.image }}
+            className="w-64 h-64 rounded-3xl"
+            resizeMode="contain"
+          />
+        </View>
         <Text className="text-center text-4xl pt-3">{item.name}</Text>
-        <View className="h-36 justify-center items-center">
-          <Text
-            className="text-center text-base text-gray 
-                        font-light px-3"
-          >
+        <Text className="text-center text-2xl pt-3 text-green">
+          ₱{item.price}
+        </Text>
+        <View className="px-4 pt-5 pb-20">
+          <Text className="text-base text-gray-600 font-light text-center ">
             {item.description}
           </Text>
         </View>
-      </View>
+      </ScrollView>
 
       <View
         className="flex flex-row h-16 absolute inset-x-0
-                bottom-0 w-full border-t-[0.5px] space-x-12 border-gray-300 items-left
-                py-2 pl-3 "
+              bottom-0 w-full border-t-[0.5px] space-x-12 border-gray-300 items-center
+              py-2 pl-3 bg-white"
       >
         <View className="w-4/12">
           <Stepper
@@ -154,8 +154,8 @@ const [showNeedStartDayModal, setShowNeedStartDayModal] =
         <View className="w-6/12">
           <Pressable
             className="w-full h-10 rounded-lg
-                        items-center justify-center shadow-md 
-                        shadow-neutral-600"
+                      items-center justify-center shadow-md 
+                      shadow-neutral-600"
             style={{
               backgroundColor: isItemExist ? '#18573a' : 'grey',
             }}
@@ -164,7 +164,7 @@ const [showNeedStartDayModal, setShowNeedStartDayModal] =
           >
             <Text
               className="text-center text-lg font-semibold 
-                            text-white"
+                          text-white"
             >
               Add to Cart
             </Text>

@@ -8,8 +8,8 @@ export default function termsOfService() {
         Terms Of Service
       </Text>
 
-      <ScrollView className="px-5">
-        <Text className=" text-base font-normal text-justify text-darkgreen">
+      <ScrollView className="my-3 mx-5">
+        <Text className=" text-base font-normal text-darkgreen">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
           do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Adipiscing tristique risus nec feugiat. Dignissim
