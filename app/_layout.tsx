@@ -68,6 +68,8 @@ export default function RootLayout() {
   const [storeName, setStoreName] = useState('');
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const opacity = useRef(new Animated.Value(1)).current;
+  const [containerPaddingBottom, setContainerPaddingBottom] =
+    useState(0); // State for dynamic padding
 
   // Modal page
   const [showTermsModal, setShowTermsModal] = useState(false);
@@ -85,6 +87,8 @@ export default function RootLayout() {
       'keyboardDidShow',
       () => {
         setKeyboardVisible(true);
+        // Set padding to accommodate keyboard
+        setContainerPaddingBottom(100);
         // Hide image with transition when keyboard shows
         Animated.timing(opacity, {
           toValue: 0,
@@ -97,6 +101,8 @@ export default function RootLayout() {
       'keyboardDidHide',
       () => {
         setKeyboardVisible(false);
+        // Reset padding when keyboard hides
+        setContainerPaddingBottom(0);
         // Show image with transition when keyboard hides
         Animated.timing(opacity, {
           toValue: 1,
@@ -200,6 +206,7 @@ export default function RootLayout() {
           onTermsPress={() => setShowTermsModal(true)}
           isKeyboardVisible={isKeyboardVisible}
           opacity={opacity}
+          containerPaddingBottom={containerPaddingBottom} // Pass padding value
         />
         <SelectStoreType
           storeModalProps={{
@@ -242,23 +249,24 @@ interface OnboardingScreenProps {
   onConfirm: () => void;
   opacity: Animated.Value;
   isKeyboardVisible: boolean;
+  containerPaddingBottom: number;
 }
 
 function OnboardingScreen(onboardingProps: OnboardingScreenProps) {
   return (
-    <View className="flex-1 justify-center items-center bg-white">
+    <View className="flex-1 justify-center flex-start items-center bg-white">
       <Animated.Image
         source={onboardingProps.image}
         style={{
-          resizeMode: 'cover',
+          resizeMode: 'contain',
           opacity: onboardingProps.opacity, // Set opacity based on Animated value
         }}
-        className="center"
+        className="center w-96 h-96"
       />
 
       {onboardingProps.isLastPage ? (
-        <View>
-          <View className="ml-8 mr-8 mt-8">
+        <View className="items-center">
+          <View className="ml-8 mr-8">
             <Text className="text-lg text-gray font-semibold mb-1 mt-3">
               Store Name:{' '}
             </Text>
@@ -301,7 +309,7 @@ function OnboardingScreen(onboardingProps: OnboardingScreenProps) {
         </View>
       ) : (
         <TouchableHighlight
-          className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green mt-5`}
+          className={`w-3/5 self-center rounded-full p-3 mb-5 bg-green mt-10`}
           onPress={onboardingProps.onComplete}
           underlayColor={'#789c8c'} // Change the underlay color when clicked
         >
