@@ -62,37 +62,6 @@ export default function DayStarter() {
               </Text>
             </View>
           </Pressable>
-          <View>
-            {/* <Modal
-              animationType="fade"
-              transparent={true}
-              visible={isStartDayVisible}
-              onRequestClose={() => {
-                console.log('Modal has been closed.');
-              }}
-            >
-              <View
-                className="flex flex-row"
-                style={{ marginTop: 125, marginLeft: 160 }}
-              >
-                <Entypo
-                  name="triangle-left"
-                  size={40}
-                  color="#18573a"
-                  style={{ marginRight: -13 }}
-                />
-                <View
-                  className="p-5 rounded-md"
-                  style={{ backgroundColor: '#18573a', width: 200 }}
-                >
-                  <Text className="color-white">
-                    Lorem Ipsum is simply dummy text of the printing
-                    and typesetting industry.
-                  </Text>
-                </View>
-              </View>
-            </Modal> */}
-          </View>
         </View>
       );
     }

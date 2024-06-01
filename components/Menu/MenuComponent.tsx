@@ -1,15 +1,22 @@
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import { SQLResultSet } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
-import { Alert, Pressable, Text, View } from 'react-native';
+import {
+  Alert,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import CustomPressable from '../Common/CustomPressable';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomAlert from '../Modals/CustomAlert';
-import MenuHelpTutorial from './MenuHelpTutorial';
+import MenuTutorialModalTop from '../Modals/MenuTutorialModalTop';
+import MenuTutorialModalBottom from '../Modals/MenuTutorialModalBottom';
 
 export default function MenuComponent() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -130,13 +137,58 @@ export default function MenuComponent() {
   // Usage example
   const currentDateInfo = getCurrentDateInfo(currentDate);
 
+  const [currentEODModalVisible, setCurrentEODModalVisible] =
+    useState(false);
+  const [previousEODModalVisible, setPreviousEODModalVisible] =
+    useState(false);
+  const [tosModalVisible, setTosModalVisible] = useState(false);
+  const [policyModalVisible, setPolicyModalVisible] = useState(false);
+  const [faqModalVisible, setFaqModalVisible] = useState(false);
+  const [endDayModalVisible, setEndDayModalVisible] = useState(false);
+
   useEffect(() => {
     fetchCurrentEODData();
   }, [currentEOD]);
 
+  const getFirstModal = () => {
+    hasStartDay.isStartDay
+      ? setCurrentEODModalVisible(true)
+      : setPreviousEODModalVisible(true);
+  };
+
+  const getTopPositions = () => {
+    if (hasStartDay.isStartDay) {
+      return {
+        previousEOD: 350,
+        tos: 400,
+      };
+    } else {
+      return {
+        previousEOD: 300,
+        tos: 400,
+      };
+    }
+  };
+
+  const getBottomPositions = () => {
+    if (hasStartDay.isStartDay) {
+      return {
+        policy: 350,
+      };
+    } else {
+      return {
+        policy: 500,
+      };
+    }
+  };
+
   return (
     <View className="flex flex-1 bg-white pt-5">
-      <MenuHelpTutorial />
+      <View className="flex flex-row justify-end mr-5 mb-3">
+        <TouchableOpacity onPress={() => getFirstModal()}>
+          <Entypo name="help-with-circle" size={35} color="#18573a" />
+        </TouchableOpacity>
+      </View>
       <View className=" self-center w-7/12 sm:w-7/12 md:w-8/12 lg:w-10/12 ">
         <View className="flex flex-row item-center justify-between mt-5">
           <Text className="text-white font-bold  bg-green px-2 rounded-lg text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl">
@@ -234,22 +286,58 @@ export default function MenuComponent() {
         </Link>
       </View>
 
-      {/* <View className=" p-10 justify-evenly">
-        <Pressable
-          className="bg-transparent w-4/6 self-center mt-10 bg-green items-center rounded-full py-2 px-4 mb-5 ml-2"
-          onPress={showAlert}
-        >
-          <Text className="text-white text-xl font-bold">
-            End Day
-          </Text>
-        </Pressable>
-      </View> */}
-
       <View className="p-10 justify-evenly">
         {hasStartDay.isStartDay ? (
           <CustomPressable text="End Day" onPress={showAlert} />
         ) : null}
       </View>
+
+      {/* MODALS */}
+      <MenuTutorialModalTop
+        isVisible={currentEODModalVisible}
+        onRequestClose={setCurrentEODModalVisible}
+        onNext={setPreviousEODModalVisible}
+        title="View Current EOD"
+        content={'Tap to view the current End of Day report.'}
+        onNextMessage={'Continue'}
+        position={275}
+      />
+
+      <MenuTutorialModalTop
+        isVisible={previousEODModalVisible}
+        onRequestClose={setPreviousEODModalVisible}
+        onNext={setTosModalVisible}
+        title="View Previous EOD"
+        content={
+          'See a detailed breakdown of your sales for a specific day within the last 30 days.'
+        }
+        onNextMessage={'Continue'}
+        position={getTopPositions().previousEOD}
+      />
+
+      <MenuTutorialModalTop
+        isVisible={tosModalVisible}
+        onRequestClose={setTosModalVisible}
+        onNext={setPolicyModalVisible}
+        title="Terms of Service"
+        content={
+          'See the legal terms and conditions governing your use of the Kaching app.'
+        }
+        onNextMessage={'Continue'}
+        position={getTopPositions().tos}
+      />
+
+      <MenuTutorialModalBottom
+        isVisible={policyModalVisible}
+        onRequestClose={setPolicyModalVisible}
+        onNext={setFaqModalVisible}
+        title="Terms of Service"
+        content={
+          'See the legal terms and conditions governing your use of the Kaching app.'
+        }
+        onNextMessage={'Continue'}
+        position={200}
+      />
     </View>
   );
 }
