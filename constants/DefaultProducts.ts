@@ -359,5 +359,73 @@ export const getDefaultProducts = (): DefaultProducts => {
         },
       ],
     },
+    12: {
+      products: [
+        {
+          productId: 36,
+          name: 'Size A4',
+          image: require('../assets/images/onboarding/stock_categories/printing/a4.jpg'),
+          price: 5,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 37,
+          name: 'Size A3',
+          image: require('../assets/images/onboarding/stock_categories/printing/a3.jpg'),
+          price: 7,
+          description: 'A cup used for drinking coffee.',
+        },
+      ],
+    },
+    13: {
+      products: [
+        {
+          productId: 38,
+          name: 'Cheese Ensaymada',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/bread/cheese_ensaymada.png'),
+          price: 15,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 39,
+          name: 'Monay',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/bread/monay.jpg'),
+          price: 10,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 40,
+          name: 'Pandesal',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/bread/pandesal.jpg'),
+          price: 5,
+          description: 'A cup used for drinking coffee.',
+        },
+      ],
+    },
+    14: {
+      products: [
+        {
+          productId: 41,
+          name: 'Bibingka',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/pastry/bibingka.jpg'),
+          price: 20,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 42,
+          name: 'Puto Bumbong',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/pastry/puto_bumbong.jpg'),
+          price: 10,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 43,
+          name: 'Ube Hopia',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/pastry/ube_hopia.jpg'),
+          price: 5,
+          description: 'A cup used for drinking coffee.',
+        },
+      ],
+    },
   };
 };
