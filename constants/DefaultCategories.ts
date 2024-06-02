@@ -31,5 +31,24 @@ export const getDefaultCategories = (): DefaultCategories => {
         },
       ],
     },
+    1: {
+      categories: [
+        {
+          categoryId: 3,
+          name: 'Viand',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/viand/viand.jpg'),
+        },
+        {
+          categoryId: 4,
+          name: 'Special',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/special/special.jpg'),
+        },
+        {
+          categoryId: 5,
+          name: 'Soup',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/soup/soup.jpg'),
+        },
+      ],
+    },
   };
 };

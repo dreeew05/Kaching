@@ -134,5 +134,84 @@ export const getDefaultProducts = (): DefaultProducts => {
         },
       ],
     },
+    3: {
+      products: [
+        {
+          productId: 14,
+          name: 'Adobong Manok',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/viand/adobong_manok.jpg'),
+          price: 250,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 15,
+          name: 'Laswa',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/viand/laswa.jpg'),
+          price: 300,
+          description:
+            'A cup with a lid used for drinking cold beverages.',
+        },
+        {
+          productId: 16,
+          name: 'Bicol Express',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/viand/bicol_express.jpg'),
+          price: 500,
+          description:
+            'The roasted seeds of a tropical shrub used to make coffee.',
+        },
+        {
+          productId: 17,
+          name: 'Escabeche',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/viand/escabeche.jpg'),
+          price: 1000,
+          description: 'A basket filled with coffee-related items.',
+        },
+      ],
+    },
+    4: {
+      products: [
+        {
+          productId: 18,
+          name: 'Diwata Pares Overload',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/special/diwata_pares.jpg'),
+          price: 150,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 19,
+          name: 'Bulalo',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/special/bulalo.jpg'),
+          price: 150,
+          description:
+            'A cup with a lid used for drinking cold beverages.',
+        },
+        {
+          productId: 20,
+          name: 'Pinaupong Manok',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/special/pinaupong_manok.jpg'),
+          price: 200,
+          description:
+            'The roasted seeds of a tropical shrub used to make coffee.',
+        },
+        {
+          productId: 21,
+          name: 'Ramen',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/special/ramen.jpg'),
+          price: 250,
+          description: 'A basket filled with coffee-related items.',
+        },
+      ],
+    },
+    5: {
+      products: [
+        {
+          productId: 22,
+          name: 'Pares',
+          image: require('../assets/images/onboarding/stock_categories/carinderia/soup/pares.jpg'),
+          price: 150,
+          description: 'A cup used for drinking coffee.',
+        },
+      ],
+    },
   };
 };
