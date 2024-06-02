@@ -10,11 +10,9 @@ import {
   View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import {
-  selectHasStartDay,
-  selectStoreNameAction,
-} from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { selectStoreNameAction } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
+import { getStartDayStatus } from '../DatabaseUtils/FetchInstructions/GetStartDayStatus';
 export default function StoreInformationGenerator() {
   const db = getDatabase();
   const [storeName, setStoreName] = useState('Store Name');
@@ -70,7 +68,7 @@ export default function StoreInformationGenerator() {
     return monthNames[month];
   };
 
-  const hasStartDay = useSelector(selectHasStartDay);
+  const hasStartDay = getStartDayStatus();
 
   return (
     <View>
@@ -192,7 +190,7 @@ export default function StoreInformationGenerator() {
                   goToNextModal(
                     setEditNameModalVisible,
                     // setStartDayModalVisible,
-                    hasStartDay.isStartDay
+                    hasStartDay
                       ? setEditCategoryModalVisible
                       : setStartDayModalVisible,
                   )
@@ -315,9 +313,7 @@ export default function StoreInformationGenerator() {
         >
           <View
             className={
-              hasStartDay.isStartDay
-                ? 'top-[222]'
-                : 'top-[167] left-[-1]'
+              hasStartDay ? 'top-[222]' : 'top-[167] left-[-1]'
             }
           >
             <View className="bg-white mt-1 ml-3.5 rounded-md w-[260] pl-[7] pt-2">
@@ -399,11 +395,7 @@ export default function StoreInformationGenerator() {
           }}
           onPress={() => setClickCategoryModalVisible(false)}
         >
-          <View
-            className={
-              hasStartDay.isStartDay ? 'top-[247]' : 'top-[210]'
-            }
-          >
+          <View className={hasStartDay ? 'top-[247]' : 'top-[210]'}>
             <View className="bg-white ml-2 rounded-md w-[200] pl-[7] py-2">
               <View className="bg-white shadow-md shadow-slate-600 m-2 p-2">
                 <View className="h-40">

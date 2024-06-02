@@ -33,7 +33,7 @@ import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 import ItemCard from './ItemCard';
 import ItemClickable from './ItemClickable';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-
+import { getStartDayStatus } from '../DatabaseUtils/FetchInstructions/GetStartDayStatus';
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -60,10 +60,9 @@ export default function CategoryView() {
   const [temporaryCart, setTemporaryCart] = useState<CartItemProps[]>(
     [],
   );
-  const hasStartDay = useSelector(selectHasStartDay);
+  const hasStartDay = getStartDayStatus();
   const [addNeedStartDayModal, setNeedStartDayModal] =
     useState(false);
-
 
   // Unused [When this shit gets fucked up used this redux shit!!!]
   // const isEditButton = useSelector(selectIsEditComponent);
@@ -96,7 +95,6 @@ export default function CategoryView() {
   const [showItemInCartModal, setShowItemInCartModal] =
     useState(false);
   const [isNotChecked, setIsNotChecked] = useState(false);
-
 
   // Todo: Interface database
   const getProductData = async () => {
@@ -166,7 +164,7 @@ export default function CategoryView() {
   };
 
   const addAllProducts = () => {
-    if (!hasStartDay.isStartDay) {
+    if (!hasStartDay) {
       setNeedStartDayModal(true);
       return;
     }
