@@ -154,7 +154,7 @@ export default function StoreInformationGenerator() {
           }}
           onPress={() => setEditNameModalVisible(false)}
         >
-          <View className="top-[25] left-[-5]">
+          <View className="top-[24] left-[-8]">
             <View className="bg-white ml-3 rounded-md w-[290]">
               <View className="mt-2">
                 <Text
@@ -315,10 +315,12 @@ export default function StoreInformationGenerator() {
         >
           <View
             className={
-              hasStartDay.isStartDay ? 'top-[222]' : 'top-[167]'
+              hasStartDay.isStartDay
+                ? 'top-[222]'
+                : 'top-[167] left-[-1]'
             }
           >
-            <View className="bg-white mt-1 ml-3.5 rounded-md w-[270] pl-[7] pt-2">
+            <View className="bg-white mt-1 ml-3.5 rounded-md w-[260] pl-[7] pt-2">
               <View className="flex flex-row">
                 <Text
                   className="text-4xl font-base self-center items-center  text-darkgreen"
@@ -338,7 +340,7 @@ export default function StoreInformationGenerator() {
               </View>
             </View>
 
-            <View className="ml-3 mr-3 w-[250]">
+            <View className="ml-3 mr-3 w-[260]">
               <View className="left-[175]">
                 <Entypo
                   name={'triangle-up'}
@@ -399,7 +401,7 @@ export default function StoreInformationGenerator() {
         >
           <View
             className={
-              hasStartDay.isStartDay ? 'top-[247]' : 'top-[187]'
+              hasStartDay.isStartDay ? 'top-[247]' : 'top-[210]'
             }
           >
             <View className="bg-white ml-2 rounded-md w-[200] pl-[7] py-2">
