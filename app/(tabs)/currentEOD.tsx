@@ -18,6 +18,7 @@ const query: string = `
     SELECT 
     eods.cashiername AS cashier_name,
     eods.contactnum AS contact_num,
+    eods.pettycash AS petty_cash,
     category.name AS category_name, 
     item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
@@ -100,10 +101,12 @@ export default function currentEOD() {
 
   let totalCash = 0;
   let totalOnline = 0;
+  let pettyCash = 0;
   if (currentEOD) {
     for (let index = 0; index < currentEOD?.rows.length; index++) {
       totalCash += currentEOD?.rows._array[index].total_cash;
       totalOnline += currentEOD?.rows._array[index].total_online;
+      pettyCash = currentEOD?.rows._array[index].petty_cash;
       console.log(
         'total cash:' + currentEOD?.rows._array[index].total_cash,
       );
@@ -181,6 +184,8 @@ export default function currentEOD() {
           <FinancialSummary
             totalCash={totalCash}
             totalOnline={totalOnline}
+            pettyCash={pettyCash}
+
           />
         </View>
         {/* END FINANCIAL SUMMARY */}

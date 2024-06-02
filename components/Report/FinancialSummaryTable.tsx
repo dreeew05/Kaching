@@ -5,16 +5,19 @@ import { Rows, Table } from 'react-native-table-component';
 interface FinancialSummaryProps {
   totalCash: number;
   totalOnline: number;
+  pettyCash: number;
 }
 
 const FinancialSummary: React.FC<FinancialSummaryProps> = ({
   totalCash,
   totalOnline,
+  pettyCash,
 }) => {
   const tableData = [
     ['Cash Total', '₱ ' + `${totalCash.toFixed(2)}`, ,],
     ['Online Total', '₱ ' + `${totalOnline.toFixed(2)}`, ,],
-    ['Grand Total', '₱ ' + `${(totalCash + totalOnline).toFixed(2)}`],
+    ['Petty Cash', '₱ ' + `${pettyCash.toFixed(2)}`, ,],
+    ['Grand Total', '₱ ' + `${(totalCash + totalOnline + pettyCash).toFixed(2)}`],
   ];
 
   return (
