@@ -14,13 +14,22 @@ export default function SaleDashboard() {
   const fetchCurrentEODData = () => {
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT SUM(receipt_items.quantity * receipt_items.price) AS total_sales
-      FROM receipt_items
-      JOIN item ON receipt_items.item_id = item.id
-      JOIN category ON item.category_id = category.id`,
+        `SELECT
+          COALESCE(SUM(receipt_items.quantity * receipt_items.price), 0) + eods.pettycash AS total_sales
+        FROM eods
+        LEFT JOIN eod_receipts ON eods.eod_id = eod_receipts.eod_id
+        LEFT JOIN receipt_items ON eod_receipts.receipt_id = receipt_items.receipt_id
+        LEFT JOIN item ON receipt_items.item_id = item.id
+        LEFT JOIN category ON item.category_id = category.id
+        WHERE eods.iscurrent = 1
+        GROUP BY eods.eod_id`,
         [],
         (tx, results) => {
-          setCurrentSales(results);
+          if (results.rows.length > 0) {
+            setCurrentSales(results);
+          } else {
+            setCurrentSales(null);
+          }
         },
       );
     });
