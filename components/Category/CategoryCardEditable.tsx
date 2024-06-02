@@ -90,7 +90,7 @@ export default function CategoryCardEditable({
 
       <CustomModal
         visible={isDeleteModalVisible}
-        message="Are you sure you want to delete this category?"
+        message="Are you sure you want to remove this category?"
         optionOneText="Yes"
         optionTwoText="Cancel"
         optionOnePressed={() => deleteCategory(id)}
@@ -102,7 +102,7 @@ export default function CategoryCardEditable({
 
       <PopUpModal
         visible={deleteModalVisible}
-        message="Category deleted successfully"
+        message="Category removed successfully"
         text={'Done'}
         link={'dispatchCategory'}
         id={0}
