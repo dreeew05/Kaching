@@ -1,3 +1,4 @@
+import { AddToCartModals } from './AddToCartModals';
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { Link, useLocalSearchParams } from 'expo-router';
 import * as SQLite from 'expo-sqlite';
@@ -31,6 +32,8 @@ import { BaseItemProps } from '../__utils__/interfaces/BaseItemProps';
 import { CartItemProps } from '../__utils__/interfaces/CartItemProps';
 import ItemCard from './ItemCard';
 import ItemClickable from './ItemClickable';
+import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+
 
 export default function CategoryView() {
   const param = useLocalSearchParams();
@@ -57,6 +60,10 @@ export default function CategoryView() {
   const [temporaryCart, setTemporaryCart] = useState<CartItemProps[]>(
     [],
   );
+  const hasStartDay = useSelector(selectHasStartDay);
+  const [addNeedStartDayModal, setNeedStartDayModal] =
+    useState(false);
+
 
   // Unused [When this shit gets fucked up used this redux shit!!!]
   // const isEditButton = useSelector(selectIsEditComponent);
@@ -81,6 +88,15 @@ export default function CategoryView() {
   const [outOfStockProducts, setOutOfStockProducts] = useState<
     BaseItemProps[]
   >([]);
+
+  const [quantity, setQuantity] = useState(0);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showAddQuantityModal, setShowAddQuantityModal] =
+    useState(false);
+  const [showItemInCartModal, setShowItemInCartModal] =
+    useState(false);
+  const [isNotChecked, setIsNotChecked] = useState(false);
+
 
   // Todo: Interface database
   const getProductData = async () => {
@@ -150,6 +166,11 @@ export default function CategoryView() {
   };
 
   const addAllProducts = () => {
+    if (!hasStartDay.isStartDay) {
+      setNeedStartDayModal(true);
+      return;
+    }
+
     temporaryCart.forEach((item) => {
       dispatch(
         addToCart({
@@ -476,6 +497,15 @@ export default function CategoryView() {
         id={0}
         color="red"
         closeModal={() => setAddFailedModalVisible(false)}
+      />
+      <PopUpModal
+        visible={addNeedStartDayModal}
+        message="Please tap on Start Day in home page."
+        text={'Dismiss'}
+        link={null}
+        id={0}
+        color="red"
+        closeModal={() => setNeedStartDayModal(false)}
       />
     </>
   );
