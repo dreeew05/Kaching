@@ -14,8 +14,7 @@ export default function SaleDashboard() {
   const fetchCurrentEODData = () => {
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT
-          COALESCE(SUM(receipt_items.quantity * receipt_items.price), 0) + eods.pettycash AS total_sales
+        `SELECT COALESCE(SUM(receipt_items.quantity * receipt_items.price), 0) + eods.pettycash AS total_sales
         FROM eods
         LEFT JOIN eod_receipts ON eods.eod_id = eod_receipts.eod_id
         LEFT JOIN receipt_items ON eod_receipts.receipt_id = receipt_items.receipt_id
@@ -65,7 +64,7 @@ export default function SaleDashboard() {
           className=" px-7 self-center text-center text-black
                     text-sm opacity-50 font-base"
         >
-          Total Sales
+          Total Amount
         </Text>
       </View>
       <Text
