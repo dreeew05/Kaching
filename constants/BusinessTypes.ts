@@ -49,5 +49,10 @@ export const getBusinessTypes = (): BusinessTypes => {
       name: 'Bakery & Pastry Shop',
       image: require('../assets/images/onboarding/business_types/bakery.jpg'),
     },
+    {
+      id: 7,
+      name: 'Others',
+      image: require('../assets/images/onboarding/business_types/others.jpg'),
+    },
   ];
 };
