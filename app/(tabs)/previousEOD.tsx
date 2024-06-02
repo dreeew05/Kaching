@@ -71,9 +71,8 @@ export default function TabTwoScreen() {
     goToEOD();
   };
 
-  const goToEOD = () => {
-    router.push('/(tabs)/olderEODSbyDate');
-  };
+  // const router = useRouter();
+  const goToEOD = () => {};
 
   return (
     <View className="flex-1 items-center justify-center">
