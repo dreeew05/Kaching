@@ -41,13 +41,21 @@ export default function MenuComponent() {
         ) => void;
       }) => {
         tx.executeSql(
-          `SELECT SUM(receipt_items.quantity * receipt_items.price) AS total_sales
-        FROM receipt_items
-        JOIN item ON receipt_items.item_id = item.id
-        JOIN category ON item.category_id = category.id`,
+          `SELECT COALESCE(SUM(receipt_items.quantity * receipt_items.price), 0) + eods.pettycash AS total_sales
+          FROM eods
+          LEFT JOIN eod_receipts ON eods.eod_id = eod_receipts.eod_id
+          LEFT JOIN receipt_items ON eod_receipts.receipt_id = receipt_items.receipt_id
+          LEFT JOIN item ON receipt_items.item_id = item.id
+          LEFT JOIN category ON item.category_id = category.id
+          WHERE eods.iscurrent = 1
+          GROUP BY eods.eod_id`,
           [],
           (tx: any, results: any) => {
-            setCurrentEOD(results);
+            if (results.rows.length > 0) {
+              setCurrentEOD(results);
+            } else {
+              setCurrentEOD(null);
+            }
           },
         );
       },
@@ -226,7 +234,7 @@ export default function MenuComponent() {
               )}
           </Text>
           <Text className="text-green text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-bold self-center mb-10 px-2">
-            Total Sales
+            Total Amount
           </Text>
         </View>
       </View>
