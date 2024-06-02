@@ -321,5 +321,43 @@ export const getDefaultProducts = (): DefaultProducts => {
         },
       ],
     },
+    10: {
+      products: [
+        {
+          productId: 32,
+          name: 'Maya',
+          image: require('../assets/images/onboarding/stock_categories/e_loading/e_wallet/maya.png'),
+          price: 15,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 33,
+          name: 'Gcash',
+          image: require('../assets/images/onboarding/stock_categories/e_loading/e_wallet/gcash.webp'),
+          price: 15,
+          description:
+            'A cup with a lid used for drinking cold beverages.',
+        },
+      ],
+    },
+    11: {
+      products: [
+        {
+          productId: 34,
+          name: 'Globe Go 50',
+          image: require('../assets/images/onboarding/stock_categories/e_loading/prepaid/go_50.jpg'),
+          price: 50,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 35,
+          name: 'Giga Video+ 149',
+          image: require('../assets/images/onboarding/stock_categories/e_loading/prepaid/giga_video_149.jpg'),
+          price: 149,
+          description:
+            'A cup with a lid used for drinking cold beverages.',
+        },
+      ],
+    },
   };
 };

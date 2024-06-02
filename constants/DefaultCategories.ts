@@ -78,5 +78,19 @@ export const getDefaultCategories = (): DefaultCategories => {
         },
       ],
     },
+    4: {
+      categories: [
+        {
+          categoryId: 10,
+          name: 'E-Wallet Cash-in',
+          image: require('../assets/images/onboarding/stock_categories/e_loading/e_wallet/e_wallet.png'),
+        },
+        {
+          categoryId: 11,
+          name: 'Prepaid Load',
+          image: require('../assets/images/onboarding/stock_categories/e_loading/prepaid/prepaid.jpg'),
+        },
+      ],
+    },
   };
 };
