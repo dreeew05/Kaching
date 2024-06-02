@@ -50,5 +50,19 @@ export const getDefaultCategories = (): DefaultCategories => {
         },
       ],
     },
+    2: {
+      categories: [
+        {
+          categoryId: 6,
+          name: 'Snacks',
+          image: require('../assets/images/onboarding/stock_categories/sari_sari/snacks/snacks.jpg'),
+        },
+        {
+          categoryId: 7,
+          name: 'Non-food',
+          image: require('../assets/images/onboarding/stock_categories/sari_sari/non_food/non_food.jpg'),
+        },
+      ],
+    },
   };
 };
