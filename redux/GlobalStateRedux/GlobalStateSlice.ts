@@ -16,6 +16,8 @@ interface GlobalStateProps {
   categoryModifiedActions: string[];
   productModifiedActions: string[];
   isModifyProductLoading: boolean;
+  // Triggers
+  startDayTrigger: number;
 }
 
 const initialState: GlobalStateProps = {
@@ -32,6 +34,9 @@ const initialState: GlobalStateProps = {
   categoryModifiedActions: [],
   productModifiedActions: [],
   isModifyProductLoading: true,
+
+  // Triggers
+  startDayTrigger: 0,
 };
 
 export const GlobalStateSlice = createSlice({
@@ -72,6 +77,10 @@ export const GlobalStateSlice = createSlice({
     setIsModifyProductLoading(state, action: PayloadAction<boolean>) {
       state.isModifyProductLoading = action.payload;
     },
+    // Triggers
+    setStartDayTrigger(state, action: PayloadAction<number>) {
+      state.startDayTrigger = action.payload;
+    },
   },
 });
 
@@ -85,6 +94,7 @@ export const {
   setCategoryModifedActions,
   setProductModifiedActions,
   setIsModifyProductLoading,
+  setStartDayTrigger,
 } = GlobalStateSlice.actions;
 
 export default GlobalStateSlice.reducer;
