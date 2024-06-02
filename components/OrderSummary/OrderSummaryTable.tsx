@@ -24,7 +24,7 @@ export default function OrderSummaryTable() {
       <View className=" w-1/12 sm:w-1/12 md:w-1/6 lg:w-1/6">
         <Text
           numberOfLines={1}
-          className=" text-green text-base text-center  font-semibold"
+          className=" text-gray text-base text-center  font-semibold"
           adjustsFontSizeToFit
         >
           Qty
