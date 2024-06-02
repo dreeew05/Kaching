@@ -291,7 +291,7 @@ export default function CartItemsGenerator() {
             onPress={() => setQuantityModalVisible(false)}
           >
             <View className="top-[190] right-[2] flex-row justify-end">
-              <View className="w-[200]">
+              <View className="w-[250]">
                 <View className="flex-row justify-center bg-white ml-3 mr-3 rounded-md px-2 h-[80]">
                   <Image
                     source={require('../../assets/icons/Stepper.png')}
