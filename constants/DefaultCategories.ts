@@ -92,5 +92,28 @@ export const getDefaultCategories = (): DefaultCategories => {
         },
       ],
     },
+    5: {
+      categories: [
+        {
+          categoryId: 12,
+          name: 'Bread',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/bread/bread.webp'),
+        },
+      ],
+    },
+    6: {
+      categories: [
+        {
+          categoryId: 13,
+          name: 'Bread',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/bread/bread.webp'),
+        },
+        {
+          categoryId: 14,
+          name: 'Pastry',
+          image: require('../assets/images/onboarding/stock_categories/bread_pastry/pastry/pastry.jpg'),
+        },
+      ],
+    },
   };
 };
