@@ -1,38 +1,45 @@
 import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import PreviousDatesScrollView from '../../components/Report/PreviousDatesGenerator';
-import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function TabTwoScreen() {
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [datePicked, setDatePicked] = useState(false);
   const [eodDates, setEodDates] = useState<[string, Date][]>([]);
   const router = useRouter();
-
-  useEffect(() => {
-    fetchEodDates();
-  }, []);
 
   const fetchEodDates = () => {
     const db = getDatabase();
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT start, COUNT(*) as count FROM eods GROUP BY DATE(start)`,
+        `SELECT eod_id, start, end FROM eods WHERE iscurrent = 0 ORDER BY start DESC`,
         [],
         (_, { rows }) => {
+          const dateMap = new Map<string, number>();
           const dates: [string, Date][] = [];
+
           for (let i = 0; i < rows.length; i++) {
             const row = rows.item(i);
             const date = new Date(row.start);
+            const dateKey = date.toISOString().slice(0, 10);
+
+            if (dateMap.has(dateKey)) {
+              dateMap.set(dateKey, dateMap.get(dateKey)! + 1);
+            } else {
+              dateMap.set(dateKey, 1);
+            }
+
+            const postfix = dateMap.get(dateKey)! > 1 ? ` (${dateMap.get(dateKey)})` : '';
             const formattedDate = `${date.toLocaleDateString(undefined, {
               month: 'long',
               day: 'numeric',
               year: 'numeric',
-            })}${row.count > 1 ? ` (${row.count})` : ''}`;
+            })}${postfix}`;
+
             dates.push([formattedDate, date]);
           }
+
           setEodDates(dates);
         },
         (_, error) => {
@@ -42,6 +49,12 @@ export default function TabTwoScreen() {
       );
     });
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchEodDates();
+    }, [])
+  );
 
   const handleDateFromPicker = (dateSelected: Date) => {
     const db = getDatabase();

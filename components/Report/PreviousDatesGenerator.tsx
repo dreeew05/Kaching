@@ -1,3 +1,4 @@
+//create flatlist from previous dates, starting from the most recent
 import React from 'react';
 import { Pressable, ScrollView } from 'react-native';
 import { Text, View } from '../Themed';
