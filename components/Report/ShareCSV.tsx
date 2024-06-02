@@ -31,10 +31,18 @@ const ShareCSV: React.FC<{ data: TableData[] }> = ({ data }) => {
       // Create a CSV file
       let csvData = '';
       data.forEach((table) => {
+        // Add the header row
         csvData += table.header.join(',') + '\n';
+
+        // Process each row in the table data
         table.tableData.forEach((row) => {
-          csvData += row.join(',') + '\n';
+          // Remove the peso sign from each cell in the row
+          let processedRow = row.map((cell) => cell.replace('₱', ''));
+          // Add the processed row to the CSV string
+          csvData += processedRow.join(',') + '\n';
         });
+
+        // Add a blank line to separate tables (if there are multiple tables)
         csvData += '\n';
       });
       const csvFileName = `eod_${date.getFullYear()}-${date.getMonth()}-${date.getDate()}.csv`;
