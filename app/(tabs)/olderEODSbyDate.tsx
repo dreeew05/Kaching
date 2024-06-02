@@ -162,9 +162,11 @@ export default function currentEOD() {
         <Text className="text-m">Miagao, Iloilo</Text>
         <Text className="text-m">
           {currentEOD?.rows._array[0]?.cashier_name}
+
         </Text>
         <Text className="text-m">
           {currentEOD?.rows._array[0]?.contact_num}
+
         </Text>
 
         <View
