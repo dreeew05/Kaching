@@ -2,18 +2,6 @@ import { getDatabase } from './OpenDatabase';
 
 const db = getDatabase();
 
-// Useless
-// const initializeMainTable = () => {
-//   db.transaction((tx) => {
-//     tx.executeSql(
-//       `CREATE TABLE IF NOT EXISTS main(
-//                 storename TEXT NOT NULL PRIMARY KEY,
-//                 setup_complete INTEGER NOT NULL
-//             )`,
-//     );
-//   });
-// };
-
 const initializeCategoryTable = () => {
   db.transaction((tx) => {
     tx.executeSql(
@@ -94,7 +82,8 @@ const initializeStoreTable = () => {
     tx.executeSql(
       `CREATE TABLE IF NOT EXISTS store(
                 storename TEXT NOT NULL PRIMARY KEY,
-                setup_complete INTEGER NOT NULL
+                setup_complete INTEGER NOT NULL,
+                is_start_day INTEGER NOT NULL DEFAULT 0
             )`,
     );
   });

@@ -16,6 +16,8 @@ function convertToString(value: string | string[]): string {
 const query = `
     SELECT 
     eods.cashiername AS cashier_name,
+    eods.contactnum AS contact_num,
+    eods.pettycash AS petty_cash,
     category.name AS category_name, 
     item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
@@ -29,9 +31,9 @@ const query = `
     JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
     JOIN eods ON eod_receipts.eod_id = eods.eod_id
     WHERE eods.iscurrent = 0 
-      AND DATE(eods.end) = ?
-    GROUP BY eods.cashiername, category.name, item.name
-    ORDER BY eods.cashiername, category.name, item.name;
+      AND eods.eod_id = ?
+    GROUP BY eods.contactnum, eods.cashiername, category.name, item.name
+    ORDER BY eods.contactnum, eods.cashiername, category.name, item.name;
   `;
 
 interface TableData {
@@ -57,13 +59,16 @@ export default function currentEOD() {
   const db = getDatabase();
 
   const params = useLocalSearchParams();
-  const { DateID } = params;
+  // const { number: eodID } = params;
+  const eodID = convertToString(params.eodId);
+  const date = convertToString(params.date);
+  console.log('eodID: ' + eodID);
 
   const fetchCurrentEODData = () => {
     db.transaction((tx) => {
       tx.executeSql(
         query,
-        [convertToString(DateID)],
+        [eodID],
         (tx, results) => {
           setCurrentEOD(results);
           console.log('eods results: ' + results.rows.length);
@@ -77,14 +82,15 @@ export default function currentEOD() {
         `
       SELECT * 
       FROM eod_receipts 
+      WHERE eod_id = ?
       `,
-        [convertToString(DateID)],
+        [eodID],
         (tx, results) => {
           setStoreInfo(results);
           console.log(
             'check all eods' +
               results.rows.length +
-              convertToString(DateID),
+              convertToString(eodID),
           );
         },
       );
@@ -103,14 +109,16 @@ export default function currentEOD() {
     fetchStoreInfo2();
     fetchStoreInfo();
     fetchCurrentEODData();
-  }, [DateID]);
+  }, [eodID]);
 
   let totalCash = 0;
   let totalOnline = 0;
+  let pettyCash = 0;
   if (currentEOD) {
     for (let index = 0; index < currentEOD?.rows.length; index++) {
       totalCash += currentEOD?.rows._array[index].total_cash;
       totalOnline += currentEOD?.rows._array[index].total_online;
+      pettyCash = currentEOD?.rows._array[index].petty_cash;
       console.log(
         'total cash:' + currentEOD?.rows._array[index].total_cash,
       );
@@ -145,7 +153,7 @@ export default function currentEOD() {
   });
 
   //current date
-  const date = new Date();
+  // const date = new Date();
 
   return (
     <ScrollView
@@ -161,8 +169,12 @@ export default function currentEOD() {
         <Text className="text-m">Miagao, Iloilo</Text>
         <Text className="text-m">
           {currentEOD?.rows._array[0]?.cashier_name}
+
         </Text>
-        <Text className="text-m">09133287645</Text>
+        <Text className="text-m">
+          {currentEOD?.rows._array[0]?.contact_num}
+
+        </Text>
 
         <View
           style={styles.separator}
@@ -171,7 +183,7 @@ export default function currentEOD() {
         />
 
         <Text className="text-l">END OF DAY REPORT</Text>
-        <Text className="text-l">{convertToString(DateID)}</Text>
+        <Text className="text-l">{date}</Text>
 
         <View
           style={styles.separator}
@@ -187,6 +199,7 @@ export default function currentEOD() {
           <FinancialSummary
             totalCash={totalCash}
             totalOnline={totalOnline}
+            pettyCash={pettyCash}
           />
         </View>
         {/* END FINANCIAL SUMMARY */}

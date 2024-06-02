@@ -1,3 +1,4 @@
+import { useLocalSearchParams } from 'expo-router';
 import { SQLResultSet } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
@@ -7,7 +8,6 @@ import CategoryTable from '../../components/Report/CategoryTable';
 import FinancialSummary from '../../components/Report/FinancialSummaryTable';
 import ShareCSV from '../../components/Report/ShareCSV';
 import { Text, View } from '../../components/Themed';
-import { useLocalSearchParams } from 'expo-router';
 
 interface TableData {
   header: string[];
@@ -16,6 +16,9 @@ interface TableData {
 
 const query: string = `
     SELECT 
+    eods.cashiername AS cashier_name,
+    eods.contactnum AS contact_num,
+    eods.pettycash AS petty_cash,
     category.name AS category_name, 
     item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
@@ -29,8 +32,8 @@ const query: string = `
     JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
     JOIN eods ON eod_receipts.eod_id = eods.eod_id
     WHERE eods.iscurrent = 1
-    GROUP BY category_name, item_name
-    ORDER BY category_name, item_name;
+    GROUP BY eods.contactnum, eods.cashiername, category.name, item.name
+    ORDER BY eods.contactnum, eods.cashiername, category.name, item.name;
   `;
 
 export default function currentEOD() {
@@ -46,6 +49,10 @@ export default function currentEOD() {
   const [storeInfo2, setStoreInfo2] = useState<SQLResultSet | null>(
     null,
   );
+  const [cashierName, setCashierName] =
+    useState<string>('cashierName');
+  const [contactNumber, setContactNumber] =
+    useState<string>('Contact Number');
 
   // TEST DATA
   const db = getDatabase();
@@ -55,14 +62,16 @@ export default function currentEOD() {
         setCurrentEOD(results);
       });
     });
-  };
-  const fetchStoreInfo = () => {
+
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT * FROM eods e WHERE e.iscurrent = 1;`,
+        'SELECT * FROM eods WHERE iscurrent = 1;',
         [],
-        (tx, results) => {
-          setStoreInfo(results);
+        (txObj, resultSet) => {
+          if (resultSet.rows.length > 0) {
+            setCashierName(resultSet.rows.item(0).cashiername);
+            setContactNumber(resultSet.rows.item(0).contactnum);
+          }
         },
       );
     });
@@ -78,7 +87,6 @@ export default function currentEOD() {
 
   useEffect(() => {
     fetchCurrentEODData();
-    fetchStoreInfo();
     fetchStoreInfo2();
     console.log(count);
   }, [count]);
@@ -93,10 +101,12 @@ export default function currentEOD() {
 
   let totalCash = 0;
   let totalOnline = 0;
+  let pettyCash = 0;
   if (currentEOD) {
     for (let index = 0; index < currentEOD?.rows.length; index++) {
       totalCash += currentEOD?.rows._array[index].total_cash;
       totalOnline += currentEOD?.rows._array[index].total_online;
+      pettyCash = currentEOD?.rows._array[index].petty_cash;
       console.log(
         'total cash:' + currentEOD?.rows._array[index].total_cash,
       );
@@ -128,21 +138,19 @@ export default function currentEOD() {
 
   return (
     <ScrollView
-      className="bg-white"
+      className="bg-white "
       contentContainerStyle={{
         flexGrow: 1,
         justifyContent: 'center',
       }}
     >
-      <View className="bg-white" style={styles.container}>
+      <View className=" mx-5 bg-white " style={styles.container}>
         <Text className="font-bold text-xl text-green">
           {storeInfo2?.rows._array[0].storename}
         </Text>
         <Text className="text-m text-green">Miagao, Iloilo</Text>
-        <Text className="text-m text-green">
-          {storeInfo?.rows._array[0].cashiername}
-        </Text>
-        <Text className="text-m text-green">09133287645</Text>
+        <Text className="text-m text-green">{cashierName}</Text>
+        <Text className="text-m text-green">{contactNumber}</Text>
 
         <View
           style={styles.separator}
@@ -150,8 +158,8 @@ export default function currentEOD() {
           darkColor="rgba(255,255,255,0.1)"
         />
 
-        <Text className="text-l">CURRENT DAY REPORT</Text>
-        <Text className="text-l">
+        <Text className="text-l text-black">CURRENT DAY REPORT</Text>
+        <Text className="text-l text-black">
           {date.toISOString().slice(0, 10) +
             ' ' +
             //add leading zero to hours, minutes, and seconds if less than 10
@@ -170,19 +178,21 @@ export default function currentEOD() {
 
         {/* START FINANCIAL SUMMARY */}
         <View className="bg-white">
-          <Text className="font-bold text-l content-center">
+          <Text className="font-bold text-l content-center self-center text-black mb-3">
             Financial Summary
           </Text>
           <FinancialSummary
             totalCash={totalCash}
             totalOnline={totalOnline}
+            pettyCash={pettyCash}
+
           />
         </View>
         {/* END FINANCIAL SUMMARY */}
 
         {/* START ORDER SUMMARY */}
         <View className="bg-white">
-          <Text className="font-bold text-l content-center mt-2">
+          <Text className="font-bold text-l content-center self-center items-center mt-2 text-black">
             Order Summary
           </Text>
           {tables.map((table) => {
@@ -206,7 +216,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 15,
     height: 1,
     width: '80%',
   },

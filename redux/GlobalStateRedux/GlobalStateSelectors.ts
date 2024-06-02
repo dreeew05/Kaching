@@ -18,3 +18,5 @@ export const selectProductModifiedActions = (state: RootState) =>
   state.globalState.productModifiedActions;
 export const selectIsModifyProductLoading = (state: RootState) =>
   state.globalState.isModifyProductLoading;
+export const selectStartDayTrigger = (state: RootState) =>
+  state.globalState.startDayTrigger;
