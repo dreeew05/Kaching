@@ -53,6 +53,7 @@ export default function currentEOD() {
     useState<string>('cashierName');
   const [contactNumber, setContactNumber] =
     useState<string>('Contact Number');
+  const [pettyCash, setPettyCash] = useState<number>(0);
 
   // TEST DATA
   const db = getDatabase();
@@ -61,6 +62,18 @@ export default function currentEOD() {
       tx.executeSql(query, [], (tx, results) => {
         setCurrentEOD(results);
       });
+    });
+
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT pettycash FROM eods WHERE iscurrent = 1;',
+        [],
+        (txObj, resultSet) => {
+          if (resultSet.rows.length > 0) {
+            setPettyCash(resultSet.rows.item(0).pettycash);
+          }
+        },
+      );
     });
 
     db.transaction((tx) => {
@@ -101,12 +114,10 @@ export default function currentEOD() {
 
   let totalCash = 0;
   let totalOnline = 0;
-  let pettyCash = 0;
   if (currentEOD) {
     for (let index = 0; index < currentEOD?.rows.length; index++) {
       totalCash += currentEOD?.rows._array[index].total_cash;
       totalOnline += currentEOD?.rows._array[index].total_online;
-      pettyCash = currentEOD?.rows._array[index].petty_cash;
       console.log(
         'total cash:' + currentEOD?.rows._array[index].total_cash,
       );
