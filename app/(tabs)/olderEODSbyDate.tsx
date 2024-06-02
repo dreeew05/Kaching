@@ -100,6 +100,7 @@ export default function currentEOD() {
   };
 
   useEffect(() => {
+    fetchStoreInfo2();
     fetchStoreInfo();
     fetchCurrentEODData();
   }, [DateID]);
@@ -133,7 +134,7 @@ export default function currentEOD() {
         tableData.push([
           item.item_name,
           'x' + item.total_quantity,
-          '₱' + item.total_sales,
+          '₱' + item.total_sales.toFixed(2),
         ]);
       }
     });
@@ -159,7 +160,7 @@ export default function currentEOD() {
         </Text>
         <Text className="text-m">Miagao, Iloilo</Text>
         <Text className="text-m">
-          {currentEOD?.rows._array[0]?.cashiername}
+          {currentEOD?.rows._array[0]?.cashier_name}
         </Text>
         <Text className="text-m">09133287645</Text>
 
@@ -170,9 +171,7 @@ export default function currentEOD() {
         />
 
         <Text className="text-l">END OF DAY REPORT</Text>
-        <Text className="text-l">
-          {datePicked?.rows._array[0].date}
-        </Text>
+        <Text className="text-l">{convertToString(DateID)}</Text>
 
         <View
           style={styles.separator}
