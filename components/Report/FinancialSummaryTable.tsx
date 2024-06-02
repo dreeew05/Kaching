@@ -15,7 +15,7 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
 }) => {
   const tableData = [
     ['Cash Total', '₱ ' + `${totalCash.toFixed(2)}`, ,],
-    ['Cash Total', '₱ ' + `${totalOnline.toFixed(2)}`, ,],
+    ['Online Total', '₱ ' + `${totalOnline.toFixed(2)}`, ,],
     ['Grand Total', '₱ ' + `${(totalCash + totalOnline).toFixed(2)}`],
   ];
 
