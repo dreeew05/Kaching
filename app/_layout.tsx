@@ -216,6 +216,7 @@ export default function RootLayout() {
           openDefaultCategoryModal={() =>
             setShowDefaultCategoryModal(true)
           }
+          onBoardingComplete={() => setOnboardingCompleted(true)}
           setCategoryId={setDefaultCategoryId}
         ></SelectStoreType>
         <SelectDefaultCategories
