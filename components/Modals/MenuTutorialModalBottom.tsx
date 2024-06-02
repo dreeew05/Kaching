@@ -30,11 +30,11 @@ const MenuTutorialModalBottom: React.FC<MenuTutorialModalProps> = ({
     switch (title) {
       case 'Privacy Policy':
         return hasStartDay
-          ? { bottom: 'bottom-[255]' }
+          ? { bottom: 'bottom-[280]' }
           : { bottom: 'bottom-[288]' };
       case 'FAQs':
         return hasStartDay
-          ? { bottom: 'bottom-[193]' }
+          ? { bottom: 'bottom-[200]' }
           : { bottom: 'bottom-[183]' };
       default:
         return { bottom: 'bottom-[20]' };
