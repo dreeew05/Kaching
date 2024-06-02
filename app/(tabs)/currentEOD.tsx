@@ -42,6 +42,9 @@ export default function currentEOD() {
   const [currentEOD, setCurrentEOD] = useState<SQLResultSet | null>(
     null,
   );
+  const [storeInfo, setStoreInfo] = useState<SQLResultSet | null>(
+    null,
+  );
   const [storeInfo2, setStoreInfo2] = useState<SQLResultSet | null>(
     null,
   );
@@ -58,27 +61,16 @@ export default function currentEOD() {
         setCurrentEOD(results);
       });
     });
-  };
 
-  db.transaction((tx) => {
-    tx.executeSql(
-      'SELECT * FROM eods WHERE iscurrent = 1;',
-      [],
-      (txObj, resultSet) => {
-        if (resultSet.rows.length > 0) {
-          setCashierName(resultSet.rows.item(0).cashiername);
-          setContactNumber(resultSet.rows.item(0).contactnum);
-        }
-      },
-    );
-  });
-  const fetchStoreInfo = () => {
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT * FROM eods e WHERE e.iscurrent = 1;`,
+        'SELECT * FROM eods WHERE iscurrent = 1;',
         [],
-        (tx, results) => {
-          setStoreInfo(results);
+        (txObj, resultSet) => {
+          if (resultSet.rows.length > 0) {
+            setCashierName(resultSet.rows.item(0).cashiername);
+            setContactNumber(resultSet.rows.item(0).contactnum);
+          }
         },
       );
     });
@@ -94,7 +86,6 @@ export default function currentEOD() {
 
   useEffect(() => {
     fetchCurrentEODData();
-    fetchStoreInfo();
     fetchStoreInfo2();
     console.log(count);
   }, [count]);
