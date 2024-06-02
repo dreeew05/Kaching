@@ -154,10 +154,14 @@ export default function StoreInformationGenerator() {
           }}
           onPress={() => setEditNameModalVisible(false)}
         >
-          <View className="top-[25]">
-            <View className="bg-white py-3 ml-3 rounded-md w-[290]">
+          <View className="top-[25] left-[-5]">
+            <View className="bg-white ml-3 rounded-md w-[290]">
               <View className="mt-2">
-                <Text className="text-5xl ml-2 font-semibold text-green">
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  className="text-5xl ml-2 font-semibold text-green"
+                >
                   {storeName}
                 </Text>
               </View>
@@ -226,7 +230,7 @@ export default function StoreInformationGenerator() {
           }}
           onPress={() => setStartDayModalVisible(false)}
         >
-          <View className="top-[90]">
+          <View className="top-[105]">
             <View className="bg-white ml-3 rounded-md w-[160] pl-2 py-3">
               <View className="flex-row">
                 <View
@@ -311,7 +315,7 @@ export default function StoreInformationGenerator() {
         >
           <View
             className={
-              hasStartDay.isStartDay ? 'top-[220]' : 'top-[155]'
+              hasStartDay.isStartDay ? 'top-[220]' : 'top-[167]'
             }
           >
             <View className="bg-white mt-1 ml-3 rounded-md w-[220] pl-[7] py-2">
