@@ -91,6 +91,18 @@ export default function currentEOD() {
     }
   });
 
+  let totalCash = 0;
+  let totalOnline = 0;
+  if (currentEOD) {
+    for (let index = 0; index < currentEOD?.rows.length; index++) {
+      totalCash += currentEOD?.rows._array[index].total_cash;
+      totalOnline += currentEOD?.rows._array[index].total_online;
+      console.log(
+        'total cash:' + currentEOD?.rows._array[index].total_cash,
+      );
+    }
+  }
+
   //assign each category as a header, and assign the items under each category as tableData
   let tables: TableData[] = [];
   categories.forEach((category) => {
@@ -161,7 +173,10 @@ export default function currentEOD() {
           <Text className="font-bold text-l content-center">
             Financial Summary
           </Text>
-          <FinancialSummary totalCash={0} totalOnline={0} />
+          <FinancialSummary
+            totalCash={totalCash}
+            totalOnline={totalOnline}
+          />
         </View>
         {/* END FINANCIAL SUMMARY */}
 

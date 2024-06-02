@@ -34,26 +34,6 @@ const query = `
     ORDER BY eods.cashiername, category.name, item.name;
   `;
 
-const query2 = `
-    SELECT 
-    category.name AS category_name, 
-    item.name AS item_name,
-    SUM(receipt_items.quantity) AS total_quantity,
-    SUM(receipt_items.quantity * receipt_items.price) AS total_sales,
-    SUM(CASE WHEN receipts.mode_of_payment = 'cash' THEN receipt_items.quantity * receipt_items.price ELSE 0 END) AS total_cash,
-    SUM(CASE WHEN receipts.mode_of_payment = 'online' THEN receipt_items.quantity * receipt_items.price ELSE 0 END) AS total_online
-    FROM receipt_items
-    JOIN item ON receipt_items.item_id = item.id
-    JOIN category ON item.category_id = category.id
-    JOIN receipts ON receipt_items.receipt_id = receipts.receipt_id
-    JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
-    JOIN eods ON eod_receipts.eod_id = eods.eod_id
-    WHERE eods.iscurrent = 0 
-      AND DATE(eods.end) = ?
-    GROUP BY category_name, item_name
-    ORDER BY category_name, item_name;
-  `;
-
 interface TableData {
   header: string[];
   tableData: string[][];
