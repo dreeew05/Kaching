@@ -16,6 +16,7 @@ function convertToString(value: string | string[]): string {
 const query = `
     SELECT 
     eods.cashiername AS cashier_name,
+    eods.contactnum AS contact_num,
     category.name AS category_name, 
     item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
@@ -30,8 +31,8 @@ const query = `
     JOIN eods ON eod_receipts.eod_id = eods.eod_id
     WHERE eods.iscurrent = 0 
       AND DATE(eods.end) = ?
-    GROUP BY eods.cashiername, category.name, item.name
-    ORDER BY eods.cashiername, category.name, item.name;
+    GROUP BY eods.contactnum, eods.cashiername, category.name, item.name
+    ORDER BY eods.contactnum, eods.cashiername, category.name, item.name;
   `;
 
 interface TableData {
@@ -162,7 +163,9 @@ export default function currentEOD() {
         <Text className="text-m">
           {currentEOD?.rows._array[0]?.cashier_name}
         </Text>
-        <Text className="text-m">09133287645</Text>
+        <Text className="text-m">
+          {currentEOD?.rows._array[0]?.contact_num}
+        </Text>
 
         <View
           style={styles.separator}

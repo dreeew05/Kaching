@@ -16,6 +16,8 @@ interface TableData {
 
 const query: string = `
     SELECT 
+    eods.cashiername AS cashier_name,
+    eods.contactnum AS contact_num,
     category.name AS category_name, 
     item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
@@ -29,8 +31,8 @@ const query: string = `
     JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
     JOIN eods ON eod_receipts.eod_id = eods.eod_id
     WHERE eods.iscurrent = 1
-    GROUP BY category_name, item_name
-    ORDER BY category_name, item_name;
+    GROUP BY eods.contactnum, eods.cashiername, category.name, item.name
+    ORDER BY eods.contactnum, eods.cashiername, category.name, item.name;
   `;
 
 export default function currentEOD() {
@@ -140,9 +142,11 @@ export default function currentEOD() {
         </Text>
         <Text className="text-m text-green">Miagao, Iloilo</Text>
         <Text className="text-m text-green">
-          {storeInfo?.rows._array[0].cashiername}
+          {currentEOD?.rows._array[0]?.cashier_name}
         </Text>
-        <Text className="text-m text-green">09133287645</Text>
+        <Text className="text-m text-green">
+          {currentEOD?.rows._array[0]?.contact_num}
+        </Text>
 
         <View
           style={styles.separator}
