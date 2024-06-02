@@ -267,5 +267,59 @@ export const getDefaultProducts = (): DefaultProducts => {
         },
       ],
     },
+    8: {
+      products: [
+        {
+          productId: 29,
+          name: 'Panda Classique Ballpen 0.7mm',
+          image: require('../assets/images/onboarding/stock_categories/school_supplies/pens/panda.jpg'),
+          price: 15,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 30,
+          name: 'Pilot Rollerball Pen G-TEC-C4 0.4mm Black',
+          image: require('../assets/images/onboarding/stock_categories/school_supplies/pens/gtec.jpg'),
+          price: 15,
+          description:
+            'A cup with a lid used for drinking cold beverages.',
+        },
+        {
+          productId: 31,
+          name: 'FABER CASTELL BALLPOINT PEN RX5 RETRACTABLE BLACK',
+          image: require('../assets/images/onboarding/stock_categories/school_supplies/pens/faber.jpg'),
+          price: 15,
+          description:
+            'The roasted seeds of a tropical shrub used to make coffee.',
+        },
+      ],
+    },
+    9: {
+      products: [
+        {
+          productId: 29,
+          name: 'Bond Paper',
+          image: require('../assets/images/onboarding/stock_categories/school_supplies/papers/bond_paper.jpg'),
+          price: 15,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 30,
+          name: 'Craft Paper',
+          image: require('../assets/images/onboarding/stock_categories/school_supplies/papers/craft_paper.jpg'),
+          price: 15,
+          description:
+            'A cup with a lid used for drinking cold beverages.',
+        },
+        {
+          productId: 31,
+          name: 'Manila Paper',
+          image: require('../assets/images/onboarding/stock_categories/school_supplies/papers/manila_paper.jpg'),
+          price: 15,
+          description:
+            'The roasted seeds of a tropical shrub used to make coffee.',
+        },
+      ],
+    },
   };
 };
