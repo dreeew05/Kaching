@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { View, Text, Image } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function PahuwayBanner() {
@@ -14,12 +14,17 @@ export default function PahuwayBanner() {
   };
 
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text className="text-lg font-bold">Pahuway Na!</Text>
+    <View className="flex-1 justify-center items-center bg-white">
+      <Text
+        style={{ fontFamily: 'Poppins-Regular' }}
+        className="text-4xl font-bold text-yellow pb-5"
+      >
+        Pahuway Na!
+      </Text>
       <Image
-        className="mt-5 mb-5"
+        className="mt-5 mb-8"
         source={require('../../assets/icons/eod.png')}
-        style={{ width: 300, height: 300 }}
+        style={{ width: 200, height: 200 }}
       />
       <Text>Day Ended Successfully!</Text>
 

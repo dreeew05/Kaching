@@ -7,9 +7,15 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import { useEffect, useState } from 'react';
 import { SQLResultSet } from 'expo-sqlite';
+import { useLocalSearchParams } from 'expo-router';
+
+function convertToString(value: string | string[]): string {
+  return Array.isArray(value) ? value.join(', ') : value;
+}
 
 const query = `
     SELECT 
+    eods.cashiername AS cashier_name,
     category.name AS category_name, 
     item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
@@ -22,10 +28,10 @@ const query = `
     JOIN receipts ON receipt_items.receipt_id = receipts.receipt_id
     JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
     JOIN eods ON eod_receipts.eod_id = eods.eod_id
-    WHERE eods.iscurrent = 0
+    WHERE eods.iscurrent = 0 
       AND DATE(eods.end) = ?
-    GROUP BY category_name, item_name
-    ORDER BY category_name, item_name;
+    GROUP BY eods.cashiername, category.name, item.name
+    ORDER BY eods.cashiername, category.name, item.name;
   `;
 
 interface TableData {
@@ -50,44 +56,17 @@ export default function currentEOD() {
   // TEST DATA
   const db = getDatabase();
 
-  const getDatePicked = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT * FROM date_picked ORDER BY date_id DESC LIMIT 1;',
-        [],
-        (tx, results) => {
-          setDatePicked(results);
-        },
-      );
-    });
-  };
-
-  const check = () => {
-    getDatePicked();
-    db.transaction((tx) => {
-      tx.executeSql(
-        `
-        SELECT * from receipts;
-      `,
-        [],
-        (tx, results) => {
-          setCurrentEOD(results);
-          console.log(
-            'check: ' + results.rows._array[0].mode_of_payment,
-          );
-        },
-      );
-    });
-  };
+  const params = useLocalSearchParams();
+  const { DateID } = params;
 
   const fetchCurrentEODData = () => {
-    getDatePicked();
     db.transaction((tx) => {
       tx.executeSql(
         query,
-        [datePicked?.rows._array[0].date],
+        [convertToString(DateID)],
         (tx, results) => {
           setCurrentEOD(results);
+          console.log('eods results: ' + results.rows.length);
         },
       );
     });
@@ -96,10 +75,17 @@ export default function currentEOD() {
     db.transaction((tx) => {
       tx.executeSql(
         `
-      SELECT * FROM eods e WHERE e.iscurrent = 0`,
-        [],
+      SELECT * 
+      FROM eod_receipts 
+      `,
+        [convertToString(DateID)],
         (tx, results) => {
           setStoreInfo(results);
+          console.log(
+            'check all eods' +
+              results.rows.length +
+              convertToString(DateID),
+          );
         },
       );
     });
@@ -114,11 +100,22 @@ export default function currentEOD() {
   };
 
   useEffect(() => {
-    //check();
-    console.log(currentEOD);
+    fetchStoreInfo2();
+    fetchStoreInfo();
     fetchCurrentEODData();
-  }, [datePicked]);
+  }, [DateID]);
 
+  let totalCash = 0;
+  let totalOnline = 0;
+  if (currentEOD) {
+    for (let index = 0; index < currentEOD?.rows.length; index++) {
+      totalCash += currentEOD?.rows._array[index].total_cash;
+      totalOnline += currentEOD?.rows._array[index].total_online;
+      console.log(
+        'total cash:' + currentEOD?.rows._array[index].total_cash,
+      );
+    }
+  }
   // enumerate all categories in the currentEOD
   let categories: string[] = [];
   currentEOD?.rows._array.forEach((item) => {
@@ -137,7 +134,7 @@ export default function currentEOD() {
         tableData.push([
           item.item_name,
           'x' + item.total_quantity,
-          '₱' + item.total_sales,
+          '₱' + item.total_sales.toFixed(2),
         ]);
       }
     });
@@ -158,9 +155,13 @@ export default function currentEOD() {
       }}
     >
       <View style={styles.container}>
-        {/* <Text className="font-bold text-xl text-green">{storeInfo2?.rows._array[0].storename}</Text> */}
+        <Text className="font-bold text-xl text-green">
+          {storeInfo2?.rows._array[0].storename}
+        </Text>
         <Text className="text-m">Miagao, Iloilo</Text>
-        {/* <Text className="text-m">{storeInfo?.rows._array[0].cashiername}</Text> */}
+        <Text className="text-m">
+          {currentEOD?.rows._array[0]?.cashier_name}
+        </Text>
         <Text className="text-m">09133287645</Text>
 
         <View
@@ -170,9 +171,7 @@ export default function currentEOD() {
         />
 
         <Text className="text-l">END OF DAY REPORT</Text>
-        <Text className="text-l">
-          {datePicked?.rows._array[0].date}
-        </Text>
+        <Text className="text-l">{convertToString(DateID)}</Text>
 
         <View
           style={styles.separator}
@@ -186,8 +185,8 @@ export default function currentEOD() {
             Financial Summary
           </Text>
           <FinancialSummary
-            query={query}
-            time={datePicked?.rows._array[0].date}
+            totalCash={totalCash}
+            totalOnline={totalOnline}
           />
         </View>
         {/* END FINANCIAL SUMMARY */}

@@ -38,7 +38,8 @@ const initializeItemTable = () => {
                 category_id INTEGER NOT NULL,
                 description TEXT,
                 is_available INTEGER NOT NULL DEFAULT 1,
-                is_deleted INTEGER NOT NULL DEFAULT 0
+                is_deleted INTEGER NOT NULL DEFAULT 0,
+                FOREIGN KEY(category_id) REFERENCES category(id)
             )`,
     );
   });
@@ -50,6 +51,7 @@ const initializeCategoryItemTable = () => {
       `CREATE TABLE IF NOT EXISTS category_items(
                 category_id INTEGER NOT NULL,
                 item_id INTEGER NOT NULL,
+                PRIMARY KEY (category_id, item_id),
                 FOREIGN KEY(category_id) REFERENCES category(id),
                 FOREIGN KEY(item_id) REFERENCES item(id)
             );`,
@@ -79,6 +81,7 @@ const initializeReceiptItemTable = () => {
                 item_id INTEGER NOT NULL,
                 quantity INTEGER NOT NULL,
                 price NUMERIC NOT NULL,
+                PRIMARY KEY (receipt_id, item_id),
                 FOREIGN KEY(receipt_id) REFERENCES receipts(receipt_id),
                 FOREIGN KEY(item_id) REFERENCES item(item_id)
             )`,
@@ -119,6 +122,7 @@ const initializeEODReceiptTable = () => {
       `CREATE TABLE IF NOT EXISTS eod_receipts(
                 eod_id INTEGER NOT NULL,
                 receipt_id INTEGER NOT NULL,
+                PRIMARY KEY (eod_id, receipt_id),
                 FOREIGN KEY(eod_id) REFERENCES eods(eod_id),
                 FOREIGN KEY(receipt_id) REFERENCES receipts(receipt_id)
             )`,

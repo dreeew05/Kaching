@@ -9,11 +9,13 @@ import {
 } from '../constants/BusinessTypes';
 import { getScreenHeight } from '../constants/ScreenDimensions';
 import { OnboardingModalProps } from './_layout';
+import { updateData } from '../components/DatabaseUtils/CoreFunctions';
 
 interface SelectStoreTypeProps {
   storeModalProps: OnboardingModalProps;
   openDefaultCategoryModal: () => void;
   setCategoryId: (id: number) => void;
+  onBoardingComplete: () => void;
 }
 
 export default function SelectStoreType(
@@ -35,11 +37,43 @@ export default function SelectStoreType(
   };
 
   const showToCategories = () => {
-    if (selectedBusinessId !== null) {
-      modalProps.setCategoryId(selectedBusinessId);
-      modalProps.openDefaultCategoryModal();
-      setModalVisible(false);
+    // 7 is the id of Others
+    // if (selectedBusinessId !== null && selectedBusinessId != 7) {
+    //   modalProps.setCategoryId(selectedBusinessId);
+    //   modalProps.openDefaultCategoryModal();
+    //   setModalVisible(false);
+    // }
+    if (selectedBusinessId != null) {
+      if (selectedBusinessId == 7) {
+        setOnboardingComplete();
+      } else {
+        modalProps.setCategoryId(selectedBusinessId);
+        modalProps.openDefaultCategoryModal();
+        setModalVisible(false);
+      }
     }
+  };
+
+  const setOnboardingComplete = () => {
+    const tableName = 'store';
+    const targetAttrib = ['setup_complete'];
+    const targetValue = [1];
+    const refAttrib = targetAttrib[0];
+    const refValue = 0;
+    updateData(
+      tableName,
+      targetAttrib,
+      targetValue,
+      refAttrib,
+      refValue,
+    )
+      .then((_) => {
+        modalProps.onBoardingComplete();
+        setModalVisible(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
