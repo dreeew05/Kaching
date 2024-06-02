@@ -231,7 +231,7 @@ export default function CartItemsGenerator() {
                     </View>
                     <View>
                       <Pressable
-                        className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2"
+                        className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2"
                         onPress={() =>
                           goToNextModal(
                             setDeleteItemModalVisible,
