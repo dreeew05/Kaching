@@ -213,5 +213,59 @@ export const getDefaultProducts = (): DefaultProducts => {
         },
       ],
     },
+    6: {
+      products: [
+        {
+          productId: 23,
+          name: 'Sasas',
+          image: require('../assets/images/onboarding/stock_categories/sari_sari/snacks/sasas.png'),
+          price: 2,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 24,
+          name: 'Oishi Prawn Crackers',
+          image: require('../assets/images/onboarding/stock_categories/sari_sari/snacks/oishi_prawn_crackers.jpg'),
+          price: 10,
+          description:
+            'A cup with a lid used for drinking cold beverages.',
+        },
+        {
+          productId: 25,
+          name: 'Oishi Crispy Patata',
+          image: require('../assets/images/onboarding/stock_categories/sari_sari/snacks/oishi_crispy_patata.jpg'),
+          price: 10,
+          description:
+            'The roasted seeds of a tropical shrub used to make coffee.',
+        },
+      ],
+    },
+    7: {
+      products: [
+        {
+          productId: 26,
+          name: 'Tide',
+          image: require('../assets/images/onboarding/stock_categories/sari_sari/non_food/tide.jpg'),
+          price: 15,
+          description: 'A cup used for drinking coffee.',
+        },
+        {
+          productId: 27,
+          name: 'Ariel',
+          image: require('../assets/images/onboarding/stock_categories/sari_sari/non_food/ariel.jpg'),
+          price: 15,
+          description:
+            'A cup with a lid used for drinking cold beverages.',
+        },
+        {
+          productId: 28,
+          name: 'Pride',
+          image: require('../assets/images/onboarding/stock_categories/sari_sari/non_food/pride.jpg'),
+          price: 15,
+          description:
+            'The roasted seeds of a tropical shrub used to make coffee.',
+        },
+      ],
+    },
   };
 };
