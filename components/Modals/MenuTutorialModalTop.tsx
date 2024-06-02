@@ -43,11 +43,11 @@ const MenuTutorialModalTop: React.FC<MenuTutorialModalProps> = ({
         return { top: 'top-[255]' };
       case 'View Previous EOD':
         return hasStartDay
-          ? { top: 'top-[322]' }
+          ? { top: 'top-[350]' }
           : { top: 'top-[290]' };
       case 'Terms of Service':
         return hasStartDay
-          ? { top: 'top-[390]' }
+          ? { top: 'top-[430]' }
           : { top: 'top-[396]' };
       default:
         return { top: 'top-[50]' };
