@@ -1,13 +1,13 @@
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  Pressable,
-  Modal,
-} from 'react-native';
-import { MenuTutorialModalProps } from './MenuTutorialModalTop';
 import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { useMemo } from 'react';
+import {
+  Modal,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { MenuTutorialModalProps } from './MenuTutorialModalTop';
 
 const MenuTutorialModalBottom: React.FC<MenuTutorialModalProps> = ({
   isVisible,
@@ -30,11 +30,11 @@ const MenuTutorialModalBottom: React.FC<MenuTutorialModalProps> = ({
     switch (title) {
       case 'Privacy Policy':
         return hasStartDay
-          ? { bottom: 'bottom-[285]' }
+          ? { bottom: 'bottom-[255]' }
           : { bottom: 'bottom-[288]' };
       case 'FAQs':
         return hasStartDay
-          ? { bottom: 'bottom-[202]' }
+          ? { bottom: 'bottom-[193]' }
           : { bottom: 'bottom-[183]' };
       default:
         return { bottom: 'bottom-[20]' };
@@ -71,19 +71,20 @@ const MenuTutorialModalBottom: React.FC<MenuTutorialModalProps> = ({
                 {content}
               </Text>
             </View>
-            <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
-              <Pressable onPress={() => goToNextModal()}>
-                <Text
-                  className="text-black"
-                  style={{
-                    fontFamily: 'Poppins-Regular',
-                    color: 'white',
-                  }}
-                >
-                  {onNextMessage}
-                </Text>
-              </Pressable>
-            </View>
+            <Pressable
+              className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2  py-2"
+              onPress={() => goToNextModal()}
+            >
+              <Text
+                className="text-black"
+                style={{
+                  fontFamily: 'Poppins-Regular',
+                  color: 'white',
+                }}
+              >
+                {onNextMessage}
+              </Text>
+            </Pressable>
             <View className="flex flex-row justify-end mr-5 mt-[-13]">
               <Entypo
                 name={'triangle-down'}

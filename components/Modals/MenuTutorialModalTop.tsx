@@ -2,10 +2,10 @@ import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { useMemo } from 'react';
 import {
   Modal,
+  Pressable,
+  Text,
   TouchableOpacity,
   View,
-  Text,
-  Pressable,
 } from 'react-native';
 
 export interface MenuTutorialModalProps {
@@ -40,14 +40,14 @@ const MenuTutorialModalTop: React.FC<MenuTutorialModalProps> = ({
     // Depota i brute forece ko na lang
     switch (title) {
       case 'View Current EOD':
-        return { top: 'top-[264]' };
+        return { top: 'top-[255]' };
       case 'View Previous EOD':
         return hasStartDay
-          ? { top: 'top-[346]' }
+          ? { top: 'top-[322]' }
           : { top: 'top-[290]' };
       case 'Terms of Service':
         return hasStartDay
-          ? { top: 'top-[425]' }
+          ? { top: 'top-[390]' }
           : { top: 'top-[396]' };
       default:
         return { top: 'top-[50]' };
@@ -100,19 +100,20 @@ const MenuTutorialModalTop: React.FC<MenuTutorialModalProps> = ({
                 {content}
               </Text>
             </View>
-            <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
-              <Pressable onPress={() => goToNextModal()}>
-                <Text
-                  className="text-black"
-                  style={{
-                    fontFamily: 'Poppins-Regular',
-                    color: 'white',
-                  }}
-                >
-                  {onNextMessage}
-                </Text>
-              </Pressable>
-            </View>
+            <Pressable
+              className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2  py-2"
+              onPress={() => goToNextModal()}
+            >
+              <Text
+                className="text-black"
+                style={{
+                  fontFamily: 'Poppins-Regular',
+                  color: 'white',
+                }}
+              >
+                {onNextMessage}
+              </Text>
+            </Pressable>
           </View>
         </View>
       </TouchableOpacity>

@@ -1,12 +1,13 @@
+import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
+  Image,
   Modal,
   Pressable,
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import {
@@ -14,8 +15,6 @@ import {
   selectStoreNameAction,
 } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
-import { Entypo, FontAwesome5 } from '@expo/vector-icons';
-
 export default function StoreInformationGenerator() {
   const db = getDatabase();
   const [storeName, setStoreName] = useState('Store Name');
@@ -75,7 +74,7 @@ export default function StoreInformationGenerator() {
 
   return (
     <View>
-      <View className="flex-row mt-5">
+      <View className="flex-row mt-3 ml-2">
         <Link
           href={{
             pathname: '/(tabs)/editStoreName',
@@ -85,34 +84,43 @@ export default function StoreInformationGenerator() {
           }}
           asChild
         >
-          <Pressable className="flex-1 pt-2">
-            <View className="flex-row">
-              <Text className="text-5xl ml-5 font-semibold text-green">
-                {storeName}
-              </Text>
+          <Pressable className="flex-1">
+            <View className="flex-row  py-2">
+              {/* <View className="p-0 ml-3">
+                <MaterialIcons
+                  name="store"
+                  size={55}
+                  color="#18573A"
+                />
+              </View> */}
+              <View className="flex-1 justify-center">
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  className="text-5xl font-semibold text-green"
+                >
+                  {storeName}
+                </Text>
+              </View>
             </View>
           </Pressable>
         </Link>
 
-        <View>
+        <View className="justify-center px-3">
           <TouchableOpacity
-            className="mr-5 mt-2"
+            className="items-center"
             onPress={() => setEditNameModalVisible(true)}
           >
-            <View>
-              <Entypo
-                name="help-with-circle"
-                size={35}
-                color="#18573a"
-              />
-            </View>
+            <Entypo
+              name="help-with-circle"
+              size={35}
+              color="#18573a"
+            />
           </TouchableOpacity>
         </View>
-
-        {/* <HomeHelpTutorial /> */}
       </View>
 
-      <Text className="text-sm ml-5 pb-2">
+      <Text className="text-sm ml-3 pb-2">
         {monthInWords(date.getMonth()) +
           ' ' +
           date.getDate() +
@@ -121,11 +129,11 @@ export default function StoreInformationGenerator() {
           date.getFullYear()}
       </Text>
 
-      {/* For the record, I did not like how I coded this shit. 
+      {/* For the record, I did not like how I coded this shit.
         Fucking React Native. Fucking piece of shit framework.
         I wanted to optimize this by putting it on another component
-        so that I can instantiate this piece of shit. But React 
-        Native makes it complex for you by adding unnecessary 
+        so that I can instantiate this piece of shit. But React
+        Native makes it complex for you by adding unnecessary
         bullshit that was not even part of the code. Fuck!!!!!!
       */}
       {/* MODALS */}
@@ -146,8 +154,8 @@ export default function StoreInformationGenerator() {
           }}
           onPress={() => setEditNameModalVisible(false)}
         >
-          <View className="top-[20]">
-            <View className="bg-white ml-3 rounded-md w-[300]">
+          <View className="top-[25]">
+            <View className="bg-white py-3 ml-3 rounded-md w-[290]">
               <View className="mt-2">
                 <Text className="text-5xl ml-2 font-semibold text-green">
                   {storeName}
@@ -163,9 +171,9 @@ export default function StoreInformationGenerator() {
                   color="white"
                 />
               </View>
-              <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 mt-[-15]">
+              <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 mt-[-15] w-9/12">
                 <Text
-                  className="text-black"
+                  className="text-black justify-center items-center self-center"
                   style={{
                     fontFamily: 'Poppins-Regular',
                   }}
@@ -173,29 +181,29 @@ export default function StoreInformationGenerator() {
                   Tap to edit your store name.
                 </Text>
               </View>
-              <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
-                <Pressable
-                  onPress={() =>
-                    goToNextModal(
-                      setEditNameModalVisible,
-                      // setStartDayModalVisible,
-                      hasStartDay.isStartDay
-                        ? setEditCategoryModalVisible
-                        : setStartDayModalVisible,
-                    )
-                  }
+
+              <Pressable
+                className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2 w-9/12 py-2"
+                onPress={() =>
+                  goToNextModal(
+                    setEditNameModalVisible,
+                    // setStartDayModalVisible,
+                    hasStartDay.isStartDay
+                      ? setEditCategoryModalVisible
+                      : setStartDayModalVisible,
+                  )
+                }
+              >
+                <Text
+                  className="text-black"
+                  style={{
+                    fontFamily: 'Poppins-Regular',
+                    color: 'white',
+                  }}
                 >
-                  <Text
-                    className="text-black"
-                    style={{
-                      fontFamily: 'Poppins-Regular',
-                      color: 'white',
-                    }}
-                  >
-                    Continue
-                  </Text>
-                </Pressable>
-              </View>
+                  Continue
+                </Text>
+              </Pressable>
             </View>
           </View>
         </TouchableOpacity>
@@ -249,7 +257,7 @@ export default function StoreInformationGenerator() {
               </View>
               <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 mt-[-15]">
                 <Text
-                  className="text-black"
+                  className="text-black "
                   style={{
                     fontFamily: 'Poppins-Regular',
                   }}
@@ -260,26 +268,25 @@ export default function StoreInformationGenerator() {
                   accurately recorded.
                 </Text>
               </View>
-              <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
-                <Pressable
-                  onPress={() =>
-                    goToNextModal(
-                      setStartDayModalVisible,
-                      setEditCategoryModalVisible,
-                    )
-                  }
+              <Pressable
+                className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2 py-2"
+                onPress={() =>
+                  goToNextModal(
+                    setStartDayModalVisible,
+                    setEditCategoryModalVisible,
+                  )
+                }
+              >
+                <Text
+                  className="text-black"
+                  style={{
+                    fontFamily: 'Poppins-Regular',
+                    color: 'white',
+                  }}
                 >
-                  <Text
-                    className="text-black"
-                    style={{
-                      fontFamily: 'Poppins-Regular',
-                      color: 'white',
-                    }}
-                  >
-                    Continue
-                  </Text>
-                </Pressable>
-              </View>
+                  Continue
+                </Text>
+              </Pressable>
             </View>
           </View>
         </TouchableOpacity>
@@ -304,10 +311,10 @@ export default function StoreInformationGenerator() {
         >
           <View
             className={
-              hasStartDay.isStartDay ? 'top-[215]' : 'top-[155]'
+              hasStartDay.isStartDay ? 'top-[220]' : 'top-[155]'
             }
           >
-            <View className="bg-white ml-3 rounded-md w-[250] pl-[7] py-2">
+            <View className="bg-white mt-1 ml-3 rounded-md w-[220] pl-[7] py-2">
               <View className="flex flex-row">
                 <Text
                   className="text-3xl font-base text-darkgreen"
@@ -345,26 +352,25 @@ export default function StoreInformationGenerator() {
                   Create, edit, or delete categories.
                 </Text>
               </View>
-              <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
-                <Pressable
-                  onPress={() =>
-                    goToNextModal(
-                      setEditCategoryModalVisible,
-                      setClickCategoryModalVisible,
-                    )
-                  }
+              <Pressable
+                className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2  py-2"
+                onPress={() =>
+                  goToNextModal(
+                    setEditCategoryModalVisible,
+                    setClickCategoryModalVisible,
+                  )
+                }
+              >
+                <Text
+                  className="text-black"
+                  style={{
+                    fontFamily: 'Poppins-Regular',
+                    color: 'white',
+                  }}
                 >
-                  <Text
-                    className="text-black"
-                    style={{
-                      fontFamily: 'Poppins-Regular',
-                      color: 'white',
-                    }}
-                  >
-                    Continue
-                  </Text>
-                </Pressable>
-              </View>
+                  Continue
+                </Text>
+              </Pressable>
             </View>
           </View>
         </TouchableOpacity>
@@ -431,23 +437,22 @@ export default function StoreInformationGenerator() {
                   category.
                 </Text>
               </View>
-              <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
-                <Pressable
-                  onPress={() =>
-                    goToNextModal(setClickCategoryModalVisible, null)
-                  }
+              <Pressable
+                className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2 py-2"
+                onPress={() =>
+                  goToNextModal(setClickCategoryModalVisible, null)
+                }
+              >
+                <Text
+                  className="text-black"
+                  style={{
+                    fontFamily: 'Poppins-Regular',
+                    color: 'white',
+                  }}
                 >
-                  <Text
-                    className="text-black"
-                    style={{
-                      fontFamily: 'Poppins-Regular',
-                      color: 'white',
-                    }}
-                  >
-                    Okay
-                  </Text>
-                </Pressable>
-              </View>
+                  Okay
+                </Text>
+              </Pressable>
             </View>
           </View>
         </TouchableOpacity>
