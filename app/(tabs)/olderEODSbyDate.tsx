@@ -134,7 +134,7 @@ export default function currentEOD() {
         tableData.push([
           item.item_name,
           'x' + item.total_quantity,
-          '₱' + item.total_sales,
+          '₱' + item.total_sales.toFixed(2),
         ]);
       }
     });
