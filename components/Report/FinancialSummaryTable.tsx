@@ -5,16 +5,22 @@ import { Rows, Table } from 'react-native-table-component';
 interface FinancialSummaryProps {
   totalCash: number;
   totalOnline: number;
+  pettyCash: number;
 }
 
 const FinancialSummary: React.FC<FinancialSummaryProps> = ({
   totalCash,
   totalOnline,
+  pettyCash,
 }) => {
   const tableData = [
     ['Cash Total', '₱ ' + `${totalCash.toFixed(2)}`, ,],
     ['Online Total', '₱ ' + `${totalOnline.toFixed(2)}`, ,],
-    ['Grand Total', '₱ ' + `${(totalCash + totalOnline).toFixed(2)}`],
+    ['Petty Cash', '₱ ' + `${pettyCash.toFixed(2)}`, ,],
+    [
+      'Grand Total',
+      '₱ ' + `${(totalCash + totalOnline + pettyCash).toFixed(2)}`,
+    ],
   ];
 
   return (
@@ -31,7 +37,7 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#fff', width: 350 },
+  container: { backgroundColor: '#fff', width: 350, marginLeft: 25 },
   text: { margin: 5, marginLeft: 25 },
 });
 

@@ -18,6 +18,7 @@ const query: string = `
     SELECT 
     eods.cashiername AS cashier_name,
     eods.contactnum AS contact_num,
+    eods.pettycash AS petty_cash,
     category.name AS category_name, 
     item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
@@ -52,6 +53,7 @@ export default function currentEOD() {
     useState<string>('cashierName');
   const [contactNumber, setContactNumber] =
     useState<string>('Contact Number');
+  const [pettyCash, setPettyCash] = useState<number>(0);
 
   // TEST DATA
   const db = getDatabase();
@@ -60,6 +62,18 @@ export default function currentEOD() {
       tx.executeSql(query, [], (tx, results) => {
         setCurrentEOD(results);
       });
+    });
+
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT pettycash FROM eods WHERE iscurrent = 1;',
+        [],
+        (txObj, resultSet) => {
+          if (resultSet.rows.length > 0) {
+            setPettyCash(resultSet.rows.item(0).pettycash);
+          }
+        },
+      );
     });
 
     db.transaction((tx) => {
@@ -181,6 +195,8 @@ export default function currentEOD() {
           <FinancialSummary
             totalCash={totalCash}
             totalOnline={totalOnline}
+            pettyCash={pettyCash}
+
           />
         </View>
         {/* END FINANCIAL SUMMARY */}
