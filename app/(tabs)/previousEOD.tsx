@@ -33,9 +33,7 @@ export default function TabTwoScreen() {
   };
 
   const router = useRouter();
-  const goToEOD = () => {
-    router.push('/(tabs)/olderEODSbyDate');
-  };
+  const goToEOD = () => {};
 
   return (
     <>

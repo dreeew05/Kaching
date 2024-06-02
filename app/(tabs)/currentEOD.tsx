@@ -7,6 +7,7 @@ import CategoryTable from '../../components/Report/CategoryTable';
 import FinancialSummary from '../../components/Report/FinancialSummaryTable';
 import ShareCSV from '../../components/Report/ShareCSV';
 import { Text, View } from '../../components/Themed';
+import { useLocalSearchParams } from 'expo-router';
 
 interface TableData {
   header: string[];
@@ -33,6 +34,9 @@ const query: string = `
   `;
 
 export default function currentEOD() {
+  const params = useLocalSearchParams();
+  const { count } = params;
+
   const [currentEOD, setCurrentEOD] = useState<SQLResultSet | null>(
     null,
   );
@@ -55,8 +59,7 @@ export default function currentEOD() {
   const fetchStoreInfo = () => {
     db.transaction((tx) => {
       tx.executeSql(
-        `
-      SELECT * FROM eods e WHERE e.iscurrent = 1;`,
+        `SELECT * FROM eods e WHERE e.iscurrent = 1;`,
         [],
         (tx, results) => {
           setStoreInfo(results);
@@ -77,7 +80,8 @@ export default function currentEOD() {
     fetchCurrentEODData();
     fetchStoreInfo();
     fetchStoreInfo2();
-  }, [currentEOD]);
+    console.log(count);
+  }, [count]);
 
   // enumerate all categories in the currentEOD
   let categories: string[] = [];
@@ -157,7 +161,7 @@ export default function currentEOD() {
           <Text className="font-bold text-l content-center">
             Financial Summary
           </Text>
-          <FinancialSummary query={query} time={undefined} />
+          <FinancialSummary totalCash={0} totalOnline={0} />
         </View>
         {/* END FINANCIAL SUMMARY */}
 

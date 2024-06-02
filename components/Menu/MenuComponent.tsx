@@ -85,7 +85,7 @@ export default function MenuComponent() {
         ) => void;
       }) => {
         tx.executeSql(
-          `UPDATE eods SET iscurrent = 0 WHERE iscurrent = 1;`,
+          `UPDATE eods SET iscurrent = 0 WHERE iscurrent = 1`,
           [],
           (txObj: any, resultSet: any) => {
             // console.log('iscurrent column updated to 0.');
@@ -170,6 +170,7 @@ export default function MenuComponent() {
   const [policyModalVisible, setPolicyModalVisible] = useState(false);
   const [faqModalVisible, setFaqModalVisible] = useState(false);
   const [endDayModalVisible, setEndDayModalVisible] = useState(false);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     fetchCurrentEODData();
@@ -241,8 +242,20 @@ export default function MenuComponent() {
 
       <View className=" flex-1 flex-col justify-evenly items-center">
         {hasStartDay.isStartDay ? (
-          <Link href="/(tabs)/currentEOD" asChild>
-            <Pressable className="bg-transparent w-5/6 self-center py-2 px-4 mt-2 mb-5 ml-2 flex-row justify-between items-center">
+          <Link
+            href={{
+              pathname: '/(tabs)/currentEOD',
+              // /* 1. Navigate to the details route with query params */
+              params: {
+                count: counter,
+              },
+            }}
+            asChild
+          >
+            <Pressable
+              className="bg-transparent w-5/6 self-center py-2 px-4 mt-2 mb-5 ml-2 flex-row justify-between items-center"
+              onPress={() => setCounter(counter + 1)}
+            >
               <Text className="text-green text-xl font-bold">
                 View Current EOD
               </Text>
