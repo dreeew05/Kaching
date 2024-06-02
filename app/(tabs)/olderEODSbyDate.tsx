@@ -171,9 +171,7 @@ export default function currentEOD() {
         />
 
         <Text className="text-l">END OF DAY REPORT</Text>
-        <Text className="text-l">
-          {datePicked?.rows._array[0].date}
-        </Text>
+        <Text className="text-l">{convertToString(DateID)}</Text>
 
         <View
           style={styles.separator}
