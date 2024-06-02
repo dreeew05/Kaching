@@ -35,7 +35,11 @@ export default function SaleDashboard() {
 
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT count(receipt_id) AS total_orders FROM receipts`,
+        `SELECT count(receipts.receipt_id) AS total_orders 
+        FROM receipts 
+        INNER JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
+        WHERE eod_receipts.eod_id = (SELECT eod_id FROM eods WHERE iscurrent = 1)
+        `,
         [],
         (tx, results) => {
           setCurrentOrders(results);
@@ -49,43 +53,49 @@ export default function SaleDashboard() {
   }, [currentSales]);
 
   return (
-    <View
-      className="flex-row mb-5 py-3 px-10 items-center shadow-lg
+    <View className="  w-11/12 self-center items-center">
+      <View
+        className=" flex-row mb-5 py-3 items-center shadow-lg
                     shadow-neutral-600 rounded-lg self-center bg-white"
-    >
-      <View>
-        <Text
-          className=" px-7 self-center text-center 
-                    text-green text-3xl font-bold"
-        >
-          ₱{(currentSales?.rows.item(0).total_sales || 0).toFixed(2)}
-        </Text>
-        <Text
-          className=" px-7 self-center text-center text-black
-                    text-sm opacity-50 font-base"
-        >
-          Total Amount
-        </Text>
-      </View>
-      <Text
-        className=" self-center text-center text-gray 
-                    text-5xl font-thin"
       >
-        |
-      </Text>
-      <View>
-        <Text
-          className=" px-7 self-center text-center text-green
-                    text-3xl font-bold"
-        >
-          {currentOrders?.rows.item(0).total_orders}
-        </Text>
-        <Text
-          className=" px-7 self-center text-center text-black
+        <View className="flex-1">
+          <Text
+            adjustsFontSizeToFit
+            numberOfLines={1}
+            className=" px-7 self-center text-center
+                    text-green text-3xl font-bold"
+          >
+            ₱
+            {(currentSales?.rows.item(0).total_sales || 0).toFixed(2)}
+          </Text>
+          <Text
+            className=" px-7 self-center text-center text-black
                     text-sm opacity-50 font-base"
+          >
+            Total Amount
+          </Text>
+        </View>
+        <Text
+          className=" self-center text-center text-gray 
+                    text-5xl font-thin"
         >
-          Orders
+          |
         </Text>
+        <View className="flex-1">
+          <Text
+            adjustsFontSizeToFit
+            className=" px-7 self-center text-center text-green
+                    text-3xl font-bold"
+          >
+            {currentOrders?.rows.item(0).total_orders}
+          </Text>
+          <Text
+            className=" px-7 self-center text-center text-black
+                    text-sm opacity-50 font-base"
+          >
+            Orders
+          </Text>
+        </View>
       </View>
     </View>
   );

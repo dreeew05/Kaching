@@ -41,7 +41,7 @@ export default function DayStarter() {
     if (hasStartDay.isStartDay) {
       return (
         <View>
-          <Text className="text-sm ml-3 mb-3">
+          <Text className="text-sm ml-4 mb-3">
             Cashier's Name: {cashierName}
           </Text>
           <SaleDashboard />
