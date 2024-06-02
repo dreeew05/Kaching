@@ -315,23 +315,23 @@ export default function StoreInformationGenerator() {
         >
           <View
             className={
-              hasStartDay.isStartDay ? 'top-[220]' : 'top-[167]'
+              hasStartDay.isStartDay ? 'top-[222]' : 'top-[167]'
             }
           >
-            <View className="bg-white mt-1 ml-3 rounded-md w-[220] pl-[7] py-2">
+            <View className="bg-white mt-1 ml-3.5 rounded-md w-[270] pl-[7] pt-2">
               <View className="flex flex-row">
                 <Text
-                  className="text-3xl font-base text-darkgreen"
+                  className="text-4xl font-base self-center items-center  text-darkgreen"
                   style={{
                     fontFamily: 'Poppins-Medium',
                   }}
                 >
                   Categories
                 </Text>
-                <View className="self-center ml-3">
+                <View className=" w-1/5 self-centeritems-center mb-4 ml-5">
                   <FontAwesome5
                     name="edit"
-                    size={25}
+                    size={30}
                     color="darkgreen"
                   />
                 </View>

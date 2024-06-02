@@ -51,12 +51,13 @@ export default function SaleDashboard() {
   return (
     <View className="  w-11/12 self-center items-center">
       <View
-        className="flex-1 flex-row mb-5 py-3 items-center shadow-lg
+        className=" flex-row mb-5 py-3 items-center shadow-lg
                     shadow-neutral-600 rounded-lg self-center bg-white"
       >
         <View className="flex-1">
           <Text
             adjustsFontSizeToFit
+            numberOfLines={1}
             className=" px-7 self-center text-center
                     text-green text-3xl font-bold"
           >
