@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { TextInput, Text, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import CustomPressable from '../Common/CustomPressable';
@@ -63,7 +63,9 @@ export default function StartDayComponent() {
       setErrorMessage('');
       return true;
     } else {
-      setErrorMessage('Contact number must be exactly 11 digits.');
+      setErrorMessage(
+        'The phone number you provided is invalid. Please provide a valid 11-digit phone number',
+      );
       return false;
     }
   };
