@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import PreviousDatesScrollView from '../../components/Report/PreviousDatesGenerator';
-import { useFocusEffect } from '@react-navigation/native';
 
 interface EodDate {
   date: string;
@@ -11,8 +11,9 @@ interface EodDate {
 
 const TabTwoScreen: React.FC = () => {
   const [eodDates, setEodDates] = useState<[string, number][]>([]);
-  const [selectedEodId, setSelectedEodId] = useState<number | null>(null);
-
+  const [selectedEodId, setSelectedEodId] = useState<number | null>(
+    null,
+  );
 
   const fetchEodDates = () => {
     const db = getDatabase();
@@ -38,12 +39,18 @@ const TabTwoScreen: React.FC = () => {
               dateMap.set(dateKey, 1);
             }
 
-            const postfix = dateMap.get(dateKey)! > 1 ? ` (${dateMap.get(dateKey)})` : '';
-            const formattedDate = `${date.toLocaleDateString(undefined, {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            })}${postfix}`;
+            const postfix =
+              dateMap.get(dateKey)! > 1
+                ? ` (${dateMap.get(dateKey)})`
+                : '';
+            const formattedDate = `${date.toLocaleDateString(
+              undefined,
+              {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              },
+            )}${postfix}`;
 
             dates.push([formattedDate, row.eod_id]);
           }
@@ -60,7 +67,7 @@ const TabTwoScreen: React.FC = () => {
   useFocusEffect(
     useCallback(() => {
       fetchEodDates();
-    }, [])
+    }, []),
   );
 
   useEffect(() => {
@@ -73,14 +80,17 @@ const TabTwoScreen: React.FC = () => {
     // Example: fetchEodReport(eodId);
   };
 
-
-
   return (
-    <View className="flex-1 items-center justify-center">
-      <View className="w-full flex-row justify-between px-6">
-        <Text className="text-2xl">Recent EOD's</Text>
+    <View className="flex-1 items-center justify-center pt-5 bg-white">
+      <View className="w-full py-2">
+        <Text className="text-2xl text-green self-center items-center font-semibold text-center">
+          Recent EOD's
+        </Text>
       </View>
-      <PreviousDatesScrollView dates={eodDates.map(([date, eodId]) => ({ date, eodId }))} onSelectDate={handleDateSelection} />
+      <PreviousDatesScrollView
+        dates={eodDates.map(([date, eodId]) => ({ date, eodId }))}
+        onSelectDate={handleDateSelection}
+      />
     </View>
   );
 };

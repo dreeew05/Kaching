@@ -10,7 +10,7 @@ type TableProps = CategoryTableProps;
 
 const CategoryTable = (props: { table: TableProps }) => {
   return (
-    <View className="ml-10" style={styles.container}>
+    <View className="ml-12" style={styles.container}>
       <View style={{ marginBottom: 8 }}></View>
       <Table>
         <Row

@@ -1,13 +1,13 @@
-import { Alert, StyleSheet } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import FinancialSummary from '../../components/Report/FinancialSummaryTable';
-import ShareCSV from '../../components/Report/ShareCSV';
-import CategoryTable from '../../components/Report/CategoryTable';
+import { useLocalSearchParams } from 'expo-router';
+import { SQLResultSet } from 'expo-sqlite';
+import { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
-import { useEffect, useState } from 'react';
-import { SQLResultSet } from 'expo-sqlite';
-import { useLocalSearchParams } from 'expo-router';
+import CategoryTable from '../../components/Report/CategoryTable';
+import FinancialSummary from '../../components/Report/FinancialSummaryTable';
+import ShareCSV from '../../components/Report/ShareCSV';
+import { Text, View } from '../../components/Themed';
 
 function convertToString(value: string | string[]): string {
   return Array.isArray(value) ? value.join(', ') : value;
@@ -67,14 +67,10 @@ export default function currentEOD() {
 
   const fetchCurrentEODData = () => {
     db.transaction((tx) => {
-      tx.executeSql(
-        query,
-        [eodID],
-        (tx, results) => {
-          setCurrentEOD(results);
-          console.log('eods results: ' + results.rows.length);
-        },
-      );
+      tx.executeSql(query, [eodID], (tx, results) => {
+        setCurrentEOD(results);
+        console.log('eods results: ' + results.rows.length);
+      });
     });
 
     db.transaction((tx) => {
@@ -169,63 +165,68 @@ export default function currentEOD() {
 
   return (
     <ScrollView
+      className="bg-white"
       contentContainerStyle={{
         flexGrow: 1,
         justifyContent: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
       }}
     >
-      <View style={styles.container}>
-        <Text className="font-bold text-xl text-green">
+      <View className="bg-white mt-5" style={styles.container}>
+        <Text className="font-bold text-xl text-green mb-2">
           {storeInfo2?.rows._array[0].storename}
         </Text>
-        <Text className="text-m">Miagao, Iloilo</Text>
-        <Text className="text-m">
+        <Text className="text-m text-black">Miagao, Iloilo</Text>
+        <Text className="text-m text-black">
           {currentEOD?.rows._array[0]?.cashier_name}
-
         </Text>
         <Text className="text-m">
           {currentEOD?.rows._array[0]?.contact_num}
-
         </Text>
 
         <View
           style={styles.separator}
           lightColor="#eee"
-          darkColor="rgba(255,255,255,0.1)"
+          darkColor="gray"
         />
 
-        <Text className="text-l">END OF DAY REPORT</Text>
-        <Text className="text-l">{date}</Text>
+        <Text className="text-l text-green font-semibold">
+          END OF DAY REPORT
+        </Text>
+        <Text className="text-sm text-black">{date}</Text>
 
         <View
           style={styles.separator}
-          lightColor="#eee"
-          darkColor="rgba(255,255,255,0.1)"
+          // lightColor="black"
+          darkColor="gray"
         />
 
-        {/* START FINANCIAL SUMMARY */}
-        <View>
-          <Text className="font-bold text-l content-center">
-            Financial Summary
-          </Text>
-          <FinancialSummary
-            totalCash={totalCash}
-            totalOnline={totalOnline}
-            pettyCash={pettyCash}
-          />
-        </View>
-        {/* END FINANCIAL SUMMARY */}
+        <View className="px-5 bg-white py-4">
+          {/* START FINANCIAL SUMMARY */}
+          <View className="bg-white mb-4">
+            <Text className="font-bold text-l ml-8 text-black mb-2">
+              Financial Summary
+            </Text>
+            <FinancialSummary
+              totalCash={totalCash}
+              totalOnline={totalOnline}
+              pettyCash={pettyCash}
+            />
+          </View>
+          {/* END FINANCIAL SUMMARY */}
 
-        {/* START ORDER SUMMARY */}
-        <View>
-          <Text className="font-bold text-l content-center mt-2">
-            Order Summary
-          </Text>
-          {tables.map((table) => {
-            return <CategoryTable table={table} />;
-          })}
+          {/* START ORDER SUMMARY */}
+          <View className="bg-white mb-4">
+            <Text className="font-bold text-l content-center ml-8 mt-2 text-black mb-2">
+              Order Summary
+            </Text>
+            {tables.map((table) => {
+              return <CategoryTable table={table} />;
+            })}
+          </View>
+          {/* END ORDER SUMMARY */}
         </View>
-        {/* END ORDER SUMMARY */}
 
         <View className="mt-5 mb-5">
           <ShareCSV data={tables} />
