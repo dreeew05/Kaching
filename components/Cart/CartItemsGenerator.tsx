@@ -1,3 +1,4 @@
+import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { useState } from 'react';
 import {
   Image,
@@ -14,7 +15,6 @@ import { selectCart } from '../../redux/CartRedux/CartSelectors';
 import { clearCart } from '../../redux/CartRedux/CartSlice';
 import CustomModal from '../Modals/CustomModal';
 import CartItemList from './CartItemList';
-import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 
 export default function CartItemsGenerator() {
   const cartState = useSelector(selectCart);
@@ -143,10 +143,10 @@ export default function CartItemsGenerator() {
             }}
             onPress={() => setRemoveAllModalVisible(false)}
           >
-            <View className="top-[30] flex-row justify-end">
+            <View className="top-[30] flex-row justify-end ">
               <View>
                 <View className="bg-white ml-3 rounded-md w-[145]">
-                  <View className="flex-row justify-end mr-3 py-2">
+                  <View className="flex-row  items-center self-center py-2">
                     <View className="rounded-full bg-red-500 py-3 px-5">
                       <Text className="text-white text-base font-bold self-center ">
                         Remove All
@@ -173,26 +173,25 @@ export default function CartItemsGenerator() {
                       Clear all items from the cart.
                     </Text>
                   </View>
-                  <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
-                    <Pressable
-                      onPress={() =>
-                        goToNextModal(
-                          setRemoveAllModalVisible,
-                          setDeleteItemModalVisible,
-                        )
-                      }
+                  <Pressable
+                    className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2  py-2"
+                    onPress={() =>
+                      goToNextModal(
+                        setRemoveAllModalVisible,
+                        setDeleteItemModalVisible,
+                      )
+                    }
+                  >
+                    <Text
+                      className="text-black"
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        color: 'white',
+                      }}
                     >
-                      <Text
-                        className="text-black"
-                        style={{
-                          fontFamily: 'Poppins-Regular',
-                          color: 'white',
-                        }}
-                      >
-                        Continue
-                      </Text>
-                    </Pressable>
-                  </View>
+                      Continue
+                    </Text>
+                  </Pressable>
                 </View>
               </View>
             </View>
@@ -230,8 +229,9 @@ export default function CartItemsGenerator() {
                         Clear all items from the cart.
                       </Text>
                     </View>
-                    <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
+                    <View>
                       <Pressable
+                        className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2"
                         onPress={() =>
                           goToNextModal(
                             setDeleteItemModalVisible,
@@ -290,7 +290,7 @@ export default function CartItemsGenerator() {
             }}
             onPress={() => setQuantityModalVisible(false)}
           >
-            <View className="top-[200] right-[50] flex-row justify-end">
+            <View className="top-[190] right-[2] flex-row justify-end">
               <View className="w-[200]">
                 <View className="flex-row justify-center bg-white ml-3 mr-3 rounded-md px-2 h-[80]">
                   <Image
@@ -318,26 +318,25 @@ export default function CartItemsGenerator() {
                       Adjust item quantity in cart.
                     </Text>
                   </View>
-                  <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
-                    <Pressable
-                      onPress={() =>
-                        goToNextModal(
-                          setQuantityModalVisible,
-                          setCheckoutModalVisible,
-                        )
-                      }
+                  <Pressable
+                    className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2  py-2"
+                    onPress={() =>
+                      goToNextModal(
+                        setQuantityModalVisible,
+                        setCheckoutModalVisible,
+                      )
+                    }
+                  >
+                    <Text
+                      className="text-black"
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        color: 'white',
+                      }}
                     >
-                      <Text
-                        className="text-black"
-                        style={{
-                          fontFamily: 'Poppins-Regular',
-                          color: 'white',
-                        }}
-                      >
-                        Continue
-                      </Text>
-                    </Pressable>
-                  </View>
+                      Continue
+                    </Text>
+                  </Pressable>
                 </View>
               </View>
             </View>
@@ -366,7 +365,7 @@ export default function CartItemsGenerator() {
                 <View className="ml-3 mr-3">
                   <View className="bg-white rounded-tl-md rounded-tr-md px-3 py-5 ">
                     <Text
-                      className="text-black"
+                      className="text-black self-center"
                       style={{
                         fontFamily: 'Poppins-Regular',
                       }}
@@ -374,8 +373,9 @@ export default function CartItemsGenerator() {
                       Proceed to checkout.
                     </Text>
                   </View>
-                  <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
+                  <View>
                     <Pressable
+                      className="rounded-bl-md rounded-br-md items-center justify-center bg-green p-2"
                       onPress={() =>
                         goToNextModal(setCheckoutModalVisible, null)
                       }
@@ -391,7 +391,7 @@ export default function CartItemsGenerator() {
                       </Text>
                     </Pressable>
                   </View>
-                  <View className="flex flex-row justify-center mt-[-13]">
+                  <View className="flex flex-row justify-center mt-[-12]">
                     <Entypo
                       name={'triangle-down'}
                       size={40}
@@ -400,7 +400,7 @@ export default function CartItemsGenerator() {
                   </View>
                 </View>
 
-                <View className="bg-white ml-3 mr-3 rounded-md py-3 items-center">
+                <View className="bg-white w-2/3 rounded-md py-3 self-center items-center">
                   <View className="py-3 px-7 bg-green rounded-full w-[150] items-center">
                     <Text
                       style={{

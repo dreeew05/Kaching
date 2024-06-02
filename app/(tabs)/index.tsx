@@ -10,7 +10,9 @@ export default function HomeScreen() {
     <Provider store={Store}>
       <View className="flex-1 self-stretch bg-white">
         <ScrollView>
+          <View className="h-3 bg-green"></View>
           <StoreInformationGenerator />
+
           <DayStarter />
           <CategoryGenerator />
         </ScrollView>

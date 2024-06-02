@@ -1,13 +1,13 @@
 import { Entypo } from '@expo/vector-icons';
 import {
   Modal,
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
   TouchableOpacity,
   View,
-  Text,
-  Pressable,
-  StyleSheet,
   ViewStyle,
-  StyleProp,
 } from 'react-native';
 
 interface HelpModalProps {

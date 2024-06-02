@@ -1,11 +1,11 @@
 // DayStarter.tsx
-import { Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Pressable, View, Text, Modal } from 'react-native';
-import SaleDashboard from '../../components/Home/SaleDashboard';
-import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import { useState } from 'react';
+import { Pressable, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
+import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
+import SaleDashboard from '../../components/Home/SaleDashboard';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 
 export default function DayStarter() {
@@ -41,7 +41,7 @@ export default function DayStarter() {
     if (hasStartDay.isStartDay) {
       return (
         <View>
-          <Text className="text-sm ml-5 mb-5">
+          <Text className="text-sm ml-3 mb-3">
             Cashier's Name: {cashierName}
           </Text>
           <SaleDashboard />

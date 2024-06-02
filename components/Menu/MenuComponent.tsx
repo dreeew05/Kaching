@@ -16,8 +16,8 @@ import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import CustomPressable from '../Common/CustomPressable';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomAlert from '../Modals/CustomAlert';
-import MenuTutorialModalTop from '../Modals/MenuTutorialModalTop';
 import MenuTutorialModalBottom from '../Modals/MenuTutorialModalBottom';
+import MenuTutorialModalTop from '../Modals/MenuTutorialModalTop';
 
 export default function MenuComponent() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -404,8 +404,9 @@ export default function MenuComponent() {
                   preparing the app for the next business day.
                 </Text>
               </View>
-              <View className="bg-white rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
+              <View className=" rounded-bl-md rounded-br-md items-center justify-center bg-green p-2">
                 <Pressable
+                  className="rounded-bl-md rounded-br-md items-center justify-center bg-green "
                   onPress={() => setEndDayModalVisible(false)}
                 >
                   <Text
@@ -419,7 +420,7 @@ export default function MenuComponent() {
                   </Text>
                 </Pressable>
               </View>
-              <View className="align-center items-center mt-[-13]">
+              <View className="align-center items-center mt-[-12]">
                 <Entypo
                   name={'triangle-down'}
                   size={40}
