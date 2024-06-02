@@ -74,7 +74,7 @@ export default function StoreInformationGenerator() {
 
   return (
     <View>
-      <View className="flex-row mt-3 ml-2">
+      <View className="flex-row mt-3 ml-3">
         <Link
           href={{
             pathname: '/(tabs)/editStoreName',
@@ -120,7 +120,7 @@ export default function StoreInformationGenerator() {
         </View>
       </View>
 
-      <Text className="text-sm ml-3 pb-2">
+      <Text className="text-sm ml-4 pb-2">
         {monthInWords(date.getMonth()) +
           ' ' +
           date.getDate() +
