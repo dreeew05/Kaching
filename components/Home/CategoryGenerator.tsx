@@ -47,7 +47,7 @@ export default function CategoryGenerator() {
         />
       ) : (
         <View
-          className="flex-1 h-[500] m-5 p-5 rounded-md items-center justify-center"
+          className="flex-1 h-[400] m-5 p-5 rounded-md items-center justify-center"
           style={{
             borderColor: 'grey',
             borderWidth: 1,
