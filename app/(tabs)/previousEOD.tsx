@@ -32,7 +32,8 @@ export default function TabTwoScreen() {
     goToEOD();
   };
 
-  const router = useRouter();
+  // const router = useRouter();
+
   const goToEOD = () => {};
 
   return (

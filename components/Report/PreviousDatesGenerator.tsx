@@ -3,7 +3,9 @@ import React from 'react';
 import { Pressable, ScrollView } from 'react-native';
 import { Text, View } from '../Themed';
 import { Link } from 'expo-router';
+
 import { useLocalSearchParams } from 'expo-router';
+
 
 interface PreviousDatesScrollViewProps {
   numDates: number;
@@ -52,7 +54,8 @@ const PreviousDatesScrollView: React.FC<
   return (
     <ScrollView className="flex-1 w-full bg-white">
       <View className="px-6 py-4 items-center bg-white">
-        {previousDates.map((date, index) => (
+        {dates.map((date, index) => (
+
           <Link
             href={{
               pathname: '/(tabs)/olderEODSbyDate',
@@ -66,6 +69,8 @@ const PreviousDatesScrollView: React.FC<
           >
             <Pressable
               onPress={() => sendDataToParent(date[1])}
+              className="p-4 w-full my-3 rounded-xl border-2 border-gray"
+
               key={index}
             >
               <Text className="text-base text-green font-bold mx-2">
