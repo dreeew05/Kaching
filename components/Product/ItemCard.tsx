@@ -15,6 +15,7 @@ import ItemClickable from './ItemClickable';
 
 import { useSelector } from 'react-redux';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import { getStartDayStatus } from '../DatabaseUtils/FetchInstructions/GetStartDayStatus';
 
 // Unused imports
 // import { deleteData } from '../DatabaseUtils/CoreFunctions';
@@ -37,7 +38,8 @@ type itemCardProps = {
 export default function ItemCard(item: itemCardProps) {
   const dispatch = useDispatch();
 
-  const hasStartDay = useSelector(selectHasStartDay);
+  // const hasStartDay = useSelector(selectHasStartDay);
+  const hasStartDay = getStartDayStatus();
 
   // Unused [For searching the item in the cart]
   // const itemState = useSelector((state: RootState) =>
@@ -107,7 +109,7 @@ export default function ItemCard(item: itemCardProps) {
 
     console.log(hasStartDay);
 
-    if (hasStartDay.isStartDay) {
+    if (hasStartDay) {
       addToCartEvent({
         quantity: quantity,
         // itemState: itemState,
