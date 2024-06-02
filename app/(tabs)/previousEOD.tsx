@@ -1,23 +1,30 @@
-import { useRouter } from 'expo-router';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import PreviousDatesScrollView from '../../components/Report/PreviousDatesGenerator';
-import { useFocusEffect } from '@react-navigation/native';
 
-export default function TabTwoScreen() {
-  const [eodDates, setEodDates] = useState<[string, Date][]>([]);
-  const router = useRouter();
+interface EodDate {
+  date: string;
+  eodId: number;
+}
+
+const TabTwoScreen: React.FC = () => {
+  const [eodDates, setEodDates] = useState<[string, number][]>([]);
+  const [selectedEodId, setSelectedEodId] = useState<number | null>(null);
+
 
   const fetchEodDates = () => {
     const db = getDatabase();
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT eod_id, start, end FROM eods WHERE iscurrent = 0 ORDER BY start DESC`,
+        `SELECT eod_id, start, end 
+        FROM eods 
+        WHERE iscurrent = 0 
+        ORDER BY start DESC`,
         [],
         (_, { rows }) => {
           const dateMap = new Map<string, number>();
-          const dates: [string, Date][] = [];
+          const dates: [string, number][] = [];
 
           for (let i = 0; i < rows.length; i++) {
             const row = rows.item(i);
@@ -37,49 +44,36 @@ export default function TabTwoScreen() {
               year: 'numeric',
             })}${postfix}`;
 
-            dates.push([formattedDate, date]);
+            dates.push([formattedDate, row.eod_id]);
           }
 
           setEodDates(dates);
         },
-        (_, error) => {
-          console.log('Error fetching EOD dates: ', error);
-          return true;
-        }
+        // (_, error) => {
+        //   console.log('Error fetching EOD dates: ', error);
+        // }
       );
     });
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchEodDates();
-    }, [])
-  );
+  useEffect(() => {
+    fetchEodDates();
+  }, []);
 
-  const handleDateFromPicker = (dateSelected: Date) => {
-    const db = getDatabase();
-    db.transaction((tx) => {
-      tx.executeSql(
-        `INSERT INTO date_picked (date) VALUES (?)`,
-        [dateSelected.toISOString().slice(0, 10)],
-        (tx, results) => {
-          console.log(dateSelected.toISOString().slice(0, 10));
-          console.log(results.rowsAffected);
-        }
-      );
-    });
-    goToEOD();
+  const handleDateSelection = (date: string, eodId: number) => {
+    setSelectedEodId(eodId);
+    // Fetch EOD report based on selected EOD ID
+    // Example: fetchEodReport(eodId);
   };
-
-  // const router = useRouter();
-  const goToEOD = () => {};
 
   return (
     <View className="flex-1 items-center justify-center">
       <View className="w-full flex-row justify-between px-6">
         <Text className="text-2xl">Recent EOD's</Text>
       </View>
-      <PreviousDatesScrollView dates={eodDates} getDate={handleDateFromPicker} />
+      <PreviousDatesScrollView dates={eodDates.map(([date, eodId]) => ({ date, eodId }))} onSelectDate={handleDateSelection} />
     </View>
   );
-}
+};
+
+export default TabTwoScreen;

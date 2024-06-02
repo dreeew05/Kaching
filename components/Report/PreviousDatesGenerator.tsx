@@ -5,38 +5,41 @@ import { Text, View } from '../Themed';
 import { Link } from 'expo-router';
 
 interface PreviousDatesScrollViewProps {
-  dates: [string, Date][];
-  getDate: (date: Date) => void;
+  dates: { date: string; eodId: number }[];
+  onSelectDate: (date: string, eodId: number) => void;
 }
 
-const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ dates, getDate }) => {
-  const sendDataToParent = (date: Date) => {
-    // Function to send data to the parent
-    getDate(date);
+const PreviousDatesScrollView: React.FC<PreviousDatesScrollViewProps> = ({ dates, onSelectDate}) => {
+  const handleDatePress = (date: string, eodId: number) => {
+    onSelectDate(date, eodId);
   };
 
   return (
     <ScrollView className="flex-1 w-full bg-white">
       <View className="px-6 py-4 items-center bg-white">
-        {dates.map((date, index) => (
+        {dates.map(({ date, eodId }, index) => (
+          console.log("date:" + date, "eodId: " + eodId),
           <Link
+            key={index}
             href={{
               pathname: '/(tabs)/olderEODSbyDate',
               // /* 1. Navigate to the details route with query params */
               params: {
-                DateID: date[1].toISOString().slice(0, 10),
+                eodId: eodId,
+                date: date,
               },
             }}
             className="p-4 w-full my-3 rounded-xl border-2 border-gray"
             asChild
           >
             <Pressable
-              onPress={() => sendDataToParent(date[1])}
+              onPress={() => handleDatePress(date, eodId)}
+              accessibilityRole="button"
               className="p-4 w-full my-3 rounded-xl border-2 border-gray"
               key={index}
             >
               <Text className="text-base text-green font-bold mx-2">
-                {date[0]}
+                {date}
               </Text>
             </Pressable>
           </Link>
