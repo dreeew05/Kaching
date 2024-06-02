@@ -64,5 +64,19 @@ export const getDefaultCategories = (): DefaultCategories => {
         },
       ],
     },
+    3: {
+      categories: [
+        {
+          categoryId: 8,
+          name: 'Pens',
+          image: require('../assets/images/onboarding/stock_categories/school_supplies/pens/pens.jpg'),
+        },
+        {
+          categoryId: 9,
+          name: 'Papers',
+          image: require('../assets/images/onboarding/stock_categories/school_supplies/papers/papers.jpg'),
+        },
+      ],
+    },
   };
 };
