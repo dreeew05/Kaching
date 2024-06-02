@@ -208,67 +208,80 @@ export default function CategoryView() {
             </View>
             {showModifyProductsComponent()}
           </View>
-          <ScrollView className="p-2">
-            {products.map((product) => {
-              return (
-                <ItemCard
-                  key={product.id}
-                  item={product}
-                  isEditComponent={
-                    isEditComponent == 'true' ? true : false
-                  }
-                  categoryID={categoryID}
-                  checkedItems={checkedItems}
-                  setCurrentCheckedItems={setCheckedItems}
-                  tempCart={temporaryCart}
-                  setTempCart={setTemporaryCart}
-                  isAddAllPressed={isAddAllPressed}
-                  setIsAddAllPressed={setIsAddAllPressed}
-                />
-              );
-            })}
-            {/* Divider */}
-            {outOfStockProducts.length > 0 && products.length > 0 && (
-              <View
-                style={{
-                  borderTopWidth: 4,
-                  borderTopColor: 'lightgray',
-                  marginVertical: 10,
-                }}
-              />
-            )}
-            {outOfStockProducts.length > 0 ? (
-              <>
-                <View className="items-center mb-3">
-                  <Text
-                    className="text-black ml-3 text-2xl p-2 font-bold"
-                    style={{ fontFamily: 'Poppins-Bold' }}
-                  >
-                    Out of Stock
-                  </Text>
-                </View>
-                <View className="ml-3 mr-3 mb-5 flex">
-                  {outOfStockProducts.map((product) => {
-                    return (
-                      <ItemClickable
-                        key={product.id}
-                        id={product.id}
-                        category_id={categoryID}
-                        image={product.image}
-                        name={product.name}
-                        price={product.price}
-                        isEditComponent={
-                          isEditComponent == 'true' ? true : false
-                        }
-                        checkedItems={checkedItems}
-                        setCurrentCheckedItems={setCheckedItems}
-                      />
-                    );
-                  })}
-                </View>
-              </>
-            ) : null}
-          </ScrollView>
+          {products.length === 0 &&
+          outOfStockProducts.length === 0 ? (
+            <View className="flex-1  w-5/6 justify-center items-center self-center">
+              <Text className="text-gray text-base text-center">
+                No products available in this category.
+              </Text>
+              <Text className="text-gray text-sm mt-2">
+                Tap the '+' button to add a new product.
+              </Text>
+            </View>
+          ) : (
+            <ScrollView className="p-2">
+              {products.map((product) => {
+                return (
+                  <ItemCard
+                    key={product.id}
+                    item={product}
+                    isEditComponent={
+                      isEditComponent == 'true' ? true : false
+                    }
+                    categoryID={categoryID}
+                    checkedItems={checkedItems}
+                    setCurrentCheckedItems={setCheckedItems}
+                    tempCart={temporaryCart}
+                    setTempCart={setTemporaryCart}
+                    isAddAllPressed={isAddAllPressed}
+                    setIsAddAllPressed={setIsAddAllPressed}
+                  />
+                );
+              })}
+              {/* Divider */}
+              {outOfStockProducts.length > 0 &&
+                products.length > 0 && (
+                  <View
+                    style={{
+                      borderTopWidth: 4,
+                      borderTopColor: 'lightgray',
+                      marginVertical: 10,
+                    }}
+                  />
+                )}
+              {outOfStockProducts.length > 0 ? (
+                <>
+                  <View className="items-center mb-3">
+                    <Text
+                      className="text-black ml-3 text-2xl p-2 font-bold"
+                      style={{ fontFamily: 'Poppins-Bold' }}
+                    >
+                      Out of Stock
+                    </Text>
+                  </View>
+                  <View className="ml-3 mr-3 mb-5 flex">
+                    {outOfStockProducts.map((product) => {
+                      return (
+                        <ItemClickable
+                          key={product.id}
+                          id={product.id}
+                          category_id={categoryID}
+                          image={product.image}
+                          name={product.name}
+                          price={product.price}
+                          isEditComponent={
+                            isEditComponent == 'true' ? true : false
+                          }
+                          checkedItems={checkedItems}
+                          setCurrentCheckedItems={setCheckedItems}
+                        />
+                      );
+                    })}
+                  </View>
+                </>
+              ) : null}
+            </ScrollView>
+          )}
         </View>
       );
     }
@@ -419,8 +432,8 @@ export default function CategoryView() {
       {/* MODALS */}
       <CustomModal
         visible={deleteModalVisible}
-        message="Are you sure you want to delete the selected items?"
-        optionOneText="Delete"
+        message="Are you sure you want to remove the selected items?"
+        optionOneText="Remove"
         optionTwoText="Cancel"
         optionOnePressed={() => deleteAllProducts()}
         optionTwoPressed={() => setDeleteModalVisible(false)}
@@ -430,7 +443,7 @@ export default function CategoryView() {
       />
       <PopUpModal
         visible={deleteFailedModalVisible}
-        message="Please select item/s to delete"
+        message="Please select item/s to remove"
         text={'Dismiss'}
         link={null}
         id={0}
@@ -439,7 +452,7 @@ export default function CategoryView() {
       />
       <PopUpModal
         visible={deleteSuccessModalVisible}
-        message="Item/s deleted successfully"
+        message="Item/s removed successfully"
         text={'Done'}
         link={'dispatchProduct'}
         id={0}
