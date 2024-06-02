@@ -11,13 +11,20 @@ import {
   View,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
-import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import {
+  selectHasStartDay,
+  selectStartDayTrigger,
+} from '../../redux/GlobalStateRedux/GlobalStateSelectors';
+import {
+  setHasStartDay,
+  setStartDayTrigger,
+} from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import CustomPressable from '../Common/CustomPressable';
 import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomAlert from '../Modals/CustomAlert';
 import MenuTutorialModalBottom from '../Modals/MenuTutorialModalBottom';
 import MenuTutorialModalTop from '../Modals/MenuTutorialModalTop';
+import { getStartDayStatus } from '../DatabaseUtils/FetchInstructions/GetStartDayStatus';
 
 export default function MenuComponent() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -26,7 +33,9 @@ export default function MenuComponent() {
   );
   const [disableCurrentEOD, setDisableCurrentEOD] = useState(false);
 
-  const hasStartDay = useSelector(selectHasStartDay);
+  // const hasStartDay = useSelector(selectHasStartDay);
+  const hasStartDay: boolean = getStartDayStatus();
+  const trigger = useSelector(selectStartDayTrigger);
   const db = getDatabase();
 
   const dispatch = useDispatch();
@@ -95,6 +104,7 @@ export default function MenuComponent() {
                 isDisable: true,
               }),
             );
+            dispatch(setStartDayTrigger(trigger + 1));
             console.log(resultSet);
           },
           // (txObj, error) => {
@@ -177,13 +187,13 @@ export default function MenuComponent() {
   }, [currentEOD]);
 
   const getFirstModal = () => {
-    hasStartDay.isStartDay
+    hasStartDay
       ? setCurrentEODModalVisible(true)
       : setPreviousEODModalVisible(true);
   };
 
   const getTopPositions = () => {
-    if (hasStartDay.isStartDay) {
+    if (hasStartDay) {
       return {
         previousEOD: 350,
         tos: 400,
@@ -197,7 +207,7 @@ export default function MenuComponent() {
   };
 
   const getBottomPositions = () => {
-    if (hasStartDay.isStartDay) {
+    if (hasStartDay) {
       return {
         policy: 350,
       };
@@ -241,7 +251,7 @@ export default function MenuComponent() {
       </View>
 
       <View className=" flex-1 flex-col justify-evenly items-center">
-        {hasStartDay.isStartDay ? (
+        {hasStartDay ? (
           <Link
             href={{
               pathname: '/(tabs)/currentEOD',
@@ -325,7 +335,7 @@ export default function MenuComponent() {
       </View>
 
       <View className="p-10 justify-evenly">
-        {hasStartDay.isStartDay ? (
+        {hasStartDay ? (
           <CustomPressable text="End Day" onPress={showAlert} />
         ) : null}
       </View>
@@ -338,7 +348,7 @@ export default function MenuComponent() {
         title="View Current EOD"
         content={'Tap to view the current End of Day report.'}
         onNextMessage={'Continue'}
-        hasStartDay={hasStartDay.isStartDay}
+        hasStartDay={hasStartDay}
         // position={300}
       />
 
@@ -351,7 +361,7 @@ export default function MenuComponent() {
           'See a detailed breakdown of your sales for a specific day within the last 30 days.'
         }
         onNextMessage={'Continue'}
-        hasStartDay={hasStartDay.isStartDay}
+        hasStartDay={hasStartDay}
       />
 
       <MenuTutorialModalTop
@@ -363,7 +373,7 @@ export default function MenuComponent() {
           'See the legal terms and conditions governing your use of the Kaching app.'
         }
         onNextMessage={'Continue'}
-        hasStartDay={hasStartDay.isStartDay}
+        hasStartDay={hasStartDay}
       />
 
       <MenuTutorialModalBottom
@@ -375,17 +385,17 @@ export default function MenuComponent() {
           'Display information on how the Kaching app collects, uses, and protects your user data.'
         }
         onNextMessage={'Continue'}
-        hasStartDay={hasStartDay.isStartDay}
+        hasStartDay={hasStartDay}
       />
 
       <MenuTutorialModalBottom
         isVisible={faqModalVisible}
         onRequestClose={setFaqModalVisible}
-        onNext={hasStartDay.isStartDay ? setEndDayModalVisible : null}
+        onNext={hasStartDay ? setEndDayModalVisible : null}
         title="FAQs"
         content={'Get answers to frequently asked questions.'}
-        onNextMessage={hasStartDay.isStartDay ? 'Continue' : 'Okay'}
-        hasStartDay={hasStartDay.isStartDay}
+        onNextMessage={hasStartDay ? 'Continue' : 'Okay'}
+        hasStartDay={hasStartDay}
       />
 
       <Modal

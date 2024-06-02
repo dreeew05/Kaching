@@ -128,3 +128,22 @@ export const executeTransaction = (
     });
   });
 };
+
+// export const getStartDayStatus = () => {
+//   return new Promise((resolve, reject) => {
+//     db.transaction((tx) => {
+//       tx.executeSql(
+//         'SELECT count(*) AS count FROM eods WHERE eods.eod_id = 1',
+//         [],
+//         (_, result) => {
+//           const count = result.rows.item(0).count;
+//           resolve(count > 0);
+//         },
+//         (error): boolean => {
+//           reject(error);
+//           return false;
+//         },
+//       );
+//     });
+//   });
+// };

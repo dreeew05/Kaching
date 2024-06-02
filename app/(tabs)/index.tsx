@@ -4,6 +4,8 @@ import CategoryGenerator from '../../components/Home/CategoryGenerator';
 import DayStarter from '../../components/Home/DayStarter';
 import StoreInformationGenerator from '../../components/Home/StoreInformationGenerator.';
 import { Store } from '../../redux/Store';
+import { getStartDayStatus } from '../../components/DatabaseUtils/FetchInstructions/GetStartDayStatus';
+import DayStarterCheck from '../../components/Home/DayStarterCheck';
 
 export default function HomeScreen() {
   return (
@@ -13,7 +15,7 @@ export default function HomeScreen() {
           <View className="h-3 bg-green"></View>
           <StoreInformationGenerator />
 
-          <DayStarter />
+          <DayStarterCheck />
           <CategoryGenerator />
         </ScrollView>
       </View>

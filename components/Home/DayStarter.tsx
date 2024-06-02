@@ -8,13 +8,17 @@ import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import SaleDashboard from '../../components/Home/SaleDashboard';
 import { selectHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 
-export default function DayStarter() {
+interface DayStarterProps {
+  isStartDay: boolean;
+}
+
+export default function DayStarter(param: DayStarterProps) {
   const [cashierName, setCashierName] =
     useState<string>('cashierName');
 
   //check for start day data
   const db = getDatabase();
-  const hasStartDay = useSelector(selectHasStartDay);
+  // const hasStartDay = useSelector(selectHasStartDay);
 
   // check if there iscurrent = 1 in eods table and if there is, set hasStartDayData to true
   db.transaction((tx) => {
@@ -31,14 +35,12 @@ export default function DayStarter() {
 
   const router = useRouter();
 
-  console.log(hasStartDay);
-
   const startDay = () => {
     router.push('/StartDay');
   };
 
   const showComponent = () => {
-    if (hasStartDay.isStartDay) {
+    if (param.isStartDay) {
       return (
         <View>
           <Text className="text-sm ml-4 mb-3">
@@ -47,7 +49,7 @@ export default function DayStarter() {
           <SaleDashboard />
         </View>
       );
-    } else if (!hasStartDay.isStartDay) {
+    } else if (!param.isStartDay) {
       return (
         <View className="flex-row">
           <Pressable

@@ -1,10 +1,14 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { setHasStartDay } from '../../redux/GlobalStateRedux/GlobalStateSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setHasStartDay,
+  setStartDayTrigger,
+} from '../../redux/GlobalStateRedux/GlobalStateSlice';
 import CustomPressable from '../Common/CustomPressable';
 import { insertData } from '../DatabaseUtils/CoreFunctions';
+import { selectStartDayTrigger } from '../../redux/GlobalStateRedux/GlobalStateSelectors';
 
 export default function StartDayComponent() {
   const [cashierName, setCashierName] = useState<string>('');
@@ -12,6 +16,7 @@ export default function StartDayComponent() {
   const [contactNumber, setContactNumber] = useState<string>('');
   const [pettyCashAmount, setPettyCashAmount] = useState<string>('');
   const dispatch = useDispatch();
+  const startDayTrigger = useSelector(selectStartDayTrigger);
 
   const handleStartDay = () => {
     if (!validateInputs()) return; // Validate inputs before proceeding
@@ -36,6 +41,7 @@ export default function StartDayComponent() {
             isDisable: false,
           }),
         );
+        dispatch(setStartDayTrigger(startDayTrigger + 1));
         // Go back to home
         router.push('/');
       })
