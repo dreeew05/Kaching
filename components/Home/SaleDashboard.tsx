@@ -35,7 +35,11 @@ export default function SaleDashboard() {
 
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT count(receipt_id) AS total_orders FROM receipts`,
+        `SELECT count(receipts.receipt_id) AS total_orders 
+        FROM receipts 
+        INNER JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
+        WHERE eod_receipts.eod_id = (SELECT eod_id FROM eods WHERE iscurrent = 1)
+        `,
         [],
         (tx, results) => {
           setCurrentOrders(results);
