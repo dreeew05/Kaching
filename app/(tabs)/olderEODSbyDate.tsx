@@ -100,6 +100,7 @@ export default function currentEOD() {
   };
 
   useEffect(() => {
+    fetchStoreInfo2();
     fetchStoreInfo();
     fetchCurrentEODData();
   }, [DateID]);
@@ -159,7 +160,7 @@ export default function currentEOD() {
         </Text>
         <Text className="text-m">Miagao, Iloilo</Text>
         <Text className="text-m">
-          {currentEOD?.rows._array[0]?.cashiername}
+          {currentEOD?.rows._array[0]?.cashier_name}
         </Text>
         <Text className="text-m">09133287645</Text>
 
