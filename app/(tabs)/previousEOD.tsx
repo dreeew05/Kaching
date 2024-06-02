@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { getDatabase } from '../../components/DatabaseUtils/OpenDatabase';
 import PreviousDatesScrollView from '../../components/Report/PreviousDatesGenerator';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface EodDate {
   date: string;
@@ -56,6 +57,12 @@ const TabTwoScreen: React.FC = () => {
     });
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      fetchEodDates();
+    }, [])
+  );
+
   useEffect(() => {
     fetchEodDates();
   }, []);
@@ -65,6 +72,8 @@ const TabTwoScreen: React.FC = () => {
     // Fetch EOD report based on selected EOD ID
     // Example: fetchEodReport(eodId);
   };
+
+
 
   return (
     <View className="flex-1 items-center justify-center">
