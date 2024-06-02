@@ -1,7 +1,7 @@
 import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import { SQLResultSet } from 'expo-sqlite';
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import {
   Alert,
   Modal,
@@ -18,6 +18,7 @@ import { getDatabase } from '../DatabaseUtils/OpenDatabase';
 import CustomAlert from '../Modals/CustomAlert';
 import MenuTutorialModalBottom from '../Modals/MenuTutorialModalBottom';
 import MenuTutorialModalTop from '../Modals/MenuTutorialModalTop';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function MenuComponent() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -172,6 +173,11 @@ export default function MenuComponent() {
   const [endDayModalVisible, setEndDayModalVisible] = useState(false);
   const [counter, setCounter] = useState(0);
 
+  useFocusEffect(
+    useCallback(() => {
+      fetchCurrentEODData();
+    }, [])
+  );
   useEffect(() => {
     fetchCurrentEODData();
   }, [currentEOD]);
