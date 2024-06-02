@@ -1,3 +1,4 @@
+import { useLocalSearchParams } from 'expo-router';
 import { SQLResultSet } from 'expo-sqlite';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
@@ -7,7 +8,6 @@ import CategoryTable from '../../components/Report/CategoryTable';
 import FinancialSummary from '../../components/Report/FinancialSummaryTable';
 import ShareCSV from '../../components/Report/ShareCSV';
 import { Text, View } from '../../components/Themed';
-import { useLocalSearchParams } from 'expo-router';
 
 interface TableData {
   header: string[];
@@ -135,13 +135,13 @@ export default function currentEOD() {
 
   return (
     <ScrollView
-      className="bg-white"
+      className="bg-white "
       contentContainerStyle={{
         flexGrow: 1,
         justifyContent: 'center',
       }}
     >
-      <View className="bg-white" style={styles.container}>
+      <View className=" mx-5 bg-white " style={styles.container}>
         <Text className="font-bold text-xl text-green">
           {storeInfo2?.rows._array[0].storename}
         </Text>
@@ -155,8 +155,8 @@ export default function currentEOD() {
           darkColor="rgba(255,255,255,0.1)"
         />
 
-        <Text className="text-l">CURRENT DAY REPORT</Text>
-        <Text className="text-l">
+        <Text className="text-l text-black">CURRENT DAY REPORT</Text>
+        <Text className="text-l text-black">
           {date.toISOString().slice(0, 10) +
             ' ' +
             //add leading zero to hours, minutes, and seconds if less than 10
@@ -175,7 +175,7 @@ export default function currentEOD() {
 
         {/* START FINANCIAL SUMMARY */}
         <View className="bg-white">
-          <Text className="font-bold text-l content-center">
+          <Text className="font-bold text-l content-center self-center text-black mb-3">
             Financial Summary
           </Text>
           <FinancialSummary
@@ -187,7 +187,7 @@ export default function currentEOD() {
 
         {/* START ORDER SUMMARY */}
         <View className="bg-white">
-          <Text className="font-bold text-l content-center mt-2">
+          <Text className="font-bold text-l content-center self-center items-center mt-2 text-black">
             Order Summary
           </Text>
           {tables.map((table) => {
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 15,
     height: 1,
     width: '80%',
   },
