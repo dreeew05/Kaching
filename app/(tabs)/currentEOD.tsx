@@ -16,6 +16,8 @@ interface TableData {
 
 const query: string = `
     SELECT 
+    eods.cashiername AS cashier_name,
+    eods.contactnum AS contact_num,
     category.name AS category_name, 
     item.name AS item_name,
     SUM(receipt_items.quantity) AS total_quantity,
@@ -29,8 +31,8 @@ const query: string = `
     JOIN eod_receipts ON receipts.receipt_id = eod_receipts.receipt_id
     JOIN eods ON eod_receipts.eod_id = eods.eod_id
     WHERE eods.iscurrent = 1
-    GROUP BY category_name, item_name
-    ORDER BY category_name, item_name;
+    GROUP BY eods.contactnum, eods.cashiername, category.name, item.name
+    ORDER BY eods.contactnum, eods.cashiername, category.name, item.name;
   `;
 
 export default function currentEOD() {
@@ -40,12 +42,13 @@ export default function currentEOD() {
   const [currentEOD, setCurrentEOD] = useState<SQLResultSet | null>(
     null,
   );
-  const [storeInfo, setStoreInfo] = useState<SQLResultSet | null>(
-    null,
-  );
   const [storeInfo2, setStoreInfo2] = useState<SQLResultSet | null>(
     null,
   );
+  const [cashierName, setCashierName] =
+    useState<string>('cashierName');
+  const [contactNumber, setContactNumber] =
+    useState<string>('Contact Number');
 
   // TEST DATA
   const db = getDatabase();
@@ -56,6 +59,19 @@ export default function currentEOD() {
       });
     });
   };
+
+  db.transaction((tx) => {
+    tx.executeSql(
+      'SELECT * FROM eods WHERE iscurrent = 1;',
+      [],
+      (txObj, resultSet) => {
+        if (resultSet.rows.length > 0) {
+          setCashierName(resultSet.rows.item(0).cashiername);
+          setContactNumber(resultSet.rows.item(0).contactnum);
+        }
+      },
+    );
+  });
   const fetchStoreInfo = () => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -139,10 +155,8 @@ export default function currentEOD() {
           {storeInfo2?.rows._array[0].storename}
         </Text>
         <Text className="text-m text-green">Miagao, Iloilo</Text>
-        <Text className="text-m text-green">
-          {storeInfo?.rows._array[0].cashiername}
-        </Text>
-        <Text className="text-m text-green">09133287645</Text>
+        <Text className="text-m text-green">{cashierName}</Text>
+        <Text className="text-m text-green">{contactNumber}</Text>
 
         <View
           style={styles.separator}
