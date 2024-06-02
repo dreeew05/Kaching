@@ -49,43 +49,48 @@ export default function SaleDashboard() {
   }, [currentSales]);
 
   return (
-    <View
-      className="flex-row mb-5 py-3 px-10 items-center shadow-lg
+    <View className="  w-11/12 self-center items-center">
+      <View
+        className="flex-1 flex-row mb-5 py-3 items-center shadow-lg
                     shadow-neutral-600 rounded-lg self-center bg-white"
-    >
-      <View>
-        <Text
-          className=" px-7 self-center text-center 
-                    text-green text-3xl font-bold"
-        >
-          ₱{(currentSales?.rows.item(0).total_sales || 0).toFixed(2)}
-        </Text>
-        <Text
-          className=" px-7 self-center text-center text-black
-                    text-sm opacity-50 font-base"
-        >
-          Total Amount
-        </Text>
-      </View>
-      <Text
-        className=" self-center text-center text-gray 
-                    text-5xl font-thin"
       >
-        |
-      </Text>
-      <View>
-        <Text
-          className=" px-7 self-center text-center text-green
-                    text-3xl font-bold"
-        >
-          {currentOrders?.rows.item(0).total_orders}
-        </Text>
-        <Text
-          className=" px-7 self-center text-center text-black
+        <View className="flex-1">
+          <Text
+            adjustsFontSizeToFit
+            className=" px-7 self-center text-center
+                    text-green text-3xl font-bold"
+          >
+            ₱
+            {(currentSales?.rows.item(0).total_sales || 0).toFixed(2)}
+          </Text>
+          <Text
+            className=" px-7 self-center text-center text-black
                     text-sm opacity-50 font-base"
+          >
+            Total Amount
+          </Text>
+        </View>
+        <Text
+          className=" self-center text-center text-gray 
+                    text-5xl font-thin"
         >
-          Orders
+          |
         </Text>
+        <View className="flex-1">
+          <Text
+            adjustsFontSizeToFit
+            className=" px-7 self-center text-center text-green
+                    text-3xl font-bold"
+          >
+            {currentOrders?.rows.item(0).total_orders}
+          </Text>
+          <Text
+            className=" px-7 self-center text-center text-black
+                    text-sm opacity-50 font-base"
+          >
+            Orders
+          </Text>
+        </View>
       </View>
     </View>
   );
